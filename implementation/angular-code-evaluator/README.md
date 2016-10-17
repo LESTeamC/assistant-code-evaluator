@@ -22,5 +22,10 @@ $ npm install -g typings
 ```
 
 ```
-$ nam install
+$ npm install
+```
+
+To run the sample app, move to this directory on the terminal and type 
+```
+$ npm start
 ```
