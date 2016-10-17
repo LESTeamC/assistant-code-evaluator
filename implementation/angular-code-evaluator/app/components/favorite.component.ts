@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter}	from 'angular2/core';
 
 @Component({	
     selector: 'star',	
-	templateUrl: 'app/favorite.template.html',
+	templateUrl: 'app/templates/favorite.template.html',
     styles: [`
         .glyphicon-star{
             color: orange;

@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 };
                 ContactComponent = __decorate([
                     core_1.Component({
-                        templateUrl: '/app/contact.component.html'
+                        templateUrl: '/app/templates/contact.component.html'
                     }), 
                     __metadata('design:paramtypes', [router_1.Router])
                 ], ContactComponent);

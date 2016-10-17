@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './album.component', './albums.component', './contact.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './components/album.component', './components/albums.component', './components/contact.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -55,7 +55,7 @@ System.register(['angular2/core', 'angular2/router', './album.component', './alb
                     ]),
                     core_1.Component({
                         selector: 'my-app',
-                        templateUrl: '/app/app.component.html',
+                        templateUrl: '/app/templates/app.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [])

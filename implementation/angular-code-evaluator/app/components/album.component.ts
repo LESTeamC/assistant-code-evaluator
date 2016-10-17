@@ -1,7 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {RouteParams} from 'angular2/router'
-import {PhotoService} from './photo.service';
+import {PhotoService} from './../services/photo.service';
 
 @Component({
     template: `

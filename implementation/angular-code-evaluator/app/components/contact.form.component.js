@@ -11,42 +11,30 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var FavoriteComponent;
+    var ContactFormComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            FavoriteComponent = (function () {
-                function FavoriteComponent() {
-                    this.isFav = false;
-                    this.change = new core_1.EventEmitter();
+            ContactFormComponent = (function () {
+                function ContactFormComponent() {
                 }
-                FavoriteComponent.prototype.setFav = function () {
-                    this.isFav = !this.isFav;
-                    this.change.emit({ newValue: this.isFav });
+                ContactFormComponent.prototype.onSubmit = function (form) {
+                    console.log(form);
                 };
-                __decorate([
-                    core_1.Input('is-favorite'), 
-                    __metadata('design:type', Object)
-                ], FavoriteComponent.prototype, "isFav", void 0);
-                __decorate([
-                    core_1.Output(), 
-                    __metadata('design:type', Object)
-                ], FavoriteComponent.prototype, "change", void 0);
-                FavoriteComponent = __decorate([
+                ContactFormComponent = __decorate([
                     core_1.Component({
-                        selector: 'star',
-                        templateUrl: 'app/favorite.template.html',
-                        styles: ["\n        .glyphicon-star{\n            color: orange;\n        }\n    "]
+                        selector: 'contact-form',
+                        templateUrl: 'app/templates/contact-form.component.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], FavoriteComponent);
-                return FavoriteComponent;
+                ], ContactFormComponent);
+                return ContactFormComponent;
             }());
-            exports_1("FavoriteComponent", FavoriteComponent);
+            exports_1("ContactFormComponent", ContactFormComponent);
         }
     }
 });
-//# sourceMappingURL=favorite.component.js.map
+//# sourceMappingURL=contact.form.component.js.map

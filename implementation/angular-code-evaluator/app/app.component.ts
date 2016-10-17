@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {AlbumComponent} from './album.component';
-import {AlbumsComponent} from './albums.component';
-import {ContactComponent} from './contact.component';
+import {AlbumComponent} from './components/album.component';
+import {AlbumsComponent} from './components/albums.component';
+import {ContactComponent} from './components/contact.component';
 
 
 @RouteConfig([
@@ -30,7 +30,7 @@ import {ContactComponent} from './contact.component';
 ])
 @Component({
     selector: 'my-app',
-    templateUrl: '/app/app.component.html',
+    templateUrl: '/app/templates/app.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
 export class AppComponent {
