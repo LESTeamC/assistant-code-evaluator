@@ -24,6 +24,9 @@ Technologies to use:
 
 [Understanding JPA, Part 1](http://www.javaworld.com/article/2077817/java-se/understanding-jpa-part-1-the-object-oriented-paradigm-of-data-persistence.html)<br>
 [Understanding JPA, Part 2](http://www.javaworld.com/article/2077819/java-se/understanding-jpa-part-2-relationships-the-jpa-way.html)<br>
+<br>
+[A beginner’s guide to JPA and Hibernate Cascade Types](https://vladmihalcea.com/2015/03/05/a-beginners-guide-to-jpa-and-hibernate-cascade-types/)
+
 
 ## Good tutorial Angular 2
 
