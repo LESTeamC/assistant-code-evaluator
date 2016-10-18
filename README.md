@@ -34,7 +34,7 @@ Technologies to use:
 
 ## Using Bootstrap with Angular 2
 
-[Official API Documentation](https://ng-bootstrap.github.io/#/home)
+[Official API Documentation](https://ng-bootstrap.github.io/#/home)<br>
 [Examples](https://valor-software.com/ng2-bootstrap/#/)
 
 ## Useful JS Library for Unzipping !
