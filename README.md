@@ -16,14 +16,14 @@ Technologies to use:
 
 ## Some great tutorials about Spring Framework
 
-[Spring Boot Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr6-Fn3N2oqJpTdhGjFHnIIKY)
-[Spring Security Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr6-cvT21QHjfB_9xf7b7k7a-)
-[Spring Data Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr693flGbjtm0WoB_722X6lNc)
+[Spring Boot Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr6-Fn3N2oqJpTdhGjFHnIIKY)<br>
+[Spring Security Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr6-cvT21QHjfB_9xf7b7k7a-)<br>
+[Spring Data Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr693flGbjtm0WoB_722X6lNc)<br>
 
 ## Good explanation on JPA
 
-[Understanding JPA, Part 1](http://www.javaworld.com/article/2077817/java-se/understanding-jpa-part-1-the-object-oriented-paradigm-of-data-persistence.html)
-[Understanding JPA, Part 2](http://www.javaworld.com/article/2077819/java-se/understanding-jpa-part-2-relationships-the-jpa-way.html)
+[Understanding JPA, Part 1](http://www.javaworld.com/article/2077817/java-se/understanding-jpa-part-1-the-object-oriented-paradigm-of-data-persistence.html)<br>
+[Understanding JPA, Part 2](http://www.javaworld.com/article/2077819/java-se/understanding-jpa-part-2-relationships-the-jpa-way.html)<br>
 
 ## Good tutorial Angular 2
 
