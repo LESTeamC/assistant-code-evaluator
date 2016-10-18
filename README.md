@@ -32,6 +32,11 @@ Technologies to use:
 
 [Angular for Begginers](https://www.udemy.com/angular-2-tutorial-for-beginners/)
 
+## Using Bootstrap with Angular 2
+
+[Official API Documentation](https://ng-bootstrap.github.io/#/home)
+[Examples](https://valor-software.com/ng2-bootstrap/#/)
+
 ## Useful JS Library for Unzipping !
 
 [JSZip](https://stuk.github.io/jszip/)
