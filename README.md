@@ -45,12 +45,3 @@ Technologies to use:
 
 [JSHighlight](https://highlightjs.org/)
 
-#VM ACCESS
-
-IP: 192.168.58.62
-
-Hostname: les16c.fe.up.pt
-
-Username: root
-
-Password: Jw5uESvLT
