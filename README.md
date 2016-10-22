@@ -22,7 +22,7 @@ Take a look at our Wiki to know more.
 
 <img src="http://nvie.com/img/git-model@2x.png" alt="Drawing" width="500px"/>
 
-Info here [git](http://nvie.com/posts/a-successful-git-branching-model/)
+Info [here](http://nvie.com/posts/a-successful-git-branching-model/)
 
 The **develop** branch will be the main branch for the development flow. This branch can be used for regular commits while developing.
 We consider origin/develop to be the main branch where the source code of HEAD always reflects a state with the latest delivered development changes for the next release.

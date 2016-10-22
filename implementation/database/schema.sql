@@ -17,7 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema codeevaluator
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `codeevaluator` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `codeevaluator` DEFAULT CHARACTER SET utf8 ;
 USE `codeevaluator` ;
 
 -- -----------------------------------------------------
@@ -101,18 +101,18 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Exam` (
   `class` VARCHAR(45) NOT NULL,
   `status` VARCHAR(45) NOT NULL DEFAULT 'O',
   `progress` INT(100) NOT NULL DEFAULT '0',
-  `nquestions` INT(11) NOT NULL DEFAULT '0',
+  `nquestions` INT(10) NOT NULL DEFAULT '0',
   `referenceId` VARCHAR(45) NOT NULL,
   `version` INT(10) UNSIGNED NOT NULL,
-  `createdBy` VARCHAR(45) NOT NULL,
-  `createdAt` VARCHAR(45) NOT NULL,
-  `updatedBy` VARCHAR(45) NULL DEFAULT NULL,
-  `updatedAt` VARCHAR(45) NULL DEFAULT NULL,
+  `createdBy` VARCHAR(100) NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  `updatedBy` VARCHAR(100) NULL DEFAULT NULL,
+  `updatedAt` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC),
   UNIQUE INDEX `referenceId_UNIQUE` (`referenceId` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Examiner` (
     REFERENCES `codeevaluator`.`Account` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Exercise` (
   `status` VARCHAR(45) NOT NULL DEFAULT 'O',
   `progress` INT(10) UNSIGNED NOT NULL DEFAULT '0',
   `nsubmissions` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-  `weight` INT(11) NOT NULL,
+  `weight` INT(10) NOT NULL,
   `command` TEXT NULL DEFAULT NULL,
   `path` VARCHAR(100) NULL DEFAULT '/',
   PRIMARY KEY (`id`),
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Exercise` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -179,8 +179,8 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`ExerciseCriteria` (
   `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `exerciseId` BIGINT(20) UNSIGNED NOT NULL,
   `description` TEXT NOT NULL,
-  `range` INT(11) NOT NULL DEFAULT '0',
-  `weight` INT(11) NOT NULL,
+  `range` INT(10) NOT NULL DEFAULT '0',
+  `weight` INT(10) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `FK_ExerciseCriteria_idExercise_idx` (`exerciseId` ASC),
   CONSTRAINT `FK_ExerciseCriteria_idExercise`
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`ExerciseCriteria` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -198,13 +198,13 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `codeevaluator`.`Student` ;
 
 CREATE TABLE IF NOT EXISTS `codeevaluator`.`Student` (
-  `id` BIGINT(20) UNSIGNED NOT NULL,
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `number_UNIQUE` (`username` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -215,7 +215,7 @@ DROP TABLE IF EXISTS `codeevaluator`.`StudentExam` ;
 CREATE TABLE IF NOT EXISTS `codeevaluator`.`StudentExam` (
   `studentId` BIGINT(20) UNSIGNED NOT NULL,
   `examId` BIGINT(20) UNSIGNED NOT NULL,
-  `grade` INT(11) NOT NULL DEFAULT '0',
+  `grade` INT(10) NOT NULL DEFAULT '0',
   `status` VARCHAR(45) NOT NULL DEFAULT 'O',
   PRIMARY KEY (`studentId`, `examId`),
   INDEX `FK_StudentExam_ExamId_idx` (`examId` ASC),
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`StudentExam` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Submission` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`SubmissionCriteria` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
