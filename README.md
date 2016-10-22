@@ -2,11 +2,10 @@
 
 Technologies:
 
-<img src="https://code-maven.com/img/angularjs.png" alt="Drawing" style="height: 100px;"/>
-<img src="https://georgewfraser.gallerycdn.vsassets.io/extensions/georgewfraser/vscode-javac/0.0.23/1476047293813/Microsoft.VisualStudio.Services.Icons.Default
-" alt="Drawing" style="width: 100px;"/>
-<img src="http://www.javatpoint.com/images/spimages/spring1.png" alt="Drawing" style="height: 100px;"/>
-<img src="http://www.polisdetecnologia.com.br/wp-content/uploads/2016/09/mysql_hosting.png" alt="Drawing" style="width: 100px;"/>
+<img src="https://code-maven.com/img/angularjs.png" alt="Drawing" style="width: 100px; height:100px"/>
+<img src="https://www.seeklogo.net/wp-content/uploads/2011/06/java-logo-vector.png" alt="Drawing" style="width: 100px; height:100px"/>
+<img src="http://gettingstartedon.com/wp-content/uploads/2016/02/SpingIcon.png" alt="Drawing" style="width: 100px; height:100px"/>
+<img src="http://www.polisdetecnologia.com.br/wp-content/uploads/2016/09/mysql_hosting.png" alt="Drawing" style="width: 100px; height:100px"/>
 
 
 [Angular 2](https://angular.io/)<br>
