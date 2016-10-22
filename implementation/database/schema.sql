@@ -116,6 +116,26 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `codeevaluator`.Greeting`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `Greeting`;
+
+CREATE TABLE `Greeting` (
+  `id` bigint(20) unsigned NOT NULL auto_increment,
+  `referenceId` varchar(255) NOT NULL,
+  `text` varchar(100) NOT NULL,
+  `version` int(10) unsigned NOT NULL,
+  `createdBy` varchar(100) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedBy` varchar(100) DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  PRIMARY KEY(`id`),
+  CONSTRAINT `UQ_Greeting_ReferenceId` UNIQUE (`referenceId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- -----------------------------------------------------
 -- Table `codeevaluator`.`Examiner`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `codeevaluator`.`Examiner` ;
