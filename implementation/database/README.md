@@ -9,8 +9,8 @@
 This table stores the different user roles. It will be used by Spring Security for Authorization purposes.
 - *ManyToOne* relationship with __Account__ - An account can have multiple roles
 
-**code**: Role code like SYS_ADMIN
-**label**: Role label like System Administrator
+**code**: Role code like SYS_ADMIN<br>
+**label**: Role label like System Administrator<br>
 
 #### Account
 
@@ -28,9 +28,9 @@ Table responsible for storing the examiner's information (not including PW - Thi
 - *OneToOne* relationship with __Acount__ ;
 - *OneToMany* relationship with __Exercise__ - Each examiner will have a list of exercises, that have been delegated to him;
 
-> *name*: The full of the examiner;
-> *username*: Meant to store academic number (ex up12213)
-> *email*: Email address (can be useful, you never know)
+> *name*: The full of the examiner;<br>
+> *username*: Meant to store academic number (ex up12213)<br>
+> *email*: Email address (can be useful, you never know)<br>
 
 
 
