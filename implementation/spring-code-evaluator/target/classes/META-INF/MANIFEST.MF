@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: skeleton-web-services
+Implementation-Title: assistant-code-evaluator
 Implementation-Version: 1.0-SNAPSHOT
 Built-By: mzamith
 Implementation-Vendor-Id: org.example

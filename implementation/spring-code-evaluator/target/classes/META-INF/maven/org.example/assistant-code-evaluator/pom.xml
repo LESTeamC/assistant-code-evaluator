@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.example</groupId>
-	<artifactId>skeleton-web-services</artifactId>
+	<artifactId>assistant-code-evaluator</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 
-	<name>skeleton-web-services</name>
+	<name>assistant-code-evaluator</name>
 	<url>http://maven.apache.org</url>
 
 
