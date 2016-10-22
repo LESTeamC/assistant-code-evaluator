@@ -74,5 +74,5 @@ Grant access to the user
 $ grant all on greeting.* to 'greetusr'@'localhost';
 ```
 ```
-$ Flush priveleges;
+$ Flush privileges;
 ```
