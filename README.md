@@ -2,10 +2,7 @@
 
 Technologies:
 
-<img src="https://code-maven.com/img/angularjs.png" alt="Drawing" style="width: 100px; height:100px"/>
-<img src="https://www.seeklogo.net/wp-content/uploads/2011/06/java-logo-vector.png" alt="Drawing" style="width: 100px; height:100px"/>
-<img src="http://gettingstartedon.com/wp-content/uploads/2016/02/SpingIcon.png" alt="Drawing" style="width: 100px; height:100px"/>
-<img src="http://www.polisdetecnologia.com.br/wp-content/uploads/2016/09/mysql_hosting.png" alt="Drawing" style="width: 100px; height:100px"/>
+
 
 
 [Angular 2](https://angular.io/)<br>
