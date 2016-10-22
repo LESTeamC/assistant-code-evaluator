@@ -20,7 +20,7 @@ Take a look at our Wiki to know more.
 
 # Development flow
 
-![Git Flow](http://nvie.com/img/git-model@2x.png)
+<img src="http://nvie.com/img/git-model@2x.png" alt="Drawing" width="500px"/>
 
 Info here [git](http://nvie.com/posts/a-successful-git-branching-model/)
 
