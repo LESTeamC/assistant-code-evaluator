@@ -18,19 +18,21 @@ This table stores the different accounts and is also used by Spring Security for
 It's responsible for storing encrypted passwords and usernames.
 Also has some interesting features, like expire dates and locks.
 
-- *OneToMany* relationship with __Role__ - An account can have multiple roles
-- *OneToOne* relationship with __Examiner__ - Each examiner will have one account
+- *ManyToMany* relationship with __Role__ - An account can have multiple roles;
+- *OneToOne* relationship with __Examiner__ - Each examiner will have one account.
+
 
 #### Examiner
 
 Table responsible for storing the examiner's information (not including PW - This will be stored in Account).
 
-- *OneToOne* relationship with __Acount__ ;
-- *OneToMany* relationship with __Exercise__ - Each examiner will have a list of exercises, that have been delegated to him;
+- *OneToOne* relationship with __Account__ ;
+- *OneToMany* relationship with __Exercise__ - Each examiner will have a list of exercises, that have been delegated to him.
 
 > *name*: The full of the examiner;<br>
-> *username*: Meant to store academic number (ex up12213)<br>
-> *email*: Email address (can be useful, you never know)<br>
+> *username*: Meant to store academic number (ex up12213);<br>
+> *email*: Email address (can be useful for contact.<br>
+
 
 #### Exercise
 
@@ -40,77 +42,86 @@ Each exercise has a collection of submissions.
 - *ManyToOne* relationship with __Examiner__ ;
 - *ManyToOne* relationship with __Exam__ - Each exam will have a collection of questions;
 - *OneToMany* relationship with __ExerciseCriteria__ - Each exercise will have a collection of criteria;
-- *OneToMany* relationship with __Submission__ - Each exercise will have a collection of submissions;
+- *OneToMany* relationship with __Submission__ - Each exercise will have a collection of submissions.
 
 > *question*: Full text question for the exercise;<br>
-> *name*: Unique name for the exercise (ex up12213)<br>
-> *status*: Qualifies the status: Open, corrected...<br>
-> *progress*: Percentage value: (corrected submissions) * 100 / (total submissions)<br>
-> *nsubmissions*: Total number os submissions<br>
-> *weight*: Percentage value representing the weight of this quention on final grading<br>
-> *command*: Command line value to run, if exercise demands it<br>
-> *path*: Directory path to the library files (files needed to try to compile submissions)<br>
+> *name*: Unique name for the exercise (ex up12213);<br>
+> *status*: Qualifies the status: Open, corrected, etc.<br>
+> *progress*: Percentage value: (corrected submissions) * [100 / (total submissions)];<br>
+> *nsubmissions*: Total number of submissions;<br>
+> *weight*: Percentage value representing the weight of this quention on final grading;<br>
+> *command*: Command line value to run, if exercise demands it;<br>
+> *path*: Directory path to the library files (files needed to try to compile submissions).<br>
 
 
 #### Exam
+
 This table will store information about the exams.
 
 - *OneToMany* relationship with __Exercise__ ;
 - *OneToMany* relationship with __Submission__ ;
-- *OneToMany* relationship with __StudentExam__ (explained later);
+- *OneToMany* relationship with __StudentExam__ (explained later).
 
-> *name*: Unique Exam name;<br>
-> *date*: Date of the exam<br>
-> *degree*: Degree (curso) of the exam<br>
-> *class*: Class (unidade curricular) of the exam<br>
-> *status*: Qualifies if its open, closed, etc<br>
-> *progress*: Percentage value: (corrected questions) * 100 / (total questions)<br>
-> *nquestions*: Total number os questions for the exam<br>
-> other attributes are for controlling purposes
+> *name*: Unique exam name;<br>
+> *date*: Date of the exam;<br>
+> *degree*: Degree (course) of the exam;<br>
+> *class*: Class (course unit) of the exam;<br>
+> *status*: Qualifies if its open, closed, etc;<br>
+> *progress*: Percentage value: (corrected questions) * [100 / (total questions)];<br>
+> *nquestions*: Total number os questions for the exam;<br>
+> other attributes are for controlling purposes.
+
 
 #### Exercise Criteria
+
 This table will store generic information about the different criteria for the different exercises.
 
 - *ManyToOne* relationship with __Exercise__ ;
-- *OneToMany* relationship with __SubmissionCriteria__ - Each Submission has it's own criteria, because we will need to save the scores of each examination. So each "exercise criteria" will have many "submission criteria";
+- *OneToMany* relationship with __SubmissionCriteria__ - Each Submission has it's own criteria, because we will need to save the scores of each examination. So, each "exercise criteria" will have many "submission criteria".
 
 > *description*: Description of what the examiner will look for;<br>
-> *range*: Range of values for grading<br>
-> *weight*: Percentage - weight of this creteria for final grading (some criteria can be more important)<br>
+> *range*: Range of values for grading;<br>
+> *weight*: Percentage - weight of this criteria for final grading (some criteria can be more important).<br>
+
 
 #### Submission Criteria
-This table will store specific grading values for each criteria of each submission
 
-- *ManyToOne* relationship with __SubmissionCriteria__
-- *ManyToOne* relationship with __Submission__
+This table will store specific grading values for each criteria of each submission.
 
-> *grade*: Grade given to each of these criteria<br>
+- *ManyToOne* relationship with __SubmissionCriteria__;
+- *ManyToOne* relationship with __Submission__.
+
+> *grade*: Grade given to each of these criteria.<br>
+
 
 #### Submission
-This table will store specific information about the student's submissions
 
-- *ManyToOne* relationship with __Exam__
-- *ManyToOne* relationship with __Exercise__
-- *ManyToOne* relationship with __Student__ - each student can have a collection of submissions
-- *OneToMany* relationship with __SubmissionCriteria__ - each submission will have a collection of submission criteria
+This table will store specific information about the student's submissions.
 
+- *ManyToOne* relationship with __Exam__;
+- *ManyToOne* relationship with __Exercise__;
+- *ManyToOne* relationship with __Student__ - each student can have a collection of submissions;
+- *OneToMany* relationship with __SubmissionCriteria__ - each submission will have a collection of submission criteria.
 
-> *code*: Text of the student's code submission<br>
-> *status*: Submitted, open, ...<br>
-> *grade*: Total grade calculated according to the criteria<br>
-> *path*: Directory path to the file of the submission<br>
+> *code*: Text of the student's code submission;<br>
+> *status*: Submitted, open, etc.<br>
+> *grade*: Total grade calculated according to the criteria;<br>
+> *path*: Directory path to the file of the submission.<br>
+
 
 #### Student
-Table saving each students information
 
-- *OneToMany* relationship with __Submission__
-- *OneToMany* relationship with __StudentExam__ - (explained below)
+Table saving each students information.
 
+- *OneToMany* relationship with __Submission__;
+- *OneToMany* relationship with __StudentExam__ - (explained below).
 
-> *name*: Student full name<br>
-> *username*: Student academic number<br>
+> *name*: Student full name;<br>
+> *username*: Student academic number.<br>
+
 
 #### StudentExam
+
 This table will be responsible for saving the information of a student for a specific exam.
 Has a composite Primary Key.
 This will be useful for storing the student's final grade.
@@ -118,9 +129,7 @@ This will be useful for storing the student's final grade.
 - *ManyToMany* relationship with __Exam__ Each exam will have multiple values stored in Student Exam
 - *ManyToMany* relationship with __Student__
 
-
-> *grade* student's final grade from a spefific exam.
-> *username*: Student academic number<br>
-
+> *grade* student's final grade from a spefific exam;<br>
+> *username*: Student academic number.<br>
 
 
