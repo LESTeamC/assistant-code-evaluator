@@ -1,5 +1,7 @@
 org/evaluator/ws/service/AccountService.class
+org/evaluator/ws/service/ExamService.class
 org/evaluator/ws/model/TransactionalEntity.class
+org/evaluator/ws/repository/ExamRepository.class
 org/evaluator/ws/model/ReferenceEntity.class
 org/evaluator/ws/actuator/health/GreetingHealthIndicator.class
 org/evaluator/ws/repository/GreetingRepository.class
@@ -7,7 +9,10 @@ org/evaluator/ws/service/EmailServiceBean.class
 org/evaluator/SecurityConfiguration$ApiWebSecurityConfigurerAdapter.class
 org/evaluator/ws/web/api/GreetingController.class
 org/evaluator/ws/service/GreetingServiceBean.class
+org/evaluator/ws/model/Exercise.class
 org/evaluator/ws/web/api/BaseController.class
+org/evaluator/ws/model/Exam.class
+org/evaluator/ws/service/ExamServiceBean.class
 org/evaluator/SecurityConfiguration.class
 org/evaluator/ws/service/EmailService.class
 org/evaluator/ws/repository/RoleRepository.class
