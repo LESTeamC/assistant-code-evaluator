@@ -1,8 +1,8 @@
 package org.example.ws.web.api;
 
+import org.evaluator.ws.model.Greeting;
+import org.evaluator.ws.service.GreetingService;
 import org.example.ws.AbstractControllerTest;
-import org.example.ws.model.Greeting;
-import org.example.ws.service.GreetingService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package org.example.ws;
 
 import java.io.IOException;
 
-import org.example.ws.web.api.BaseController;
+import org.evaluator.ws.web.api.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;

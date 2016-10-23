@@ -2,8 +2,9 @@ package org.example.ws.repository;
 
 import java.util.Collection;
 
+import org.evaluator.ws.model.Account;
+import org.evaluator.ws.repository.AccountRepository;
 import org.example.ws.AbstractTest;
-import org.example.ws.model.Account;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

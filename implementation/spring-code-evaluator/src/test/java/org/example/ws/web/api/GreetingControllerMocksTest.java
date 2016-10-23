@@ -8,10 +8,11 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.evaluator.ws.model.Greeting;
+import org.evaluator.ws.service.EmailService;
+import org.evaluator.ws.service.GreetingService;
+import org.evaluator.ws.web.api.GreetingController;
 import org.example.ws.AbstractControllerTest;
-import org.example.ws.model.Greeting;
-import org.example.ws.service.EmailService;
-import org.example.ws.service.GreetingService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -6,8 +6,9 @@ import java.util.Collection;
 import javax.persistence.EntityExistsException;
 import javax.persistence.NoResultException;
 
+import org.evaluator.ws.model.Greeting;
+import org.evaluator.ws.service.GreetingService;
 import org.example.ws.AbstractTest;
-import org.example.ws.model.Greeting;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
