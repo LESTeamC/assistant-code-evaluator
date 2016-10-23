@@ -56,23 +56,71 @@ $ mysql -uroot -p
 
 To login as an ADMIN in your mySQL Server
 
-Create a generic "greeting" Database
+Create a generic "codeevaluator" Database
 
 ```
-$ create database greeting;
+$ create database codeevaluator;
 ```
 
 Create a development user
 
 ```
-$ create user 'greetusr'@'localhost' identified by 'greetpwd';
+$ create user 'devusr'@'localhost' identified by 'lesteamc2016';
 ```
 
 Grant access to the user
 
 ```
-$ grant all on greeting.* to 'greetusr'@'localhost';
+$ grant all on codeevaluator.* to 'devusr'@'localhost';
 ```
 ```
 $ Flush privileges;
 ```
+
+## Directory Description
+```
++---src/main/java
+|   +---org.evaluator
+|       +---- .ws
+|              +---- model
+|              +---- repository
+|              +---- security
+|              +---- service
+|              +---- util
+|              +---- web
+|                     +---- api
+|                     +---- filter
++---src/main/resources
+|   +---org.config
+|   +---org.data
+|       +---- mysql
++---src/main/test
+|   +---org.evaluator.ws
+|       +---- .repository
+|       +---- .service
+|       +---- .web.api
++---pom.xml
+```
+
+Inside the `src/main/java` goes the code, which is devided is several packages.
+The application class (Responsible for running our APP), as well as the security configuration class go directly inside `org.evaluator`
+
+- `model`: Classes belonging to entities (representations of database tables) or other useful entities.
+- `repository`: Interfaces that extend JPARepository. Responsible for communication with the database
+- `security`: Spring Secutiry auxiliary classes
+- `service`: Service classes. Should implement all business logic and establish connection between controllers and data layer
+- `util`: Utilitary classes and methods
+- `web.api`: Contoller classes. Should establish our API and endpoints. Communicate with the Service layer.
+- `web.filter`: Auxiliary package (Spring context initialization)
+
+
+Inside `src/main/resources`go the application configuration files and the data initialization scripts
+
+- `config`: Property files for configuring database connection and other aspects, like security properties
+- `data`: Initialization scripts for MySQL database.
+
+Inside the `src/main/test` go the unit tests for the several modules.
+
+- `repository`: Repository tests
+- `service`: Service tests
+- `web.api`: Controller tests
