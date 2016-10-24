@@ -260,7 +260,6 @@ DROP TABLE IF EXISTS `codeevaluator`.`Submission` ;
 
 CREATE TABLE IF NOT EXISTS `codeevaluator`.`Submission` (
   `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `examId` BIGINT(20) UNSIGNED NOT NULL,
   `exerciseId` BIGINT(20) UNSIGNED NOT NULL,
   `studentId` BIGINT(20) UNSIGNED NOT NULL,
   `code` LONGTEXT NULL DEFAULT NULL,
@@ -268,20 +267,14 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Submission` (
   `grade` INT(10) UNSIGNED NOT NULL DEFAULT '0',
   `path` VARCHAR(100) NOT NULL DEFAULT '/',
   PRIMARY KEY (`id`),
-  INDEX `FQ_Submission_ExamId_idx` (`examId` ASC),
-  INDEX `FQ_Submission_StudentId_idx` (`studentId` ASC),
-  INDEX `FQ_Submission_ExerciseId_idx` (`exerciseId` ASC),
-  CONSTRAINT `FQ_Submission_ExamId`
-    FOREIGN KEY (`examId`)
-    REFERENCES `codeevaluator`.`Exam` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FQ_Submission_ExerciseId`
+  INDEX `FK_Submission_StudentId_idx` (`studentId` ASC),
+  INDEX `FK_Submission_ExerciseId_idx` (`exerciseId` ASC),
+  CONSTRAINT `FK_Submission_ExerciseId`
     FOREIGN KEY (`exerciseId`)
     REFERENCES `codeevaluator`.`Exercise` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `FQ_Submission_StudentId`
+  CONSTRAINT `FK_Submission_StudentId`
     FOREIGN KEY (`studentId`)
     REFERENCES `codeevaluator`.`Student` (`id`)
     ON DELETE NO ACTION
