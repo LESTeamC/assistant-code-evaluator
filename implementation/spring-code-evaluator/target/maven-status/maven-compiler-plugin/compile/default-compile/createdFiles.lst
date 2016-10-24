@@ -14,11 +14,14 @@ org/evaluator/ws/web/api/BaseController.class
 org/evaluator/ws/model/Exam.class
 org/evaluator/ws/service/ExamServiceBean.class
 org/evaluator/SecurityConfiguration.class
+org/evaluator/ws/model/Examiner.class
+org/evaluator/ws/repository/ExerciseRepository.class
 org/evaluator/ws/service/EmailService.class
 org/evaluator/ws/repository/RoleRepository.class
 org/evaluator/ws/service/AccountServiceBean.class
 org/evaluator/ws/model/Greeting.class
 org/evaluator/ws/service/GreetingService.class
+org/evaluator/ws/repository/ExaminerRepository.class
 org/evaluator/ws/security/AccountAuthenticationProvider.class
 org/evaluator/ws/security/AccountUserDetailsService.class
 org/evaluator/SecurityConfiguration$ActuatorWebSecurityConfigurerAdapter.class

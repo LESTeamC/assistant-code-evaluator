@@ -32,7 +32,12 @@ public class Exercise {
 	/**
 	 * Examiner delegated to the exercise
 	 */
-	private Long examinerId = null;
+	
+	@ManyToOne(
+			fetch = FetchType.EAGER,
+			optional = false)
+	@JoinColumn(name = "examinerId")
+	private Examiner examiner = null;
 
 	/**
 	 * Exam of the exercise
@@ -82,12 +87,12 @@ public class Exercise {
 		this.id = id;
 	}
 
-	public Long getExaminerId() {
-		return examinerId;
+	public Examiner getExaminer() {
+		return examiner;
 	}
 
-	public void setExaminerId(Long examiner) {
-		this.examinerId = examiner;
+	public void setExaminer(Examiner examiner) {
+		this.examiner = examiner;
 	}
 
 	public Exam getExam() {
