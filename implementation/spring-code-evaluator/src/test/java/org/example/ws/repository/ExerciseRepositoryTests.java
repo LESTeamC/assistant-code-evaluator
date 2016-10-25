@@ -52,7 +52,7 @@ public class ExerciseRepositoryTests extends AbstractTest {
 	}
 	
 	@Test
-	public void testdeleteExaminerExamNull() {
+	public void testDeleteExaminerExamNull() {
 		
 		Examiner examiner = examinerRepository.findByName("Nuno Flores");
 		examinerRepository.delete(examiner);

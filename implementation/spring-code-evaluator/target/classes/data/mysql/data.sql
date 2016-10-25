@@ -102,7 +102,7 @@ FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
 SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' 
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise2';
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
 SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' 
@@ -114,7 +114,7 @@ FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
 SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions' 
-FROM Exercise ex, Student s WHERE s.name='Luis' and ex.name='Exercise1';
+FROM Exercise ex, Student s WHERE s.name='Luis' and ex.name='Exercise3';
 
 
 -- Submission Criteria Data

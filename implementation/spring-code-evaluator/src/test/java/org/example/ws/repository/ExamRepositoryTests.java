@@ -23,7 +23,7 @@ public class ExamRepositoryTests extends AbstractTest {
 	public void testFindAll() {
 
 		List<Exam> entity = repository.findAll();
-		Collection<Exercise> exercise = entity.get(1).getExercises();
+
 
 		Assert.assertNotNull("failure - expected entity not null", entity);
 	}

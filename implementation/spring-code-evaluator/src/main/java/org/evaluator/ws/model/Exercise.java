@@ -1,12 +1,18 @@
 package org.evaluator.ws.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * The Exam class is an entity model object.
@@ -37,7 +43,8 @@ public class Exercise {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "examinerId")
-	private Examiner examiner = null;
+	@JsonBackReference
+	private Examiner examiner;
 
 	/**
 	 * Exam of the exercise
@@ -47,6 +54,7 @@ public class Exercise {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name="examId")
+	@JsonBackReference
 	private Exam exam;
 
 	/**
@@ -78,7 +86,17 @@ public class Exercise {
 	 */
 	@NotNull
 	private int nsubmissions = 0;
+	
+	/**
+	 * Different Criteria for this exercise
+	 */
+	@OneToMany(
+			fetch = FetchType.EAGER,
+			mappedBy ="exercise")
+	@JsonManagedReference
+	private Set<ExerciseCriteria> criteria;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -141,6 +159,14 @@ public class Exercise {
 
 	public void setNsubmissions(int nsubmissions) {
 		this.nsubmissions = nsubmissions;
+	}
+
+	public Set<ExerciseCriteria> getCriteria() {
+		return criteria;
+	}
+
+	public void setCriteria(Set<ExerciseCriteria> criteria) {
+		this.criteria = criteria;
 	}	
 	
 	

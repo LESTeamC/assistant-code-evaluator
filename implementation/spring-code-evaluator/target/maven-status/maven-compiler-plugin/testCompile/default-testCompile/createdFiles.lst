@@ -2,6 +2,7 @@ org/example/ws/AppTest.class
 org/example/ws/AbstractControllerTest.class
 org/example/ws/web/api/GreetingControllerMocksTest.class
 org/example/ws/repository/ExamRepositoryTests.class
+org/example/ws/repository/SubmissionRepositoryTests.class
 org/example/ws/repository/ExerciseRepositoryTests.class
 org/example/ws/repository/AccountRepositoryTests.class
 org/example/ws/AbstractTest.class

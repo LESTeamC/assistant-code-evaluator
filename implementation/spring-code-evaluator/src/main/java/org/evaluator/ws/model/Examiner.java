@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Examiner {
 	
@@ -25,11 +27,13 @@ public class Examiner {
 	/**
 	 * Examiner full name
 	 */
+	@NotNull
 	private String name;
 
 	/**
 	 * Examiner academic number
 	 */
+	@NotNull
 	private String username;
 
 	/**
@@ -50,8 +54,9 @@ public class Examiner {
 	private Account account;
 	
 	@OneToMany(
-			fetch = FetchType.EAGER,
-			mappedBy ="exam")
+			fetch = FetchType.LAZY,
+			mappedBy ="examiner")
+	@JsonManagedReference
 	private Set<Exercise> exercises;
 
 	public Long getId() {
@@ -76,6 +81,14 @@ public class Examiner {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Set<Exercise> getExercises() {
+		return exercises;
+	}
+
+	public void setExercises(Set<Exercise> exercises) {
+		this.exercises = exercises;
 	}
 
 	public String getEmail() {
