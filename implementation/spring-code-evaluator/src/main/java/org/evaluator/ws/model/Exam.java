@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * The Exam class is an entity model object.
  * 
@@ -69,6 +71,7 @@ public class Exam extends TransactionalEntity {
 			fetch = FetchType.EAGER, 
 			cascade = CascadeType.ALL,
 			mappedBy ="exam")
+	@JsonManagedReference
 	private Set<Exercise> exercises;
 
 

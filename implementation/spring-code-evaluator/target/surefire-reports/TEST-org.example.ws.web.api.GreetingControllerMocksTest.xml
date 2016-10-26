@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.ws.web.api.GreetingControllerMocksTest" time="0.393" tests="6" errors="0" skipped="0" failures="0">
+<testsuite name="org.example.ws.web.api.GreetingControllerMocksTest" time="0.341" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/jre/lib"/>
@@ -62,10 +62,10 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testGetGreetings" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.227"/>
-  <testcase name="testGetGreetingNotFound" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.029"/>
-  <testcase name="testUpdateGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.085"/>
-  <testcase name="testCreateGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.019"/>
-  <testcase name="testDeleteGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.018"/>
-  <testcase name="testGetGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.015"/>
+  <testcase name="testGetGreetings" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.224"/>
+  <testcase name="testGetGreetingNotFound" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.017"/>
+  <testcase name="testUpdateGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.052"/>
+  <testcase name="testCreateGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.018"/>
+  <testcase name="testDeleteGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.014"/>
+  <testcase name="testGetGreeting" classname="org.example.ws.web.api.GreetingControllerMocksTest" time="0.016"/>
 </testsuite>

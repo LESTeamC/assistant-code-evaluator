@@ -2,7 +2,9 @@
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/AppTest.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/AbstractControllerTest.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/repository/ExamRepositoryTests.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/repository/ExerciseRepositoryTests.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/repository/AccountRepositoryTests.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/web/api/GreetingControllerTest.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/repository/SubmissionRepositoryTests.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/web/api/GreetingControllerMocksTest.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/test/java/org/example/ws/service/GreetingServiceTest.java

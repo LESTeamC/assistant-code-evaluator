@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.ws.web.api.GreetingControllerTest" time="0.119" tests="6" errors="1" skipped="0" failures="0">
+<testsuite name="org.example.ws.web.api.GreetingControllerTest" time="0.076" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/jre/lib"/>
@@ -62,103 +62,10 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testGetGreetings" classname="org.example.ws.web.api.GreetingControllerTest" time="0.024"/>
-  <testcase name="testGetGreetingNotFound" classname="org.example.ws.web.api.GreetingControllerTest" time="0.012"/>
-  <testcase name="testUpdateGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.028"/>
-  <testcase name="testCreateGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.017">
-    <error message="Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: Cannot persist a TransactionalEntity without a username in the RequestContext for this thread.; nested exception is java.lang.IllegalArgumentException: Cannot persist a TransactionalEntity without a username in the RequestContext for this thread." type="org.springframework.web.util.NestedServletException">org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: Cannot persist a TransactionalEntity without a username in the RequestContext for this thread.; nested exception is java.lang.IllegalArgumentException: Cannot persist a TransactionalEntity without a username in the RequestContext for this thread.
-	at org.evaluator.ws.model.TransactionalEntity.beforePersist(TransactionalEntity.java:143)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.hibernate.jpa.event.internal.jpa.EntityCallback.performCallback(EntityCallback.java:47)
-	at org.hibernate.jpa.event.internal.jpa.CallbackRegistryImpl.callback(CallbackRegistryImpl.java:112)
-	at org.hibernate.jpa.event.internal.jpa.CallbackRegistryImpl.preCreate(CallbackRegistryImpl.java:57)
-	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:83)
-	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:206)
-	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:149)
-	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:75)
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:811)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:784)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:789)
-	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1181)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:291)
-	at com.sun.proxy.$Proxy74.persist(Unknown Source)
-	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:433)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:436)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:421)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:393)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport$DefaultMethodInvokingMethodInterceptor.invoke(RepositoryFactorySupport.java:506)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:136)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodIntercceptor.invoke(CrudMethodMetadataPostProcessor.java:122)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
-	at com.sun.proxy.$Proxy83.save(Unknown Source)
-	at org.evaluator.ws.service.GreetingServiceBean.create(GreetingServiceBean.java:97)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:317)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
-	at com.sun.proxy.$Proxy84.create(Unknown Source)
-	at org.evaluator.ws.web.api.GreetingController.createGreeting(GreetingController.java:123)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:967)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:869)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:843)
-	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:65)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
-	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:167)
-	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:134)
-	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:144)
-	at org.example.ws.web.api.GreetingControllerTest.testCreateGreeting(GreetingControllerTest.java:101)
-</error>
-    <system-out><![CDATA[2016-10-23 15:15:25.648  INFO 45553 --- [           main] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@71f056a testClass = GreetingControllerTest, testInstance = org.example.ws.web.api.GreetingControllerTest@6c19769c, testMethod = testCreateGreeting@GreetingControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3b8b5b40 testClass = GreetingControllerTest, locations = '{}', classes = '{class org.evaluator.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.SpringApplicationContextLoader', parent = [null]]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@7f1fec57]; rollback [true]
-2016-10-23 15:15:25.648  INFO 45553 --- [           main] o.s.mock.web.MockServletContext          : Initializing Spring FrameworkServlet ''
-2016-10-23 15:15:25.648  INFO 45553 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : FrameworkServlet '': initialization started
-2016-10-23 15:15:25.653  INFO 45553 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : FrameworkServlet '': initialization completed in 4 ms
-2016-10-23 15:15:25.656  INFO 45553 --- [           main] o.e.ws.web.api.GreetingController        : > createGreeting
-2016-10-23 15:15:25.656  INFO 45553 --- [           main] o.e.ws.service.GreetingServiceBean       : > create
-2016-10-23 15:15:25.662  INFO 45553 --- [           main] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test context [DefaultTestContext@71f056a testClass = GreetingControllerTest, testInstance = org.example.ws.web.api.GreetingControllerTest@6c19769c, testMethod = testCreateGreeting@GreetingControllerTest, testException = org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: Cannot persist a TransactionalEntity without a username in the RequestContext for this thread.; nested exception is java.lang.IllegalArgumentException: Cannot persist a TransactionalEntity without a username in the RequestContext for this thread., mergedContextConfiguration = [WebMergedContextConfiguration@3b8b5b40 testClass = GreetingControllerTest, locations = '{}', classes = '{class org.evaluator.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.SpringApplicationContextLoader', parent = [null]]].
-]]></system-out>
-  </testcase>
-  <testcase name="testDeleteGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.014"/>
-  <testcase name="testGetGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.024"/>
+  <testcase name="testGetGreetings" classname="org.example.ws.web.api.GreetingControllerTest" time="0.022"/>
+  <testcase name="testGetGreetingNotFound" classname="org.example.ws.web.api.GreetingControllerTest" time="0.008"/>
+  <testcase name="testUpdateGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.016"/>
+  <testcase name="testCreateGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.016"/>
+  <testcase name="testDeleteGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.008"/>
+  <testcase name="testGetGreeting" classname="org.example.ws.web.api.GreetingControllerTest" time="0.006"/>
 </testsuite>

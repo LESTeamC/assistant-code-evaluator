@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: org.example.ws.repository.ExerciseRepositoryTests
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.101 sec <<< FAILURE! - in org.example.ws.repository.ExerciseRepositoryTests
+testDeleteExaminerExamNull(org.example.ws.repository.ExerciseRepositoryTests)  Time elapsed: 0.048 sec  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at org.example.ws.repository.ExerciseRepositoryTests.testDeleteExaminerExamNull(ExerciseRepositoryTests.java:62)
+
