@@ -40,9 +40,8 @@ public class Exercise {
 	 */
 	
 	@ManyToOne(
-			fetch = FetchType.EAGER,
-			optional = false)
-	@JoinColumn(name = "examinerId")
+			fetch = FetchType.EAGER)
+	@JoinColumn(name = "examinerId", nullable=true)
 	@JsonBackReference
 	private Examiner examiner;
 

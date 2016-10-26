@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.example.ws.repository.AccountRepositoryTests
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.201 sec - in org.example.ws.repository.AccountRepositoryTests
