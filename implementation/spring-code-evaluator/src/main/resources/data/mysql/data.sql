@@ -25,10 +25,10 @@ INSERT INTO AccountRole (accountId, roleId) SELECT a.id, r.id FROM Account a, Ro
 
 -- Exam DATA
 
-INSERT INTO Exam (name, date, degree, course, status, progress, nquestions, referenceId, version, createdBy, createdAt, updatedBy, updatedAt) 
-VALUES ('Exam1', '2015-01-01 00:00:00', 'MIEIC', 'Programacao1', 'O', 0, 2, '7bd137c8-ab64-4a45-bf2d-d9bae3574233', 0, 'user', NOW(), NULL, NULL);
-INSERT INTO Exam (name, date, degree, course, status, progress, nquestions, referenceId, version, createdBy, createdAt, updatedBy, updatedAt) 
-VALUES ('Exam2', '2015-01-01 00:00:00', 'MESW', 'LES', 'O', 0, 1, '7bd137c8-ab64-4a45-bf2d-d9bae3574223', 0, 'user', NOW(), NULL, NULL);
+INSERT INTO Exam (name, date, degree, course, status, progress, nquestions, language, referenceId, version, createdBy, createdAt, updatedBy, updatedAt) 
+VALUES ('Exam1', '2015-01-01 00:00:00', 'MIEIC', 'Programacao1', 'O', 0, 2,'Java', '7bd137c8-ab64-4a45-bf2d-d9bae3574233', 0, 'user', NOW(), NULL, NULL);
+INSERT INTO Exam (name, date, degree, course, status, progress, nquestions, language, referenceId, version, createdBy, createdAt, updatedBy, updatedAt) 
+VALUES ('Exam2', '2015-01-01 00:00:00', 'MESW', 'LES', 'O', 0, 1, 'C', '7bd137c8-ab64-4a45-bf2d-d9bae3574223', 0, 'user', NOW(), NULL, NULL);
 
 -- Examiner DATA
 INSERT INTO Examiner (name, username, email, accountId) 
@@ -37,16 +37,16 @@ INSERT INTO Examiner (name, username, email, accountId)
 SELECT 'Nuno Flores', 'up2011765533', 'up2011765533@fe.up.pt', a.id FROM Account a WHERE a.username = 'up2011765533';
 
 -- Exercise DATA
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, command, path) 
-SELECT Examiner.id, Exam.id, 'What is your name?', 'Exercise1', 'O', 0, 2, 50, 'MKDIR', 'C://' 
+INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id, 'What is your name?', 'Exercise1', 'O', 0, 2, 50, 'MKDIR', 'RUN', 'C://' 
 FROM Examiner, Exam WHERE Examiner.username = 'up2011765544' AND Exam.name='Exam1';
 
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, command, path) 
-SELECT NULL, Exam.id, 'Who are you?', 'Exercise2', 'O', 0, 1, 50, 'MKDIR', 'C://' 
+INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT NULL, Exam.id, 'Who are you?', 'Exercise2', 'O', 0, 1, 50, 'MKDIR','RUN', 'C://' 
 FROM Exam WHERE Exam.name='Exam1';
 
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, command, path) 
-SELECT Examiner.id, Exam.id, 'How old are you?', 'Exercise3', 'O', 0, 1, 100, 'MKDIR', 'C://' 
+INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id, 'How old are you?', 'Exercise3', 'O', 0, 1, 100, 'MKDIR','RUN', 'C://' 
 FROM Examiner, Exam WHERE Examiner.username = 'up2011765533' AND Exam.name='Exam2';
 
 
@@ -96,24 +96,24 @@ FROM Student s, Exam e WHERE s.name='Luis' and e.name='Exam2';
 
 -- Submission DATA
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
-SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' 
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
+SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two'
 FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
-SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' 
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
+SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' , 'one two'
 FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
-SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' 
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
+SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' , 'one two'
 FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise1';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
-SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' 
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
+SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' , 'one two'
 FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path)
-SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions' 
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
+SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions', 'one two'
 FROM Exercise ex, Student s WHERE s.name='Luis' and ex.name='Exercise3';
 
 

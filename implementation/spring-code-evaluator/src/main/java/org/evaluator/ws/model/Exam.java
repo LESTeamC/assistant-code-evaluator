@@ -66,6 +66,12 @@ public class Exam extends TransactionalEntity {
 	 */
 	@NotNull
 	private int nquestions = 0;
+	
+	/**
+	 * Code Language
+	 */
+	@NotNull
+	private String language;
 
 	@OneToMany(
 			fetch = FetchType.EAGER, 
@@ -133,6 +139,14 @@ public class Exam extends TransactionalEntity {
 
 	public void setNquestions(int nquestions) {
 		this.nquestions = nquestions;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public Set<Exercise> getExercises() {

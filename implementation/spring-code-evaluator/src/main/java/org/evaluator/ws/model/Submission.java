@@ -68,6 +68,11 @@ public class Submission {
 	@NotNull
 	private String path;
 	
+	/**
+	 * output of the submission, if its able to run
+	 */
+	private String output;
+	
 	@OneToMany(
 			fetch = FetchType.EAGER,
 			mappedBy ="submission")
@@ -136,6 +141,14 @@ public class Submission {
 
 	public void setCriteria(Set<SubmissionCriteria> criteria) {
 		this.criteria = criteria;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 	
 	

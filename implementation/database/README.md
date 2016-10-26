@@ -50,7 +50,8 @@ Each exercise has a collection of submissions.
 > *progress*: Percentage value: (corrected submissions) * [100 / (total submissions)];<br>
 > *nsubmissions*: Total number of submissions;<br>
 > *weight*: Percentage value representing the weight of this quention on final grading;<br>
-> *command*: Command line value to run, if exercise demands it;<br>
+> *commandbuild*: Command line value to run to build the submission code;<br>
+> *commandrun*: Command line value to run, to execute submission code, if builds;<br>
 > *path*: Directory path to the library files (files needed to try to compile submissions).<br>
 
 
@@ -69,6 +70,7 @@ This table will store information about the exams.
 > *status*: Qualifies if its open, closed, etc;<br>
 > *progress*: Percentage value: (corrected questions) * [100 / (total questions)];<br>
 > *nquestions*: Total number os questions for the exam;<br>
+> *language*: Programming language;<br>
 > other attributes are for controlling purposes.
 
 
@@ -107,6 +109,7 @@ This table will store specific information about the student's submissions.
 > *status*: Submitted, open, etc.<br>
 > *grade*: Total grade calculated according to the criteria;<br>
 > *path*: Directory path to the file of the submission.<br>
+> *output*: Output of program, if bulds and runs.<br>
 
 
 #### Student

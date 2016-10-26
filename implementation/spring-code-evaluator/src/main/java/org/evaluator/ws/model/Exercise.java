@@ -87,6 +87,27 @@ public class Exercise {
 	private int nsubmissions = 0;
 	
 	/**
+	 * Number of submissions of the exercise
+	 */
+	@NotNull
+	private int weight;
+	
+	/**
+	 * Command line command to build submissions
+	 */
+	private String commandbuild;
+	
+	/**
+	 * Command line command to run submissions
+	 */
+	private String commandrun;
+	
+	/**
+	 * Path to libraries directory
+	 */
+	private String path;
+	
+	/**
 	 * Different Criteria for this exercise
 	 */
 	@OneToMany(
@@ -166,6 +187,38 @@ public class Exercise {
 
 	public void setCriteria(Set<ExerciseCriteria> criteria) {
 		this.criteria = criteria;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public String getCommandbuild() {
+		return commandbuild;
+	}
+
+	public void setCommandbuild(String commandbuild) {
+		this.commandbuild = commandbuild;
+	}
+
+	public String getCommandrun() {
+		return commandrun;
+	}
+
+	public void setCommandrun(String commandrun) {
+		this.commandrun = commandrun;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}	
 	
 	
