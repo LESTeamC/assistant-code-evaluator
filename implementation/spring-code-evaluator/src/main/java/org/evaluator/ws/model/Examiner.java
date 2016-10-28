@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -56,7 +58,7 @@ public class Examiner {
 	@OneToMany(
 			fetch = FetchType.LAZY,
 			mappedBy ="examiner")
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<Exercise> exercises;
 
 	public Long getId() {
