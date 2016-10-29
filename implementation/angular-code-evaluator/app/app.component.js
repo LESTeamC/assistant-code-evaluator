@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './components/album.component', './components/albums.component', './components/contact.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './components/album.component', './components/albums.component', './components/contact.component', './components/login.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './components/album.compone
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, album_component_1, albums_component_1, contact_component_1;
+    var core_1, router_1, album_component_1, albums_component_1, contact_component_1, login_component_1;
     var AppComponent;
     return {
         setters:[
@@ -28,10 +28,15 @@ System.register(['angular2/core', 'angular2/router', './components/album.compone
             },
             function (contact_component_1_1) {
                 contact_component_1 = contact_component_1_1;
+            },
+            function (login_component_1_1) {
+                login_component_1 = login_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(_router) {
+                    this._router = _router;
+                    this._router.navigate(['Login']);
                 }
                 AppComponent = __decorate([
                     router_1.RouteConfig([
@@ -48,6 +53,10 @@ System.register(['angular2/core', 'angular2/router', './components/album.compone
                             name: 'Album',
                             component: album_component_1.AlbumComponent
                         },
+                        { path: '/login',
+                            name: 'Login',
+                            component: login_component_1.LoginComponent
+                        },
                         { path: '/*other',
                             name: 'Other',
                             redirectTo: ['Albums']
@@ -58,7 +67,7 @@ System.register(['angular2/core', 'angular2/router', './components/album.compone
                         templateUrl: '/app/templates/app.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router])
                 ], AppComponent);
                 return AppComponent;
             }());

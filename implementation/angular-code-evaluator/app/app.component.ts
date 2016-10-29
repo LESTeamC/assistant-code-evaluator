@@ -1,9 +1,10 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {AlbumComponent} from './components/album.component';
 import {AlbumsComponent} from './components/albums.component';
 import {ContactComponent} from './components/contact.component';
+import {LoginComponent} from './components/login.component';
 
 
 @RouteConfig([
@@ -23,6 +24,11 @@ import {ContactComponent} from './components/contact.component';
     component: AlbumComponent
     },
 
+    { path: '/login',
+    name: 'Login',
+    component: LoginComponent
+    },
+
     { path: '/*other',
     name: 'Other',
     redirectTo: ['Albums']
@@ -34,4 +40,9 @@ import {ContactComponent} from './components/contact.component';
     directives: [ROUTER_DIRECTIVES]
 })
 export class AppComponent {
+
+    constructor(private _router:Router){
+        this._router.navigate(['Login']);
+    }
+    
 }
