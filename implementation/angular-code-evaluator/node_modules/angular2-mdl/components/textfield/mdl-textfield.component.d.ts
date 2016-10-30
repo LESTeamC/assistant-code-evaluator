@@ -1,0 +1,51 @@
+import { Renderer, ElementRef, OnChanges, DoCheck, OpaqueToken, ModuleWithProviders } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
+export declare const DISABLE_NATIVE_VALIDITY_CHECKING: OpaqueToken;
+export declare class MdlTextFieldComponent implements ControlValueAccessor, OnChanges, DoCheck {
+    private renderer;
+    private elmRef;
+    private nativeCheckGlobalDisabled;
+    private value_;
+    private el;
+    private blurEmitter;
+    private focusEmitter;
+    private inputEl;
+    value: any;
+    type: any;
+    label: any;
+    pattern: any;
+    min: any;
+    max: any;
+    name: any;
+    id: string;
+    errorMessage: any;
+    disabled: boolean;
+    required: boolean;
+    autofocus: boolean;
+    isFloatingLabel: boolean;
+    placeholder: string;
+    autocomplete: string;
+    rows: number;
+    maxrows: number;
+    icon: string;
+    disableNativeValidityChecking: any;
+    constructor(renderer: Renderer, elmRef: ElementRef, nativeCheckGlobalDisabled: Boolean);
+    writeValue(value: any): void;
+    private onTouchedCallback;
+    private onChangeCallback;
+    registerOnChange(fn: any): void;
+    registerOnTouched(fn: any): void;
+    setDisabledState(isDisabled: boolean): void;
+    ngOnChanges(): void;
+    ngDoCheck(): void;
+    setFocus(): void;
+    protected onFocus(event: FocusEvent): void;
+    protected onBlur(event: FocusEvent): void;
+    private checkDisabled();
+    private checkValidity();
+    private checkDirty();
+    keydownTextarea($event: KeyboardEvent): void;
+}
+export declare class MdlTextFieldModule {
+    static forRoot(): ModuleWithProviders;
+}
