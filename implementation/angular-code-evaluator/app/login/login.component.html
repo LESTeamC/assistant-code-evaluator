@@ -1,0 +1,43 @@
+  <div class="main-container blue-container">
+    <div class="container">
+      <div class="info">
+        <h1 style="font-family: 'Quattrocento Sans', sans-serif;"></h1>
+      </div>
+    </div>
+    <div class="form">
+      <img src="images/ACE_Logo.png"/>
+      <h3>ASSISTANT CODE EVALUATOR</h3>
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <input       
+              type="text" 
+              placeholder="username"
+              [(ngModel)]="login.username" name="username"
+              #name="ngModel"
+              required/>
+        <input 
+              type="password" 
+              placeholder="password"
+              [(ngModel)]="login.password" name="password"
+              #name="ngModel"
+              required/>
+        <button class="btn login-btn" type="submit" [disabled]="!loginForm.valid">login</button>
+        
+
+    <!--    <button class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">code</i>
+        </button>-->
+      </form>
+    </div>
+    <div class="footer navbar-fixed-bottom">
+
+      <div class="row">
+        <div class="col-xs-4 down"><p>Made with &#10084; in FEUP</p></div>
+        <div class="col-xs-4"><a href="https://github.com/LESTeamC/assistant-code-evaluator"><i class="fa fa-github" aria-hidden="true"></i></a></div>
+        <div class="col-xs-4 down"><a routerLink="/loginadmin" class="btn btn-sm"><span class="glyphicon glyphicon-lock"></span> Admin Zone</a></div>
+      </div>
+      
+        
+    <div>
+  </div>
+
+

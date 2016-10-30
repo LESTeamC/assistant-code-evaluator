@@ -1,0 +1,143 @@
+/* Form */
+
+.main-container {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  overflow: scroll ;
+  bottom: 0;
+  position: absolute;
+  text-align: center;
+
+}
+
+.red-container{
+  background-color: #96858F;
+}
+
+.blue-container{
+  background-color: #9099A2;
+}
+
+
+.footer {
+    position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+    background-color: #d5d5d5;
+}
+
+.footer .col-xs-4{
+  text-align: center;
+}
+
+.footer .down{
+  padding-top: 25px;
+}
+
+.footer .fa-github{
+  padding-top: 10px;
+   font-size: 50px;
+}
+
+
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 30px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  text-align: center;
+}
+.form .thumbnail {
+  background: #6d7993;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 30px;
+  padding: 50px 30px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  box-sizing: border-box;
+}
+.form img {
+  display: block;
+  height: 120px;
+  margin: 30px auto;
+}
+
+h3{
+  font-size: 20px;
+  font-family: 'Vollkorn', serif;
+}
+
+.form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form .login-btn {
+  outline: 0;
+  background: #6d7993;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form .register-form {
+  display: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 0px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+
+a{
+  color: black;
+}
