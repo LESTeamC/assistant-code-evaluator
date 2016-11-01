@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 @Component({	
     selector: 'admin',	
 	template: `<h1>DASHBOARD</h1>
-    <button routerLink="/examiner/workstation"></button>`,
+    <button class="btn" routerLink="/examiner/workstation"></button>`,
 })
 export	class	DashboardComponent implements OnInit	{
 

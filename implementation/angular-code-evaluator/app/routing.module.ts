@@ -11,7 +11,7 @@ import { LoginAdminComponent } from './login/login-admin.component';
     RouterModule.forRoot([
       { path: '', component: AppComponent, data: {title:''}},
       { path: 'login', component: LoginComponent, data: {title:'Login'}},
-      { path: 'loginadmin', component: LoginAdminComponent, data: {title:'Login'}},
+      { path: 'loginadmin', component: LoginAdminComponent, data: {title:'LoginAdmin'}},
       { path: 'admin', 
         loadChildren: 'app/admin/admin.module#AdminModule',
        },

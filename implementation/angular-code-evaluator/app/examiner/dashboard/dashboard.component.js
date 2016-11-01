@@ -21,7 +21,7 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'admin',
-            template: "<h1>DASHBOARD</h1>\n    <button routerLink=\"/examiner/workstation\"></button>",
+            template: "<h1>DASHBOARD</h1>\n    <button class=\"btn\" routerLink=\"/examiner/workstation\"></button>",
         }), 
         __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], DashboardComponent);

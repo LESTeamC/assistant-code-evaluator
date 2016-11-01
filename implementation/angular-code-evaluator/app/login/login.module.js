@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
+var routing_module_1 = require('./../routing.module');
 var login_admin_component_1 = require('./login-admin.component');
 var login_component_1 = require('./login.component');
 var LoginModule = (function () {
@@ -25,6 +26,7 @@ var LoginModule = (function () {
             imports: [
                 common_1.CommonModule,
                 forms_1.FormsModule,
+                routing_module_1.RoutingModule,
             ],
         }), 
         __metadata('design:paramtypes', [])

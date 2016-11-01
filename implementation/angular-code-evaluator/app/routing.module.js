@@ -22,7 +22,7 @@ var RoutingModule = (function () {
                 router_1.RouterModule.forRoot([
                     { path: '', component: app_component_1.AppComponent, data: { title: '' } },
                     { path: 'login', component: login_component_1.LoginComponent, data: { title: 'Login' } },
-                    { path: 'loginadmin', component: login_admin_component_1.LoginAdminComponent, data: { title: 'Login' } },
+                    { path: 'loginadmin', component: login_admin_component_1.LoginAdminComponent, data: { title: 'LoginAdmin' } },
                     { path: 'admin',
                         loadChildren: 'app/admin/admin.module#AdminModule',
                     },
