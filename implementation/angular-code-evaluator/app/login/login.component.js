@@ -11,14 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var credentials_1 = require('./../model/credentials');
+var login_service_1 = require('./login.service');
 var auth_service_1 = require('./../shared/auth.service');
 var LoginComponent = (function () {
-    function LoginComponent(_router, _authService) {
+    function LoginComponent(_router, _authService, loginService) {
         this._router = _router;
         this._authService = _authService;
+        this.loginService = loginService;
         this.login = new credentials_1.Credentials('', '');
     }
     LoginComponent.prototype.onSubmit = function () {
+        var _this = this;
+        this.loginService.login(this.login.username)
+            .subscribe(function (data) { return _this.whatever = data; });
+        console.log(this.whatever);
         this._authService.setCredentials(this.login);
         this._router.navigate(['/examiner/dashboard']);
     };
@@ -28,7 +34,7 @@ var LoginComponent = (function () {
             templateUrl: '/app/login/login.component.html',
             styleUrls: ['app/login/login.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, login_service_1.LoginService])
     ], LoginComponent);
     return LoginComponent;
 }());

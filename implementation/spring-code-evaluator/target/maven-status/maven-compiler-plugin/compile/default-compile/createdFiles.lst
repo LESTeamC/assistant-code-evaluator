@@ -16,6 +16,8 @@ org/evaluator/ws/repository/SubmissionRepository.class
 org/evaluator/ws/security/AccountAuthenticationProvider.class
 org/evaluator/ws/model/Submission.class
 org/evaluator/ws/security/AccountUserDetailsService.class
+org/evaluator/ws/web/api/LoginController.class
+org/evaluator/ws/web/filter/SimpleCorsFilter.class
 org/evaluator/Application.class
 org/evaluator/ws/util/RequestContext.class
 org/evaluator/ws/repository/AccountRepository.class

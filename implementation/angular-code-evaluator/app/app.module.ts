@@ -13,7 +13,11 @@ import {RoutingModule} from './routing.module';
 import { AppComponent }   from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LoginAdminComponent } from './login/login-admin.component';
+
 import { AuthService } from './shared/auth.service';
+import { LoginService } from './login/login.service';
+
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -24,13 +28,17 @@ import { AuthService } from './shared/auth.service';
     Ng2BootstrapModule,
     AdminModule,
     LoginModule,
-    ExaminerModule
+    ExaminerModule,
+    HttpModule,
 
   ],
   declarations: [
     AppComponent,
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    LoginService
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

@@ -18,6 +18,8 @@ var login_module_1 = require('./login/login.module');
 var routing_module_1 = require('./routing.module');
 var app_component_1 = require('./app.component');
 var auth_service_1 = require('./shared/auth.service');
+var login_service_1 = require('./login/login.service');
+var http_1 = require('@angular/http');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,12 +32,16 @@ var AppModule = (function () {
                 ng2_bootstrap_1.Ng2BootstrapModule,
                 admin_module_1.AdminModule,
                 login_module_1.LoginModule,
-                examiner_module_1.ExaminerModule
+                examiner_module_1.ExaminerModule,
+                http_1.HttpModule,
             ],
             declarations: [
                 app_component_1.AppComponent,
             ],
-            providers: [auth_service_1.AuthService],
+            providers: [
+                auth_service_1.AuthService,
+                login_service_1.LoginService
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
