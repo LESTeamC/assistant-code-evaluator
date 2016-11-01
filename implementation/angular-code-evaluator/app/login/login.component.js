@@ -11,22 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var credentials_1 = require('./../model/credentials');
+var auth_service_1 = require('./../shared/auth.service');
 var LoginComponent = (function () {
-    function LoginComponent(_router) {
+    function LoginComponent(_router, _authService) {
         this._router = _router;
+        this._authService = _authService;
         this.login = new credentials_1.Credentials('', '');
     }
     LoginComponent.prototype.onSubmit = function () {
-        console.log(this.login);
+        this._authService.setCredentials(this.login);
         this._router.navigate(['/examiner/dashboard']);
     };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'login',
             templateUrl: '/app/login/login.component.html',
-            styleUrls: ['app/login/login.component.css']
+            styleUrls: ['app/login/login.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
     ], LoginComponent);
     return LoginComponent;
 }());

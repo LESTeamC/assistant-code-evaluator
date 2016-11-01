@@ -26,7 +26,6 @@ var LoginModule = (function () {
                 common_1.CommonModule,
                 forms_1.FormsModule,
             ],
-            providers: []
         }), 
         __metadata('design:paramtypes', [])
     ], LoginModule);

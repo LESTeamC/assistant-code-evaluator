@@ -9,20 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+var auth_service_1 = require('./../../shared/auth.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(_router) {
-        this._router = _router;
+    function DashboardComponent(authService) {
+        this.authService = authService;
     }
     DashboardComponent.prototype.ngOnInit = function () {
-        console.log("DASHBOARD");
+        this.header = this.authService.credentials;
+        console.log(this.header);
     };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'admin',
             template: "<h1>DASHBOARD</h1>\n    <button routerLink=\"/examiner/workstation\"></button>",
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

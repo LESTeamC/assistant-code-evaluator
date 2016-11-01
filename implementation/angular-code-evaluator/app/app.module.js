@@ -13,10 +13,11 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var admin_module_1 = require('./admin/admin.module');
+var examiner_module_1 = require('./examiner/examiner.module');
+var login_module_1 = require('./login/login.module');
 var routing_module_1 = require('./routing.module');
 var app_component_1 = require('./app.component');
-var login_component_1 = require('./login/login.component');
-var login_admin_component_1 = require('./login/login-admin.component');
+var auth_service_1 = require('./shared/auth.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28,12 +29,13 @@ var AppModule = (function () {
                 routing_module_1.RoutingModule,
                 ng2_bootstrap_1.Ng2BootstrapModule,
                 admin_module_1.AdminModule,
+                login_module_1.LoginModule,
+                examiner_module_1.ExaminerModule
             ],
             declarations: [
                 app_component_1.AppComponent,
-                login_component_1.LoginComponent,
-                login_admin_component_1.LoginAdminComponent,
             ],
+            providers: [auth_service_1.AuthService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

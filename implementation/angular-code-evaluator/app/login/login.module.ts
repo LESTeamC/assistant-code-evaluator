@@ -5,6 +5,8 @@ import { FormsModule }    from '@angular/forms';
 import { LoginAdminComponent }    from './login-admin.component';
 import { LoginComponent }    from './login.component';
 
+import { AuthService }    from './../shared/auth.service';
+
 
 @NgModule({
 declarations: [
@@ -15,7 +17,6 @@ declarations: [
     CommonModule,
     FormsModule,
   ],
-  providers: [
-  ]
+
 })
 export class LoginModule {}

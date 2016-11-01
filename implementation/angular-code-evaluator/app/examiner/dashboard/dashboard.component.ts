@@ -1,5 +1,9 @@
 import {Component, OnInit}	from '@angular/core';
 import {Router} from '@angular/router';
+import { AuthService }    from './../../shared/auth.service';
+import {Credentials} from './../../model/credentials';
+import {Observable} from 'rxjs/Observable';
+
 
 @Component({	
     selector: 'admin',	
@@ -8,9 +12,14 @@ import {Router} from '@angular/router';
 })
 export	class	DashboardComponent implements OnInit	{
 
-    constructor(private _router:Router){}
+    private header:string;
+
+    constructor(private authService:AuthService){
+       
+    }
 
     ngOnInit(){
-        console.log("DASHBOARD");
+        this.header = this.authService.credentials;
+        console.log(this.header);
     }
 }	
