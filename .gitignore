@@ -16,3 +16,30 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+implementation/angular-code-evaluator/npm-debug.log
+implementation/angular-code-evaluator/node_modules/.bin/browser-sync
+implementation/angular-code-evaluator/package.json
+
+.idea
+node_modules
+jspm_packages
+link-checker-results.txt
+**/*npm-debug.log.*
+*.js
+*.js.map
+e2e/**/*.js
+e2e/**/*.js.map
+_test-output
+_temp
+
+!karma*.js
+!protractor*.js
+!systemjs.config.js
+!wallaby.js
+implementation/angular-code-evaluator/node_modules/lite-server/package.json
+implementation/angular-code-evaluator/node_modules/lite-server/lib/lite-server.js
+implementation/angular-code-evaluator/node_modules/lite-server/test/lite-server.spec.js
+implementation/angular-code-evaluator/package.json
+implementation/angular-code-evaluator/node_modules/.bin/dev-ip
+implementation/angular-code-evaluator/node_modules/.bin/ecstatic
+implementation/angular-code-evaluator/node_modules/fsevents/node_modules/.bin/har-validator
