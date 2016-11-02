@@ -19,14 +19,30 @@ var LoginComponent = (function () {
         this._authService = _authService;
         this.loginService = loginService;
         this.login = new credentials_1.Credentials('', '');
+        this.errorMessage = "";
     }
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
-        this.loginService.login(this.login.username)
-            .subscribe(function (data) { return _this.whatever = data; });
-        console.log(this.whatever);
+        this.loginService.login(this.login.username, this.login.password)
+            .subscribe(function (data) { return _this.loginSuccess(data); }, function (error) { return _this.loginFail(error); });
+        this.login.password = "";
+        this.login.username = "";
+    };
+    LoginComponent.prototype.loginSuccess = function (data) {
         this._authService.setCredentials(this.login);
+        this.errorMessage = "";
         this._router.navigate(['/examiner/dashboard']);
+    };
+    LoginComponent.prototype.loginFail = function (error) {
+        if (error.status === 401) {
+            this.errorMessage = "Invalid Credentials.";
+        }
+        else if (error.status === 403) {
+            this.errorMessage = "You don't have permission to access this feature.";
+        }
+        else {
+            this.errorMessage = "Could not connect to server. Try again later.";
+        }
     };
     LoginComponent = __decorate([
         core_1.Component({

@@ -35,5 +35,17 @@ public class LoginController extends BaseController {
 		Account account = accountService.findByUsername(username);
 		return new ResponseEntity<Account>(account, HttpStatus.ACCEPTED);
 	}
+	
+	@RequestMapping(
+			value = "/admin/login",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Account> getAdminAccount(@RequestParam(value="username") String username){
+		
+		logger.info("> getAdminAccount");
+		
+		Account account = accountService.findByUsername(username);
+		return new ResponseEntity<Account>(account, HttpStatus.ACCEPTED);
+	}
 
 }

@@ -20,6 +20,8 @@
               [(ngModel)]="login.password" name="password"
               #name="ngModel"
               required/>
+       
+        <span class="error-message" *ngIf=loginForm.submitted>{{errorMessage}}</span>
         <button class="btn login-btn" type="submit" [disabled]="!loginForm.valid">login</button>
         
 

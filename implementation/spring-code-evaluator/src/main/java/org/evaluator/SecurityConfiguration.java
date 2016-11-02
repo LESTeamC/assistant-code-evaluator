@@ -81,7 +81,43 @@ public class SecurityConfiguration {
               .antMatcher("/api/**")
                 .authorizeRequests()
                   .anyRequest().hasRole("USER")
-                  
+                  .anyRequest().hasRole("SYSADMIN")
+              .and()
+              .httpBasic()
+              .and()
+              .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              .and()
+              .csrf()
+                .disable();
+            
+            // @formatter:on
+
+        }
+
+    }
+    
+    
+    /**
+     * This inner class configures a WebSecurityConfigurerAdapter instance for
+     * the Spring Actuator web service context paths.
+     * 
+     * @author Manuel Zamith
+     */
+    @Configuration
+    @Order(2)
+    public static class AdminApiWebSecurityConfigurerAdapter
+            extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+
+            // @formatter:off
+            
+            http
+              .antMatcher("/admin/**")
+                .authorizeRequests()
+                  .anyRequest().hasRole("SYSADMIN")
               .and()
               .httpBasic()
               .and()
@@ -104,7 +140,7 @@ public class SecurityConfiguration {
      * @author Manuel Zamith
      */
     @Configuration
-    @Order(2)
+    @Order(3)
     public static class ActuatorWebSecurityConfigurerAdapter
             extends WebSecurityConfigurerAdapter {
 

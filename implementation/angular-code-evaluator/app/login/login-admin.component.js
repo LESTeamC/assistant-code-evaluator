@@ -11,14 +11,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var credentials_1 = require('./../model/credentials');
+var login_service_1 = require('./login.service');
+var auth_service_1 = require('./../shared/auth.service');
 var LoginAdminComponent = (function () {
-    function LoginAdminComponent(_router) {
+    function LoginAdminComponent(_router, _authService, loginService) {
         this._router = _router;
+        this._authService = _authService;
+        this.loginService = loginService;
         this.login = new credentials_1.Credentials('', '');
+        this.errorMessage = "";
     }
     LoginAdminComponent.prototype.onSubmit = function () {
-        console.log(this.login);
+        var _this = this;
+        this.loginService.loginAdmin(this.login.username, this.login.password)
+            .subscribe(function (data) { return _this.loginSuccess(data); }, function (error) { return _this.loginFail(error); });
+        this.login.password = "";
+        this.login.username = "";
+    };
+    LoginAdminComponent.prototype.loginSuccess = function (data) {
+        this._authService.setCredentials(this.login);
+        this.errorMessage = "";
         this._router.navigate(['/admin/view-exams']);
+    };
+    LoginAdminComponent.prototype.loginFail = function (error) {
+        if (error.status === 401) {
+            this.errorMessage = "Invalid Credentials.";
+        }
+        else if (error.status === 403) {
+            this.errorMessage = "You don't have permission to access this feature.";
+        }
+        else {
+            this.errorMessage = "Could not connect to server. Try again later.";
+        }
     };
     LoginAdminComponent = __decorate([
         core_1.Component({
@@ -26,7 +50,7 @@ var LoginAdminComponent = (function () {
             templateUrl: '/app/login/login-admin.component.html',
             styleUrls: ['app/login/login.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, login_service_1.LoginService])
     ], LoginAdminComponent);
     return LoginAdminComponent;
 }());
