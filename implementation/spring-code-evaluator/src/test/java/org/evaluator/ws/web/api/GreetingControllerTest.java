@@ -3,6 +3,7 @@ package org.evaluator.ws.web.api;
 import org.evaluator.ws.AbstractControllerTest;
 import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.service.GreetingService;
+import org.evaluator.ws.util.RequestContext;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class GreetingControllerTest extends AbstractControllerTest {
     @Before
     public void setUp() {
         super.setUp();
+    	RequestContext.setUsername("user");
         
     }
 
