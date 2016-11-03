@@ -1,6 +1,5 @@
 package org.evaluator.ws.web.api;
 
-import org.springframework.web.bind.annotation.*;
 import org.evaluator.ws.model.Account;
 import org.evaluator.ws.service.AccountService;
 import org.slf4j.Logger;

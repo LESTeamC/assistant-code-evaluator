@@ -33,7 +33,6 @@ public class GreetingControllerTest extends AbstractControllerTest {
     public void setUp() {
         super.setUp();
     	RequestContext.setUsername("user");
-        
     }
 
     @Test

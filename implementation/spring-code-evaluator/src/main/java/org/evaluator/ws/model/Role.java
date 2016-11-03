@@ -17,5 +17,6 @@ public class Role extends ReferenceEntity {
     public Role() {
 
     }
+    
 
 }
