@@ -30,6 +30,7 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.loginSuccess = function (data) {
         this._authService.setCredentials(this.login);
+        this._authService.login("examiner");
         this.errorMessage = "";
         this._router.navigate(['/examiner/dashboard']);
     };

@@ -16,6 +16,7 @@ import { LoginAdminComponent } from './login/login-admin.component';
 
 import { AuthService } from './shared/auth.service';
 import { LoginService } from './login/login.service';
+import { AuthGuard } from './shared/auth-guard.service'
 
 import { HttpModule } from '@angular/http';
 
@@ -37,6 +38,7 @@ import { HttpModule } from '@angular/http';
   ],
   providers: [
     AuthService,
+    AuthGuard,
     LoginService
   ],
   bootstrap: [ AppComponent ]

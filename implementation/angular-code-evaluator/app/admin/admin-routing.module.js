@@ -17,6 +17,7 @@ var delegate_component_1 = require('./delegate/delegate.component');
 var global_view_component_1 = require('./global-view/global-view.component');
 var view_exams_component_1 = require('./view-exams/view-exams.component');
 var view_examiners_component_1 = require('./view-examiners/view-examiners.component');
+var auth_guard_service_1 = require('./../shared/auth-guard.service');
 var AdminRoutingModule = (function () {
     function AdminRoutingModule() {
     }
@@ -27,6 +28,7 @@ var AdminRoutingModule = (function () {
                     {
                         path: '',
                         component: admin_component_1.AdminComponent,
+                        canActivateChild: [auth_guard_service_1.AuthGuard],
                         children: [
                             {
                                 path: 'view-exams',

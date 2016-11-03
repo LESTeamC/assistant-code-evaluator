@@ -13,6 +13,7 @@ var router_1 = require('@angular/router');
 var examiner_component_1 = require('./examiner.component');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
 var workstation_component_1 = require('./workstation/workstation.component');
+var auth_guard_service_1 = require('./../shared/auth-guard.service');
 var ExaminerRoutingModule = (function () {
     function ExaminerRoutingModule() {
     }
@@ -23,6 +24,7 @@ var ExaminerRoutingModule = (function () {
                     {
                         path: '',
                         component: examiner_component_1.ExaminerComponent,
+                        canActivateChild: [auth_guard_service_1.AuthGuard],
                         children: [
                             {
                                 path: 'workstation',

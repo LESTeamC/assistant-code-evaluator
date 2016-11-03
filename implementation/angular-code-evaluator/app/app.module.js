@@ -19,6 +19,7 @@ var routing_module_1 = require('./routing.module');
 var app_component_1 = require('./app.component');
 var auth_service_1 = require('./shared/auth.service');
 var login_service_1 = require('./login/login.service');
+var auth_guard_service_1 = require('./shared/auth-guard.service');
 var http_1 = require('@angular/http');
 var AppModule = (function () {
     function AppModule() {
@@ -40,6 +41,7 @@ var AppModule = (function () {
             ],
             providers: [
                 auth_service_1.AuthService,
+                auth_guard_service_1.AuthGuard,
                 login_service_1.LoginService
             ],
             bootstrap: [app_component_1.AppComponent]

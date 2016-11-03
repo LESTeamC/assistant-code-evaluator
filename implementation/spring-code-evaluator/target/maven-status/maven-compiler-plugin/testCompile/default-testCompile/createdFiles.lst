@@ -1,5 +1,6 @@
 org/evaluator/ws/AbstractControllerTest.class
 org/evaluator/ws/AbstractTest.class
+org/evaluator/ws/web/api/LoginControllerTest.class
 org/evaluator/ws/repository/SubmissionRepositoryTests.class
 org/evaluator/ws/repository/AccountRepositoryTests.class
 org/evaluator/ws/AppTest.class

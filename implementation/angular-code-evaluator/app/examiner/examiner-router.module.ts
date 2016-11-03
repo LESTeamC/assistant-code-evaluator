@@ -6,6 +6,8 @@ import { ExaminerComponent } from './examiner.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WorkstationComponent }       from './workstation/workstation.component';
 
+import {AuthGuard} from './../shared/auth-guard.service'
+
 
 @NgModule({
   imports: [
@@ -13,6 +15,7 @@ import { WorkstationComponent }       from './workstation/workstation.component'
     {
         path: '',
         component: ExaminerComponent,
+        canActivateChild: [AuthGuard],
         children: [
             {
                 path: 'workstation',

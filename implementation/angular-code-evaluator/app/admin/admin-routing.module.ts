@@ -9,6 +9,7 @@ import { DelegateComponent }     from './delegate/delegate.component';
 import { GlobalViewComponent }     from './global-view/global-view.component';
 import { ViewExamsComponent }     from './view-exams/view-exams.component';
 import { ViewExaminersComponent }     from './view-examiners/view-examiners.component';
+import { AuthGuard } from './../shared/auth-guard.service'
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ViewExaminersComponent }     from './view-examiners/view-examiners.comp
       {
         path: '',
         component: AdminComponent,
+        canActivateChild: [AuthGuard],
         children: [
           {
             path: 'view-exams',

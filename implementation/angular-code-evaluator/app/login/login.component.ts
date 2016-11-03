@@ -33,6 +33,7 @@ export class LoginComponent {
 
     loginSuccess(data: any) {
         this._authService.setCredentials(this.login);
+        this._authService.login("examiner");
         this.errorMessage = "";
         this._router.navigate(['/examiner/dashboard']);
     }

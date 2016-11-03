@@ -9,9 +9,30 @@ import {Credentials} from './../model/credentials';
 @Injectable()
 export class AuthService {
 
+    private loggedIn: boolean = false;
+    private loginType: string;
     private _header: string;
 
     constructor(){}
+
+    get logInType(){
+        return this.loginType;
+    }
+
+    get isLoggedIn(): boolean {
+        return this.loggedIn;
+    }
+
+    login(loginType:string){
+        this.loggedIn = true;
+        this.loginType = loginType;
+    }
+
+    logout(){
+        this.loggedIn = false;
+        this.loginType = undefined;
+        this._header = undefined;
+    }
 
     get credentials():string {
         return this._header;
@@ -21,8 +42,8 @@ export class AuthService {
         this._header = this.makeHeader(login);
     }
 
-    remove(){
-        this._header = "";
+    removeCredentials(){
+        this._header = undefined;
     }
 
     private makeHeader(login: Credentials): string{

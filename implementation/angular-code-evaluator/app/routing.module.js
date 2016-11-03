@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var auth_guard_service_1 = require('./shared/auth-guard.service');
 var app_component_1 = require('./app.component');
 var login_component_1 = require('./login/login.component');
 var login_admin_component_1 = require('./login/login-admin.component');
@@ -20,16 +21,34 @@ var RoutingModule = (function () {
         core_1.NgModule({
             imports: [
                 router_1.RouterModule.forRoot([
-                    { path: '', component: app_component_1.AppComponent, data: { title: '' } },
-                    { path: 'login', component: login_component_1.LoginComponent, data: { title: 'Login' } },
-                    { path: 'loginadmin', component: login_admin_component_1.LoginAdminComponent, data: { title: 'LoginAdmin' } },
-                    { path: 'admin',
+                    {
+                        path: '',
+                        component: app_component_1.AppComponent,
+                        data: { title: '' }
+                    },
+                    {
+                        path: 'login',
+                        component: login_component_1.LoginComponent,
+                        data: { title: 'Login' }
+                    },
+                    {
+                        path: 'loginadmin',
+                        component: login_admin_component_1.LoginAdminComponent,
+                        data: { title: 'LoginAdmin' }
+                    },
+                    {
+                        path: 'admin',
+                        canActivate: [auth_guard_service_1.AuthGuard],
                         loadChildren: 'app/admin/admin.module#AdminModule',
                     },
-                    { path: 'examiner',
+                    {
+                        path: 'examiner',
+                        canActivate: [auth_guard_service_1.AuthGuard],
                         loadChildren: 'app/examiner/examiner.module#ExaminerModule',
                     },
-                    { path: '**', component: login_component_1.LoginComponent }
+                    {
+                        path: '**',
+                        component: login_component_1.LoginComponent }
                 ])
             ],
             exports: [
