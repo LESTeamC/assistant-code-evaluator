@@ -80,8 +80,7 @@ public class SecurityConfiguration {
             http
               .antMatcher("/api/**")
                 .authorizeRequests()
-                  .anyRequest().hasRole("USER")
-                  .anyRequest().hasRole("SYSADMIN")
+                  .anyRequest().hasAnyRole("USER", "SYSADMIN")
               .and()
               .httpBasic()
               .and()

@@ -19,8 +19,9 @@ var CreateExamsComponent = (function () {
     };
     CreateExamsComponent = __decorate([
         core_1.Component({
-            selector: 'admin',
-            template: "<h1>CREATE EXAMs</h1>",
+            selector: 'create-exam',
+            templateUrl: 'app/admin/create-exams/create-exams.component.html',
+            styleUrls: ['app/admin/create-exams/create-exams.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], CreateExamsComponent);

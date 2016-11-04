@@ -1,0 +1,11 @@
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group span {
+    min-width: 125px;
+} 
+
+.input-group select{
+    border-radius: 0px !important;
+}

@@ -2,8 +2,9 @@ import {Component, OnInit}	from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({	
-    selector: 'admin',	
-	template: `<h1>CREATE EXAMs</h1>`,
+    selector: 'create-exam',	
+	templateUrl: 'app/admin/create-exams/create-exams.component.html',
+    styleUrls: ['app/admin/create-exams/create-exams.component.css']
 })
 export	class	CreateExamsComponent implements OnInit	{
 
