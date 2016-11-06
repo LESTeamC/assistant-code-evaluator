@@ -21,7 +21,7 @@ var AdminComponent = (function () {
         core_1.Component({
             selector: 'admin',
             templateUrl: '/app/admin/admin.component.html',
-            styleUrls: ['app/admin/simple-sidebar.css']
+            styleUrls: ['app/admin/admin.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], AdminComponent);

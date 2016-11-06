@@ -1,16 +1,17 @@
 package org.evaluator.ws.web.api;
 
-import java.util.Collection;
-
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.service.ExamService;
+import org.hibernate.JDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,46 @@ public class ExamController extends BaseController {
 
         logger.info("< getGreeting id:{}", id);
         return new ResponseEntity<Exam>(exam, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
+            value = "/admin/exam",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Exam> createExam(
+            @RequestBody Exam exam) {
+        logger.info("> createExam");
+        
+        try{
+        	Exam savedExam = examService.create(exam);
+        	logger.info("< createExam");
+        	
+            return new ResponseEntity<Exam>(savedExam, HttpStatus.CREATED);
+            
+        }catch(DataIntegrityViolationException SQLe){
+        	
+        	//Check for duplicate Key in Request (duplicate name)
+        	
+        	//From mySQL Docs:
+        	//Error: 1022 SQLSTATE: 23000 (ER_DUP_KEY)
+        	//Message: Can't write; duplicate key in table '%s'
+        	        	
+        	if (SQLe.getCause() instanceof JDBCException){
+        	
+	            if (((JDBCException) SQLe.getCause()).getSQLException().getSQLState().equals("23000") ) {
+	        		return new ResponseEntity<Exam>(HttpStatus.CONFLICT);
+	        	}else return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
+        	}else{
+        		return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
+        	}
+        	
+        }catch(Exception e){
+        	return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
+        }
+        
+
+       
     }
 
 }

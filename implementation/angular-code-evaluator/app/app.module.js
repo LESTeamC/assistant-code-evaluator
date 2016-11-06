@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+var ng2_bootstrap_2 = require('ng2-bootstrap/ng2-bootstrap');
 var admin_module_1 = require('./admin/admin.module');
 var examiner_module_1 = require('./examiner/examiner.module');
 var login_module_1 = require('./login/login.module');
@@ -35,6 +36,7 @@ var AppModule = (function () {
                 login_module_1.LoginModule,
                 examiner_module_1.ExaminerModule,
                 http_1.HttpModule,
+                ng2_bootstrap_2.ModalModule
             ],
             declarations: [
                 app_component_1.AppComponent,

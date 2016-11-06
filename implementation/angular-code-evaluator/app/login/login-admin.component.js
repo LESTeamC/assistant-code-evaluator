@@ -25,8 +25,8 @@ var LoginAdminComponent = (function () {
         var _this = this;
         this.loginService.loginAdmin(this.login.username, this.login.password)
             .subscribe(function (data) { return _this.loginSuccess(data); }, function (error) { return _this.loginFail(error); });
-        this.login.password = "";
-        this.login.username = "";
+        //this.login.password = "";
+        //this.login.username = "";
     };
     LoginAdminComponent.prototype.loginSuccess = function (data) {
         this._authService.setCredentials(this.login);

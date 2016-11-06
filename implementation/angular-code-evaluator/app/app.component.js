@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var AppComponent = (function () {
-    function AppComponent(router) {
+    function AppComponent(viewContainerRef, router) {
+        this.viewContainerRef = viewContainerRef;
         this.router = router;
+        this.viewContainerRef = viewContainerRef;
         this.router.navigate(['/login']);
     }
     AppComponent = __decorate([
@@ -20,7 +22,7 @@ var AppComponent = (function () {
             selector: 'my-app',
             template: "\n    <router-outlet></router-outlet>"
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [core_1.ViewContainerRef, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

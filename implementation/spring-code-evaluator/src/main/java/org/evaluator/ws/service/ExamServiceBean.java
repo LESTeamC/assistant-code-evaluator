@@ -1,12 +1,17 @@
 package org.evaluator.ws.service;
 
 import java.util.Collection;
+import java.util.Set;
+
+import javax.persistence.EntityExistsException;
 
 import org.evaluator.ws.model.Exam;
+import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.repository.ExamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +33,12 @@ public class ExamServiceBean implements ExamService {
     @Autowired
     private ExamRepository examRepository;
     
+    /**
+     * The <code>CounterService</code> captures metrics for Spring Actuator.
+     */
+    @Autowired
+    private CounterService counterService;
+    
     
     @Override
     public Exam findById(Long id) {
@@ -45,5 +56,40 @@ public class ExamServiceBean implements ExamService {
 
         logger.info("< findById");
         return exams;
+    }
+    
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            readOnly = false)
+    public Exam create(Exam exam) {
+        logger.info("> createExam");
+
+        counterService.increment("method.invoked.examServiceBean.create");
+
+        // Ensure the entity object to be created does NOT exist in the
+        // repository. Prevent the default behavior of save() which will update
+        // an existing entity if the entity matching the supplied id exists.
+        if (exam.getId() != null) {
+            // Cannot create Exam with specified ID value
+            logger.error(
+                    "Attempted to create a Exam, but id attribute was not null.");
+            throw new EntityExistsException(
+                    "The id attribute must be null to persist a new entity.");
+        }
+        
+        // Calculate number of Questions
+        Set<Exercise> exercisesSet = exam.getExercises();
+        
+        if (exercisesSet != null){
+        	exam.setNquestions(exercisesSet.size());
+        }
+        
+        // Status, progress are set by default values when exam is created;
+
+        Exam savedExam = examRepository.save(exam);
+
+        logger.info("< createExam");
+        return savedExam;
     }
 }

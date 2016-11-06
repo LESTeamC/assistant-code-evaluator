@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 @Component({	
     selector: 'admin',	
 	templateUrl: '/app/admin/admin.component.html',
-    styleUrls: ['app/admin/simple-sidebar.css']
+    styleUrls: ['app/admin/admin.component.css']
 })
 export	class	AdminComponent implements OnInit	{
 

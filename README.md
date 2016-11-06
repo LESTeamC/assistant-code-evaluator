@@ -4,6 +4,35 @@ This system aims to aid professor's task of grading exams on computer science de
 
 Take a look at our Wiki to know more.
 
+#Release Notes
+
+##Release 1.0 (4/11/2016)
+
+http://les16c.fe.up.pt:3000/login
+
+###Delivered User Stories:
+
+1. As an administrator
+I want to login into the system
+So that I can have the available options of the platform
+
+2. As an examiner
+I want to login into the system
+So that I can initiate the code evaluation
+
+###Main Features
+
+1. Two different login pages, with navigation from one page to another;
+2. Login is made using Basic Authorization;
+3. Different error messagens for cases where access is forbidden, unauthorized or just error in connection occured.
+3. Angular AuthGuards prevent from accessing page URLs directly without logging in;
+4. Color pallet, global look and feel for the application, as well as an original logo and favicon.
+5. Global routing for the page, both Administrator (sidebar) and Examiner modules.
+
+###Notes
+
+Credentials for examiner login (username/password) - __user/admin__
+Credentials for admin logn (username/password) - __operations/operations__
 
 ##Technologies:
 
