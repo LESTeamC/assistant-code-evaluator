@@ -10,7 +10,7 @@
     border-radius: 0px !important;
 }
 
-.input-group.error{
+.input-group.error, .form-group.error{
     border: 1px solid red;
 }
 
