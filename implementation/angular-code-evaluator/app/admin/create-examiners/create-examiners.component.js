@@ -19,8 +19,9 @@ var CreateExaminersComponent = (function () {
     };
     CreateExaminersComponent = __decorate([
         core_1.Component({
-            selector: 'admin',
-            template: "<h1>CREATE EXAMINERS</h1>",
+            selector: 'create-examiners',
+            templateUrl: 'app/admin/create-examiners/create-examiners.component.html',
+            styleUrls: ['app/admin/create-examiners/create-examiners.component.css'],
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], CreateExaminersComponent);
