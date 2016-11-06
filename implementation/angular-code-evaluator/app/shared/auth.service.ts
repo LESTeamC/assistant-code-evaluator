@@ -40,6 +40,7 @@ export class AuthService {
 
     setCredentials(login:Credentials) {
         this._header = this.makeHeader(login);
+        console.log(this._header)
     }
 
     removeCredentials(){

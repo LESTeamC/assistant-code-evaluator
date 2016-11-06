@@ -1,0 +1,12 @@
+org/evaluator/ws/AbstractControllerTest.class
+org/evaluator/ws/AbstractTest.class
+org/evaluator/ws/web/api/LoginControllerTest.class
+org/evaluator/ws/repository/SubmissionRepositoryTests.class
+org/evaluator/ws/repository/AccountRepositoryTests.class
+org/evaluator/ws/AppTest.class
+org/evaluator/ws/service/GreetingServiceTest.class
+org/evaluator/ws/web/api/GreetingControllerTest.class
+org/evaluator/ws/repository/ExamRepositoryTests.class
+org/evaluator/ws/service/ExamServiceTest.class
+org/evaluator/ws/web/api/GreetingControllerMocksTest.class
+org/evaluator/ws/repository/ExerciseRepositoryTests.class

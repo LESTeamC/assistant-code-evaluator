@@ -11,13 +11,18 @@ import { DelegateComponent }    from './delegate/delegate.component'
 import { GlobalViewComponent }    from './global-view/global-view.component'
 import { ViewExaminersComponent }    from './view-examiners/view-examiners.component'
 import { ViewExamsComponent }    from './view-exams/view-exams.component'
+import { ModalModule, AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+
+import {ExamService} from './exam.service'
 
 
 @NgModule({
 imports: [
     CommonModule,
     FormsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ModalModule,
+    AlertModule
   ],
 declarations: [
     AdminComponent,
@@ -27,8 +32,10 @@ declarations: [
     ViewExaminersComponent,
     GlobalViewComponent,
     DelegateComponent,
+    
   ],
   providers: [
+    ExamService
   ]
 })
 export class AdminModule {}

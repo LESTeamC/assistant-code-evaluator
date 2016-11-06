@@ -21,6 +21,7 @@ var ExaminerComponent = (function () {
         core_1.Component({
             selector: 'examiner',
             templateUrl: '/app/examiner/examiner.component.html',
+            styleUrls: ['app/examiner/examiner.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], ExaminerComponent);

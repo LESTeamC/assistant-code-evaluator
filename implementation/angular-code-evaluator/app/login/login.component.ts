@@ -27,8 +27,8 @@ export class LoginComponent {
             .subscribe(data => this.loginSuccess(data),
                        error => this.loginFail(error));
         
-        this.login.password = "";
-        this.login.username = "";
+        //this.login.password = "";
+        //this.login.username = "";
     }
 
     loginSuccess(data: any) {

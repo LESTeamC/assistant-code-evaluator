@@ -9,3 +9,21 @@
 .input-group select{
     border-radius: 0px !important;
 }
+
+.input-group.error{
+    border: 1px solid red;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+alert {
+    margin: 0 auto;
+    padding-top: 20px !important;
+    text-align: center;
+}
+
+alert span{
+    font-weight: bold;
+}

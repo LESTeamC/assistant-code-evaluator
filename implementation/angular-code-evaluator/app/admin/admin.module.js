@@ -19,6 +19,8 @@ var delegate_component_1 = require('./delegate/delegate.component');
 var global_view_component_1 = require('./global-view/global-view.component');
 var view_examiners_component_1 = require('./view-examiners/view-examiners.component');
 var view_exams_component_1 = require('./view-exams/view-exams.component');
+var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+var exam_service_1 = require('./exam.service');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -27,7 +29,9 @@ var AdminModule = (function () {
             imports: [
                 common_1.CommonModule,
                 forms_1.FormsModule,
-                admin_routing_module_1.AdminRoutingModule
+                admin_routing_module_1.AdminRoutingModule,
+                ng2_bootstrap_1.ModalModule,
+                ng2_bootstrap_1.AlertModule
             ],
             declarations: [
                 admin_component_1.AdminComponent,
@@ -38,7 +42,9 @@ var AdminModule = (function () {
                 global_view_component_1.GlobalViewComponent,
                 delegate_component_1.DelegateComponent,
             ],
-            providers: []
+            providers: [
+                exam_service_1.ExamService
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], AdminModule);

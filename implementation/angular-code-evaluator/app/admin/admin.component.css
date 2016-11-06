@@ -16,6 +16,7 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
 }
 
 #wrapper.toggled {
@@ -35,6 +36,7 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    top:0;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -99,6 +101,15 @@
     color: #fff;
     background: none;
 }
+
+h3{
+    text-align: right;
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+    padding-right: 10px;
+    width: 100%;
+}
+
 
 @media(min-width:768px) {
     #wrapper {

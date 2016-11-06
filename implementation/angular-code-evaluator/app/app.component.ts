@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-    constructor(private router:Router){
+    constructor(public viewContainerRef:ViewContainerRef, private router:Router){
+        this.viewContainerRef = viewContainerRef;
         this.router.navigate(['/login'])
     }
  }
