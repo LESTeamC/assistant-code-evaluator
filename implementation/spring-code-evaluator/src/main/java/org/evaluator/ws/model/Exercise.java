@@ -2,6 +2,7 @@ package org.evaluator.ws.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -111,6 +112,7 @@ public class Exercise {
 	 */
 	@OneToMany(
 			fetch = FetchType.EAGER,
+			cascade = CascadeType.ALL,
 			mappedBy ="exercise")
 	@JsonManagedReference
 	private Set<ExerciseCriteria> criteria;

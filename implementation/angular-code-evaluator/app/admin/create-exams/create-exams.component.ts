@@ -4,6 +4,7 @@ import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {Exam} from './../../model/exam';
 import {Exercise} from './../../model/exercise';
+import {ExerciseCriteria} from './../../model/exercise-criteria';
 
 import {ExamService} from './../exam.service'
 
@@ -17,7 +18,10 @@ export	class	CreateExamsComponent implements OnInit	{
 
     private exam = new Exam();
     private exercises: Exercise[] = new Array<Exercise>();
+    private criteria: ExerciseCriteria[] = new Array<ExerciseCriteria>();
+    
     private currentExercise = new Exercise();
+    private currentCriteria = new ExerciseCriteria();
     
 
     private lastExamName:string;
@@ -27,6 +31,7 @@ export	class	CreateExamsComponent implements OnInit	{
     private conflictError:boolean;
     private conflictErrorExercise:boolean;
     private weightErrorExercise:boolean;
+    private weightErrorCriteria:boolean;
     private createdSuccess:boolean;
 
     constructor(private _router:Router, private examService:ExamService){}
@@ -56,7 +61,8 @@ export	class	CreateExamsComponent implements OnInit	{
         this.serverError = false;
         this.lastExamName = exam.name;
         this.createdSuccess = true;
-        this.exam = {name : ""};
+        this.exam = new Exam();
+        this.exercises = new Array<Exercise>();
         
     }
 
@@ -74,7 +80,6 @@ export	class	CreateExamsComponent implements OnInit	{
             this.createdSuccess = false;
             this.conflictError = false;
             this.serverError = true;
-            console.log("other error")
         }
 
     }
@@ -83,15 +88,19 @@ export	class	CreateExamsComponent implements OnInit	{
 
         if(this.hasName(this.exercises, this.currentExercise.name) >= 0){
             this.weightErrorExercise = false;
+            this.weightErrorCriteria = false;
             this.conflictErrorExercise = true;
         }else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100){
             this.conflictErrorExercise = false;
+            this.weightErrorCriteria = false;
             this.weightErrorExercise = true;
         }else{
+            this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
             this.currentExercise = new Exercise();
             this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
+            this.weightErrorCriteria = false;
             this.hideChildModal();
         }
         
@@ -101,6 +110,29 @@ export	class	CreateExamsComponent implements OnInit	{
         let index = this.exercises.indexOf(exercise);
         if (index > -1){
             this.exercises.splice(index, 1);
+        }
+    }
+
+    addCriteria(){
+        console.log(this.calcTotalWeightCriteria(this.criteria) + this.currentCriteria.weight)
+
+        console.log(this.criteria);
+        console.log(this.currentCriteria);
+
+        if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100){
+            this.conflictErrorExercise = false;
+            this.weightErrorExercise = false; 
+            this.weightErrorCriteria = true;           
+        }else{
+            this.criteria.push(this.currentCriteria);
+            this.currentCriteria = new ExerciseCriteria();
+        }
+    }
+
+    deleteCriteria(criteria:ExerciseCriteria):void{
+        let index = this.criteria.indexOf(criteria);
+        if (index > -1){
+            this.criteria.splice(index, 1);
         }
     }
 
@@ -115,6 +147,15 @@ export	class	CreateExamsComponent implements OnInit	{
     };
 
     private calcTotalWeight(list:Exercise[]):number {
+        let i:number;
+        let sum:number = 0;
+        for (i = 0; i < list.length; i++) {
+            sum += list[i].weight;
+        }
+        return sum; //The element isn't in your array
+    };
+
+    private calcTotalWeightCriteria(list:ExerciseCriteria[]):number {
         let i:number;
         let sum:number = 0;
         for (i = 0; i < list.length; i++) {

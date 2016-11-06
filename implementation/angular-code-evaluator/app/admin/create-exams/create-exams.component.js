@@ -13,6 +13,7 @@ var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_1 = require('./../../model/exam');
 var exercise_1 = require('./../../model/exercise');
+var exercise_criteria_1 = require('./../../model/exercise-criteria');
 var exam_service_1 = require('./../exam.service');
 var CreateExamsComponent = (function () {
     function CreateExamsComponent(_router, examService) {
@@ -20,7 +21,9 @@ var CreateExamsComponent = (function () {
         this.examService = examService;
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
+        this.criteria = new Array();
         this.currentExercise = new exercise_1.Exercise();
+        this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
     }
     CreateExamsComponent.prototype.ngOnInit = function () {
         console.log("create exams");
@@ -41,7 +44,8 @@ var CreateExamsComponent = (function () {
         this.serverError = false;
         this.lastExamName = exam.name;
         this.createdSuccess = true;
-        this.exam = { name: "" };
+        this.exam = new exam_1.Exam();
+        this.exercises = new Array();
     };
     CreateExamsComponent.prototype.failCreate = function (error) {
         if (error.status === 409) {
@@ -55,23 +59,26 @@ var CreateExamsComponent = (function () {
             this.createdSuccess = false;
             this.conflictError = false;
             this.serverError = true;
-            console.log("other error");
         }
     };
     CreateExamsComponent.prototype.addExercise = function () {
         if (this.hasName(this.exercises, this.currentExercise.name) >= 0) {
             this.weightErrorExercise = false;
+            this.weightErrorCriteria = false;
             this.conflictErrorExercise = true;
         }
         else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100) {
             this.conflictErrorExercise = false;
+            this.weightErrorCriteria = false;
             this.weightErrorExercise = true;
         }
         else {
+            this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
             this.currentExercise = new exercise_1.Exercise();
             this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
+            this.weightErrorCriteria = false;
             this.hideChildModal();
         }
     };
@@ -79,6 +86,26 @@ var CreateExamsComponent = (function () {
         var index = this.exercises.indexOf(exercise);
         if (index > -1) {
             this.exercises.splice(index, 1);
+        }
+    };
+    CreateExamsComponent.prototype.addCriteria = function () {
+        console.log(this.calcTotalWeightCriteria(this.criteria) + this.currentCriteria.weight);
+        console.log(this.criteria);
+        console.log(this.currentCriteria);
+        if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100) {
+            this.conflictErrorExercise = false;
+            this.weightErrorExercise = false;
+            this.weightErrorCriteria = true;
+        }
+        else {
+            this.criteria.push(this.currentCriteria);
+            this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
+        }
+    };
+    CreateExamsComponent.prototype.deleteCriteria = function (criteria) {
+        var index = this.criteria.indexOf(criteria);
+        if (index > -1) {
+            this.criteria.splice(index, 1);
         }
     };
     CreateExamsComponent.prototype.hasName = function (list, name) {
@@ -92,6 +119,15 @@ var CreateExamsComponent = (function () {
     };
     ;
     CreateExamsComponent.prototype.calcTotalWeight = function (list) {
+        var i;
+        var sum = 0;
+        for (i = 0; i < list.length; i++) {
+            sum += list[i].weight;
+        }
+        return sum; //The element isn't in your array
+    };
+    ;
+    CreateExamsComponent.prototype.calcTotalWeightCriteria = function (list) {
         var i;
         var sum = 0;
         for (i = 0; i < list.length; i++) {
