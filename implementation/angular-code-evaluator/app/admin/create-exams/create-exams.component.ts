@@ -15,24 +15,24 @@ import {ExamService} from './../exam.service'
     styleUrls: ['app/admin/create-exams/create-exams.component.css']
 })
 /**
- * Represents a book.
- * @constructor
- * @param {string} title - The title of the book.
- * @param {string} author - The author of the book.
+ * Create Exams Screen
+ * @component.
  */
 export	class	CreateExamsComponent implements OnInit	{
 
+    //Objects to use in Model and leter persist in Database (exam, exercises and criteria)
     private exam = new Exam();
     private exercises: Exercise[] = new Array<Exercise>();
     private criteria: ExerciseCriteria[] = new Array<ExerciseCriteria>();
     
+    //Placeholder objects to use wile user is creating exercise
     private currentExercise = new Exercise();
     private currentCriteria = new ExerciseCriteria();
-    
 
+    //Auxiliary string to place on error message.
     private lastExamName:string;
 
-    //variables for each case
+    //Boolean variables for each kind of error (useful for displaying error messages)
     private serverError:boolean;
     private conflictError:boolean;
     private conflictErrorExercise:boolean;
@@ -43,23 +43,33 @@ export	class	CreateExamsComponent implements OnInit	{
     constructor(private _router:Router, private examService:ExamService){}
 
     ngOnInit(){
-        console.log("create exams");
+
+        //Initialize variables with FALSE on Init.
+        this.serverError = false;
         this.conflictError = false;
+        this.conflictErrorExercise = false;
         this.createdSuccess = false;
-        this.exam.name = "";
+        this.weightErrorCriteria = false;
+        this.weightErrorExercise = false;
+
     }
 
+    /**
+     * Submission funtion. Add created exercises to Exam and POST on server
+     */
     onSubmit(){
 
         this.exam.exercises = this.exercises;
         this.examService.createExam(this.exam)
             .subscribe(data => this.successCreate(data),
-                       error => this.failCreate(error))
-
-        console.log(this.exam);
+                       error => this.failCreate(error));
 
     }
 
+    /**
+     * Success Funtion. Restart variables and display success message
+     * @param: Exam returned by server (created exam)
+     */
     successCreate(exam: any){
         console.log("Exam Created successfully")
 
@@ -72,6 +82,12 @@ export	class	CreateExamsComponent implements OnInit	{
         
     }
 
+    /**
+     * Failure funtion.
+     * If error status is 409 (CONFLICT), it means there is already an exam with the same name.
+     * Else, show a generic error message.
+     * @param error object returned by API
+     */
     failCreate(error: any){
 
         if (error.status === 409){
@@ -90,6 +106,11 @@ export	class	CreateExamsComponent implements OnInit	{
 
     }
 
+    /**
+     * Adds exercise to list of created exercises
+     * Checks if name already exists;
+     * Checks if weight exceeds 100
+     */
     addExercise():void{
 
         if(this.hasName(this.exercises, this.currentExercise.name) >= 0){
@@ -112,6 +133,10 @@ export	class	CreateExamsComponent implements OnInit	{
         
     }
 
+    /**
+     * Deletes Exercise from list
+     * @param: exercise to delete;
+     */
     deleteExercise(exercise:Exercise):void{
         let index = this.exercises.indexOf(exercise);
         if (index > -1){
@@ -119,11 +144,11 @@ export	class	CreateExamsComponent implements OnInit	{
         }
     }
 
+    /**
+     * Adds criteria to list;
+     * Checks if total weight exceeds 100
+     */
     addCriteria(){
-        console.log(this.calcTotalWeightCriteria(this.criteria) + this.currentCriteria.weight)
-
-        console.log(this.criteria);
-        console.log(this.currentCriteria);
 
         if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100){
             this.conflictErrorExercise = false;
@@ -135,6 +160,10 @@ export	class	CreateExamsComponent implements OnInit	{
         }
     }
 
+    /**
+     * Deletes criteria from list
+     * @param: criteria to delete
+     */
     deleteCriteria(criteria:ExerciseCriteria):void{
         let index = this.criteria.indexOf(criteria);
         if (index > -1){
@@ -142,6 +171,12 @@ export	class	CreateExamsComponent implements OnInit	{
         }
     }
 
+    /**
+     * Checks if a list of exercises has an object with a given name value
+     * @param: list of exercises
+     * @param: string name
+     * @returns: -1 if false, the index if true
+     */
     private hasName(list:Exercise[], name:string):number {
         let i:number;
         for (i = 0; i < list.length; i++) {
@@ -152,6 +187,11 @@ export	class	CreateExamsComponent implements OnInit	{
         return -1; //The element isn't in your array
     };
 
+    /**
+     * Calculates total weight value of a list of execises
+     * @param: list of exercises
+     * @returns: total weight value
+     */
     private calcTotalWeight(list:Exercise[]):number {
         let i:number;
         let sum:number = 0;
@@ -161,6 +201,11 @@ export	class	CreateExamsComponent implements OnInit	{
         return sum; //The element isn't in your array
     };
 
+    /**
+     * Calculates total weight value of a list of criteria
+     * @param: list of criteria
+     * @returns: total weight value
+     */
     private calcTotalWeightCriteria(list:ExerciseCriteria[]):number {
         let i:number;
         let sum:number = 0;
@@ -172,10 +217,16 @@ export	class	CreateExamsComponent implements OnInit	{
 
     @ViewChild('exerciseModal') public childModal:ModalDirective;
  
+     /**
+     * Shows modal
+     */
     public showChildModal():void {
         this.childModal.show();
     }
-        
+    
+    /**
+     * Hides modal
+     */
     public hideChildModal():void {
         this.childModal.hide();
     }

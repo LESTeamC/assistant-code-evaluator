@@ -1,3 +1,6 @@
+
+<!--Left side CREATE EXAM Form-->
+
 <form (ngSubmit)="onSubmit()" #createExamForm="ngForm">
   <div class="row">
     <div class="col-sm-12 col-md-6">
@@ -57,6 +60,8 @@
       </div>
       <button class="btn login-btn" type="submit" [disabled]="!createExamForm.valid">Create Exam</button>
     </div>
+
+    <!--Exercises List-->
     <div class="col-sm-12 col-md-6">
       <div class="panel panel-default">
          <div class="panel-heading">Exercises</div>
@@ -95,6 +100,8 @@
   </div>
 </form>
 
+<!--Error/success messages in main screen-->
+
 <alert type="success" dismissible="true"
        *ngIf="createdSuccess">The Exam with the name "<span>{{lastExamName}}"</span> was created successfully</alert>
 <alert type="danger" dismissible="true"
@@ -102,6 +109,8 @@
 <alert type="danger" dismissible="true"
        *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
  
+ <!--MODAL for Create exercise-->
+
 <div bsModal #exerciseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -112,6 +121,9 @@
         <h4 class="modal-title">Exercise</h4>
       </div>
       <div class="modal-body">
+
+         <!--Create exercise form-->
+
         <form #createExerciseForm="ngForm">
           <label for="exercise-name">Title</label>
           <div class="form-group" [class.error]="conflictErrorExercise">
@@ -138,7 +150,7 @@
                       [(ngModel)]="currentExercise.weight" 
                       #name="ngModel"
                       name="exercise-weight" 
-                      required>
+                      required min="0" max="100">
           </div>
           <div class="panel panel-default">
             <div class="panel-heading">Criteria</div>
@@ -169,7 +181,9 @@
                       </tr>
                     </tbody>
                   </table>
-                </div>       
+                </div>      
+
+                <!--Create Criteria form-->
               <form (ngSubmit)="addCriteria()" #createCriteriaForm="ngForm">
                 <div class="form-inline">
                   <div class="form-group half-full">
@@ -183,13 +197,13 @@
                     <input type="number" class="form-control" id="criteria-gama-current" placeholder="Gama"
                       [(ngModel)]="currentCriteria.gama" 
                         #name="ngModel"
-                        name="ccriteria-gama" required>
+                        name="ccriteria-gama" required min="1">
                   </div>
                   <div class="form-group small-input" >
                     <input type="number" class="form-control" id="criteria-weight-current" placeholder="Weight"
                         [(ngModel)]="currentCriteria.weight" 
                         #name="ngModel"
-                        name="ccriteria-weight" required>             
+                        name="ccriteria-weight" required min="0" max="100">             
                   </div>           
                   <button type="submit" class="btn" (click)="addCriteria()" [disabled]="!createCriteriaForm.valid">+</button>
                 </div> 
@@ -215,6 +229,8 @@
           </div>     
           <button type="button" class="btn login-btn" [disabled]="!createExerciseForm.valid" (click)="addExercise()">Create Exercise</button>
         </form>
+
+        <!--Error messages in modal-->
         <alert type="danger" dismissible="true"
        *ngIf="conflictErrorExercise">There is already an exercise with the name "<span>{{currentExercise.name}}". </span>Please chose another</alert>
         <alert type="danger" dismissible="true"

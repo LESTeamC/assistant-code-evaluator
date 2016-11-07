@@ -19,25 +19,36 @@ var CreateExamsComponent = (function () {
     function CreateExamsComponent(_router, examService) {
         this._router = _router;
         this.examService = examService;
+        //Objects to use in Model and leter persist in Database (exam, exercises and criteria)
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
         this.criteria = new Array();
+        //Placeholder objects to use wile user is creating exercise
         this.currentExercise = new exercise_1.Exercise();
         this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
     }
     CreateExamsComponent.prototype.ngOnInit = function () {
-        console.log("create exams");
+        //Initialize variables with FALSE on Init.
+        this.serverError = false;
         this.conflictError = false;
+        this.conflictErrorExercise = false;
         this.createdSuccess = false;
-        this.exam.name = "";
+        this.weightErrorCriteria = false;
+        this.weightErrorExercise = false;
     };
+    /**
+     * Submission funtion. Add created exercises to Exam and POST on server
+     */
     CreateExamsComponent.prototype.onSubmit = function () {
         var _this = this;
         this.exam.exercises = this.exercises;
         this.examService.createExam(this.exam)
             .subscribe(function (data) { return _this.successCreate(data); }, function (error) { return _this.failCreate(error); });
-        console.log(this.exam);
     };
+    /**
+     * Success Funtion. Restart variables and display success message
+     * @param: Exam returned by server (created exam)
+     */
     CreateExamsComponent.prototype.successCreate = function (exam) {
         console.log("Exam Created successfully");
         this.conflictError = false;
@@ -47,6 +58,12 @@ var CreateExamsComponent = (function () {
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
     };
+    /**
+     * Failure funtion.
+     * If error status is 409 (CONFLICT), it means there is already an exam with the same name.
+     * Else, show a generic error message.
+     * @param error object returned by API
+     */
     CreateExamsComponent.prototype.failCreate = function (error) {
         if (error.status === 409) {
             this.lastExamName = this.exam.name;
@@ -61,6 +78,11 @@ var CreateExamsComponent = (function () {
             this.serverError = true;
         }
     };
+    /**
+     * Adds exercise to list of created exercises
+     * Checks if name already exists;
+     * Checks if weight exceeds 100
+     */
     CreateExamsComponent.prototype.addExercise = function () {
         if (this.hasName(this.exercises, this.currentExercise.name) >= 0) {
             this.weightErrorExercise = false;
@@ -82,16 +104,21 @@ var CreateExamsComponent = (function () {
             this.hideChildModal();
         }
     };
+    /**
+     * Deletes Exercise from list
+     * @param: exercise to delete;
+     */
     CreateExamsComponent.prototype.deleteExercise = function (exercise) {
         var index = this.exercises.indexOf(exercise);
         if (index > -1) {
             this.exercises.splice(index, 1);
         }
     };
+    /**
+     * Adds criteria to list;
+     * Checks if total weight exceeds 100
+     */
     CreateExamsComponent.prototype.addCriteria = function () {
-        console.log(this.calcTotalWeightCriteria(this.criteria) + this.currentCriteria.weight);
-        console.log(this.criteria);
-        console.log(this.currentCriteria);
         if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100) {
             this.conflictErrorExercise = false;
             this.weightErrorExercise = false;
@@ -102,12 +129,22 @@ var CreateExamsComponent = (function () {
             this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
         }
     };
+    /**
+     * Deletes criteria from list
+     * @param: criteria to delete
+     */
     CreateExamsComponent.prototype.deleteCriteria = function (criteria) {
         var index = this.criteria.indexOf(criteria);
         if (index > -1) {
             this.criteria.splice(index, 1);
         }
     };
+    /**
+     * Checks if a list of exercises has an object with a given name value
+     * @param: list of exercises
+     * @param: string name
+     * @returns: -1 if false, the index if true
+     */
     CreateExamsComponent.prototype.hasName = function (list, name) {
         var i;
         for (i = 0; i < list.length; i++) {
@@ -118,6 +155,11 @@ var CreateExamsComponent = (function () {
         return -1; //The element isn't in your array
     };
     ;
+    /**
+     * Calculates total weight value of a list of execises
+     * @param: list of exercises
+     * @returns: total weight value
+     */
     CreateExamsComponent.prototype.calcTotalWeight = function (list) {
         var i;
         var sum = 0;
@@ -127,6 +169,11 @@ var CreateExamsComponent = (function () {
         return sum; //The element isn't in your array
     };
     ;
+    /**
+     * Calculates total weight value of a list of criteria
+     * @param: list of criteria
+     * @returns: total weight value
+     */
     CreateExamsComponent.prototype.calcTotalWeightCriteria = function (list) {
         var i;
         var sum = 0;
@@ -136,9 +183,15 @@ var CreateExamsComponent = (function () {
         return sum; //The element isn't in your array
     };
     ;
+    /**
+    * Shows modal
+    */
     CreateExamsComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
+    /**
+     * Hides modal
+     */
     CreateExamsComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
