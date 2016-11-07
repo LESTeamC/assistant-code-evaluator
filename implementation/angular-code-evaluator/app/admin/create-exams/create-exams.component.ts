@@ -14,6 +14,12 @@ import {ExamService} from './../exam.service'
 	templateUrl: 'app/admin/create-exams/create-exams.component.html',
     styleUrls: ['app/admin/create-exams/create-exams.component.css']
 })
+/**
+ * Represents a book.
+ * @constructor
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ */
 export	class	CreateExamsComponent implements OnInit	{
 
     private exam = new Exam();
