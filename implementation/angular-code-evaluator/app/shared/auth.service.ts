@@ -21,6 +21,9 @@ export class AuthService {
     //Variable that hold the Basic Authorization header!
     private _header: string;
 
+    //Variable that holds the username;
+    private _username:string;
+
     constructor(){}
 
     get logInType(){
@@ -29,6 +32,10 @@ export class AuthService {
 
     get isLoggedIn(): boolean {
         return this.loggedIn;
+    }
+
+    get username(): string {
+        return this._username;
     }
 
     login(loginType:string){
@@ -48,6 +55,7 @@ export class AuthService {
 
     setCredentials(login:Credentials) {
         this._header = this.makeHeader(login);
+        this._username = login.username;
         console.log(this._header)
     }
 

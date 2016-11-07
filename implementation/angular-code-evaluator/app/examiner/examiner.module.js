@@ -15,6 +15,7 @@ var examiner_router_module_1 = require('./examiner-router.module');
 var examiner_component_1 = require('./examiner.component');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
 var workstation_component_1 = require('./workstation/workstation.component');
+var examiner_service_1 = require('./examiner.service');
 var ExaminerModule = (function () {
     function ExaminerModule() {
     }
@@ -30,7 +31,9 @@ var ExaminerModule = (function () {
                 workstation_component_1.WorkstationComponent,
                 examiner_component_1.ExaminerComponent,
             ],
-            providers: []
+            providers: [
+                examiner_service_1.ExaminerService
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], ExaminerModule);
