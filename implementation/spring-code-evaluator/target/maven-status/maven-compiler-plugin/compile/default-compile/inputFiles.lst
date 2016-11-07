@@ -19,6 +19,7 @@
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/repository/RoleRepository.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/util/BCryptPasswordEncoderUtil.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/Student.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/web/api/ExaminerController.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/security/AccountAuthenticationProvider.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/Submission.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/Application.java
@@ -28,7 +29,9 @@
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/Exam.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/SecurityConfiguration.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/repository/ExaminerRepository.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/service/ExaminerServiceBean.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/util/RequestContext.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/service/ExaminerService.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/service/GreetingServiceBean.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/Exercise.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/ExerciseCriteria.java
