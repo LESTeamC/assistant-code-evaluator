@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Response} from '@angular/http';
 
 import {AuthService} from './../shared/auth.service'
-import {ExaminerService} from './examiner.service'
+import {ExaminerService} from './../shared/examiner.service'
 
 import {Examiner} from './../model/examiner'
 

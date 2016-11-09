@@ -10,19 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var examiner_service_1 = require('./../../shared/examiner.service');
+var exercise_service_1 = require('./../../shared/exercise.service');
 var DelegateComponent = (function () {
-    function DelegateComponent(_router) {
+    function DelegateComponent(_router, examinerService, exerciseService) {
         this._router = _router;
+        this.examinerService = examinerService;
+        this.exerciseService = exerciseService;
     }
     DelegateComponent.prototype.ngOnInit = function () {
-        console.log("Delegate");
+        var _this = this;
+        this.examinerService.getExaminers()
+            .subscribe(function (data) { return _this.successGetExaminers(data); }, function (error) { return _this.failGetExaminers(error); });
+        this.exerciseService.getExercises()
+            .subscribe(function (data) { return _this.successGetExercises(data); }, function (error) { return _this.failGetExercises(error); });
+    };
+    DelegateComponent.prototype.successGetExaminers = function (data) {
+        this.examiners = data;
+    };
+    DelegateComponent.prototype.failGetExaminers = function (error) {
+    };
+    DelegateComponent.prototype.successGetExercises = function (data) {
+        this.exercises = data;
+        console.log(data);
+    };
+    DelegateComponent.prototype.failGetExercises = function (error) {
     };
     DelegateComponent = __decorate([
         core_1.Component({
-            selector: 'admin',
-            template: "<h1>DELEGATE</h1>",
+            selector: 'delegate',
+            templateUrl: "app/admin/delegate/delegate.component.html",
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, examiner_service_1.ExaminerService, exercise_service_1.ExerciseService])
     ], DelegateComponent);
     return DelegateComponent;
 }());

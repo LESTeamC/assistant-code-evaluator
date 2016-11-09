@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var auth_service_1 = require('./../shared/auth.service');
-var examiner_service_1 = require('./examiner.service');
+var examiner_service_1 = require('./../shared/examiner.service');
 var examiner_1 = require('./../model/examiner');
 var ExaminerComponent = (function () {
     function ExaminerComponent(_router, authService, examinerService) {

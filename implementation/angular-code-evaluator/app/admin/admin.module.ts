@@ -14,6 +14,8 @@ import { ViewExamsComponent }    from './view-exams/view-exams.component'
 import { ModalModule, AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {ExamService} from './exam.service'
+import {ExaminerService} from './../shared/examiner.service'
+import {ExerciseService} from './../shared/exercise.service'
 
 
 @NgModule({
@@ -35,7 +37,9 @@ declarations: [
     
   ],
   providers: [
-    ExamService
+    ExamService,
+    ExaminerService,
+    ExerciseService,
   ]
 })
 export class AdminModule {}
