@@ -1,5 +1,7 @@
 package org.evaluator.ws.service;
 
+import java.util.Collection;
+
 import org.evaluator.ws.model.Examiner;
 
 /**
@@ -20,6 +22,14 @@ public interface ExaminerService {
      * @return An Examiner instance or <code>null</code> if none found.
      */
     Examiner findByUsername(String username);
-	
+    
+    /**
+     * Find The complete collection of Examiners
+     * 
+     * @return A Collection of  Examiners or <code>null</code> if none found.
+     */
+    Collection<Examiner> findAll();
+    
+    Examiner findOne(Long id);
 
 }

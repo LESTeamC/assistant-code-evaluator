@@ -24,4 +24,5 @@ public interface ExaminerRepository extends JpaRepository<Examiner, Long> {
      * @return An Exam or <code>null</code> if none found.
      */
     Examiner findByUsername(String name);
+    
 }

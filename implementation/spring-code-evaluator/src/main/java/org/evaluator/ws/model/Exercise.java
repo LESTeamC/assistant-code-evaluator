@@ -53,7 +53,7 @@ public class Exercise {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name="examId")
-	@JsonBackReference
+	@JsonManagedReference
 	private Exam exam;
 
 	/**

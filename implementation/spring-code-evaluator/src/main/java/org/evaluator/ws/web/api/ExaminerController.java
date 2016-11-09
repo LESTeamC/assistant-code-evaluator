@@ -1,5 +1,7 @@
 package org.evaluator.ws.web.api;
 
+import java.util.Collection;
+
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.service.ExaminerService;
 import org.slf4j.Logger;
@@ -32,6 +34,19 @@ public class ExaminerController extends BaseController {
 		
 		Examiner examiner = examinerService.findByUsername(username);
 		return new ResponseEntity<Examiner>(examiner, HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(
+			value = "/admin/examiners",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Examiner>> getExaminers(){
+		
+		logger.info("> getExaminers");
+		
+		Collection<Examiner> examiners = examinerService.findAll();
+
+		return new ResponseEntity<Collection<Examiner>>(examiners, HttpStatus.OK);
 	}
        
 

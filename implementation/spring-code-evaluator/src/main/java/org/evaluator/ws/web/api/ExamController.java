@@ -36,7 +36,7 @@ public class ExamController extends BaseController {
             return new ResponseEntity<Exam>(HttpStatus.NOT_FOUND);
         }
 
-        logger.info("< getGreeting id:{}", id);
+        logger.info("< getExam id:{}", id);
         return new ResponseEntity<Exam>(exam, HttpStatus.OK);
     }
     

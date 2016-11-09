@@ -1,5 +1,7 @@
 package org.evaluator.ws.repository;
 
+import java.util.Collection;
+
 import org.evaluator.ws.AbstractTest;
 import org.evaluator.ws.model.Account;
 import org.evaluator.ws.model.Examiner;
@@ -30,6 +32,16 @@ public class ExaminerRepositoryTests extends AbstractTest {
 
 		Assert.assertNotNull("failure - expected entity not null", entity);
 		Assert.assertEquals("failure - expected username attribute match", username, entity.getUsername());
+
+	}
+	
+	@Test
+	public void testFindAll() {
+
+
+		Collection<Examiner> entityList = repository.findAll();
+
+		Assert.assertNotNull("failure - expected entity not null", entityList);
 
 	}
 

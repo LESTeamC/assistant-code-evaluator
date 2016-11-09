@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -77,7 +78,7 @@ public class Exam extends TransactionalEntity {
 			fetch = FetchType.EAGER, 
 			cascade = CascadeType.ALL,
 			mappedBy ="exam")
-	@JsonManagedReference
+	@JsonBackReference
 	private Set<Exercise> exercises;
 
 

@@ -1,6 +1,7 @@
 package org.evaluator.ws.service;
 
-import org.evaluator.ws.model.Account;
+import java.util.Collection;
+
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.repository.ExaminerRepository;
 import org.slf4j.Logger;
@@ -36,5 +37,24 @@ public class ExaminerServiceBean implements ExaminerService {
         logger.info("< findExaminerByUsername");
         return examiner;
 	}
+	
+	@Override
+	public Collection<Examiner> findAll() {
+        logger.info("> findAllExaminer");
+        Collection<Examiner> examiners = examinerRepository.findAll();
+
+        logger.info("< findAllExaminer");
+        return examiners;
+	}
+	
+    @Override
+    public Examiner findOne(Long id) {
+        logger.info("> findOne id:{}", id);
+
+        Examiner examiner = examinerRepository.findOne(id);
+
+        logger.info("< findOne id:{}", id);
+        return examiner;
+    }
 
 }
