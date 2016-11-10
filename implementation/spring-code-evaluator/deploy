@@ -3,5 +3,5 @@
 echo killing
 pkill -f BACKEND_PROCESS
 echo deploying
-bash -c "exec -a BACKEND_PROCESS nohup mvn spring-boot:run"
+nohup mvn spring-boot:run > deployment_logs 2>&1 
 echo deployed
