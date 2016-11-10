@@ -29,7 +29,7 @@ var DelegateComponent = (function () {
         var _this = this;
         this.examinerService.getExaminers()
             .subscribe(function (data) { return _this.successGetExaminers(data); }, function (error) { return _this.failGetExaminers(error); });
-        this.exerciseService.getExercises()
+        this.exerciseService.getOpenExercises()
             .subscribe(function (data) { return _this.successGetExercises(data); }, function (error) { return _this.failGetExercises(error); });
     };
     DelegateComponent.prototype.successGetExaminers = function (data) {

@@ -1,5 +1,6 @@
 package org.evaluator.ws.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -65,8 +66,19 @@ public class ExerciseRepositoryTests extends AbstractTest {
 		
 	}
 	
+	@Test
+	public void testFindByStatus() {
+		
+		List<Exercise> exercises = repository.findByStatus("O");
+		
+		boolean hasClosed = false;
+		for (int i = 0; i < exercises.size(); i++){
+			if (!exercises.get(i).getStatus().equals("O")){hasClosed = true; break;}
+		}
+		
+		Assert.assertEquals("to only have open", hasClosed, false);
 	
-	
+	}
 	
 	@Test
 	public void testDeleteExaminerExamNull() {

@@ -11,6 +11,8 @@ public interface ExerciseService {
 		
 	Exercise findOne(Long id);
 	
+	Collection <Exercise> findAllOpen();
+	
 	Exercise delegate(Exercise exercise, Examiner examiner);
 
 }

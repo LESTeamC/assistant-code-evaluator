@@ -36,7 +36,7 @@ export	class	DelegateComponent implements OnInit	{
             .subscribe(data => this.successGetExaminers(data),
                        error => this.failGetExaminers(error));
         
-        this.exerciseService.getExercises()
+        this.exerciseService.getOpenExercises()
             .subscribe(data => this.successGetExercises(data),
                        error => this.failGetExercises(error));
     }

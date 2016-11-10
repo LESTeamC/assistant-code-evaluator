@@ -43,6 +43,19 @@ public class ExerciseController extends BaseController {
 		return new ResponseEntity<Collection<Exercise>>(exercises, HttpStatus.OK);
 	}
 	
+	@RequestMapping(
+			value = "/admin/openexercises",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Exercise>> getOpenExercises(){
+		
+		logger.info("> getOpenExercises");
+		
+		Collection<Exercise> exercises = exerciseService.findAllOpen();
+
+		return new ResponseEntity<Collection<Exercise>>(exercises, HttpStatus.OK);
+	}
+	
     /**
      * Web service endpoint to update a single Exercise entity - DELEGATION. The HTTP request
      * body is expected to contain an Exercise object in JSON format. The

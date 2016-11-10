@@ -48,6 +48,17 @@ public class ExerciseServiceBean implements ExerciseService {
     }
     
     @Override
+    public Collection<Exercise> findAllOpen() {
+        logger.info("> ExercisefindOpen");
+
+
+        Collection<Exercise> exercises = exerciseRepository.findByStatus("O");
+
+        logger.info("< ExercisefindOpen");
+        return exercises;
+    }
+    
+    @Override
     public Exercise findOne(Long id) {
         logger.info("> findOne id:{}", id);
 

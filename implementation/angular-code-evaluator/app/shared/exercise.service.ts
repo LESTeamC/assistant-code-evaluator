@@ -30,6 +30,19 @@ export class ExerciseService {
                 .map( (response:Response) => response.json())
     }
 
+    getOpenExercises(){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .get(this.url+`/admin/openexercises`, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
+
     delegateExercise(exerciseId:number, examinerId:any){
 
         //Get the user credentials from AuthService shared service
