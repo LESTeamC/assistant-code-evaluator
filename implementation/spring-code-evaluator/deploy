@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo killing
 pkill -f BACKEND_PROCESS
 echo deploying
