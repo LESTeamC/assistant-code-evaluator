@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var examiner_service_1 = require('./../../shared/examiner.service');
 var exercise_service_1 = require('./../../shared/exercise.service');
 var DelegateComponent = (function () {
@@ -17,6 +18,12 @@ var DelegateComponent = (function () {
         this._router = _router;
         this.examinerService = examinerService;
         this.exerciseService = exerciseService;
+        this.selectedRow = -1;
+        this.selectedExaminer = null;
+        //Alert variables
+        this.successDelegation = false;
+        this.successUndelegation = false;
+        this.failedDelegation = false;
     }
     DelegateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -29,17 +36,78 @@ var DelegateComponent = (function () {
         this.examiners = data;
     };
     DelegateComponent.prototype.failGetExaminers = function (error) {
+        this._router.navigate(['/loginadmin']);
     };
     DelegateComponent.prototype.successGetExercises = function (data) {
         this.exercises = data;
-        console.log(data);
+        console.log(this.exercises);
     };
     DelegateComponent.prototype.failGetExercises = function (error) {
+        this._router.navigate(['/loginadmin']);
     };
+    DelegateComponent.prototype.successDelegate = function (data) {
+        var _this = this;
+        this.exercises.find(function (d) { return d.id === _this.selectedRow; }).examiner = this.selectedExaminer;
+        this.lastDelegatedExercise = data;
+        //this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
+        if (!data.examiner) {
+            this.successDelegation = false;
+            this.failedDelegation = false;
+            this.successUndelegation = true;
+        }
+        else {
+            this.successUndelegation = false;
+            this.failedDelegation = false;
+            this.successDelegation = true;
+        } //alert
+    };
+    DelegateComponent.prototype.failDelegate = function (data) {
+        this.successUndelegation = false;
+        this.successDelegation = false;
+        this.failedDelegation = true;
+        //alert
+    };
+    DelegateComponent.prototype.isSelected = function (id) {
+        return id === this.selectedRow;
+    };
+    DelegateComponent.prototype.selectRow = function (id) {
+        this.selectedRow = id;
+        this.selectedExaminer = this.exercises.find(function (d) { return d.id === id; }).examiner;
+        console.log(this.selectedExaminer);
+    };
+    DelegateComponent.prototype.selectExaminer = function () {
+        var _this = this;
+        this.hideChildModal();
+        //call delegate method on backend
+        console.log(this.selectedExaminer);
+        var examinerId = (this.selectedExaminer === null) ? undefined : this.selectedExaminer.id;
+        this.exerciseService.delegateExercise(this.selectedRow, examinerId)
+            .subscribe(function (data) { return _this.successDelegate(data); }, function (error) { return _this.failDelegate(error); });
+    };
+    DelegateComponent.prototype.getExerciseFromId = function (id) {
+        return this.exercises.find(function (d) { return d.id === id; }).name;
+    };
+    /**
+    * Shows modal
+    */
+    DelegateComponent.prototype.showChildModal = function () {
+        this.childModal.show();
+    };
+    /**
+     * Hides modal
+     */
+    DelegateComponent.prototype.hideChildModal = function () {
+        this.childModal.hide();
+    };
+    __decorate([
+        core_1.ViewChild('examinerModal'), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], DelegateComponent.prototype, "childModal", void 0);
     DelegateComponent = __decorate([
         core_1.Component({
             selector: 'delegate',
             templateUrl: "app/admin/delegate/delegate.component.html",
+            styleUrls: ['app/admin/delegate/delegate.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, examiner_service_1.ExaminerService, exercise_service_1.ExerciseService])
     ], DelegateComponent);

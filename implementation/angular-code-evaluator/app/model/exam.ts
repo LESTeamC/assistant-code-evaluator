@@ -2,6 +2,12 @@ import {Exercise} from './exercise'
 
 export class Exam {
     public id?: number;
+    public referenceId?:string;
+    public version?:number;
+    public createdBy?:string;
+    public createdAt?:Date;
+    public updatedBy?:string;
+    public updatedAt?:Date;
     public name?: string;
     public date?: Date;
     public degree?: string;

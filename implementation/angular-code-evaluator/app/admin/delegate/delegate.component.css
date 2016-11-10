@@ -1,0 +1,20 @@
+.selected-row{
+    background-color: #6D7993;
+}
+
+.table:hover{
+    cursor: pointer;
+}
+
+.input-group{
+    width: 100%;
+}
+
+.form-control{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-control select{
+    width: 100%;
+}

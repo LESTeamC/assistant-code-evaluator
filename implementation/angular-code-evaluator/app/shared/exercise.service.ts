@@ -29,4 +29,19 @@ export class ExerciseService {
                 .get(this.url+`/admin/exercises`, {headers : this.headers} )
                 .map( (response:Response) => response.json())
     }
+
+    delegateExercise(exerciseId:number, examinerId:any){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        examinerId = (examinerId === undefined) ? "" : examinerId;
+
+        //make Post request to persist exam, including header
+        return this.http
+                .put(this.url+`/admin/exercise/${exerciseId}?examinerId=${examinerId}`, {}, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
 }
