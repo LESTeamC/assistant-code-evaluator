@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo killing
+## get pid of process
+PID=`lsof -i:3000 -t`
+kill $PID
+echo installing
+npm install
+echo deploying
+screen -d -m npm start > deployment_logs 2>&1 
+echo "consult deployment_log file to see output of deployment"
