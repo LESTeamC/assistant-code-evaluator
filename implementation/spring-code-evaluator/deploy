@@ -2,7 +2,7 @@
 
 echo killing
 ## get pid of process
-PID=`lsof -i:8095 -t`
+PID=`lsof -i:8090 -t`
 kill $PID
 echo deploying
 screen -d -m mvn spring-boot:run > deployment_logs 2>&1 
