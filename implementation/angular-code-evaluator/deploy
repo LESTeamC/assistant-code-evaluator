@@ -7,5 +7,5 @@ kill $PID
 echo installing
 npm install
 echo deploying
-screen -d -m npm start > deployment_logs 2>&1 
+screen -d -m npm start >> /var/tmp/deployment_logs.log
 echo "consult deployment_log file to see output of deployment"
