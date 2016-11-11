@@ -56,7 +56,7 @@ So that the Examiner knows the weight of the exercise in the whole exam.<br>
 
 1. Two different login pages, with navigation from one page to another;
 2. Login is made using Basic Authorization;
-3. Different error messagens for cases where access is forbidden, unauthorized or just error in connection occured.
+3. Different error messages for cases where access is forbidden, unauthorized or just error in connection occured.
 3. Angular AuthGuards prevent from accessing page URLs directly without logging in;
 4. Color pallet, global look and feel for the application, as well as an original logo and favicon.
 5. Global routing for the page, both Administrator (sidebar) and Examiner modules.
