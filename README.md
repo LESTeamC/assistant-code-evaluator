@@ -12,45 +12,45 @@ http://les16c.fe.up.pt:3000/login
 
 ###Delivered User Stories:
 
-1.
-As an administrator
-I want to login into the system
-So that I can have the available options of the platform
+1.<br>
+As an administrator<br>
+I want to login into the system<br>
+So that I can have the available options of the platform<br>
 
-2.
-As an examiner
-I want to login into the system
-So that I can initiate the code evaluation
+2.<br>
+As an examiner<br>
+I want to login into the system<br>
+So that I can initiate the code evaluation<br>
 
-3.
-As an Administrator 
-I want to create an exam 
-So that I can have an automatic evaluation.
+3.<br>
+As an Administrator <br>
+I want to create an exam <br>
+So that I can have an automatic evaluation.<br>
 
-4.
-As an Administrator 
-I want to create an exercise 
-So that I can use it on an exam.
+4.<br>
+As an Administrator <br>
+I want to create an exercise <br>
+So that I can use it on an exam.<br>
 
-5.
-As an administrator
-I want to create several criterias to an exercise.
-So that the Examiner knows how to evaluate the exercise.
+5.<br>
+As an administrator<br>
+I want to create several criterias to an exercise.<br>
+So that the Examiner knows how to evaluate the exercise.<br>
 
-6.
-As an administrator
-I want to to define a Range to a criteria of an exercise.
-So that the Examiner knows what values he must assign when evaluating an exercise.
+6.<br>
+As an administrator<br>
+I want to to define a Range to a criteria of an exercise.<br>
+So that the Examiner knows what values he must assign when evaluating an exercise.<br>
 
-7.
-As an administrator
-I want to save an exercise.
-So that I have the guarantee that I do not lost my work.
+7.<br>
+As an administrator<br>
+I want to save an exercise.<br>
+So that I have the guarantee that I do not lost my work.<br>
 
-8.
-As an administrator
-I want to to define a percentage to an exercise.
-So that the Examiner knows the weight of the exercise in the whole exam.
+8.<br>
+As an administrator<br>
+I want to to define a percentage to an exercise.<br>
+So that the Examiner knows the weight of the exercise in the whole exam.<br>
 
 ###Main Features
 
@@ -67,8 +67,8 @@ So that the Examiner knows the weight of the exercise in the whole exam.
 
 ###Notes
 
-Credentials for examiner login (username/password) - __up2011765544/admin__
-Credentials for admin logn (username/password) - __operations/operations__
+Credentials for examiner login (username/password) - __up2011765544/admin__ <br>
+Credentials for admin logn (username/password) - __operations/operations__ <br>
 
 ##Technologies:
 
