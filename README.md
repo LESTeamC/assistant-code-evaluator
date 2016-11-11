@@ -6,19 +6,51 @@ Take a look at our Wiki to know more.
 
 #Release Notes
 
-##Release 1.0 (4/11/2016)
+##Release 1.0 (11/11/2016)
 
 http://les16c.fe.up.pt:3000/login
 
 ###Delivered User Stories:
 
-1. As an administrator
+1.
+As an administrator
 I want to login into the system
 So that I can have the available options of the platform
 
-2. As an examiner
+2.
+As an examiner
 I want to login into the system
 So that I can initiate the code evaluation
+
+3.
+As an Administrator 
+I want to create an exam 
+So that I can have an automatic evaluation.
+
+4.
+As an Administrator 
+I want to create an exercise 
+So that I can use it on an exam.
+
+5.
+As an administrator
+I want to create several criterias to an exercise.
+So that the Examiner knows how to evaluate the exercise.
+
+6.
+As an administrator
+I want to to define a Range to a criteria of an exercise.
+So that the Examiner knows what values he must assign when evaluating an exercise.
+
+7.
+As an administrator
+I want to save an exercise.
+So that I have the guarantee that I do not lost my work.
+
+8.
+As an administrator
+I want to to define a percentage to an exercise.
+So that the Examiner knows the weight of the exercise in the whole exam.
 
 ###Main Features
 
@@ -28,10 +60,14 @@ So that I can initiate the code evaluation
 3. Angular AuthGuards prevent from accessing page URLs directly without logging in;
 4. Color pallet, global look and feel for the application, as well as an original logo and favicon.
 5. Global routing for the page, both Administrator (sidebar) and Examiner modules.
+6. Create Exams Module, for Administrator allows to create an exam and persist it to database;
+7. Create Exams Module, for Administrator allows to create different exercises inside an exam and persist it to database;
+8. Create Exams Module, for Administrator allows to create different criterias for each exercise inside an exam and persist it to database;
+9. Exercise weights and Criteria weights cannot exceed 100% - Custom error messages are presented otherwise.
 
 ###Notes
 
-Credentials for examiner login (username/password) - __user/admin__
+Credentials for examiner login (username/password) - __up2011765544/admin__
 Credentials for admin logn (username/password) - __operations/operations__
 
 ##Technologies:
