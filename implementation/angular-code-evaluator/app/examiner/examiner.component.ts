@@ -27,6 +27,10 @@ export	class	ExaminerComponent implements OnInit	{
                        error => this.fail(error));
     }
 
+    private logout(){
+        this.authService.logout();
+    }
+
     private success(data: any){
         this.examiner = data;
     }

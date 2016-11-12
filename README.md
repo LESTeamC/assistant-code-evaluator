@@ -95,4 +95,3 @@ We consider origin/master to be the main branch where the source code of HEAD al
 ## Useful JS Library for Code Highlighting
 
 [JSHighlight](https://highlightjs.org/)
-

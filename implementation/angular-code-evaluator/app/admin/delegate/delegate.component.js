@@ -87,6 +87,11 @@ var DelegateComponent = (function () {
     DelegateComponent.prototype.getExerciseFromId = function (id) {
         return this.exercises.find(function (d) { return d.id === id; }).name;
     };
+    DelegateComponent.prototype.isSelectedExaminer = function (examiner) {
+        if (examiner === null || this.selectedExaminer === null)
+            return false;
+        return examiner.name === this.selectedExaminer.name;
+    };
     /**
     * Shows modal
     */

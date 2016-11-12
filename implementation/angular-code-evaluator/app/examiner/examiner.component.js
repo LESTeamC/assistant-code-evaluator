@@ -26,6 +26,9 @@ var ExaminerComponent = (function () {
         this.examinerService.getExaminer(this.examinerUsername)
             .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
     };
+    ExaminerComponent.prototype.logout = function () {
+        this.authService.logout();
+    };
     ExaminerComponent.prototype.success = function (data) {
         this.examiner = data;
     };

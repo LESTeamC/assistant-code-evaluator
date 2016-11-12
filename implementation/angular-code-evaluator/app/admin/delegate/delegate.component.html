@@ -65,10 +65,10 @@
                     <label for="exercise-name">Examiner</label>
                     <div class="input-group">
                         <select class="form-control" [(ngModel)]="selectedExaminer" #name="ngModel" name="examiner" required>
-                            <option [value]="null"
+                            <option [value]=""
                                 [selected]="selectedExaminer == null">Unassigned</option>
                             <option [ngValue]="examiner" *ngFor="let examiner of examiners"
-                                [selected]="examiner == selectedExaminer">{{examiner.name}}</option>
+                                [selected]="isSelectedExaminer(examiner)">{{examiner.name}}</option>
                         </select>
                     </div>
                     <button type="button" class="btn" (click)="selectExaminer()">Assign</button>

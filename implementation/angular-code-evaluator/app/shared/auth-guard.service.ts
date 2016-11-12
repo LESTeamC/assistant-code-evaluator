@@ -41,10 +41,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
                 url.indexOf(this.authService.logInType) !== -1) {
         return true;
     }
-
     // Navigate to the login page with extras
-    //this.router.navigate(['/login']);
-    return true;
+    this.router.navigate(['/login']);
+    return false;
 
   }
 

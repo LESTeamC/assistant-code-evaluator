@@ -3,6 +3,13 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 
+
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+}                           from '@angular/router';
+
 import {Credentials} from './../model/credentials';
 
 
@@ -24,7 +31,7 @@ export class AuthService {
     //Variable that holds the username;
     private _username:string;
 
-    constructor(){}
+    constructor(private router:Router){}
 
     get logInType(){
         return this.loginType;
@@ -45,8 +52,9 @@ export class AuthService {
 
     logout(){
         this.loggedIn = false;
-        this.loginType = undefined;
         this._header = undefined;
+
+        this.redirectUser();
     }
 
     get credentials():string {
@@ -56,7 +64,6 @@ export class AuthService {
     setCredentials(login:Credentials) {
         this._header = this.makeHeader(login);
         this._username = login.username;
-        console.log(this._header)
     }
 
     removeCredentials(){
@@ -68,6 +75,18 @@ export class AuthService {
      */
     private makeHeader(login: Credentials): string{
         return "Basic " + btoa(login.username + ":" + login.password);
+    }
+
+
+    redirectUser() {
+        if (this.loginType === "admin"){
+            this.router.navigate(['/loginadmin']);
+        }else{
+            this.router.navigate(['/login']);
+        }
+
+        this.loginType = undefined;
+
     }
 
 }

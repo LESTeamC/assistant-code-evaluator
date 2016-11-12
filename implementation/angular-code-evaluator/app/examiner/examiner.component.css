@@ -1,7 +1,48 @@
-h3{
+.page-header h3{
     text-align: right;
-    padding-bottom: 5px;
-    border-bottom: 1px solid lightgray;
     padding-right: 10px;
-    width: 100%;
+    color: white
+}
+
+.page-header small{
+    color: white
+}
+
+@media (max-width: 840px){
+  .Header-logo-image {
+    max-width: 20% !important;
+  }
+}
+
+.Header-logo-image{
+  max-width: 10%;
+  width: auto;
+  border: 3px solid black;
+
+  padding: 20px;
+  border-radius: 50%;
+  background-color: white;
+
+  -webkit-transition: 1s cubic-bezier(.68,-.55,.265,1.55); /* Safari */
+  transition: 0.5s cubic-bezier(.68,-.55,.265,1.55);
+  margin: 22px 24px;
+
+}
+
+.Header-logo-image:hover{
+  -webkit-transform: rotateZ(360deg);
+  transform: rotateZ(360deg);
+}
+
+.page-header {
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #eee;
+    display: inline-flex;
+    background: #9099A2;
+    top:0;
+}
+
+a{
+    color: #6D7993;
 }

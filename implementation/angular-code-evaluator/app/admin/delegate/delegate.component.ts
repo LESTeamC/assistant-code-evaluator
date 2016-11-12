@@ -112,6 +112,13 @@ export	class	DelegateComponent implements OnInit	{
         return this.exercises.find(d => d.id === id).name;
     }
 
+    private isSelectedExaminer(examiner:Examiner){
+
+        if (examiner === null ||this.selectedExaminer ===null ) return false; 
+    
+        return examiner.name === this.selectedExaminer.name;
+    }
+
 
     @ViewChild('examinerModal') public childModal:ModalDirective;
  
