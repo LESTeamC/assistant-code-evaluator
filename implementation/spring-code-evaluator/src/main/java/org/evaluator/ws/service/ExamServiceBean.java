@@ -92,4 +92,23 @@ public class ExamServiceBean implements ExamService {
         logger.info("< createExam");
         return savedExam;
     }
+        
+	@Override
+	public Collection<Exam> findByExaminer(Long examinerID) {
+		logger.info("> findByExaminer");
+		Collection<Exam> exams = examRepository.findExamByExaminer(examinerID);
+		
+		logger.info("< findByExaminer");
+		return exams;
+	}
+	
+	
+	@Override
+	public Collection<Exercise> findExercisesByExaminer(Long examinerID) {
+		logger.info("> findByExaminer");
+		Collection<Exercise> exams = examRepository.findExercisesByExaminer(examinerID);
+		
+		logger.info("< findByExaminer");
+		return exams;
+	}
 }
