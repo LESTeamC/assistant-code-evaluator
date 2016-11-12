@@ -83,7 +83,7 @@ public class Exam extends TransactionalEntity {
 			fetch = FetchType.EAGER, 
 			cascade = CascadeType.ALL,
 			mappedBy ="exam")
-	@JsonIgnore
+	@JsonManagedReference
 	private Set<Exercise> exercises;
 	
     @ManyToMany(

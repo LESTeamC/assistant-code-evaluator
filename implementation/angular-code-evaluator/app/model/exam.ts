@@ -1,4 +1,5 @@
 import {Exercise} from './exercise'
+import {Student} from './student'
 
 export class Exam {
     public id?: number;
@@ -17,5 +18,5 @@ export class Exam {
     public nquestions?: number;
     public language?: string;
     public exercises?: Exercise[];
-
+    public students?: Student[];
 }

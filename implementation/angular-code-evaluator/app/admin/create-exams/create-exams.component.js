@@ -15,14 +15,17 @@ var exam_1 = require('./../../model/exam');
 var exercise_1 = require('./../../model/exercise');
 var exercise_criteria_1 = require('./../../model/exercise-criteria');
 var exam_service_1 = require('./../exam.service');
+var csv_service_1 = require('./csv.service');
 var CreateExamsComponent = (function () {
-    function CreateExamsComponent(_router, examService) {
+    function CreateExamsComponent(_router, examService, csvService) {
         this._router = _router;
         this.examService = examService;
+        this.csvService = csvService;
         //Objects to use in Model and leter persist in Database (exam, exercises and criteria)
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
         this.criteria = new Array();
+        this.students = new Array();
         //Placeholder objects to use wile user is creating exercise
         this.currentExercise = new exercise_1.Exercise();
         this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
@@ -42,6 +45,7 @@ var CreateExamsComponent = (function () {
     CreateExamsComponent.prototype.onSubmit = function () {
         var _this = this;
         this.exam.exercises = this.exercises;
+        this.exam.students = this.students;
         this.examService.createExam(this.exam)
             .subscribe(function (data) { return _this.successCreate(data); }, function (error) { return _this.failCreate(error); });
     };
@@ -57,6 +61,7 @@ var CreateExamsComponent = (function () {
         this.createdSuccess = true;
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
+        this.students = new Array();
     };
     /**
      * Failure funtion.
@@ -98,7 +103,9 @@ var CreateExamsComponent = (function () {
             this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
             this.currentExercise = new exercise_1.Exercise();
-            this.weightErrorExercise = false;
+            this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
+            this.criteria = new Array(),
+                this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
             this.hideChildModal();
@@ -183,6 +190,12 @@ var CreateExamsComponent = (function () {
         return sum; //The element isn't in your array
     };
     ;
+    CreateExamsComponent.prototype.uploadCSV = function ($event) {
+        var _this = this;
+        var file = $event.target.files[0];
+        var subscription = this.csvService.getStudentsFromCSV(file)
+            .subscribe(function (data) { return _this.students = data; });
+    };
     /**
     * Shows modal
     */
@@ -205,7 +218,7 @@ var CreateExamsComponent = (function () {
             templateUrl: 'app/admin/create-exams/create-exams.component.html',
             styleUrls: ['app/admin/create-exams/create-exams.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService])
+        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService, csv_service_1.CSVService])
     ], CreateExamsComponent);
     return CreateExamsComponent;
 }());

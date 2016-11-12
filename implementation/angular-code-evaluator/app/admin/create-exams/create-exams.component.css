@@ -53,3 +53,12 @@ alert span{
     max-height: 240px;
     overflow: scroll;
 }
+
+.panel-body p {
+    margin:0;
+    font-size: 12px;
+}
+
+.btn-long{
+    width: 100%;
+}

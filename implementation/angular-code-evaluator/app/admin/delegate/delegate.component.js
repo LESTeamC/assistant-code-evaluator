@@ -34,6 +34,7 @@ var DelegateComponent = (function () {
     };
     DelegateComponent.prototype.successGetExaminers = function (data) {
         this.examiners = data;
+        console.log(this.examiners);
     };
     DelegateComponent.prototype.failGetExaminers = function (error) {
         this._router.navigate(['/loginadmin']);

@@ -43,6 +43,7 @@ export	class	DelegateComponent implements OnInit	{
 
     successGetExaminers(data:any){
         this.examiners = data;
+        console.log(this.examiners)
     }
 
     failGetExaminers(error:any){

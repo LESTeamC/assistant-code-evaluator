@@ -5,8 +5,15 @@ import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import {Exam} from './../../model/exam';
 import {Exercise} from './../../model/exercise';
 import {ExerciseCriteria} from './../../model/exercise-criteria';
+import {Student} from './../../model/student'
 
 import {ExamService} from './../exam.service'
+import {CSVService} from './csv.service'
+
+import {Utils} from './../../util/util'
+
+import {Observable} from 'rxjs/Rx';
+
 
 
 @Component({	
@@ -24,6 +31,7 @@ export	class	CreateExamsComponent implements OnInit	{
     private exam = new Exam();
     private exercises: Exercise[] = new Array<Exercise>();
     private criteria: ExerciseCriteria[] = new Array<ExerciseCriteria>();
+    private students: any[] = new Array<any>();
     
     //Placeholder objects to use wile user is creating exercise
     private currentExercise = new Exercise();
@@ -40,7 +48,7 @@ export	class	CreateExamsComponent implements OnInit	{
     private weightErrorCriteria:boolean;
     private createdSuccess:boolean;
 
-    constructor(private _router:Router, private examService:ExamService){}
+    constructor(private _router:Router, private examService:ExamService, private csvService: CSVService){}
 
     ngOnInit(){
 
@@ -60,6 +68,7 @@ export	class	CreateExamsComponent implements OnInit	{
     onSubmit(){
 
         this.exam.exercises = this.exercises;
+        this.exam.students = this.students;
         this.examService.createExam(this.exam)
             .subscribe(data => this.successCreate(data),
                        error => this.failCreate(error));
@@ -79,6 +88,7 @@ export	class	CreateExamsComponent implements OnInit	{
         this.createdSuccess = true;
         this.exam = new Exam();
         this.exercises = new Array<Exercise>();
+        this.students = new Array<Student>();
         
     }
 
@@ -125,6 +135,8 @@ export	class	CreateExamsComponent implements OnInit	{
             this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
             this.currentExercise = new Exercise();
+            this.currentCriteria = new ExerciseCriteria();
+            this.criteria = new Array<ExerciseCriteria>(),
             this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
@@ -214,6 +226,15 @@ export	class	CreateExamsComponent implements OnInit	{
         }
         return sum; //The element isn't in your array
     };
+
+
+    private uploadCSV($event:any){
+
+        var file:any = $event.target.files[0];
+        var subscription = this.csvService.getStudentsFromCSV(file)
+                                .subscribe((data:any) => this.students = data);
+
+    }
 
     @ViewChild('exerciseModal') public childModal:ModalDirective;
  
