@@ -1,15 +1,20 @@
 package org.evaluator.ws.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -78,8 +83,21 @@ public class Exam extends TransactionalEntity {
 			fetch = FetchType.EAGER, 
 			cascade = CascadeType.ALL,
 			mappedBy ="exam")
-	@JsonBackReference
+	@JsonIgnore
 	private Set<Exercise> exercises;
+	
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "StudentExam",
+            joinColumns = @JoinColumn(
+                    name = "examId",
+                    referencedColumnName = "id") ,
+            inverseJoinColumns = @JoinColumn(
+                    name = "studentId",
+                    referencedColumnName = "id") )
+    private List<Student> students;
 
 
 	/**
@@ -156,6 +174,14 @@ public class Exam extends TransactionalEntity {
 
 	public void setExercises(Set<Exercise> exercises) {
 		this.exercises = exercises;
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 }

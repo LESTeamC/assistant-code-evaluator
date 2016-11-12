@@ -18,7 +18,9 @@ org/evaluator/ws/security/AccountAuthenticationProvider.class
 org/evaluator/ws/model/Submission.class
 org/evaluator/ws/security/AccountUserDetailsService.class
 org/evaluator/ws/web/api/LoginController.class
+org/evaluator/ws/repository/StudentRepository.class
 org/evaluator/ws/service/ExaminerService.class
+org/evaluator/ws/service/StudentServiceBean.class
 org/evaluator/ws/web/filter/SimpleCorsFilter.class
 org/evaluator/Application.class
 org/evaluator/ws/util/RequestContext.class
@@ -33,6 +35,7 @@ org/evaluator/ws/model/Exercise.class
 org/evaluator/ws/model/Exam.class
 org/evaluator/SecurityConfiguration.class
 org/evaluator/ws/model/Examiner.class
+org/evaluator/ws/service/StudentService.class
 org/evaluator/ws/model/ExerciseCriteria.class
 org/evaluator/ws/service/EmailService.class
 org/evaluator/ws/service/ExerciseService.class

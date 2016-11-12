@@ -73,6 +73,8 @@ public class ExamController extends BaseController {
         	}
         	
         }catch(Exception e){
+        	logger.info("> createExam");
+        	logger.error(e.getMessage());
         	return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
         }
         
