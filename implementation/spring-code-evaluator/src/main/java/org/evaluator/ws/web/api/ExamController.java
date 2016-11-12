@@ -84,30 +84,5 @@ public class ExamController extends BaseController {
        
     }
 	
-			@RequestMapping(value = "/api/exams_by_examiner/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Exam>> getExamByExaminer(@PathVariable("id") Long examinerID) {
-		logger.info("> getExamByExaminer id:{}", examinerID);
-		
-		ArrayList<Exam> exams =  (ArrayList) examService.findByExaminer(examinerID);
-		if (exams == null) {
-			return new ResponseEntity<List<Exam>>(HttpStatus.NOT_FOUND);
-		}
-
-		logger.info("< getExamByExaminer id:{}", examinerID);
-		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/api/exercises_by_examiner/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Exercise>> getExercisesByExaminer(@PathVariable("id") Long examinerID) {
-		logger.info("> getExamByExaminer id:{}", examinerID);
-		
-		ArrayList<Exercise> exercises =  (ArrayList) examService.findExercisesByExaminer(examinerID);
-		if (exercises == null) {
-			return new ResponseEntity<List<Exercise>>(HttpStatus.NOT_FOUND);
-		}
-
-		logger.info("< getExamByExaminer id:{}", examinerID);
-		return new ResponseEntity<List<Exercise>>(exercises, HttpStatus.OK);
-	}
 
 }
