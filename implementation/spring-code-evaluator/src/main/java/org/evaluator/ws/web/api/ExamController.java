@@ -1,6 +1,10 @@
 package org.evaluator.ws.web.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.evaluator.ws.model.Exam;
+import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.service.ExamService;
 import org.hibernate.JDBCException;
 import org.slf4j.Logger;
