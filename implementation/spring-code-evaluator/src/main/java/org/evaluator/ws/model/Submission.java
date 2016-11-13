@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Submission {
@@ -31,6 +33,7 @@ public class Submission {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "exerciseId")
+	@JsonIgnore
 	private Exercise exercise;
 
 	
@@ -42,6 +45,7 @@ public class Submission {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "studentId")
+	@JsonIgnore
 	private Student student;
 	
 	
@@ -76,6 +80,7 @@ public class Submission {
 	@OneToMany(
 			fetch = FetchType.EAGER,
 			mappedBy ="submission")
+	@JsonIgnore
 	private Set<SubmissionCriteria> criteria;
 
 	public Long getId() {
