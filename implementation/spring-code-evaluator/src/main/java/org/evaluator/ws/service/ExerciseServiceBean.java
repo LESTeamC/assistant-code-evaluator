@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.repository.ExerciseRepository;
+import org.evaluator.ws.repository.SubmissionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class ExerciseServiceBean implements ExerciseService {
      */
     @Autowired
     private ExerciseRepository exerciseRepository;
+    @Autowired
+    private SubmissionRepository submissionRepository;
     
     @Override
     public Collection<Exercise> findAll() {
@@ -96,6 +99,14 @@ public class ExerciseServiceBean implements ExerciseService {
         logger.info("< update id:{}", exercise.getId());
         return updatedExercise;
     }
+	
+		@Override
+	public Collection<Submission> getSubmissionsByExercise(Long exerciseID) {
+    	logger.info("> getSubmissionsByExercise id:{}", exerciseID);
+    	Collection<Submission> submissions = submissionRepository.getSubmissionsByExercise(exerciseID);
+        logger.info("< getSubmissionsByExercise id:{}", exerciseID);
+		return submissions;
+	}
     
 
 }
