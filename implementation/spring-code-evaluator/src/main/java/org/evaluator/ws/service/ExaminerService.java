@@ -31,5 +31,7 @@ public interface ExaminerService {
     Collection<Examiner> findAll();
     
     Examiner findOne(Long id);
+    
+    Examiner create(Examiner examiner);
 
 }

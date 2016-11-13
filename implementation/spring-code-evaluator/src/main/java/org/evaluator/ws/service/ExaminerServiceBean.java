@@ -1,13 +1,23 @@
 package org.evaluator.ws.service;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.EntityExistsException;
 
 import org.evaluator.ws.model.Examiner;
+import org.evaluator.ws.model.Role;
 import org.evaluator.ws.repository.ExaminerRepository;
+import org.evaluator.ws.repository.RoleRepository;
+import org.evaluator.ws.util.BCryptPasswordEncoderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The ExaminerServiceBean encapsulates all business behaviors for operations on
@@ -28,6 +38,9 @@ public class ExaminerServiceBean implements ExaminerService {
      */
     @Autowired
     private ExaminerRepository examinerRepository;
+    
+    @Autowired
+    private RoleRepository roleRepository;
 
 	@Override
 	public Examiner findByUsername(String username) {
@@ -54,6 +67,52 @@ public class ExaminerServiceBean implements ExaminerService {
         Examiner examiner = examinerRepository.findOne(id);
 
         logger.info("< findOne id:{}", id);
+        return examiner;
+    }
+    
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            readOnly = false)
+    public Examiner create(Examiner examiner) {
+        logger.info("> createExaminer");
+
+        // Ensure the entity object to be created does NOT exist in the
+        // repository. Prevent the default behavior of save() which will update
+        // an existing entity if the entity matching the supplied id exists.
+        if (examiner.getId() != null) {
+            // Cannot create Exam with specified ID value
+            logger.error(
+                    "Attempted to create a Exam, but id attribute was not null.");
+            throw new EntityExistsException(
+                    "The id attribute must be null to persist a new entity.");
+        }
+        
+        //Make Sure account is OK and Encrypt Password    
+        examiner = this.setUpAccount(examiner);
+
+
+        Examiner savedExaminer = examinerRepository.save(examiner);
+
+        logger.info("< createExaminer");
+        return savedExaminer;
+    }
+    
+    private Examiner setUpAccount(Examiner examiner){
+        
+    	examiner.getAccount().setCreatedAt(new Date());
+        examiner.getAccount().setUsername(examiner.getUsername());
+        
+        String pw = examiner.getAccount().getPassword();
+        
+        BCryptPasswordEncoderUtil a = new BCryptPasswordEncoderUtil();
+        examiner.getAccount().setPassword(a.encode(pw));
+        
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(roleRepository.findByCodeAndEffective("ROLE_USER", new Date()));
+        
+        examiner.getAccount().setRoles(roles);
+        
         return examiner;
     }
 

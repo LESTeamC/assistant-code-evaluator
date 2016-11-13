@@ -2,6 +2,7 @@ package org.evaluator.ws.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -48,10 +49,10 @@ public class Examiner {
 	@NotNull
 	@OneToOne(
 			fetch = FetchType.EAGER,
+			cascade=CascadeType.ALL,
 			optional = false)
 	@JoinColumn(
 			name = "accountId")
-	@JsonIgnore
 	private Account account;
 	
 	@OneToMany(
