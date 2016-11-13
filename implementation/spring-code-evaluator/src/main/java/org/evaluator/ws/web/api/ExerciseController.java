@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.service.ExaminerService;
 import org.evaluator.ws.service.ExerciseService;
 import org.slf4j.Logger;
@@ -118,5 +119,20 @@ public class ExerciseController extends BaseController {
 
 
     }
+	
+		@RequestMapping(value = "/api/submissions_by_exercise/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Submission>> getSubmissionsByExercise( @PathVariable(value="id") Long exerciseID){
+		logger.info("> submissions_by_exercise id:{}", exerciseID);
+		
+		Collection<Submission> submissions = exerciseService.getSubmissionsByExercise(exerciseID);
+		 if (submissions == null) {
+             return new ResponseEntity<Collection<Submission>>(
+                     HttpStatus.INTERNAL_SERVER_ERROR);
+         }
+		
+		logger.info("< submissions_by_exercise id:{}", exerciseID);
+		return new ResponseEntity<Collection<Submission>>(submissions, HttpStatus.OK);
+	}
+
 
 }
