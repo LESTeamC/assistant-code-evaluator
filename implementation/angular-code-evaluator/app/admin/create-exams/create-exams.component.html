@@ -1,4 +1,16 @@
-<form (ngSubmit)="onSubmit()" #createExamForm="ngForm" novalidate>
+
+<!--Error/success messages in main screen-->
+
+<alert type="success" dismissible="true"
+       *ngIf="createdSuccess">The Exam with the name "<span>{{lastExamName}}"</span> was created successfully</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="conflictError">There is already an exam with the name "<span>{{lastExamName}}". </span>Please chose another</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
+
+<!--Left side CREATE EXAM Form-->
+
+<form (ngSubmit)="onSubmit()" #createExamForm="ngForm">
   <div class="row">
     <div class="col-sm-12 col-md-6">
       <div class="input-group" [class.error]="conflictError">
@@ -55,11 +67,13 @@
           <option>Ruby</option>
         </select>
       </div>
-      <button class="btn login-btn" type="submit" [disabled]="!createExamForm.valid">Create Exam</button>
+      <button class="btn blue-bg btn-long" type="submit" [disabled]="!createExamForm.valid">Create Exam</button>
     </div>
+
+    <!--Exercises List-->
     <div class="col-sm-12 col-md-6">
       <div class="panel panel-default">
-         <div class="panel-heading">Exercises</div>
+         <div class="panel-heading blue-bg">Exercises</div>
           <div class="panel-body" *ngIf="exercises.length < 1">
             <p>You haven't created any exercises yet.</p>
           </div>
@@ -70,6 +84,7 @@
                 <th>Name</th>
                 <th>Question</th>
                 <th>Weight</th>
+                <th>#Criteria</th>
                 <th></th>
               </tr>
             </thead>
@@ -77,7 +92,8 @@
               <tr *ngFor="let exercise of exercises">
                 <td>{{exercise.name}}</td>
                 <td>{{exercise.question}}</td>
-                <td>{{exercise.weight}}</td>
+                <td>{{exercise.weight}}%</td>
+                <td>{{exercise.criteria.length}}</td>
                 <td>
                     <button type="button" class="close" (click)="deleteExercise(exercise)" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
@@ -88,18 +104,42 @@
           </table>
         </div>
       </div>
-      <button type="button" class="btn" (click)="showChildModal()">Add Exercise</button>
+      <button type="button" class="btn blue-bg" (click)="showChildModal()">Add Exercise</button>
     </div>
   </div>
 </form>
 
-<alert type="success" dismissible="true"
-       *ngIf="createdSuccess">The Exam with the name "<span>{{lastExamName}}"</span> was created successfully</alert>
-<alert type="danger" dismissible="true"
-       *ngIf="conflictError">There is already an exam with the name "<span>{{lastExamName}}". </span>Please chose another</alert>
-<alert type="danger" dismissible="true"
-       *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
+
+<!--Student Submission-->
+<label class="btn blue-bg btn-file">
+    Import CSV... <input id="csv-input" type="file" style="display: none;" (change)="uploadCSV($event)" accept=".csv">
+</label>
+<div class="panel panel-default">
+  <div class="panel-heading blue-bg">Students</div>
+  <div class="panel-body">
+    <p>Please Import a list of Students from a CSV file.</p>
+    <p>The CSV file should have a first collums with Name and Username as headers. All values should be separated by a comma.</p>
+    <div class="table-responsive">
+      <table class="table">
+        <thead *ngIf="students.length>0">
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{student.name}}</td>
+            <td>{{student.username}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
  
+ <!--MODAL for Create exercise-->
+
 <div bsModal #exerciseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -110,6 +150,9 @@
         <h4 class="modal-title">Exercise</h4>
       </div>
       <div class="modal-body">
+
+         <!--Create exercise form-->
+
         <form #createExerciseForm="ngForm">
           <label for="exercise-name">Title</label>
           <div class="form-group" [class.error]="conflictErrorExercise">
@@ -136,8 +179,67 @@
                       [(ngModel)]="currentExercise.weight" 
                       #name="ngModel"
                       name="exercise-weight" 
-                      required>
-          </div>     
+                      required min="0" max="100">
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">Criteria</div>
+            <div class="panel-body criteria-panel">
+              <p>Fill out the different criteria for the exercixe
+                The Gama value represents the range of grandes that the examiner will be able to give
+                Weight is a percentage value of the criteria in the exercice and should equal 100.</p>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead *ngIf="this.criteria.length>0">
+                      <tr>
+                        <th>Description</th>
+                        <th>Gama</th>
+                        <th>Weight</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let crit of criteria">
+                        <td>{{crit.description}}</td>
+                        <td>{{crit.gama}}</td>
+                        <td>{{crit.weight}}%</td>
+                        <td>
+                          <button type="button" class="close" (click)="deleteCriteria(crit)" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>      
+
+                <!--Create Criteria form-->
+              <form (ngSubmit)="addCriteria()" #createCriteriaForm="ngForm">
+                <div class="form-inline">
+                  <div class="form-group half-full">
+                    <textarea type="text" class="form-control" id="criteria-description-current" placeholder="Description"
+                        [(ngModel)]="currentCriteria.description" 
+                        #name="ngModel"
+                        name="ccriteria-description" required>
+                    </textarea>
+                  </div>
+                  <div class="form-group small-input">
+                    <input type="number" class="form-control" id="criteria-gama-current" placeholder="Gama"
+                      [(ngModel)]="currentCriteria.gama" 
+                        #name="ngModel"
+                        name="ccriteria-gama" required min="1">
+                  </div>
+                  <div class="form-group small-input" >
+                    <input type="number" class="form-control" id="criteria-weight-current" placeholder="Weight"
+                        [(ngModel)]="currentCriteria.weight" 
+                        #name="ngModel"
+                        name="ccriteria-weight" required min="0" max="100">             
+                  </div>           
+                  <button type="submit" class="btn" (click)="addCriteria()" [disabled]="!createCriteriaForm.valid">+</button>
+                </div> 
+              </form>
+            </div>
+          </div>
+
           <div class="input-group">
             <span class="input-group-addon" id="exercise-commandbuild">Compilation command</span>
             <input type="text" 
@@ -156,11 +258,14 @@
           </div>     
           <button type="button" class="btn login-btn" [disabled]="!createExerciseForm.valid" (click)="addExercise()">Create Exercise</button>
         </form>
+
+        <!--Error messages in modal-->
         <alert type="danger" dismissible="true"
        *ngIf="conflictErrorExercise">There is already an exercise with the name "<span>{{currentExercise.name}}". </span>Please chose another</alert>
         <alert type="danger" dismissible="true"
        *ngIf="weightErrorExercise">Total weight exceeds 100%</alert>
-      
+       <alert type="danger" dismissible="true"
+       *ngIf="weightErrorCriteria">Total weight exceeds 100%</alert>
       </div>
     </div>
   </div>

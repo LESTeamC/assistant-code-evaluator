@@ -21,6 +21,9 @@ var view_examiners_component_1 = require('./view-examiners/view-examiners.compon
 var view_exams_component_1 = require('./view-exams/view-exams.component');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_service_1 = require('./exam.service');
+var examiner_service_1 = require('./../shared/examiner.service');
+var exercise_service_1 = require('./../shared/exercise.service');
+var csv_service_1 = require('./create-exams/csv.service');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -43,7 +46,10 @@ var AdminModule = (function () {
                 delegate_component_1.DelegateComponent,
             ],
             providers: [
-                exam_service_1.ExamService
+                exam_service_1.ExamService,
+                examiner_service_1.ExaminerService,
+                exercise_service_1.ExerciseService,
+                csv_service_1.CSVService,
             ]
         }), 
         __metadata('design:paramtypes', [])

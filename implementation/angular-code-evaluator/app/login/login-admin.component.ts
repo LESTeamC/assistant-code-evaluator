@@ -11,6 +11,9 @@ import { AuthService } from './../shared/auth.service';
 	templateUrl: '/app/login/login-admin.component.html',
     styleUrls: ['app/login/login.component.css']
 })
+/**
+ * Component for the Admin Login
+ */
 export	class	LoginAdminComponent	{
 
     private login = new Credentials('', '');
@@ -19,16 +22,22 @@ export	class	LoginAdminComponent	{
     constructor(private _router: Router, private _authService: AuthService, private loginService: LoginService) {
     }
 
+    /**
+     * Submits credetials to API to determine if valid or not;
+     */
     onSubmit() {
 
         this.loginService.loginAdmin(this.login.username, this.login.password)
             .subscribe(data => this.loginSuccess(data),
                        error => this.loginFail(error));
-        
-        //this.login.password = "";
-        //this.login.username = "";
     }
 
+    /**
+     * Success Funtion
+     * Sets Credentials in shared service for other components to use 
+     * Cleans error messages and navigates to admin dashboard
+     * @param: Account returned from API
+     */
     loginSuccess(data: any) {
         this._authService.setCredentials(this.login);
         this._authService.login("admin")
@@ -36,6 +45,13 @@ export	class	LoginAdminComponent	{
         this._router.navigate(['/admin/view-exams']);
     }
 
+    /**
+     * Fail Funtion
+     * If error ir 401 (Unauthorized), tells user about invalid credentials. 
+     * If error ir 403 (Forbidden), it's because user exists and PW is correct, but is not allowed in module
+     * Else, generic error message
+     * @param: error object
+     */
     loginFail(error: any) {
         if (error.status === 401){
             this.errorMessage = "Invalid Credentials.";

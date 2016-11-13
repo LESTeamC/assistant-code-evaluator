@@ -1,5 +1,11 @@
 import {Component, OnInit}	from '@angular/core';
 import {Router} from '@angular/router';
+import {Response} from '@angular/http';
+
+import {AuthService} from './../shared/auth.service'
+import {ExaminerService} from './../shared/examiner.service'
+
+import {Examiner} from './../model/examiner'
 
 @Component({	
     selector: 'examiner',	
@@ -8,9 +14,28 @@ import {Router} from '@angular/router';
 })
 export	class	ExaminerComponent implements OnInit	{
 
-    constructor(private _router:Router){}
+    private examinerUsername:string;
+    private examiner:Examiner = new Examiner();
+
+    constructor(private _router:Router, private authService:AuthService, private examinerService:ExaminerService){}
 
     ngOnInit(){
-        console.log("examiner");
+        this.examinerUsername = this.authService.username;
+
+        this.examinerService.getExaminer(this.examinerUsername)
+            .subscribe(data => this.success(data),
+                       error => this.fail(error));
+    }
+
+    private logout(){
+        this.authService.logout();
+    }
+
+    private success(data: any){
+        this.examiner = data;
+    }
+
+    private fail(error: any){
+        this._router.navigate(['/login'])
     }
 }	

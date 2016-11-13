@@ -10,12 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var auth_service_1 = require('./../shared/auth.service');
+var examiner_service_1 = require('./../shared/examiner.service');
+var examiner_1 = require('./../model/examiner');
 var ExaminerComponent = (function () {
-    function ExaminerComponent(_router) {
+    function ExaminerComponent(_router, authService, examinerService) {
         this._router = _router;
+        this.authService = authService;
+        this.examinerService = examinerService;
+        this.examiner = new examiner_1.Examiner();
     }
     ExaminerComponent.prototype.ngOnInit = function () {
-        console.log("examiner");
+        var _this = this;
+        this.examinerUsername = this.authService.username;
+        this.examinerService.getExaminer(this.examinerUsername)
+            .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
+    };
+    ExaminerComponent.prototype.logout = function () {
+        this.authService.logout();
+    };
+    ExaminerComponent.prototype.success = function (data) {
+        this.examiner = data;
+    };
+    ExaminerComponent.prototype.fail = function (error) {
+        this._router.navigate(['/login']);
     };
     ExaminerComponent = __decorate([
         core_1.Component({
@@ -23,7 +41,7 @@ var ExaminerComponent = (function () {
             templateUrl: '/app/examiner/examiner.component.html',
             styleUrls: ['app/examiner/examiner.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, examiner_service_1.ExaminerService])
     ], ExaminerComponent);
     return ExaminerComponent;
 }());

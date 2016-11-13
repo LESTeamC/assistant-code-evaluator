@@ -27,3 +27,38 @@ alert {
 alert span{
     font-weight: bold;
 }
+
+.half-full {
+    width: 60%;
+}
+
+.half-full textarea {
+    width: 100%;
+    height: 34px;
+}
+
+.small-input{
+    width: 15%;
+}
+
+.small-input input{
+    width: 100%;
+}
+
+.criteria-row{
+    margin-bottom: 5px;
+}
+
+.criteria-panel{
+    max-height: 240px;
+    overflow: scroll;
+}
+
+.panel-body p {
+    margin:0;
+    font-size: 12px;
+}
+
+.btn-long{
+    width: 100%;
+}

@@ -1,12 +1,14 @@
 package org.evaluator.ws.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityExistsException;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.Student;
 import org.evaluator.ws.repository.ExamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,9 @@ public class ExamServiceBean implements ExamService {
      */
     @Autowired
     private ExamRepository examRepository;
+    
+    @Autowired
+    private StudentService studentService;
     
     /**
      * The <code>CounterService</code> captures metrics for Spring Actuator.
@@ -78,6 +83,14 @@ public class ExamServiceBean implements ExamService {
                     "The id attribute must be null to persist a new entity.");
         }
         
+        //Execute Student Service.
+        
+        if(exam.getStudents() != null) {
+        
+	        List<Student> students = studentService.createList(exam.getStudents());
+	        exam.setStudents(students);
+        }
+        
         // Calculate number of Questions
         Set<Exercise> exercisesSet = exam.getExercises();
         
@@ -92,4 +105,23 @@ public class ExamServiceBean implements ExamService {
         logger.info("< createExam");
         return savedExam;
     }
+        
+	@Override
+	public Collection<Exam> findByExaminer(Long examinerID) {
+		logger.info("> findByExaminer");
+		Collection<Exam> exams = examRepository.findExamByExaminer(examinerID);
+		
+		logger.info("< findByExaminer");
+		return exams;
+	}
+	
+	
+	@Override
+	public Collection<Exercise> findExercisesByExaminer(Long examinerID) {
+		logger.info("> findByExaminer");
+		Collection<Exercise> exams = examRepository.findExercisesByExaminer(examinerID);
+		
+		logger.info("< findByExaminer");
+		return exams;
+	}
 }

@@ -12,9 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Examiner {
@@ -53,6 +51,7 @@ public class Examiner {
 			optional = false)
 	@JoinColumn(
 			name = "accountId")
+	@JsonIgnore
 	private Account account;
 	
 	@OneToMany(

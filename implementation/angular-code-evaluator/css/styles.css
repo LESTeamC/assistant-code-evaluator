@@ -2,3 +2,22 @@ span.error-message{
   color:red;
   margin: 5px;
 }
+
+h1, h2, h3{
+  font-family: 'Vollkorn', serif !important;
+}
+
+p, li, a, span, input, select, button, div, textarea, label{
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+
+a{
+  cursor: pointer;
+}
+
+.blue-bg{
+  background-color: #6D7993 !important;
+  color:white !important;
+}
+
+

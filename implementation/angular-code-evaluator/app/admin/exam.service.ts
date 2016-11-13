@@ -5,19 +5,34 @@ import 'rxjs/add/operator/map';
 import {AuthService} from './../shared/auth.service'
 import {AppSettings} from './../shared/app-settings';
 
+import {Exam} from './../model/exam';
+
 
 @Injectable()
+/**
+* Contains functions that get, post and update exams onto the API and DB
+*/
 export class ExamService {
 
     private headers:Headers;
+
+    //Get the main URL global variable from the AppSettings class in the shared folder
     private url = AppSettings.API_ENDPOINT;
 
     constructor(private http:Http, private authService:AuthService) { }
 
-    createExam(exam: any){
+    /**
+    * Persists Exam in DB
+    * @param: Exam to persist
+    */
+    createExam(exam: Exam){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
         this.headers = new Headers();
         this.headers.append('Authorization', this.authService.credentials);
         
+        //make Post request to persist exam, including header
         return this.http
                 .post(this.url+`/admin/exam`, exam, {headers : this.headers} )
                 .map( (response:Response) => response.json())

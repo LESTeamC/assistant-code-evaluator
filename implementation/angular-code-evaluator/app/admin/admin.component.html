@@ -1,36 +1,35 @@
 <!-- Sidebar -->
 <div id="wrapper">
-<div id="sidebar-wrapper">
-	<ul class="sidebar-nav">
-		<li class="sidebar-brand">
-			<a routerLink="./view-exams">Assistant Code Evaluator</a>
-		</li>
-		<li>
-			<a routerLink="./view-exams">View Exams</a>
-		</li>
-		<li>
-			<a routerLink="./create-exams">Create Exams</a>
-		</li>
-		<li>
-			<a routerLink="./view-examiners">View Examiners</a>
-		</li>
-		<li>
-			<a routerLink="./create-examiners">Create Examiners</a>
-		</li>
-		<li>
-			<a routerLink="./delegate">Delegate Exams</a>
-		</li>
-	</ul>
-</div>
-<h3>Admin Screen</h3>
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<div class="Header-logo">
+				<a href="/">
+					<img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" />
+				</a>
+			</div>
+			<li class="sidebar-brand">
+				<a routerLink="./view-exams">Assistant Code Evaluator</a>
+			</li><hr>
+			<li><a routerLink="./view-exams">View Exams</a></li>
+			<li><a routerLink="./create-exams">Create Exams</a></li><hr>
+			<li><a routerLink="./view-examiners">View Examiners</a></li>
+			<li><a routerLink="./create-examiners">Create Examiners</a></li><hr>
+			<li><a routerLink="./delegate">Delegate Exams</a></li><hr>
+			<li><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+		</ul>
+	</div>
 
-<div id="page-content-wrapper">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12">
-				<router-outlet></router-outlet>
+	<!-- Header -->
+	<h3>Admin Screen</h3>
+
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<router-outlet></router-outlet>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
