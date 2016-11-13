@@ -14,5 +14,8 @@ public interface ExerciseService {
 	Collection <Exercise> findAllOpen();
 	
 	Exercise delegate(Exercise exercise, Examiner examiner);
+	
+	Collection<Submission> getSubmissionsByExercise(Long exerciseID);
+
 
 }
