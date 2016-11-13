@@ -21,7 +21,6 @@ import { AuthGuard } from './shared/auth-guard.service'
 
 import { HttpModule } from '@angular/http';
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -32,7 +31,7 @@ import { HttpModule } from '@angular/http';
     LoginModule,
     ExaminerModule,
     HttpModule,
-    ModalModule
+    ModalModule,
   ],
   declarations: [
     AppComponent,
@@ -40,7 +39,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     AuthService,
     AuthGuard,
-    LoginService
+    LoginService,
   ],
   bootstrap: [ AppComponent ]
 })

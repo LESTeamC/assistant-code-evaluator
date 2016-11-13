@@ -1,14 +1,20 @@
-import {Component, OnInit}	from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild}	from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({	
     selector: 'workstation',	
 	template: `<h1>WORKSTATION</h1>
-    <button routerLink="/examiner/dashboard"></button>`,
+
+    <student-code [code-language]="html">
+        {{code}}
+    </student-code>
+    `,
 })
 export	class	WorkstationComponent implements OnInit	{
 
     constructor(private _router:Router){}
+    
+    private code:string="";
 
     ngOnInit(){
         console.log("WORKSTATION");

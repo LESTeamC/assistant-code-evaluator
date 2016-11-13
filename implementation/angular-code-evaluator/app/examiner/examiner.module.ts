@@ -6,6 +6,7 @@ import { ExaminerRoutingModule }    from './examiner-router.module'
 import { ExaminerComponent }    from './examiner.component'
 import { DashboardComponent }    from './dashboard/dashboard.component'
 import { WorkstationComponent }    from './workstation/workstation.component'
+import { CodeComponent }    from './workstation/code.component'
 
 import {ExaminerService} from './../shared/examiner.service'
 
@@ -19,6 +20,7 @@ declarations: [
     DashboardComponent,
     WorkstationComponent,
     ExaminerComponent,
+    CodeComponent,
 
   ],
   providers: [

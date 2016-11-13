@@ -13,6 +13,7 @@ var router_1 = require('@angular/router');
 var WorkstationComponent = (function () {
     function WorkstationComponent(_router) {
         this._router = _router;
+        this.code = "";
     }
     WorkstationComponent.prototype.ngOnInit = function () {
         console.log("WORKSTATION");
@@ -20,7 +21,7 @@ var WorkstationComponent = (function () {
     WorkstationComponent = __decorate([
         core_1.Component({
             selector: 'workstation',
-            template: "<h1>WORKSTATION</h1>\n    <button routerLink=\"/examiner/dashboard\"></button>",
+            template: "<h1>WORKSTATION</h1>\n\n    <student-code [code-language]=\"html\">\n        {{code}}\n    </student-code>\n    ",
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], WorkstationComponent);
