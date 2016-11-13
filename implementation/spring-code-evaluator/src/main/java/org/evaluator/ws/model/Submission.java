@@ -45,7 +45,6 @@ public class Submission {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "studentId")
-	@JsonIgnore
 	private Student student;
 	
 	
