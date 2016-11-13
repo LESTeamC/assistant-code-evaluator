@@ -6,6 +6,7 @@ export class Exercise {
     public id?: number;
     public examiner?: any;
     public exam?: Exam;
+    public examname?:string;
     public name?: string;
     public question?: string;
     public status?: string;

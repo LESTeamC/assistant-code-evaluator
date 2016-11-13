@@ -165,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `codeevaluator`.`Exercise` (
   `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `examinerId` BIGINT(20) UNSIGNED,
   `examId` BIGINT(20) UNSIGNED NOT NULL,
+  `examname` VARCHAR(45) NOT NULL,
   `question` TEXT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `status` VARCHAR(45) NOT NULL DEFAULT 'O',

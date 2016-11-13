@@ -37,16 +37,16 @@ INSERT INTO Examiner (name, username, email, accountId)
 SELECT 'Nuno Flores', 'up2011765533', 'up2011765533@fe.up.pt', a.id FROM Account a WHERE a.username = 'up2011765533';
 
 -- Exercise DATA
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
-SELECT Examiner.id, Exam.id, 'What is your name?', 'Exercise1', 'O', 0, 2, 50, 'MKDIR', 'RUN', 'C://' 
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id,'Exam1', 'What is your name?', 'Exercise1', 'O', 0, 2, 50, 'MKDIR', 'RUN', 'C://' 
 FROM Examiner, Exam WHERE Examiner.username = 'up2011765544' AND Exam.name='Exam1';
 
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
-SELECT NULL, Exam.id, 'Who are you?', 'Exercise2', 'O', 0, 1, 50, 'MKDIR','RUN', 'C://' 
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT NULL, Exam.id,'Exam1', 'Who are you?', 'Exercise2', 'O', 0, 1, 50, 'MKDIR','RUN', 'C://' 
 FROM Exam WHERE Exam.name='Exam1';
 
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
-SELECT Examiner.id, Exam.id, 'How old are you?', 'Exercise3', 'O', 0, 1, 100, 'MKDIR','RUN', 'C://' 
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id,'Exam2', 'How old are you?', 'Exercise3', 'O', 0, 1, 100, 'MKDIR','RUN', 'C://' 
 FROM Examiner, Exam WHERE Examiner.username = 'up2011765533' AND Exam.name='Exam2';
 
 

@@ -9,6 +9,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Exam</th>
                         <th>Exercise Name</th>
                         <th>Status</th>
                         <th>Progress</th>
@@ -18,6 +19,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex.id)">
+                        <td>{{ex.examname}}</td>
                         <td>{{ex.name}}</td>
                         <td>{{ex.status}}</td>
                         <td>{{ex.progress}}</td>

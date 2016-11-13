@@ -96,6 +96,10 @@ public class ExamServiceBean implements ExamService {
         
         if (exercisesSet != null){
         	exam.setNquestions(exercisesSet.size());
+        	
+        	for(Exercise e: exercisesSet){
+        		e.setExamname(exam.getName());
+        	}
         }
         
         // Status, progress are set by default values when exam is created;

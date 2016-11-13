@@ -55,6 +55,12 @@ public class Exercise {
 	@JoinColumn(name="examId")
 	@JsonBackReference
 	private Exam exam;
+	
+	/**
+	 * Exam of the exercise
+	 */
+	@NotNull
+	private String examname;
 
 	/**
 	 * Question of the exercise
@@ -220,6 +226,14 @@ public class Exercise {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getExamname() {
+		return examname;
+	}
+
+	public void setExamname(String examname) {
+		this.examname = examname;
 	}	
 	
 	
