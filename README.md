@@ -6,7 +6,7 @@ Take a look at our Wiki to know more.
 
 #Release Notes
 
-##Release 1.0 (11/11/2016)
+##Beta Release (11/11/2016)
 
 http://les16c.fe.up.pt:3000/login
 
