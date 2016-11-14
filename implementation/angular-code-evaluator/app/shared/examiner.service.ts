@@ -20,12 +20,32 @@ export class ExaminerService {
 
     constructor(private http:Http, private authService:AuthService) { }
 
+  /**
+    * Persists Examiner in DB
+    * @param: Examiner to persist
+    */
+    createExaminer(examiner: Examiner){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .post(this.url+`/admin/examiner`, examiner, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+            
+    }
+
+
     /**
     * Gets Examiner from DB
     * @param: username String
     * @return: Examiner with the given username
     */
-    getExaminer(username: string){
+
+   getExaminer(username: string){
 
         //Get the user credentials from AuthService shared service
         //Important for Basic Authorization header
@@ -44,7 +64,7 @@ export class ExaminerService {
     * @param: username String
     * @return: Examiner with the given username
     */
-    getExaminers(){
+   getExaminers(){
 
         //Get the user credentials from AuthService shared service
         //Important for Basic Authorization header
@@ -57,4 +77,6 @@ export class ExaminerService {
                 .map( (response:Response) => response.json())
             
     }
+
+    
 }

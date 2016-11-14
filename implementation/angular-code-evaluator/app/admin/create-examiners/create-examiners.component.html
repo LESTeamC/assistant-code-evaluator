@@ -1,11 +1,11 @@
-<form (ngSubmit)="onSubmit(createExaminerForm.form)" #createExaminerForm="ngForm" novalidate>
+<form (ngSubmit)="onSubmit()" #createExaminerForm="ngForm">
 <span class="required_notification">* Required Fields</span>
 
 <div class="input-group" [class.error]="conflictError">
     <span class="input-group-addon" 
     id="examiner-name">Name</span>
     <input
-    [(ngModel)]="Examiner.name"
+    [(ngModel)]="examiner.name"
     name="name"
     #name="ngModel"
     id="examiner-name"
@@ -19,7 +19,7 @@
     <span class="input-group-addon" 
     id="examiner-user">Username</span>
     <input 
-    [(ngModel)]="Examiner.username"
+    [(ngModel)]="examiner.username"
     name="username"
     #name="ngModel"
     id="examiner-user"
@@ -34,10 +34,10 @@
     <span class="input-group-addon" 
     id="examiner-email">Email</span>
     <input 
-    [(ngModel)]="Examiner.email"
+    [(ngModel)]="examiner.email"
     name="email"
     #name="ngModel"
-    type="text" 
+    type="email" 
     class="form-control"
     placeholder="examiner@fe.up.pt"
     required>
@@ -45,13 +45,27 @@
 
 <div class="input-group">
     <span class="input-group-addon" id="examiner-pass">Password</span>
-    <input type="text" class="form-control" placeholder="Insert Examiner password" required>
+    <input 
+    [(ngModel)]="examiner.account.password"
+    name="password"
+    #name="ngModel"
+    type="password" 
+    class="form-control" 
+    placeholder="Insert Examiner password" 
+    required>
 </div>
 
 <div class="input-group">
     <span class="input-group-addon" id="examiner-confirmpass">Confirm Password</span>
-    <input type="text" class="form-control" placeholder="Confirm Examiner password" required>
-</div>
+    <input 
+    [(ngModel)]="confirmPass"
+    name="confirm-password"
+    #name="ngModel"
+    type="password"
+     class="form-control" 
+     placeholder="Confirm Examiner password" 
+     required>
+   </div>
 
 
 <button class="btn createExaminer-btn" type="submit" [disabled]="!createExaminerForm.valid">Create</button>
@@ -63,3 +77,5 @@
        *ngIf="SuccessCheck">Examiner created successfully</alert>
 <alert type="danger" dismissible="true"
        *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="passwordError">Password must match Confirm Password.</alert>

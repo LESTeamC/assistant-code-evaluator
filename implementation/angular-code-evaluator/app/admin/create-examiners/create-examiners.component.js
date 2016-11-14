@@ -11,42 +11,77 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var examiner_1 = require('./../../model/examiner');
+var account_1 = require('./../../model/account');
+var examiner_service_1 = require('./../../shared/examiner.service');
 var CreateExaminersComponent = (function () {
-    function CreateExaminersComponent(_router) {
+    function CreateExaminersComponent(_router, examinerService) {
         this._router = _router;
-        this.Examiner = new examiner_1.Examiner();
+        this.examinerService = examinerService;
+        this.examiner = new examiner_1.Examiner();
+        this.account = new account_1.Account();
     }
     CreateExaminersComponent.prototype.ngOnInit = function () {
+        this.examiner.account = this.account;
         console.log("create examiners");
         this.conflictError = false;
-        this.Examiner.name = "";
         this.SuccessCheck = false;
+        this.confirmPass = "";
+        this.passwordError = false;
     };
-    CreateExaminersComponent.prototype.onSubmit = function (form) {
-        this.conflictError = false;
-        this.SuccessCheck = true;
-        console.log(this.Examiner);
-        console.log(form.value);
+    //Submit form values with examiner info
+    CreateExaminersComponent.prototype.onSubmit = function () {
+        var _this = this;
+        if (this.validatePW()) {
+            this.examinerService.createExaminer(this.examiner)
+                .subscribe(function (data) { return _this.successCreate(data); }, function (error) { return _this.failCreate(error); });
+            console.log(this.examiner);
+        }
+        else {
+            this.conflictError = false;
+            this.serverError = false;
+            this.passwordError = true;
+            this.SuccessCheck = false;
+        }
     };
-    CreateExaminersComponent.prototype.successCreate = function (Examiner) {
+    //examiner created successfully
+    CreateExaminersComponent.prototype.successCreate = function (data) {
         console.log("Examiner Created successfully");
         this.conflictError = false;
         this.serverError = false;
+        this.passwordError = false;
         this.SuccessCheck = true;
-        this.Examiner = { name: "" };
+        this.confirmPass = "";
+        this.account = new account_1.Account();
+        this.examiner = new examiner_1.Examiner();
+        this.examiner.account = this.account;
     };
+    //examiner not created! error situation
     CreateExaminersComponent.prototype.failCreate = function (error) {
         if (error.status === 409) {
             this.SuccessCheck = false;
             this.serverError = false;
+            this.passwordError = false;
             this.conflictError = true;
             console.log("error during examiner creation");
         }
         else {
+            this.passwordError;
             this.SuccessCheck = false;
             this.conflictError = false;
             this.serverError = true;
             console.log("other error");
+        }
+    };
+    //Password and confirm password fields verification
+    CreateExaminersComponent.prototype.validatePW = function () {
+        console.log(this.examiner.account.password);
+        console.log(this.confirmPass);
+        console.log(this.examiner.account.password !== this.confirmPass);
+        if (this.examiner.account.password !== this.confirmPass) {
+            return false;
+        }
+        else {
+            return true;
         }
     };
     CreateExaminersComponent = __decorate([
@@ -55,7 +90,7 @@ var CreateExaminersComponent = (function () {
             templateUrl: 'app/admin/create-examiners/create-examiners.component.html',
             styleUrls: ['app/admin/create-examiners/create-examiners.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, examiner_service_1.ExaminerService])
     ], CreateExaminersComponent);
     return CreateExaminersComponent;
 }());
