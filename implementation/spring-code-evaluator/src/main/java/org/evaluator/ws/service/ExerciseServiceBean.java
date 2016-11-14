@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExerciseRepository;
 import org.evaluator.ws.repository.SubmissionRepository;
 import org.slf4j.Logger;

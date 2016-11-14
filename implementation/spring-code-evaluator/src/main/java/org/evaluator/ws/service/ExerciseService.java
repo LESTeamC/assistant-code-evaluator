@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.Submission;
 
 public interface ExerciseService {
 	
