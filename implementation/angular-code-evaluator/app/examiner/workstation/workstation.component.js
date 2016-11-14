@@ -13,7 +13,7 @@ var router_1 = require('@angular/router');
 var WorkstationComponent = (function () {
     function WorkstationComponent(_router) {
         this._router = _router;
-        this.code = "";
+        this.code = "\n    \n        public class Test {\n\n        public static void main(String args[]) {\n            int [] numbers = {10, 20, 30, 40, 50};\n\n            for(int x : numbers ) {\n                System.out.print( x );\n                System.out.print(\",\");\n            }\n            \n            String [] names = {\"James\", \"Larry\", \"Tom\", \"Lacy\"};\n\n            for( String name : names ) {\n                System.out.print( name );\n                System.out.print(\",\");\n            }\n        }\n        }\n    ";
     }
     WorkstationComponent.prototype.ngOnInit = function () {
         console.log("WORKSTATION");
@@ -21,7 +21,8 @@ var WorkstationComponent = (function () {
     WorkstationComponent = __decorate([
         core_1.Component({
             selector: 'workstation',
-            template: "<h1>WORKSTATION</h1>\n\n    <student-code [code-language]=\"html\">\n        {{code}}\n    </student-code>\n    ",
+            templateUrl: '/app/examiner/workstation/workstation.component.html',
+            styleUrls: ['app/examiner/workstation/workstation.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], WorkstationComponent);

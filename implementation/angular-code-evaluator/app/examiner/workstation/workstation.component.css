@@ -1,0 +1,29 @@
+.row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+pre, code{
+    margin: 0 !important;
+    padding: 0 !important;
+}  
+
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-criteria{
+    height:100%;
+}
+
+.panel{
+    width:100%;
+}

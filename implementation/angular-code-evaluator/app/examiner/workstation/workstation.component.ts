@@ -3,18 +3,34 @@ import {Router} from '@angular/router';
 
 @Component({	
     selector: 'workstation',	
-	template: `<h1>WORKSTATION</h1>
-
-    <student-code [code-language]="html">
-        {{code}}
-    </student-code>
-    `,
+	templateUrl: '/app/examiner/workstation/workstation.component.html',
+    styleUrls: ['app/examiner/workstation/workstation.component.css']
 })
 export	class	WorkstationComponent implements OnInit	{
 
     constructor(private _router:Router){}
     
-    private code:string="";
+    private code:string=`
+    
+        public class Test {
+
+        public static void main(String args[]) {
+            int [] numbers = {10, 20, 30, 40, 50};
+
+            for(int x : numbers ) {
+                System.out.print( x );
+                System.out.print(",");
+            }
+            
+            String [] names = {"James", "Larry", "Tom", "Lacy"};
+
+            for( String name : names ) {
+                System.out.print( name );
+                System.out.print(",");
+            }
+        }
+        }
+    `;
 
     ngOnInit(){
         console.log("WORKSTATION");

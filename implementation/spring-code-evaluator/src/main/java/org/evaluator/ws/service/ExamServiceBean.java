@@ -91,7 +91,7 @@ public class ExamServiceBean implements ExamService {
 	        exam.setStudents(students);
         }
         
-        // Calculate number of Questions
+        // Calculate number of Questions and assign exercise name
         Set<Exercise> exercisesSet = exam.getExercises();
         
         if (exercisesSet != null){
