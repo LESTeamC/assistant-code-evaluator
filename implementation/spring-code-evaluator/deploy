@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo killing
+## get pid of process
+PID=`lsof -i:8090 -t`
+kill $PID
+echo deploying
+screen -d -m mvn spring-boot:run > deployment_logs 2>&1 
+echo "consult deployment_log file to see output of deployment"
