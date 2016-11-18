@@ -24,7 +24,6 @@ var exam_service_1 = require('./exam.service');
 var examiner_service_1 = require('./../shared/examiner.service');
 var exercise_service_1 = require('./../shared/exercise.service');
 var csv_service_1 = require('./create-exams/csv.service');
-var my_date_picker_module_1 = require('mydatepicker/dist/my-date-picker.module');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -36,7 +35,6 @@ var AdminModule = (function () {
                 admin_routing_module_1.AdminRoutingModule,
                 ng2_bootstrap_1.ModalModule,
                 ng2_bootstrap_1.AlertModule,
-                my_date_picker_module_1.MyDatePickerModule,
                 ng2_bootstrap_1.DatepickerModule
             ],
             declarations: [
