@@ -12,6 +12,7 @@
                     <p>Code Output</p>
                 </div>
                 <div class="panel-body">
+                    {{submission.output}}
                 </div>
             </div>
         </div>
@@ -22,7 +23,25 @@
                 <p>Evaluation Criteria</p>
             </div>
             <div class="panel-body">
+                <form>
+                    <div class="form-group row" *ngFor="let crit of criteria">
+                        <label for="example-text-input" class="col-xs-10 col-form-label">{{crit.criteria.description}}</label>
+                        <div class="col-xs-2">
+                            <select class="form-control form-control-sm">
+                                <option *ngFor="let num of createArray(crit.criteria.gama)">{{num}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<nav class="navbar navbar-fixed-bottom">
+    <div class="button-group">
+        <a><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+        <a routerLink="/examiner/dashboard"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <a><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+    </div>
+</nav>

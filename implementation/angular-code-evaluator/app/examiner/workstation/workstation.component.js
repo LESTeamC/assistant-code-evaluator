@@ -10,13 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var submission_1 = require('./../../model/submission');
+var submission_service_1 = require('./../submission.service');
 var WorkstationComponent = (function () {
-    function WorkstationComponent(_router) {
+    function WorkstationComponent(_router, submissionService, activatedRoute) {
         this._router = _router;
-        this.code = "\n    \n        public class Test {\n\n        public static void main(String args[]) {\n            int [] numbers = {10, 20, 30, 40, 50};\n\n            for(int x : numbers ) {\n                System.out.print( x );\n                System.out.print(\",\");\n            }\n            \n            String [] names = {\"James\", \"Larry\", \"Tom\", \"Lacy\"};\n\n            for( String name : names ) {\n                System.out.print( name );\n                System.out.print(\",\");\n            }\n        }\n        }\n    ";
+        this.submissionService = submissionService;
+        this.activatedRoute = activatedRoute;
+        this.submission = new submission_1.Submission();
+        this.criteria = new Array();
+        this.code = this.submission.code;
     }
     WorkstationComponent.prototype.ngOnInit = function () {
-        console.log("WORKSTATION");
+        var _this = this;
+        this.activatedRoute.params
+            .switchMap(function (params) { return _this.submissionService.getSubmission(+params['id']); })
+            .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
+    };
+    WorkstationComponent.prototype.success = function (data) {
+        this.submission = data;
+        this.criteria = data.criteria;
+    };
+    WorkstationComponent.prototype.fail = function (error) {
+        this._router.navigate(['/examiner/dashboard']);
+    };
+    WorkstationComponent.prototype.createArray = function (num) {
+        var array = Array.from(Array(num), function (x, i) { return i; });
+        console.log(array);
+        return array;
     };
     WorkstationComponent = __decorate([
         core_1.Component({
@@ -24,7 +45,7 @@ var WorkstationComponent = (function () {
             templateUrl: '/app/examiner/workstation/workstation.component.html',
             styleUrls: ['app/examiner/workstation/workstation.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, submission_service_1.SubmissionService, router_1.ActivatedRoute])
     ], WorkstationComponent);
     return WorkstationComponent;
 }());

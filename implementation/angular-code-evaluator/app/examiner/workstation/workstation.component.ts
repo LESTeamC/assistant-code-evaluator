@@ -1,5 +1,10 @@
 import {Component, OnInit, ElementRef, ViewChild}	from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import {Submission} from './../../model/submission'
+import {ExerciseCriteria} from './../../model/exercise-criteria'
+
+import {SubmissionService} from './../submission.service'
 
 @Component({	
     selector: 'workstation',	
@@ -8,31 +13,37 @@ import {Router} from '@angular/router';
 })
 export	class	WorkstationComponent implements OnInit	{
 
-    constructor(private _router:Router){}
+    private submission = new Submission();
+    private criteria = new Array<ExerciseCriteria>();
+
+    constructor(private _router:Router, private submissionService:SubmissionService,
+                private activatedRoute:ActivatedRoute){}
     
-    private code:string=`
-    
-        public class Test {
-
-        public static void main(String args[]) {
-            int [] numbers = {10, 20, 30, 40, 50};
-
-            for(int x : numbers ) {
-                System.out.print( x );
-                System.out.print(",");
-            }
-            
-            String [] names = {"James", "Larry", "Tom", "Lacy"};
-
-            for( String name : names ) {
-                System.out.print( name );
-                System.out.print(",");
-            }
-        }
-        }
-    `;
+    private code:string= this.submission.code;
 
     ngOnInit(){
-        console.log("WORKSTATION");
+        this.activatedRoute.params
+            // (+) converts string 'id' to a number
+            .switchMap((params: Params) => this.submissionService.getSubmission(+params['id']))
+            .subscribe(data => this.success(data),
+                        error => this.fail(error));
+
+    }
+
+    success(data:any){
+        this.submission = data;
+        this.criteria = data.criteria;
+    }
+
+    fail(error:any){
+        this._router.navigate(['/examiner/dashboard']);
+    }
+
+    private createArray(num:number):any[]{
+
+        var array = Array.from(Array(num),(x,i)=>i);
+        console.log(array);
+
+        return array;
     }
 }	

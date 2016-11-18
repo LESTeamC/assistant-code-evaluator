@@ -27,3 +27,23 @@ pre, code{
 .panel{
     width:100%;
 }
+
+.navbar{
+    background-color: #96858F;
+    text-align: center;
+}
+
+a i {
+    color: black;
+}
+
+.fa-home{
+    font-size: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.fa-chevron-circle-left, .fa-chevron-circle-right{
+    font-size: 30px;
+    padding-bottom: 5px;
+}

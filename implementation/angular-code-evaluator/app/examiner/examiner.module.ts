@@ -9,6 +9,8 @@ import { WorkstationComponent }    from './workstation/workstation.component'
 import { CodeComponent }    from './workstation/code.component'
 
 import {ExaminerService} from './../shared/examiner.service'
+import {SubmissionService} from './submission.service'
+
 
 @NgModule({
 imports: [
@@ -24,7 +26,8 @@ declarations: [
 
   ],
   providers: [
-    ExaminerService
+    ExaminerService,
+    SubmissionService,
   ]
 })
 export class ExaminerModule {}

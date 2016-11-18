@@ -18,6 +18,7 @@ org/evaluator/ws/security/AccountAuthenticationProvider.class
 org/evaluator/ws/model/Submission.class
 org/evaluator/ws/security/AccountUserDetailsService.class
 org/evaluator/ws/web/api/LoginController.class
+org/evaluator/ws/service/SubmissionService.class
 org/evaluator/ws/repository/StudentRepository.class
 org/evaluator/ws/service/ExaminerService.class
 org/evaluator/ws/service/StudentServiceBean.class
@@ -25,6 +26,7 @@ org/evaluator/ws/web/filter/SimpleCorsFilter.class
 org/evaluator/Application.class
 org/evaluator/ws/util/RequestContext.class
 org/evaluator/ws/repository/AccountRepository.class
+org/evaluator/ws/web/api/SubmissionController.class
 org/evaluator/ws/service/ExamService.class
 org/evaluator/ws/model/TransactionalEntity.class
 org/evaluator/ws/service/ExerciseServiceBean.class
@@ -42,6 +44,7 @@ org/evaluator/ws/service/ExerciseService.class
 org/evaluator/ws/service/AccountServiceBean.class
 org/evaluator/ws/model/Greeting.class
 org/evaluator/ws/service/GreetingService.class
+org/evaluator/ws/service/SubmissionServiceBean.class
 org/evaluator/SecurityConfiguration$ActuatorWebSecurityConfigurerAdapter.class
 org/evaluator/ws/util/AsyncResponse.class
 org/evaluator/ws/web/api/ExaminerController.class

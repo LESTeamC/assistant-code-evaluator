@@ -16,5 +16,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
      */
     @Query("SELECT s FROM Submission s WHERE s.exercise.id = :exerciseID")
     Collection<Submission> getSubmissionsByExercise(@Param("exerciseID") Long exerciseID);
+    
 
 }

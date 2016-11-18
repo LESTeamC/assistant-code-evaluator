@@ -9,21 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var auth_service_1 = require('./../../shared/auth.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(authService) {
+    function DashboardComponent(_router, authService) {
+        this._router = _router;
         this.authService = authService;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.header = this.authService.credentials;
         console.log(this.header);
     };
+    DashboardComponent.prototype.onSelect = function () {
+        //navigate passing the submission ID!
+        this._router.navigate(['/examiner/workstation', 1]);
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'admin',
-            template: "<h1>DASHBOARD</h1>\n    <button class=\"btn\" routerLink=\"/examiner/workstation\"></button>",
+            template: "<h1>DASHBOARD</h1>\n    <button class=\"btn\" (click)=\"onSelect(submission)\"></button>",
         }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

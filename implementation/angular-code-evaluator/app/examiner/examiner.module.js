@@ -17,6 +17,7 @@ var dashboard_component_1 = require('./dashboard/dashboard.component');
 var workstation_component_1 = require('./workstation/workstation.component');
 var code_component_1 = require('./workstation/code.component');
 var examiner_service_1 = require('./../shared/examiner.service');
+var submission_service_1 = require('./submission.service');
 var ExaminerModule = (function () {
     function ExaminerModule() {
     }
@@ -34,7 +35,8 @@ var ExaminerModule = (function () {
                 code_component_1.CodeComponent,
             ],
             providers: [
-                examiner_service_1.ExaminerService
+                examiner_service_1.ExaminerService,
+                submission_service_1.SubmissionService,
             ]
         }), 
         __metadata('design:paramtypes', [])

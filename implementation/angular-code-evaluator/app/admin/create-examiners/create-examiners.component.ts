@@ -53,7 +53,6 @@ export class CreateExaminersComponent implements OnInit {
             this.SuccessCheck = false;
         }
 
-
     }
 
     //examiner created successfully

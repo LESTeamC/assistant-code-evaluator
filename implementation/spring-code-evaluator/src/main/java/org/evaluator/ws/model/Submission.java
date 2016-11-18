@@ -79,7 +79,6 @@ public class Submission {
 	@OneToMany(
 			fetch = FetchType.EAGER,
 			mappedBy ="submission")
-	@JsonIgnore
 	private Set<SubmissionCriteria> criteria;
 
 	public Long getId() {
