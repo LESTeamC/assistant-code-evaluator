@@ -19,7 +19,6 @@ var WorkstationComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.submission = new submission_1.Submission();
         this.criteria = new Array();
-        this.code = this.submission.code;
     }
     WorkstationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,8 +27,12 @@ var WorkstationComponent = (function () {
             .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
     };
     WorkstationComponent.prototype.success = function (data) {
+        console.log(2);
         this.submission = data;
         this.criteria = data.criteria;
+        this.submission.code = "\n        /* HelloWorld.java\n */\n\npublic class HelloWorld\n{\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n        \n        ";
+        console.log(this.codeElement.nativeElement);
+        hljs.highlightBlock(this.codeElement.nativeElement);
     };
     WorkstationComponent.prototype.fail = function (error) {
         this._router.navigate(['/examiner/dashboard']);
@@ -39,11 +42,15 @@ var WorkstationComponent = (function () {
         console.log(array);
         return array;
     };
+    __decorate([
+        core_1.ViewChild('code'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], WorkstationComponent.prototype, "codeElement", void 0);
     WorkstationComponent = __decorate([
         core_1.Component({
             selector: 'workstation',
             templateUrl: '/app/examiner/workstation/workstation.component.html',
-            styleUrls: ['app/examiner/workstation/workstation.component.css']
+            styleUrls: ['app/examiner/workstation/workstation.component.css'],
         }), 
         __metadata('design:paramtypes', [router_1.Router, submission_service_1.SubmissionService, router_1.ActivatedRoute])
     ], WorkstationComponent);

@@ -47,3 +47,12 @@ a i {
     font-size: 30px;
     padding-bottom: 5px;
 }
+
+code, pre, .panel-code{
+    margin: 0;
+    padding: 0;
+}
+
+pre{
+    background: #FDF6E3;
+}

@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, ViewChild}	from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, Input, AfterViewInit}	from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {Submission} from './../../model/submission'
@@ -6,10 +6,12 @@ import {ExerciseCriteria} from './../../model/exercise-criteria'
 
 import {SubmissionService} from './../submission.service'
 
+declare var hljs: any;
+
 @Component({	
     selector: 'workstation',	
 	templateUrl: '/app/examiner/workstation/workstation.component.html',
-    styleUrls: ['app/examiner/workstation/workstation.component.css']
+    styleUrls: ['app/examiner/workstation/workstation.component.css'],
 })
 export	class	WorkstationComponent implements OnInit	{
 
@@ -19,7 +21,7 @@ export	class	WorkstationComponent implements OnInit	{
     constructor(private _router:Router, private submissionService:SubmissionService,
                 private activatedRoute:ActivatedRoute){}
     
-    private code:string= this.submission.code;
+    @ViewChild('code') codeElement: ElementRef;
 
     ngOnInit(){
         this.activatedRoute.params
@@ -31,8 +33,24 @@ export	class	WorkstationComponent implements OnInit	{
     }
 
     success(data:any){
+        console.log(2);
         this.submission = data;
         this.criteria = data.criteria;
+
+        this.submission.code=`
+        /* HelloWorld.java
+ */
+
+public class HelloWorld
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World!");
+	}
+}
+        
+        `
+        console.log(this.codeElement.nativeElement)
+        hljs.highlightBlock(this.codeElement.nativeElement);
     }
 
     fail(error:any){

@@ -4,7 +4,18 @@
 <div class="row">
     <div class="col-xs-12 col-sm-6 ">
         <div class="row">
-            <student-code style="width:100%">{{code}}</student-code>
+            <div class="panel panel-default" style="width:100%">
+                <div class="panel-heading">
+                    <p>Submission Code</p>
+                </div>
+                <div class="panel-body panel-code">
+                    <pre>
+                        <code #code highlight class="java">
+                            {{submission.code}}
+                        </code>
+                    </pre>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="panel panel-default">
