@@ -12,7 +12,7 @@
 
 <form (ngSubmit)="onSubmit()" #createExamForm="ngForm">
   <div class="row">
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-6" style="text-align:center;">
       <div class="input-group" [class.error]="conflictError">
         <span class="input-group-addon" id="exam-name">Exam Name</span>
         <input type="text" 
@@ -43,15 +43,15 @@
               required>
       </div>
 
-      <div class="input-group">
-        <span class="input-group-addon" id="exam-date">Date</span>
+<!--      <div class="input-group">
+
         <input type="date" 
               class="form-control"  
               [(ngModel)]="exam.date"
               name="date"
               #name="ngModel"
               required>
-      </div>
+      </div>-->
 
       <div class="input-group">
         <span class="input-group-addon" id="exam-language">Code Language</span>
@@ -67,6 +67,9 @@
           <option>Ruby</option>
         </select>
       </div>
+          <div style="display:inline-block; min-height:290px;">
+        <datepicker [(ngModel)]="exam.date" [showWeeks]="false"  name="date" #name="ngModel"></datepicker>
+    </div>
       <button class="btn blue-bg btn-long" type="submit" [disabled]="!createExamForm.valid">Create Exam</button>
     </div>
 
@@ -111,32 +114,34 @@
 
 
 <!--Student Submission-->
-<label class="btn blue-bg btn-file">
-    Import CSV... <input id="csv-input" type="file" style="display: none;" (change)="uploadCSV($event)" accept=".csv">
-</label>
-<div class="panel panel-default">
-  <div class="panel-heading blue-bg">Students</div>
-  <div class="panel-body">
-    <p>Please Import a list of Students from a CSV file.</p>
-    <p>The CSV file should have a first collums with Name and Username as headers. All values should be separated by a comma.</p>
-    <div class="table-responsive">
-      <table class="table">
-        <thead *ngIf="students.length>0">
-          <tr>
-            <th>Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let student of students">
-            <td>{{student.name}}</td>
-            <td>{{student.username}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+
+      <label class="btn blue-bg btn-file">
+          Import CSV... <input id="csv-input" type="file" style="display: none;" (change)="uploadCSV($event)" accept=".csv">
+      </label>
+      <div class="panel panel-default">
+        <div class="panel-heading blue-bg">Students</div>
+        <div class="panel-body">
+          <p>Please Import a list of Students from a CSV file.</p>
+          <p>The CSV file should have a first collums with Name and Username as headers. All values should be separated by a comma.</p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead *ngIf="students.length>0">
+                <tr>
+                  <th>Name</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let student of students">
+                  <td>{{student.name}}</td>
+                  <td>{{student.username}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
  
  <!--MODAL for Create exercise-->
 

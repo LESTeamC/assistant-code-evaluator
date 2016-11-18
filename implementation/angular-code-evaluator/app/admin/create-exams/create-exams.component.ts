@@ -58,7 +58,7 @@ export	class	CreateExamsComponent implements OnInit	{
         this.conflictErrorExercise = false;
         this.createdSuccess = false;
         this.weightErrorCriteria = false;
-        this.weightErrorExercise = false;
+        this.weightErrorExercise = false;     
 
     }
 
