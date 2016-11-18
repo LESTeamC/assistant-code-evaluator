@@ -4,6 +4,13 @@
 export class AppSettings {
 
     //global URL Endpoint. Comment according to environment
-   public static get API_ENDPOINT(): string { return 'http://localhost:8080'; }
+   
+   //LOCAL
+   //public static get API_ENDPOINT(): string { return 'http://localhost:8080'; }
+
+   //STAGING
+   public static get API_ENDPOINT(): string { return 'http://192.168.58.62:8091'; }
+
+   //PRODUCTION
    //public static get API_ENDPOINT(): string { return 'http://192.168.58.62:8090'; }
 }
