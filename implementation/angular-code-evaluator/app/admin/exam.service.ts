@@ -38,4 +38,17 @@ export class ExamService {
                 .map( (response:Response) => response.json())
             
     }
+
+    getExamBySubmission(submissionId:number){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .get(this.url+`/api/exam-by-submission/${submissionId}`, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
 }

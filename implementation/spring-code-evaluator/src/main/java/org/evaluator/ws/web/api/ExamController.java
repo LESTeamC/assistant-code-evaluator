@@ -45,6 +45,22 @@ public class ExamController extends BaseController {
     }
     
     @RequestMapping(
+            value = "/api/exam-by-submission/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Exam> getExamBySubmission(@PathVariable("id") Long id) {
+        logger.info("> getExamBySubmission id:{}", id);
+
+        Exam exam = examService.findBySubmissionId(id);
+        if (exam == null) {
+            return new ResponseEntity<Exam>(HttpStatus.NOT_FOUND);
+        }
+
+        logger.info("< getExamBySubmission id:{}", id);
+        return new ResponseEntity<Exam>(exam, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
             value = "/admin/exam",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,

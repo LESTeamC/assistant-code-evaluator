@@ -2,9 +2,14 @@ import {Component, OnInit, ElementRef, ViewChild, Input, AfterViewInit}	from '@a
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {Submission} from './../../model/submission'
+import {Exercise} from './../../model/exercise'
+import {Exam} from './../../model/exam'
+
 import {ExerciseCriteria} from './../../model/exercise-criteria'
 
 import {SubmissionService} from './../submission.service'
+import {ExamService} from './../../admin/exam.service'
+
 
 declare var hljs: any;
 
@@ -16,10 +21,14 @@ declare var hljs: any;
 export	class	WorkstationComponent implements OnInit	{
 
     private submission = new Submission();
+    private exercise = new Exercise();
+    private exam = new Exam();
+
     private criteria = new Array<ExerciseCriteria>();
+    private codeString:string = "";
 
     constructor(private _router:Router, private submissionService:SubmissionService,
-                private activatedRoute:ActivatedRoute){}
+                private activatedRoute:ActivatedRoute, private examService:ExamService){}
     
     @ViewChild('code') codeElement: ElementRef;
 
@@ -32,36 +41,40 @@ export	class	WorkstationComponent implements OnInit	{
 
     }
 
+
     success(data:any){
-        console.log(2);
         this.submission = data;
         this.criteria = data.criteria;
+        this.exercise = data.exercise;
+        this.codeString = data.code;
 
-        this.submission.code=`
-        /* HelloWorld.java
- */
-
-public class HelloWorld
-{
-	public static void main(String[] args) {
-		System.out.println("Hello World!");
-	}
-}
-        
-        `
-        console.log(this.codeElement.nativeElement)
+        this.codeElement.nativeElement.textContent = this.codeString;
         hljs.highlightBlock(this.codeElement.nativeElement);
+
+        this.getExam(data.id);
     }
 
     fail(error:any){
         this._router.navigate(['/examiner/dashboard']);
     }
 
+    getExam(id:number){
+        this.examService.getExamBySubmission(id)
+            .subscribe(data => this.examSuccess(data),
+                       error => this.examFail(error));
+    }
+
+    examSuccess(data:any){
+        this.exam = data;
+    }
+
+    examFail(error:any){
+        this.fail(error)
+    }
+
     private createArray(num:number):any[]{
 
         var array = Array.from(Array(num),(x,i)=>i);
-        console.log(array);
-
         return array;
     }
 }	

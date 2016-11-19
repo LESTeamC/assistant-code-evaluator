@@ -73,7 +73,8 @@ var DelegateComponent = (function () {
     };
     DelegateComponent.prototype.selectRow = function (id) {
         this.selectedRow = id;
-        this.selectedExaminer = this.exercises.find(function (d) { return d.id === id; }).examiner;
+        var selectedExercise = this.exercises.find(function (d) { return d.id === id; });
+        this.selectedExaminer = selectedExercise.examiner;
         console.log(this.selectedExaminer);
     };
     DelegateComponent.prototype.selectExaminer = function () {
@@ -81,6 +82,7 @@ var DelegateComponent = (function () {
         this.hideChildModal();
         //call delegate method on backend
         console.log(this.selectedExaminer);
+        this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
         var examinerId = (this.selectedExaminer === null) ? undefined : this.selectedExaminer.id;
         this.exerciseService.delegateExercise(this.selectedRow, examinerId)
             .subscribe(function (data) { return _this.successDelegate(data); }, function (error) { return _this.failDelegate(error); });

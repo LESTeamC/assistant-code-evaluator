@@ -39,7 +39,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     AuthService,
     AuthGuard,
-    LoginService,
+    LoginService
   ],
   bootstrap: [ AppComponent ]
 })

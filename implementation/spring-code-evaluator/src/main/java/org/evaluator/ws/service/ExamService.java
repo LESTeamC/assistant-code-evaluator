@@ -15,6 +15,8 @@ public interface ExamService {
      */
     Exam findById(Long id);
     
+    Exam findBySubmissionId(Long id);
+    
     Collection<Exam> findAll();
     
     Exam create(Exam exam);

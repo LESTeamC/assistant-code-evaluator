@@ -18,6 +18,8 @@ import {ExaminerService} from './../shared/examiner.service'
 import {ExerciseService} from './../shared/exercise.service'
 import {CSVService} from './create-exams/csv.service'
 
+import {StatusPipe} from './../shared/status.pipe'
+
 
 @NgModule({
 imports: [
@@ -36,6 +38,7 @@ declarations: [
     ViewExaminersComponent,
     GlobalViewComponent,
     DelegateComponent,
+    StatusPipe,
   ],
   providers: [
     ExamService,

@@ -33,7 +33,7 @@ public class Submission {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "exerciseId")
-	@JsonIgnore
+	
 	private Exercise exercise;
 
 	

@@ -24,6 +24,16 @@ pre, code{
     height:100%;
 }
 
+.panel-code{
+    max-height:800px;
+    overflow: scroll;
+}
+
+.panel-output{
+    max-height: 400px;
+    overflow: scroll;
+}
+
 .panel{
     width:100%;
 }
@@ -55,4 +65,14 @@ code, pre, .panel-code{
 
 pre{
     background: #FDF6E3;
+}
+
+.exercise-question {
+    font-style: italic;
+    padding-bottom: 10px;
+}
+
+.question-title{
+    font-style: bold;
+    border-bottom: 1px solid grey;
 }

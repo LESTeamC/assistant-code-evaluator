@@ -11,14 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var submission_1 = require('./../../model/submission');
+var exercise_1 = require('./../../model/exercise');
+var exam_1 = require('./../../model/exam');
 var submission_service_1 = require('./../submission.service');
+var exam_service_1 = require('./../../admin/exam.service');
 var WorkstationComponent = (function () {
-    function WorkstationComponent(_router, submissionService, activatedRoute) {
+    function WorkstationComponent(_router, submissionService, activatedRoute, examService) {
         this._router = _router;
         this.submissionService = submissionService;
         this.activatedRoute = activatedRoute;
+        this.examService = examService;
         this.submission = new submission_1.Submission();
+        this.exercise = new exercise_1.Exercise();
+        this.exam = new exam_1.Exam();
         this.criteria = new Array();
+        this.codeString = "";
     }
     WorkstationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -27,19 +34,30 @@ var WorkstationComponent = (function () {
             .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
     };
     WorkstationComponent.prototype.success = function (data) {
-        console.log(2);
         this.submission = data;
         this.criteria = data.criteria;
-        this.submission.code = "\n        /* HelloWorld.java\n */\n\npublic class HelloWorld\n{\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n        \n        ";
-        console.log(this.codeElement.nativeElement);
+        this.exercise = data.exercise;
+        this.codeString = data.code;
+        this.codeElement.nativeElement.textContent = this.codeString;
         hljs.highlightBlock(this.codeElement.nativeElement);
+        this.getExam(data.id);
     };
     WorkstationComponent.prototype.fail = function (error) {
         this._router.navigate(['/examiner/dashboard']);
     };
+    WorkstationComponent.prototype.getExam = function (id) {
+        var _this = this;
+        this.examService.getExamBySubmission(id)
+            .subscribe(function (data) { return _this.examSuccess(data); }, function (error) { return _this.examFail(error); });
+    };
+    WorkstationComponent.prototype.examSuccess = function (data) {
+        this.exam = data;
+    };
+    WorkstationComponent.prototype.examFail = function (error) {
+        this.fail(error);
+    };
     WorkstationComponent.prototype.createArray = function (num) {
         var array = Array.from(Array(num), function (x, i) { return i; });
-        console.log(array);
         return array;
     };
     __decorate([
@@ -52,7 +70,7 @@ var WorkstationComponent = (function () {
             templateUrl: '/app/examiner/workstation/workstation.component.html',
             styleUrls: ['app/examiner/workstation/workstation.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router, submission_service_1.SubmissionService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [router_1.Router, submission_service_1.SubmissionService, router_1.ActivatedRoute, exam_service_1.ExamService])
     ], WorkstationComponent);
     return WorkstationComponent;
 }());

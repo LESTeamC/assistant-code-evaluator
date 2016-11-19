@@ -216,7 +216,7 @@ var CreateExamsComponent = (function () {
         core_1.Component({
             selector: 'create-exam',
             templateUrl: 'app/admin/create-exams/create-exams.component.html',
-            styleUrls: ['app/admin/create-exams/create-exams.component.css']
+            styleUrls: ['app/admin/create-exams/create-exams.component.css'],
         }), 
         __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService, csv_service_1.CSVService])
     ], CreateExamsComponent);

@@ -24,6 +24,7 @@ var exam_service_1 = require('./exam.service');
 var examiner_service_1 = require('./../shared/examiner.service');
 var exercise_service_1 = require('./../shared/exercise.service');
 var csv_service_1 = require('./create-exams/csv.service');
+var status_pipe_1 = require('./../shared/status.pipe');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -45,6 +46,7 @@ var AdminModule = (function () {
                 view_examiners_component_1.ViewExaminersComponent,
                 global_view_component_1.GlobalViewComponent,
                 delegate_component_1.DelegateComponent,
+                status_pipe_1.StatusPipe,
             ],
             providers: [
                 exam_service_1.ExamService,
