@@ -11,6 +11,8 @@ import { CodeComponent }    from './workstation/code.component'
 import {ExaminerService} from './../shared/examiner.service'
 import {SubmissionService} from './submission.service'
 
+import {SubmissionStatusPipe} from './submission-status.pipe'
+
 
 @NgModule({
 imports: [
@@ -23,7 +25,8 @@ declarations: [
     WorkstationComponent,
     ExaminerComponent,
     CodeComponent,
-
+    SubmissionStatusPipe
+    
   ],
   providers: [
     ExaminerService,

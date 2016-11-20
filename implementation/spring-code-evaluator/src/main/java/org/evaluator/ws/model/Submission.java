@@ -63,7 +63,7 @@ public class Submission {
 	 * Total current grade of the submission
 	 */
 	@NotNull
-	private int grade;
+	private int grade = 0;
 	
 	/**
 	 * Directory path to the files of this submission
@@ -75,6 +75,11 @@ public class Submission {
 	 * output of the submission, if its able to run
 	 */
 	private String output;
+	
+	/**
+	 * comment of the submission, if its able to run
+	 */
+	private String comment;
 	
 	@OneToMany(
 			fetch = FetchType.EAGER,
@@ -153,7 +158,14 @@ public class Submission {
 	public void setOutput(String output) {
 		this.output = output;
 	}
-	
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	
 
 }

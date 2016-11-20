@@ -1,6 +1,7 @@
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
+
 import { RouterModule }   from '@angular/router';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
@@ -21,6 +22,7 @@ import { AuthGuard } from './shared/auth-guard.service'
 
 import { HttpModule } from '@angular/http';
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { HttpModule } from '@angular/http';
   providers: [
     AuthService,
     AuthGuard,
-    LoginService
+    LoginService,
+    
   ],
   bootstrap: [ AppComponent ]
 })

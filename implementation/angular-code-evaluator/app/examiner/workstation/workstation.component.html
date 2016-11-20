@@ -1,5 +1,13 @@
 <div class="page-header">
-    <h4>Exam Information</h4>
+    <h4>{{exam.name}}</h4>
+    <h6>{{exam.degree}}</h6>
+    <h6>{{exam.date | date:'fullDate'}}</h6>
+    <h6>{{exam.course}}</h6>
+    <h4>{{exercise.name}}</h4>
+    <div style="float:right; display:inline-block">
+        <h4>{{student.name}}</h4>
+        <h6>{{student.username}}</h6>
+    </div>
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-8 ">
@@ -10,8 +18,8 @@
                 </div>
                 <div class="panel-body panel-code">
                     <pre>
-                        <code #code highlight class="java">
-                            {{codeString}}
+                        <code #code highlight class="C">
+                            {{testLongCode}}
                         </code>
                     </pre>
                 </div>
@@ -23,7 +31,8 @@
                     <p>Code Output</p>
                 </div>
                 <div class="panel-body panel-output">
-                    {{submission.output}}
+                    {{testLongString}}
+            <!--        {{submission.output}}-->
                 </div>
             </div>
         </div>
@@ -34,23 +43,52 @@
                 <p>Evaluation Criteria</p>
             </div>
             <div class="panel-body">
-                <form>
+                <form (ngSubmit)="onSubmitEvaluation()" #saveSubmissionForm="ngForm">
                     <span class="question-title">Question: </span><br>
                     <div class="exercise-question">{{exercise.question}}</div>
-                    <div class="form-group row" *ngFor="let crit of criteria">
-                        <label for="example-text-input" class="col-xs-8 col-form-label">{{crit.criteria.description}}</label>
+                    <div class="form-group row" *ngFor="let crit of criteria; let i = index">
+                        <label for="example-text-input" class="col-xs-7 col-form-label">{{crit.criteria.description}}</label>
                         <div class="col-xs-3">
-                            <select class="form-control form-control-sm">
-                                <option value="num" *ngFor="let num of createArray(crit.criteria.gama)">{{num}}</option>
+                            <select class="form-control form-control-sm"
+                                    [(ngModel)]="criteria[i].grade" 
+                                    #name="ngModel" 
+                                    name="grade" 
+                                    required>
+                                <option *ngFor="let num of createArray(crit.criteria.gama)" 
+                                        [value]="calcGrade(num, crit.criteria.gama)"
+                                        [selected] = "num === crit.grade" >{{num}}</option>
                             </select>
                         </div>
                         <div class="col-xs-1">
                             <span>/{{crit.criteria.gama}}</span>
                         </div>
                     </div>
+                    <button type="submit" class="btn" (click)="saveEvaluation()"
+                                [disabled] = "existsUngraded()" >Save Evaluation</button>
                 </form>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-4">
+        <!--comment-->
+        <textarea class="comment"
+                [(ngModel)]="comment" 
+                #name="ngModel" 
+                name="grade" 
+                required></textarea>
+        <button type="button" class="btn" 
+                [disabled]="comment.trim().length<=0">Insert Comment</button>
+    </div>
+
+    <div class="col-xs-6 col-md-4 student-panel"></div>
+    <div class="col-xs-6 col-md-4 student-panel">
+        <h6>Current Score: {{calcTotalGrade(criteria)}}%, or
+            {{calcTotalGrade(criteria) * 20 * exercise.weight * 0.0001}} values (out of 20)</h6>
+        <h6>This exercise is worth {{exercise.weight}}% of the Exam</h6>
+        <h6>Status: <span [class.green]="isSubmitted()" class="red">{{submission.status | submissionStatus}}</span></h6>
     </div>
 </div>
 
@@ -59,5 +97,9 @@
         <a><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
         <a routerLink="/examiner/dashboard"><i class="fa fa-home" aria-hidden="true"></i></a>
         <a><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+        <button class="logout-btn" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
+    
+                <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" />
+ 
     </div>
 </nav>

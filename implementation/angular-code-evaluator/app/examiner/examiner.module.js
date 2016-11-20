@@ -18,6 +18,7 @@ var workstation_component_1 = require('./workstation/workstation.component');
 var code_component_1 = require('./workstation/code.component');
 var examiner_service_1 = require('./../shared/examiner.service');
 var submission_service_1 = require('./submission.service');
+var submission_status_pipe_1 = require('./submission-status.pipe');
 var ExaminerModule = (function () {
     function ExaminerModule() {
     }
@@ -33,6 +34,7 @@ var ExaminerModule = (function () {
                 workstation_component_1.WorkstationComponent,
                 examiner_component_1.ExaminerComponent,
                 code_component_1.CodeComponent,
+                submission_status_pipe_1.SubmissionStatusPipe
             ],
             providers: [
                 examiner_service_1.ExaminerService,

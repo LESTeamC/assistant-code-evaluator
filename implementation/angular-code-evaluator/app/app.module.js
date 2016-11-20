@@ -44,7 +44,7 @@ var AppModule = (function () {
             providers: [
                 auth_service_1.AuthService,
                 auth_guard_service_1.AuthGuard,
-                login_service_1.LoginService
+                login_service_1.LoginService,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

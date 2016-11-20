@@ -42,7 +42,7 @@ public class SubmissionCriteria {
 	private ExerciseCriteria criteria;
 	
 	@NotNull
-	private int grade;
+	private int grade = -1;
 
 	public Long getId() {
 		return id;
