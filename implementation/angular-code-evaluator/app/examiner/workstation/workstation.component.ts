@@ -234,10 +234,12 @@ int missing_number_array(int a[],  int n)
      */
     private calcTotalGrade(subCriteria:SubmissionCriteria[]):number{
         var grade:number = 0;
+
         for (let s of subCriteria){
 
+            var subGrade:any = s.grade;
             //ignore this error
-            grade += (parseInt(s.grade) * s.criteria.weight * 0.01);
+            grade += (parseInt(subGrade) * s.criteria.weight * 0.01);
         }
 
         return (grade < 0) ? 0: grade;

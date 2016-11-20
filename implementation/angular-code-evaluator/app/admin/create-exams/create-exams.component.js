@@ -173,7 +173,7 @@ var CreateExamsComponent = (function () {
         for (i = 0; i < list.length; i++) {
             sum += list[i].weight;
         }
-        return sum; //The element isn't in your array
+        return sum;
     };
     ;
     /**
@@ -187,7 +187,7 @@ var CreateExamsComponent = (function () {
         for (i = 0; i < list.length; i++) {
             sum += list[i].weight;
         }
-        return sum; //The element isn't in your array
+        return sum;
     };
     ;
     CreateExamsComponent.prototype.uploadCSV = function ($event) {

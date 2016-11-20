@@ -152,8 +152,9 @@ var WorkstationComponent = (function () {
         var grade = 0;
         for (var _i = 0, subCriteria_1 = subCriteria; _i < subCriteria_1.length; _i++) {
             var s = subCriteria_1[_i];
+            var subGrade = s.grade;
             //ignore this error
-            grade += (parseInt(s.grade) * s.criteria.weight * 0.01);
+            grade += (parseInt(subGrade) * s.criteria.weight * 0.01);
         }
         return (grade < 0) ? 0 : grade;
     };

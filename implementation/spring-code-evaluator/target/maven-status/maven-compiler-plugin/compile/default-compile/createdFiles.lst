@@ -2,6 +2,7 @@ org/evaluator/ws/service/AccountService.class
 org/evaluator/ws/model/SubmissionCriteria.class
 org/evaluator/ws/web/api/ExamController.class
 org/evaluator/ws/repository/ExamRepository.class
+org/evaluator/ws/model/StudentExam.class
 org/evaluator/ws/repository/GreetingRepository.class
 org/evaluator/ws/service/EmailServiceBean.class
 org/evaluator/SecurityConfiguration$ApiWebSecurityConfigurerAdapter.class
@@ -35,6 +36,7 @@ org/evaluator/ws/actuator/health/GreetingHealthIndicator.class
 org/evaluator/ws/model/Student.class
 org/evaluator/ws/model/Exercise.class
 org/evaluator/ws/model/Exam.class
+org/evaluator/ws/service/StudentExamService.class
 org/evaluator/SecurityConfiguration.class
 org/evaluator/ws/model/Examiner.class
 org/evaluator/ws/service/StudentService.class
@@ -45,6 +47,7 @@ org/evaluator/ws/service/AccountServiceBean.class
 org/evaluator/ws/model/Greeting.class
 org/evaluator/ws/service/GreetingService.class
 org/evaluator/ws/service/SubmissionServiceBean.class
+org/evaluator/ws/service/StudentExamServiceBean.class
 org/evaluator/SecurityConfiguration$ActuatorWebSecurityConfigurerAdapter.class
 org/evaluator/ws/util/AsyncResponse.class
 org/evaluator/ws/web/api/ExaminerController.class

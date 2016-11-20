@@ -138,7 +138,7 @@ public class ExamServiceBean implements ExamService {
 	
 	
 	@Override
-	public Collection<Exercise> findExercisesByExaminer(Long examinerID) {
+	public Collection<Exercise> findExercisesByExaminer(String examinerID) {
 		logger.info("> findByExaminer");
 		Collection<Exercise> exams = examRepository.findExercisesByExaminer(examinerID);
 		
