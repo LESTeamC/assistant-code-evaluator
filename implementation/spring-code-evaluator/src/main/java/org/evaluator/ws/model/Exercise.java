@@ -60,7 +60,7 @@ public class Exercise {
 	 * Exam of the exercise
 	 */
 	@NotNull
-	private String examname;
+	private String examname = "Null";
 
 	/**
 	 * Question of the exercise
