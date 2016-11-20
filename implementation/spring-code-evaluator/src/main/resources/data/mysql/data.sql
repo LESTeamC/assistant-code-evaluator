@@ -102,15 +102,15 @@ FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
 SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' , 'one two', ""
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise3';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
 SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' , 'one two', ""
-FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise1';
+FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise3';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
 SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' , 'one two', ""
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise3';
 
 INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
 SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions', 'one two', ""

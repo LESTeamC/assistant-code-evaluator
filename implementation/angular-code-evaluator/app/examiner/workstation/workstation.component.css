@@ -33,6 +33,8 @@ pre, code{
     max-height: 400px;
     overflow: scroll;
     font-family: 'Inconsolata', monospace !important;
+    background: black;
+    color: lightgrey;
 }
 
 .panel{

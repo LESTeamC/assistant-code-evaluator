@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -28,7 +29,7 @@ public class SubmissionCriteria {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "submissionId")
-	@JsonIgnore
+	@JsonBackReference
 	private Submission submission;
 
 	/**
