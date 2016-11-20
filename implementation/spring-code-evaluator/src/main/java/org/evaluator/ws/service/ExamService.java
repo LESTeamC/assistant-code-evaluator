@@ -23,6 +23,6 @@ public interface ExamService {
 	
     Collection<Exam> findByExaminer(Long examinerID);
     
-    Collection<Exercise> findExercisesByExaminer(Long examinerID);
+    Collection<Exercise> findExercisesByExaminer(String usernameID);
 
 }
