@@ -19,7 +19,7 @@ import {Observable} from 'rxjs/Rx';
 @Component({	
     selector: 'create-exam',	
 	templateUrl: 'app/admin/create-exams/create-exams.component.html',
-    styleUrls: ['app/admin/create-exams/create-exams.component.css']
+    styleUrls: ['app/admin/create-exams/create-exams.component.css'],
 })
 /**
  * Create Exams Screen

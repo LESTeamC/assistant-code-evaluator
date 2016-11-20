@@ -14,6 +14,7 @@ export class Submission {
     public grade?: number;
     public path?: string;
     public output?: string;
+    public comment?: string;
     public criteria?: SubmissionCriteria[];
 
 }

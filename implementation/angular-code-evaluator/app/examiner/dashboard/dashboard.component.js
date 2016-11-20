@@ -11,14 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var auth_service_1 = require('./../../shared/auth.service');
+var examiner_service_1 = require('./../../shared/examiner.service');
+var examiner_1 = require('./../../model/examiner');
 var DashboardComponent = (function () {
-    function DashboardComponent(_router, authService) {
+    function DashboardComponent(_router, authService, examinerService) {
         this._router = _router;
         this.authService = authService;
+        this.examinerService = examinerService;
+        this.examiner = new examiner_1.Examiner();
     }
     DashboardComponent.prototype.ngOnInit = function () {
-        this.header = this.authService.credentials;
-        console.log(this.header);
+        var _this = this;
+        this.examinerUsername = this.authService.username;
+        this.examinerService.getExaminer(this.examinerUsername)
+            .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
+    };
+    DashboardComponent.prototype.logout = function () {
+        this.authService.logout();
+    };
+    DashboardComponent.prototype.success = function (data) {
+        this.examiner = data;
+    };
+    DashboardComponent.prototype.fail = function (error) {
+        this._router.navigate(['/login']);
     };
     DashboardComponent.prototype.onSelect = function () {
         //navigate passing the submission ID!
@@ -27,9 +42,10 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'admin',
-            template: "<h1>DASHBOARD</h1>\n    <button class=\"btn\" (click)=\"onSelect(submission)\"></button>",
+            templateUrl: 'app/examiner/dashboard/dashboard.component.html',
+            styleUrls: ['app/examiner/dashboard/dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, examiner_service_1.ExaminerService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

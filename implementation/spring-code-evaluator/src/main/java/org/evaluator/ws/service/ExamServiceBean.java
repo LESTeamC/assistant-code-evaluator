@@ -9,7 +9,9 @@ import javax.persistence.EntityExistsException;
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.model.Student;
+import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExamRepository;
+import org.evaluator.ws.repository.SubmissionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class ExamServiceBean implements ExamService {
     @Autowired
     private StudentService studentService;
     
+    @Autowired
+    private SubmissionRepository submissionRepository;
+    
     /**
      * The <code>CounterService</code> captures metrics for Spring Actuator.
      */
@@ -51,6 +56,18 @@ public class ExamServiceBean implements ExamService {
         Exam exam = examRepository.findById(id);
 
         logger.info("< findById");
+        return exam;
+    }
+    
+    @Override
+    public Exam findBySubmissionId(Long id) {
+        logger.info("> findBySubmission");
+        
+        Submission submission = submissionRepository.findOne(id);
+        
+        Exam exam = submission.getExercise().getExam();
+
+        logger.info("< findBySubmission");
         return exam;
     }
     

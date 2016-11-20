@@ -6,33 +6,122 @@ Take a look at our Wiki to know more.
 
 #Release Notes
 
-##Release 1.0 (4/11/2016)
+## Release 0.2 (20/11/2016)
 
 http://les16c.fe.up.pt:3000/login
 
 ###Delivered User Stories:
 
-1. As an administrator
-I want to login into the system
-So that I can have the available options of the platform
+1.<br>
+As an administrator<br>
+I want to create new examiners attributing them a name, username, email and password<br>
+So that I can add new examiners' profiles to the platform.<br>
 
-2. As an examiner
-I want to login into the system
-So that I can initiate the code evaluation
+2.<br>
+As an administrator<br>
+I want to be alerted if the "password" and "confirm password" fields do not match<br>
+So that I can prevent this action. <br>
+
+3.<br>
+As an administrator<br>
+I want to create several criterias to an exercise.<br>
+So that the Examiner knows how to evaluate the exercise.<br>
+
+4.<br>
+As an administrator<br>
+I want to to define a Range to a criteria of an exercise.<br>
+So that the Examiner knows what values he must assign when evaluating an exercise.<br>
+
+5.<br>
+As an administrator<br>
+I want to to define a percentage to an exercise.<br>
+So that the Examiner knows the weight of the exercise in the whole exam.<br>
+
+6.<br>
+As an administrator<br>
+I want to view a table with my exams, respective created questions and assigned examiners<br>
+So that I can delegate exams to the examiners available.<br>
+
+7.<br>
+As an administrator<br>
+I want to select, by username, a examiner available<br>
+So that I can delegate him to a exercise from an exam<br>
+
+7.<br>
+As an Aministrator<br>
+I want to submit students <br>
+So that the Examiners can evaluate them.<br>
+
+
+###Main Features
+
+1. General Improvements on the look and feel of the application, namely on the Color schemes used
+2. Logout buttons added to Admin and Examiner screens
+3. On the Examiner Screen, a header was created showing the name of the Examiner
+4. Improvements on the Create Exam feature.
+    4.1 - Allow to add different Criterias to Exercise
+    4.2 - Allow to Add Student through a CSV File
+5. Create Examiner Funtionality
+6. Delegate Exercise Funcionality
+
+###Known Issues
+1. The Datepicker functionality only works on Chrome, which generates an error on the other browsers<br>
+This bug will be fixed in the upcoming delivery.
+
+##Notes
+The CSV File for Student import is required to have the desired format.
+There is an example [here](https://github.com/LESTeamC/assistant-code-evaluator/blob/staging/implementation/angular-code-evaluator/students.csv) that can be uses for testing!
+
+##Beta Release (11/11/2016)
+
+http://les16c.fe.up.pt:3000/login
+
+###Delivered User Stories:
+
+1.<br>
+As an administrator<br>
+I want to login into the system<br>
+So that I can have the available options of the platform<br>
+
+2.<br>
+As an examiner<br>
+I want to login into the system<br>
+So that I can initiate the code evaluation<br>
+
+3.<br>
+As an Administrator <br>
+I want to create an exam <br>
+So that I can have an automatic evaluation.<br>
+
+4.<br>
+As an Administrator <br>
+I want to create an exercise <br>
+So that I can use it on an exam.<br>
+
+
+7.<br>
+As an administrator<br>
+I want to save an exercise.<br>
+So that I have the guarantee that I do not lost my work.<br>
+
 
 ###Main Features
 
 1. Two different login pages, with navigation from one page to another;
 2. Login is made using Basic Authorization;
-3. Different error messagens for cases where access is forbidden, unauthorized or just error in connection occured.
+3. Different error messages for cases where access is forbidden, unauthorized or just error in connection occured.
 3. Angular AuthGuards prevent from accessing page URLs directly without logging in;
 4. Color pallet, global look and feel for the application, as well as an original logo and favicon.
 5. Global routing for the page, both Administrator (sidebar) and Examiner modules.
+6. Create Exams Module, for Administrator allows to create an exam and persist it to database;
+7. Create Exams Module, for Administrator allows to create different exercises inside an exam and persist it to database;
+8. Create Exams Module, for Administrator allows to create different criterias for each exercise inside an exam and persist it to database;
+9. Exercise weights and Criteria weights cannot exceed 100% - Custom error messages are presented otherwise.
 
 ###Notes
 
-Credentials for examiner login (username/password) - __user/admin__
-Credentials for admin logn (username/password) - __operations/operations__
+Credentials for examiner login (username/password) - __up2011765544/admin__ <br>
+Credentials for admin logn (username/password) - __operations/operations__ <br>
 
 ##Technologies:
 
@@ -95,3 +184,4 @@ We consider origin/master to be the main branch where the source code of HEAD al
 ## Useful JS Library for Code Highlighting
 
 [JSHighlight](https://highlightjs.org/)
+

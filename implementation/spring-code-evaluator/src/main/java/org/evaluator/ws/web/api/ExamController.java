@@ -45,6 +45,22 @@ public class ExamController extends BaseController {
     }
     
     @RequestMapping(
+            value = "/api/exam-by-submission/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Exam> getExamBySubmission(@PathVariable("id") Long id) {
+        logger.info("> getExamBySubmission id:{}", id);
+
+        Exam exam = examService.findBySubmissionId(id);
+        if (exam == null) {
+            return new ResponseEntity<Exam>(HttpStatus.NOT_FOUND);
+        }
+
+        logger.info("< getExamBySubmission id:{}", id);
+        return new ResponseEntity<Exam>(exam, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
             value = "/admin/exam",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -99,17 +115,17 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/api/exercises_by_examiner/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Exercise>> getExercisesByExaminer(@PathVariable("id") Long examinerID) {
-		logger.info("> getExamByExaminer id:{}", examinerID);
+	@RequestMapping(value = "/api/exercises_by_examiner/{usernameID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Exercise>> getExercisesByExaminer(@PathVariable("usernameID") String usernameID) {
+		logger.info("> getExercisesByExaminer id:{}", usernameID);
 		
-		ArrayList<Exercise> exercises =  (ArrayList) examService.findExercisesByExaminer(examinerID);
+		Collection<Exercise> exercises = examService.findExercisesByExaminer(usernameID);
 		if (exercises == null) {
-			return new ResponseEntity<List<Exercise>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Collection<Exercise>>(HttpStatus.NOT_FOUND);
 		}
 
-		logger.info("< getExamByExaminer id:{}", examinerID);
-		return new ResponseEntity<List<Exercise>>(exercises, HttpStatus.OK);
-	}
+		logger.info("< getExercisesByExaminer id:{}", usernameID);
+		return new ResponseEntity<Collection<Exercise>>(exercises, HttpStatus.OK);
+	}	
 	
 }

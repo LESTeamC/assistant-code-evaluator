@@ -1,0 +1,64 @@
+.a1 {
+    display: inline-block;
+        justify-content: space-between;
+
+}
+
+
+.input-group {
+    margin-bottom: 20px;
+    width: 20%;
+    margin-right: 10px;
+
+}
+
+.input-group span {
+    min-width: 125px;
+} 
+
+.input-group select{
+    border-radius: 0px !important;
+}
+
+.div1{
+     margin-right: 60px;
+}
+
+.selected-row{
+    background-color: #6D7993;
+}
+
+.table:hover{
+    cursor: pointer;
+}
+
+.form-control{
+    width: 100px;
+    height: 100%;
+}
+
+.form-control select{
+    width: 100%;
+}
+
+.Header-logo-image{
+  max-width: 5%;
+  width: 5%;
+  text-align: center;
+  background: #6D7993;
+
+  border-radius: 50%;
+
+  -webkit-transition: 1s cubic-bezier(.68,-.55,.265,1.55); /* Safari */
+  transition: 0.5s cubic-bezier(.68,-.55,.265,1.55);
+
+}
+
+.Header-logo-image:hover{
+  -webkit-transform: rotateZ(360deg);
+  transform: rotateZ(360deg);
+}
+
+.Header-logo{
+        background-color: black !important;
+}

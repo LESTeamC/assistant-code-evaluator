@@ -63,6 +63,15 @@ public class ExerciseServiceBean implements ExerciseService {
     }
     
     @Override
+    public Collection<Exercise> findAllOpenByExam(Long examId) {
+
+
+        Collection<Exercise> exercises = exerciseRepository.findByStatusAndExamId("O", examId);
+        return exercises;
+        
+    }
+    
+    @Override
     public Exercise findOne(Long id) {
         logger.info("> findOne id:{}", id);
 

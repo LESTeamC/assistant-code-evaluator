@@ -21,10 +21,10 @@
                     <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex.id)">
                         <td>{{ex.examname}}</td>
                         <td>{{ex.name}}</td>
-                        <td>{{ex.status}}</td>
-                        <td>{{ex.progress}}</td>
-                        <td>{{ex.weight}}</td>
-                        <td>{{ (ex.examiner) ? (ex.examiner.name) : "" }}</td>
+                        <td>{{ex.status | status}}</td>
+                        <td>{{ex.progress}}%</td>
+                        <td>{{ex.weight}}%</td>
+                        <td [class.italic-red] = "!ex.examiner">{{ (ex.examiner) ? (ex.examiner.name) : "Unassigned" }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -45,7 +45,7 @@
     Successfully undelegated exercise {{lastDelegatedExercise.name}}
 </alert>
 
-<!--MODAL for Create exercise-->
+<!--MODAL for Delegate exercise-->
 
 <div bsModal #examinerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
@@ -65,8 +65,8 @@
                     <label for="exercise-name">Examiner</label>
                     <div class="input-group">
                         <select class="form-control" [(ngModel)]="selectedExaminer" #name="ngModel" name="examiner" required>
-                            <option [value]=""
-                                [selected]="selectedExaminer == null">Unassigned</option>
+                            <option [value]="null"
+                                [selected]="selectedExaminer === null">Unassigned</option>
                             <option [ngValue]="examiner" *ngFor="let examiner of examiners"
                                 [selected]="isSelectedExaminer(examiner)">{{examiner.name}}</option>
                         </select>

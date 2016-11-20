@@ -15,12 +15,14 @@ public interface ExamService {
      */
     Exam findById(Long id);
     
+    Exam findBySubmissionId(Long id);
+    
     Collection<Exam> findAll();
     
     Exam create(Exam exam);
 	
     Collection<Exam> findByExaminer(Long examinerID);
     
-    Collection<Exercise> findExercisesByExaminer(Long examinerID);
+    Collection<Exercise> findExercisesByExaminer(String usernameID);
 
 }

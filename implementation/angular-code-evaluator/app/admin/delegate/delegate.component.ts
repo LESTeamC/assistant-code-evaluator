@@ -91,7 +91,8 @@ export	class	DelegateComponent implements OnInit	{
     private selectRow(id:number):void{
         this.selectedRow = id;
 
-        this.selectedExaminer =  this.exercises.find(d => d.id === id).examiner;
+        var selectedExercise =  this.exercises.find(d => d.id === id);
+        this.selectedExaminer = selectedExercise.examiner;
 
         console.log(this.selectedExaminer);
     }
@@ -101,6 +102,7 @@ export	class	DelegateComponent implements OnInit	{
 
         //call delegate method on backend
         console.log(this.selectedExaminer);
+        this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
 
         let examinerId:number = (this.selectedExaminer === null) ? undefined : this.selectedExaminer.id;
 
@@ -115,7 +117,7 @@ export	class	DelegateComponent implements OnInit	{
 
     private isSelectedExaminer(examiner:Examiner){
 
-        if (examiner === null ||this.selectedExaminer ===null ) return false; 
+        if (examiner === null || this.selectedExaminer ===null ) return false; 
     
         return examiner.name === this.selectedExaminer.name;
     }
