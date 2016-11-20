@@ -36,18 +36,18 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     @Query("SELECT DISTINCT e.exam FROM Exercise e WHERE e.examiner.id = :examinerID AND e.exam.status LIKE ('O')")
     Collection<Exam> findOnlyOpenExamByExaminer(@Param("examinerID") Long examinerID);
     
-    /**
+     /**
      * Find Exercises of an Examiner
-     * @param examinerID Examiner ID
-     * @return Exams
+     * @param usernameID Examiner username
+     * @return Exercise
      */
-    @Query("SELECT e FROM Exercise e WHERE e.examiner.id = :examinerID")
-    Collection<Exercise> findExercisesByExaminer(@Param("examinerID") Long examinerID);
+    @Query("SELECT e FROM Exercise e WHERE UPPER(e.examiner.username) LIKE UPPER(:usernameID)")
+    Collection<Exercise> findExercisesByExaminer(@Param("usernameID") String usernameID);
     
     /**
      * Find Exercises Of Open Only Exams From of an Examiner
      * @param examinerID Examiner ID
-     * @return Exams
+     * @return Exercise
      */
     @Query("SELECT e FROM Exercise e WHERE e.examiner.id = :examinerID AND e.status LIKE ('O')")
     Collection<Exercise> findExerciseOfOnlyOpenExamsByExaminer(@Param("examinerID") Long examinerID);
