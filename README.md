@@ -70,7 +70,7 @@ This bug will be fixed in the upcoming delivery.
 
 ##Notes
 The CSV File for Student import is required to have the desired format.
-There is an example [here](https://github.com/LESTeamC/assistant-code-evaluator/blob/staging/implementation/angular-code-evaluator/students.csv) that can be uses for testing!
+There is an example [here](https://github.com/LESTeamC/assistant-code-evaluator/blob/develop/implementation/angular-code-evaluator/students.csv) that can be uses for testing!
 
 ##Beta Release (11/11/2016)
 
