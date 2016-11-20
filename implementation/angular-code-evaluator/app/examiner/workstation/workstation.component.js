@@ -34,6 +34,9 @@ var WorkstationComponent = (function () {
         this.comment = "";
         this.criteria = new Array();
         this.codeString = "";
+        this.gradeSuccess_ = false;
+        this.successComment = false;
+        this.gradeError = false;
     }
     WorkstationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -42,14 +45,14 @@ var WorkstationComponent = (function () {
             .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });
     };
     WorkstationComponent.prototype.isSubmitted = function () {
-        return false;
+        return (this.submission.status === "C");
     };
     WorkstationComponent.prototype.success = function (data) {
-        console.log(data);
         this.submission = data;
         this.criteria = data.criteria;
         this.exercise = data.exercise;
         this.student = data.student;
+        this.comment = data.comment;
         this.codeString = data.code;
         this.codeElement.nativeElement.textContent = this.testLongCode;
         hljs.highlightBlock(this.codeElement.nativeElement);
@@ -72,6 +75,36 @@ var WorkstationComponent = (function () {
     };
     WorkstationComponent.prototype.saveEvaluation = function () {
         //console.log(this.criteria);
+        var _this = this;
+        this.submission.comment = this.comment;
+        this.submission.exercise = this.exercise;
+        this.submission.criteria = this.criteria;
+        this.submission.grade = this.calcTotalGrade(this.criteria);
+        this.submissionService.gradeSubmission(this.submission)
+            .subscribe(function (data) { return _this.gradeSuccess(data); }, function (error) { return _this.gradeFail(error); });
+    };
+    WorkstationComponent.prototype.gradeSuccess = function (data) {
+        this.submission = data;
+        this.exercise = data.exercise;
+        this.comment = data.comment;
+        //this.criteria = data.criteria;
+        this.gradeError = false;
+        this.gradeSuccess_ = true;
+    };
+    WorkstationComponent.prototype.gradeFail = function (error) {
+        this.gradeSuccess_ = false;
+        this.gradeError = true;
+    };
+    WorkstationComponent.prototype.saveComment = function () {
+        var _this = this;
+        this.submissionService.insertComment(this.submission.id, this.comment)
+            .subscribe(function (data) { return _this.commentSuccess(data); }, function (error) { return _this.commentFail(error); });
+    };
+    WorkstationComponent.prototype.commentSuccess = function (data) {
+        this.successComment = true;
+    };
+    WorkstationComponent.prototype.commentFail = function (error) {
+        this.successComment = false;
     };
     WorkstationComponent.prototype.calcGrade = function (num, gama) {
         return num * 100 / gama;
@@ -97,13 +130,20 @@ var WorkstationComponent = (function () {
         var array = Array.from(Array(num + 1), function (x, i) { return i; });
         return array;
     };
-    WorkstationComponent.prototype.onSubmitEvaluation = function () {
-        this.submission.comment = this.comment;
-        this.submission.criteria = this.criteria;
-        console.log(this.submission);
-    };
     WorkstationComponent.prototype.logout = function () {
         this.authService.logout();
+    };
+    WorkstationComponent.prototype.goHome = function () {
+        if (this.existsUngraded) {
+            this._router.navigate(['/examiner/dashboard']);
+        }
+        else {
+            this.saveEvaluation();
+            this._router.navigate(['/examiner/dashboard']);
+        }
+    };
+    WorkstationComponent.prototype.select = function (num, grade) {
+        return num === parseInt(grade);
     };
     __decorate([
         core_1.ViewChild('code'), 

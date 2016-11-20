@@ -65,7 +65,7 @@ public class Submission {
 	 * Total current grade of the submission
 	 */
 	@NotNull
-	private int grade = 0;
+	private double grade = 0;
 	
 	/**
 	 * Directory path to the files of this submission
@@ -123,11 +123,11 @@ public class Submission {
 		this.status = status;
 	}
 
-	public int getGrade() {
+	public double getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(double grade) {
 		this.grade = grade;
 	}
 

@@ -43,7 +43,7 @@ public class SubmissionCriteria {
 	private ExerciseCriteria criteria;
 	
 	@NotNull
-	private int grade = -1;
+	private double grade = -1;
 
 	public Long getId() {
 		return id;
@@ -69,11 +69,11 @@ public class SubmissionCriteria {
 		this.criteria = criteria;
 	}
 
-	public int getGrade() {
+	public double getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(double grade) {
 		this.grade = grade;
 	}
 

@@ -86,7 +86,32 @@ public class SubmissionServiceBean implements SubmissionService {
         
         this.updateExamAndExerciseStatus(updatedSubmission);
 
-        logger.info("< update id:{}", updatedSubmission.getId());
+        logger.info("< updateSubmission id:{}", updatedSubmission.getId());
+        return updatedSubmission;
+    }
+    
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            readOnly = false)
+    public Submission changeComment(Long id, String comment) {
+        logger.info("> changeComment id:{}", id);
+
+        // Ensure the entity object to be updated exists in the repository to
+        // prevent the default behavior of save() which will persist a new
+        // entity if the entity matching the id does not exist
+        Submission submissionToUpdate = findOne(id);
+        if (submissionToUpdate == null) {
+            // Cannot update Greeting that hasn't been persisted
+            logger.error(
+                    "Attempted to update a Greeting, but the entity does not exist.");
+            throw new NoResultException("Requested entity not found.");
+        }
+        
+        submissionToUpdate.setComment(comment);
+        Submission updatedSubmission = submissionRepository.save(submissionToUpdate);
+        
+        logger.info("< changeComment id:{}", id);
         return updatedSubmission;
     }
     

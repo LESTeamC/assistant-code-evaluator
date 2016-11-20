@@ -10,6 +10,8 @@ public interface SubmissionService {
 		
 		Collection<Submission> findOpenByExercise(Long exerciseId);
 		
+		Submission changeComment(Long submissionId, String comment);
+		
 		Submission update(Submission submission);
 
 }

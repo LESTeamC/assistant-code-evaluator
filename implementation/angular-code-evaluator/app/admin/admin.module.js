@@ -35,8 +35,8 @@ var AdminModule = (function () {
                 forms_1.FormsModule,
                 admin_routing_module_1.AdminRoutingModule,
                 ng2_bootstrap_1.ModalModule,
-                ng2_bootstrap_1.AlertModule,
-                ng2_bootstrap_1.DatepickerModule
+                ng2_bootstrap_1.DatepickerModule,
+                ng2_bootstrap_1.AlertModule
             ],
             declarations: [
                 admin_component_1.AdminComponent,

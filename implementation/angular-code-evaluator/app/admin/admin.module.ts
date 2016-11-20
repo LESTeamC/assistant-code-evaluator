@@ -27,8 +27,8 @@ imports: [
     FormsModule,
     AdminRoutingModule,
     ModalModule,
-    AlertModule,
-    DatepickerModule
+    DatepickerModule,
+    AlertModule
   ],
 declarations: [
     AdminComponent,

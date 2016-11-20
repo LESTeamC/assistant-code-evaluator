@@ -4,7 +4,7 @@ import { FormsModule }    from '@angular/forms';
 
 import { RouterModule }   from '@angular/router';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { ModalModule, AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AdminModule }   from './admin/admin.module';
 import { ExaminerModule }   from './examiner/examiner.module';
@@ -34,6 +34,8 @@ import { HttpModule } from '@angular/http';
     ExaminerModule,
     HttpModule,
     ModalModule,
+    AlertModule
+
   ],
   declarations: [
     AppComponent,

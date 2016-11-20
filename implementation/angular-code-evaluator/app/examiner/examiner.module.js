@@ -16,6 +16,7 @@ var examiner_component_1 = require('./examiner.component');
 var dashboard_component_1 = require('./dashboard/dashboard.component');
 var workstation_component_1 = require('./workstation/workstation.component');
 var code_component_1 = require('./workstation/code.component');
+var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var examiner_service_1 = require('./../shared/examiner.service');
 var submission_service_1 = require('./submission.service');
 var submission_status_pipe_1 = require('./submission-status.pipe');
@@ -27,7 +28,9 @@ var ExaminerModule = (function () {
             imports: [
                 common_1.CommonModule,
                 forms_1.FormsModule,
-                examiner_router_module_1.ExaminerRoutingModule
+                examiner_router_module_1.ExaminerRoutingModule,
+                ng2_bootstrap_1.AlertModule,
+                ng2_bootstrap_1.ModalModule
             ],
             declarations: [
                 dashboard_component_1.DashboardComponent,

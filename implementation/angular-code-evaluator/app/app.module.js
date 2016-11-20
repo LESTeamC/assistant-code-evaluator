@@ -37,6 +37,7 @@ var AppModule = (function () {
                 examiner_module_1.ExaminerModule,
                 http_1.HttpModule,
                 ng2_bootstrap_2.ModalModule,
+                ng2_bootstrap_2.AlertModule
             ],
             declarations: [
                 app_component_1.AppComponent,

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -57,6 +58,25 @@ public class SubmissionController {
         }
 
         logger.info("< updateSubmission id:{}", submission.getId());
+        return new ResponseEntity<Submission>(updatedSubmission, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
+            value = "/api/submission-comment/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Submission> updateSubmissionComment(@PathVariable("id") Long id,
+    		@RequestParam(value="comment") String comment) {
+        logger.info("> updateSubmissionComment id:{}", id);
+
+        Submission updatedSubmission = submissionService.changeComment(id, comment);
+        if (updatedSubmission == null) {
+            return new ResponseEntity<Submission>(
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        logger.info("< updateSubmissionComment id:{}", id);
         return new ResponseEntity<Submission>(updatedSubmission, HttpStatus.OK);
     }
 	

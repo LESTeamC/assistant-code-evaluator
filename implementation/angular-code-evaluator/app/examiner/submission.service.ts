@@ -30,5 +30,31 @@ export class SubmissionService {
 
         
     }
+
+    gradeSubmission(submission:Submission){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+
+        //make Post request to persist exam, including header
+        return this.http
+                .put(this.url+`/api/submission/${submission.id}`, submission, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
+
+    insertComment(id:number, comment:string){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+
+        //make Post request to persist exam, including header
+        return this.http
+                .put(this.url+`/api/submission-comment/${id}?comment=${comment}`, {}, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
 }
 

@@ -87,6 +87,10 @@ int missing_number_array(int a[],  int n)
     private criteria = new Array<SubmissionCriteria>();
     private codeString:string = "";
 
+    private gradeSuccess_:boolean = false;
+    private successComment:boolean = false;
+    private gradeError:boolean = false;
+
     constructor(private _router:Router, private submissionService:SubmissionService,
                 private activatedRoute:ActivatedRoute, private examService:ExamService,
                 private authService:AuthService){}
@@ -103,16 +107,16 @@ int missing_number_array(int a[],  int n)
     }
 
     isSubmitted():boolean{
-        return false;
+        return (this.submission.status === "C");
     }
 
 
     success(data:any){
-        console.log(data);
         this.submission = data;
         this.criteria = data.criteria;
         this.exercise = data.exercise;
         this.student = data.student;
+        this.comment = data.comment;
 
         this.codeString = data.code;
 
@@ -143,11 +147,53 @@ int missing_number_array(int a[],  int n)
 
     saveEvaluation(){
         //console.log(this.criteria);
+
+        this.submission.comment = this.comment;
+        this.submission.exercise = this.exercise;
+        this.submission.criteria = this.criteria;
+        this.submission.grade = this.calcTotalGrade(this.criteria);
+
+        this.submissionService.gradeSubmission(this.submission)
+                .subscribe(data => this.gradeSuccess(data),
+                           error => this.gradeFail(error));
+    }
+
+    gradeSuccess(data:any){
+
+        this.submission = data;
+        this.exercise = data.exercise;
+        this.comment = data.comment;
+        //this.criteria = data.criteria;
+
+        this.gradeError = false;
+        this.gradeSuccess_ = true;
+
+    }
+
+    gradeFail(error:any){
+        this.gradeSuccess_ = false;
+        this.gradeError = true;
+    }
+
+    saveComment(){
+
+         this.submissionService.insertComment(this.submission.id, this.comment)
+                .subscribe(data => this.commentSuccess(data),
+                           error => this.commentFail(error));       
+    }
+
+    commentSuccess(data:any){
+        this.successComment = true;
+    }
+
+    commentFail(error:any){
+        this.successComment = false;
     }
 
     calcGrade(num:any, gama:any):number{
         return num * 100 / gama;
     }
+
 
     calcTotalGrade(subCriteria:SubmissionCriteria[]):number{
         var grade:number = 0;
@@ -175,15 +221,24 @@ int missing_number_array(int a[],  int n)
         return array;
     }
 
-    onSubmitEvaluation(){
-        this.submission.comment = this.comment;
-        this.submission.criteria = this.criteria;
-
-        console.log(this.submission);
-    }
-
     logout(){
         this.authService.logout();
+    }
+
+    goHome(){
+
+        if (this.existsUngraded){
+            this._router.navigate(['/examiner/dashboard']);
+        }else{
+            this.saveEvaluation();
+            this._router.navigate(['/examiner/dashboard']);
+        }
+    }
+
+
+
+    select(num:number, grade:any){
+        return num === parseInt(grade);
     }
 
 }	

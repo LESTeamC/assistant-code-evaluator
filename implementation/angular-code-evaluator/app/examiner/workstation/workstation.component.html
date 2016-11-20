@@ -9,6 +9,12 @@
         <h6>{{student.username}}</h6>
     </div>
 </div>
+
+<alert type="danger" dismissible="true"
+       *ngIf="gradeError">There was an error in the submission</alert>
+<alert type="success" dismissible="true"
+       *ngIf="gradeSuccess_">Submission Graded Successfully</alert>
+
 <div class="row">
     <div class="col-xs-12 col-sm-8 ">
         <div class="row">
@@ -43,7 +49,7 @@
                 <p>Evaluation Criteria</p>
             </div>
             <div class="panel-body">
-                <form (ngSubmit)="onSubmitEvaluation()" #saveSubmissionForm="ngForm">
+                <form (ngSubmit)="saveEvaluation()" #saveSubmissionForm="ngForm">
                     <span class="question-title">Question: </span><br>
                     <div class="exercise-question">{{exercise.question}}</div>
                     <div class="form-group row" *ngFor="let crit of criteria; let i = index">
@@ -55,16 +61,16 @@
                                     name="grade" 
                                     required>
                                 <option *ngFor="let num of createArray(crit.criteria.gama)" 
-                                        [value]="calcGrade(num, crit.criteria.gama)"
-                                        [selected] = "num === crit.grade" >{{num}}</option>
+                                        [value]="num"
+                                        [selected] = "select(num, crit.grade)" >{{num}}</option>
                             </select>
                         </div>
                         <div class="col-xs-1">
                             <span>/{{crit.criteria.gama}}</span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-block" (click)="saveEvaluation()"
-                                [disabled] = "existsUngraded()" >Save Evaluation</button>
+                    <button type="submit" class="btn btn-block"
+                                [disabled] = "existsUngraded()" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Evaluation</button>
                 </form>
             </div>
         </div>
@@ -75,12 +81,13 @@
     <div class="col-xs-12 col-md-4">
         <!--comment-->
         <textarea class="comment"
+                [class.green-border]="successComment"
                 [(ngModel)]="comment" 
                 #name="ngModel" 
                 name="grade" 
                 required></textarea>
-        <button type="button" class="btn" 
-                [disabled]="comment.trim().length<=0">Insert Comment</button>
+        <button type="button" class="btn" (click)="saveComment()"
+                [disabled]="comment.trim().length<=0"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Insert Comment</button>
     </div>
 
     <div class="col-xs-6 col-md-4 student-panel"></div>
@@ -88,14 +95,14 @@
         <h6>Current Score: {{calcTotalGrade(criteria)}}%, or
             {{calcTotalGrade(criteria) * 20 * exercise.weight * 0.0001}} values (out of 20)</h6>
         <h6>This exercise is worth {{exercise.weight}}% of the Exam</h6>
-        <h6>Status: <span [class.green]="isSubmitted()" class="red">{{submission.status | submissionStatus}}</span></h6>
+        <h6>Status: <span [class.green]="isSubmitted()" [class.red]="!isSubmitted()">{{submission.status | submissionStatus}}</span></h6>
     </div>
 </div>
 
 <nav class="navbar navbar-fixed-bottom">
     <div class="button-group">
         <a><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
-        <a routerLink="/examiner/dashboard"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <a (click)="goHome()"><i class="fa fa-home" aria-hidden="true"></i></a>
         <a><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
         <button class="logout-btn" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
         <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" />
