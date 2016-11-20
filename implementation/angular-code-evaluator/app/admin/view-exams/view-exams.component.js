@@ -13,14 +13,36 @@ var router_1 = require('@angular/router');
 var ViewExamsComponent = (function () {
     function ViewExamsComponent(_router) {
         this._router = _router;
+        this.messageEdit = '';
+        this.messageDelete = '';
+        this.messageExport = '';
+        this.messageGlobal = '';
+        this.messageImport = '';
     }
     ViewExamsComponent.prototype.ngOnInit = function () {
-        console.log("View Exams");
+        console.log("view exams");
+    };
+    ViewExamsComponent.prototype.editExams = function () {
+        this.messageEdit = 'Go to edit exams page!';
+    };
+    ViewExamsComponent.prototype.deleteExams = function () {
+        this.messageDelete = 'are u sure?';
+    };
+    ViewExamsComponent.prototype.exportGrade = function () {
+        this.messageExport = 'Go to export page!';
+    };
+    ViewExamsComponent.prototype.visionGlobal = function () {
+        this.messageGlobal = 'Go to global view page!';
+    };
+    ViewExamsComponent.prototype.importSubmission = function () {
+        this.messageImport = 'Go to import page!';
     };
     ViewExamsComponent = __decorate([
         core_1.Component({
-            selector: 'admin',
-            template: "<h1>View Exams</h1>",
+            //selector: 'admin',	
+            selector: 'view-exams',
+            templateUrl: 'app/admin/view-exams/view-exams.component.html',
+            styleUrls: ['app/admin/view-exams/view-exams.component.css'],
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], ViewExamsComponent);

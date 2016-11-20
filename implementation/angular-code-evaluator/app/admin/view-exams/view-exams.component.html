@@ -1,0 +1,47 @@
+<h5>Available exams in the platform</h5>
+
+<div style="overflow-x:auto;" class="table-responsive">
+  <table class="table">
+    <thead>
+    <!--<p>EXAMS TABLE!!</p>-->
+    <tr>
+    <th>Exam</th>
+    <th>Degree</th> 
+    <th>Class</th>
+    <th>Date</th>
+    <th>Code Language</th>
+    <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>MESW01_LES</td>
+    <td>Master</td> 
+    <td>1/2016</td>
+    <td>10/10/2016</td>
+    <td>C++</td>
+    <td>Incomplete</td>
+  </tr>
+  <tr>
+    <td>Exam1</td>
+    <td>Licenc</td> 
+    <td>2/2016</td>
+    <td>11/11/2016</td>
+    <td>Java</td> 
+    <td>Incomplete!</td>
+  </tr>
+  </tbody>
+  </table>
+</div>
+
+<div class="text-center">
+<button class="btn blue-bg edit-btn" type="submit" (click)="editExams()">Edit</button> {{messageEdit}}
+
+<button class="btn blue-bg delete-btn" type="submit" (click)="deleteExams()">Delete</button> {{messageDelete}}
+
+<button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()">Export Grade</button> {{messageExport}}
+
+<button class="btn blue-bg global-btn" type="submit" (click)="visionGlobal()">Global</button> {{messageGlobal}}
+
+<button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()">Import Submissions</button> {{messageImport}}
+</div>
