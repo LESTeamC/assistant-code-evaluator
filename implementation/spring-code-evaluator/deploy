@@ -5,10 +5,10 @@ echo killing
 PID=`lsof -i:8091 -t`
 kill $PID
 # alteração do nome da bd
-echo "changing database file"
-cat tempdb > src/main/resources/config/application-mysql.properties
+#echo "changing database file"
+#cat tempdb > src/main/resources/config/application-mysql.properties
 ## Update da BD depois de cada build
-cat tempapp > src/main/resources/config/application.properties
+#cat tempapp > src/main/resources/config/application.properties
 echo deploying
 screen -d -m mvn spring-boot:run > deployment_logs 2>&1 
 echo "consult deployment_log file to see output of deployment"
