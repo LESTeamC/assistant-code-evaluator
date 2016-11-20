@@ -58,9 +58,9 @@ So that the Examiners can evaluate them.<br>
 1. General Improvements on the look and feel of the application, namely on the Color schemes used
 2. Logout buttons added to Admin and Examiner screens
 3. On the Examiner Screen, a header was created showing the name of the Examiner
-4. Improvements on the Create Exam feature.
-    4.1 - Allow to add different Criterias to Exercise
-    4.2 - Allow to Add Student through a CSV File
+4. Improvements on the Create Exam feature.<br>
+    4.1 - Allow to add different Criterias to Exercise<br>
+    4.2 - Allow to Add Student through a CSV File<br>
 5. Create Examiner Funtionality
 6. Delegate Exercise Funcionality
 
