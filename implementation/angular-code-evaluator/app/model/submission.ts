@@ -1,6 +1,6 @@
 import { Exercise } from './exercise';
 import { Student } from './student';
-import { SubmissionCriteria } from './SubmissionCriteria';
+import { SubmissionCriteria } from './submissioncriteria';
 
 
 
