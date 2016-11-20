@@ -1,12 +1,94 @@
-<div class="page-header">
-    <div class="Header-logo">
-        <a>
-            <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" />
-        </a>
-    </div>
-    <h3>{{examiner.name}} <small>{{examiner.username}}</small></h3>
-    <button (click)="logout()"><a><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></button>
+<!--<table width=100% height=100%>-->
+<div class="Header-logo" align="middle">
+    <a href="/">
+        <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" align="middle" />
+    </a>
 </div>
+
+<!-- Header -->
+
+<div>
+    <div style="float: left;">
+        <h6>{{examiner.name}}: <small>{{examiner.username}}</small></h6>
+    </div>
+    <div style="float: right;"> <button><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></button></div>
+</div>
+
+<div><br>
+<br>
+<br>
+    <hr>
+</div>
+
+<div class="a1">
+    <div class="input-group">
+        <span class="input-group-addon" id="exercise-status">Exam Status</span>
+        <select class="form-control" (change)="filterByStatus($event.target.value)">
+          <option>All</option>
+          <option>Open</option>
+          <option>Closed</option>
+        </select>
+        <div></div>
+        <span class="input-group-addon">Degree</span>
+        <input type="text" name="FirstName" (keypress)="filterByDegree($event.target.value)">
+    </div>
+
+</div>
+<tr>
+    <td>
+        <h4>Exercises Assigned to Me</h4>
+        <div class="panel-body criteria-panel">
+            <div>
+                <table class="table" border="0.5">
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Degree</th>
+                            <th>Course</th>
+                            <th>Data</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex.id)">
+                            <td>{{ex.name}}</td>
+                            <td>{{ex.exam.degree}}</td>
+                            <td>{{ex.exam.course}}</td>
+                            <td>{{ex.exam.date}}</td>
+                            <td>{{ex.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </td>
+    <td width=70%>
+        <h4>Submissions</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Grade</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let su of submissions">
+                        <td>{{su.student.username}}</td>
+                        <td>{{su.grade}}</td>
+                        <td>{{su.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4>Comments</h4>
+        <div>
+            <textarea width="100%" id="comments" disabled rows="4" cols="100"></textarea>
+        </div>
+    </td>
+</tr>
+<!--</table>-->
 
 <h1>DASHBOARD</h1>
 <button class="btn" (click)="onSelect(submission)">Select Submission</button>
