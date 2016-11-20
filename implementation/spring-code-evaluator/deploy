@@ -10,5 +10,5 @@ kill $PID
 ## Update da BD depois de cada build
 #cat tempapp > src/main/resources/config/application.properties
 echo deploying
-screen -d -m mvn spring-boot:run > deployment_logs 2>&1 
+screen -d -m mvn spring-boot:run
 echo "consult deployment_log file to see output of deployment"
