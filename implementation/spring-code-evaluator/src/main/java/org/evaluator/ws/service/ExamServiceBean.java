@@ -1,5 +1,6 @@
 package org.evaluator.ws.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import javax.persistence.EntityExistsException;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.ExerciseDTO;
 import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExamRepository;
@@ -137,12 +139,21 @@ public class ExamServiceBean implements ExamService {
 	}
 	
 	
-	@Override
-	public Collection<Exercise> findExercisesByExaminer(String examinerID) {
-		logger.info("> findByExaminer");
-		Collection<Exercise> exams = examRepository.findExercisesByExaminer(examinerID);
+		@Override
+	public Collection<ExerciseDTO> findExamsByExaminer(String examinerID) {
+		logger.info("> findExercisesByExaminer");
+		Collection<Exam> exams = examRepository.findAll();
+		Collection<ExerciseDTO> exercises = new ArrayList<ExerciseDTO>();
+		for(Exam a : exams){
+			for(Exercise e : a.getExercises()){
+				if(e.getExaminer() != null && e.getExaminer().getUsername().compareToIgnoreCase(examinerID) == 0){
+					exercises.add(new ExerciseDTO(e));
+				}
+			}
+		}
 		
-		logger.info("< findByExaminer");
-		return exams;
+		logger.info("< findExercisesByExaminer");
+		return exercises;
 	}
+	
 }
