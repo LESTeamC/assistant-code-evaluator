@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("ngOnInit");
         this.header = this.authService.credentials;
         this.examinerUsername = this.authService.username;
 
@@ -56,7 +55,6 @@ export class DashboardComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        console.log("ngAfterViewInit");
         this.updateMessage();
     }
 
@@ -73,8 +71,6 @@ export class DashboardComponent implements OnInit {
 
     successGetSubmissionsByExercise(data: any) {
         this.submissions = data;
-        console.log("Golo!");
-
     }
 
     private setExercises(data: any) {
@@ -87,7 +83,6 @@ export class DashboardComponent implements OnInit {
     }
 
     private filterByStatus(status: string): void {
-        console.log(status);
         //validate input
         if (this.oldStatus == null || this.oldStatus == status) {
             this.oldStatus = status;
@@ -120,9 +115,7 @@ export class DashboardComponent implements OnInit {
         // clean list
         this.exercises = [];
         var arrayLength = this.nonfilteredExercises.length;
-        console.log(this.nonfilteredExercises);
         for (var i = 0; i < arrayLength; i++) {
-            console.log(this.nonfilteredExercises[i].exam.degree);
             if (this.nonfilteredExercises[i].exam.degree.toUpperCase().indexOf(value.toUpperCase()) !== -1) {
                 // add the exercise that contais the degree entered by the user
                 this.exercises.push(this.nonfilteredExercises[i]);
@@ -131,13 +124,12 @@ export class DashboardComponent implements OnInit {
     }
 
     private selectRow(id: number): void {
-        console.log("SelectedRow!");
         this.examinerService.getSubmissionsByExercise(id).subscribe(data => this.successGetSubmissionsByExercise(data),
             error => this.fail(error));
     }
 
     fail(error: any) {
-        // this._router.navigate(['/loginadmin']);
+        this._router.navigate(['/loginadmin']);
         console.log("Fail");
 
     }
