@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.ExerciseDTO;
 import org.evaluator.ws.service.ExamService;
 import org.hibernate.JDBCException;
 import org.slf4j.Logger;
@@ -117,16 +118,16 @@ public class ExamController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/api/exercises_by_examiner/{usernameID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Exercise>> getExercisesByExaminer(@PathVariable("usernameID") String usernameID) {
+	public ResponseEntity<Collection<ExerciseDTO>> getExercisesByExaminer(@PathVariable("usernameID") String usernameID) {
 		logger.info("> getExercisesByExaminer id:{}", usernameID);
 		
-		Collection<Exercise> exercises = examService.findExercisesByExaminer(usernameID);
+		Collection<ExerciseDTO> exercises = examService.findExamsByExaminer(usernameID);
 		if (exercises == null) {
-			return new ResponseEntity<Collection<Exercise>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Collection<ExerciseDTO>>(HttpStatus.NOT_FOUND);
 		}
 
 		logger.info("< getExercisesByExaminer id:{}", usernameID);
-		return new ResponseEntity<Collection<Exercise>>(exercises, HttpStatus.OK);
+		return new ResponseEntity<Collection<ExerciseDTO>>(exercises, HttpStatus.OK);
 	}	
 	
 }
