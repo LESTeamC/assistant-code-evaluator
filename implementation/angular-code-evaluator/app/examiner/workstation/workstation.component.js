@@ -49,6 +49,9 @@ var WorkstationComponent = (function () {
      */
     WorkstationComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (this.navigationService.currentId === undefined) {
+            this._router.navigate(['/examiner/dashboard']);
+        }
         this.activatedRoute.params
             .switchMap(function (params) { return _this.submissionService.getSubmission(+params['id']); })
             .subscribe(function (data) { return _this.success(data); }, function (error) { return _this.fail(error); });

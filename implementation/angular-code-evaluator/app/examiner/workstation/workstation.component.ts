@@ -103,6 +103,11 @@ int missing_number_array(int a[],  int n)
      * Init: Get submission and Exam content from API
      */
     ngOnInit(){
+
+        if (this.navigationService.currentId === undefined){
+            this._router.navigate(['/examiner/dashboard'])
+        }
+
         this.activatedRoute.params
             // (+) converts string 'id' to a number
             .switchMap((params: Params) => this.submissionService.getSubmission(+params['id']))

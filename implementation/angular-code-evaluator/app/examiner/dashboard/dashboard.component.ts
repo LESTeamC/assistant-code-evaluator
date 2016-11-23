@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
 
 
         //JUST FOR TESTING THE WORKSTATION SCREEN
-        this.navigationService.buildService([1], 1);        
+        this.navigationService.buildService([1,2,3], 1);        
 
         this._router.navigate(['/examiner/workstation', 1]);
 

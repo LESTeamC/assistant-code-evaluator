@@ -28,6 +28,7 @@ export class NavigationService {
        var nextId = this.submissionList[this._currentIndex + 1];
 
        this._currentId = nextId;
+       this._currentIndex += 1;
        this.route.navigate(['/examiner/workstation/', nextId])
     }
 
@@ -36,6 +37,7 @@ export class NavigationService {
        var previousId = this.submissionList[this._currentIndex - 1];
 
        this._currentId = previousId;
+       this._currentIndex -= 1;
        this.route.navigate(['/examiner/workstation/', previousId])
     }
 
