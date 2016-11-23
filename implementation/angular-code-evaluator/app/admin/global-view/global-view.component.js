@@ -10,19 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var exam_1 = require('./../../model/exam');
+var exam_service_1 = require('./../exam.service');
+var exercise_service_1 = require('./../../shared/exercise.service');
 var GlobalViewComponent = (function () {
-    function GlobalViewComponent(_router) {
+    function GlobalViewComponent(_router, examService, exerciseService) {
         this._router = _router;
+        this.examService = examService;
+        this.exerciseService = exerciseService;
+        this.id = 1;
+        this.exam = new exam_1.Exam();
+        this.exercises = new Array();
+        this.submissions = new Array();
     }
     GlobalViewComponent.prototype.ngOnInit = function () {
-        console.log("global view");
+        var _this = this;
+        this.examService.getExam(this.id)
+            .subscribe(function (data) { return _this.examSuccess(data); }, function (error) { return _this.examFail(error); });
+    };
+    GlobalViewComponent.prototype.examSuccess = function (data) {
+        this.exam = JSON.stringify(data);
+        this.exercises = data.exercises;
+        console.log(data);
+    };
+    GlobalViewComponent.prototype.examFail = function (error) {
+        this._router.navigate(['/admin/view-exams/']);
     };
     GlobalViewComponent = __decorate([
         core_1.Component({
             selector: 'admin',
-            template: "<h1>GLOBAL VIEW</h1>",
+            templateUrl: '/app/admin/global-view/global-view.component.html',
+            styleUrls: ['/app/admin/global-view/global-view.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService, exercise_service_1.ExerciseService])
     ], GlobalViewComponent);
     return GlobalViewComponent;
 }());

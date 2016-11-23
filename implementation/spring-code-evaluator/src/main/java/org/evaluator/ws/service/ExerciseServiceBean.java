@@ -110,7 +110,7 @@ public class ExerciseServiceBean implements ExerciseService {
         return updatedExercise;
     }
 	
-		@Override
+	@Override
 	public Collection<Submission> getSubmissionsByExercise(Long exerciseID) {
     	logger.info("> getSubmissionsByExercise id:{}", exerciseID);
     	Collection<Submission> submissions = submissionRepository.getSubmissionsByExercise(exerciseID);

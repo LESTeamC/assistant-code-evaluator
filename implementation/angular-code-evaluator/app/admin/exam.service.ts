@@ -51,4 +51,17 @@ export class ExamService {
                 .get(this.url+`/api/exam-by-submission/${submissionId}`, {headers : this.headers} )
                 .map( (response:Response) => response.json())
     }
+
+    getExam(id:number){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .get(this.url+`/admin/exam/${id}`, {headers : this.headers} )
+                .map( (response:Response) => response.json())        
+    }
 }

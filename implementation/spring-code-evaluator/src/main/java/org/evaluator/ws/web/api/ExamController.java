@@ -31,7 +31,7 @@ public class ExamController extends BaseController {
 	private ExamService examService;
 	
     @RequestMapping(
-            value = "/api/exams/{id}",
+            value = "/admin/exam/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Exam> getExam(@PathVariable("id") Long id) {

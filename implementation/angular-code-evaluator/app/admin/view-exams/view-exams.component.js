@@ -37,6 +37,9 @@ var ViewExamsComponent = (function () {
     ViewExamsComponent.prototype.importSubmission = function () {
         this.messageImport = 'Go to import page!';
     };
+    ViewExamsComponent.prototype.globalView = function () {
+        this._router.navigate(['/admin/global-view/']);
+    };
     ViewExamsComponent = __decorate([
         core_1.Component({
             //selector: 'admin',	

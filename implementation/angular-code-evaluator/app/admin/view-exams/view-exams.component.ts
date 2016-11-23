@@ -43,4 +43,8 @@ export	class	ViewExamsComponent implements OnInit	{
     importSubmission(){
         this.messageImport='Go to import page!';
     }
+
+    globalView(){
+        this._router.navigate(['/admin/global-view/'])
+    }
 }	
