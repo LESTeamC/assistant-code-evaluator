@@ -17,13 +17,15 @@ var student_1 = require('./../../model/student');
 var submission_service_1 = require('./../submission.service');
 var exam_service_1 = require('./../../admin/exam.service');
 var auth_service_1 = require('./../../shared/auth.service');
+var navigation_service_1 = require('./../navigation.service');
 var WorkstationComponent = (function () {
-    function WorkstationComponent(_router, submissionService, activatedRoute, examService, authService) {
+    function WorkstationComponent(_router, submissionService, activatedRoute, examService, authService, navigationService) {
         this._router = _router;
         this.submissionService = submissionService;
         this.activatedRoute = activatedRoute;
         this.examService = examService;
         this.authService = authService;
+        this.navigationService = navigationService;
         //DEMONSTRATION VARIABLE ONLY. DELETE FOR RELEASE
         this.testLongString = "\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et ligula venenatis, convallis odio ornare, posuere quam. Phasellus molestie leo purus, sit amet iaculis nunc gravida id. Curabitur pretium lacus eget consequat interdum. Vivamus augue leo, tempor sit amet gravida quis, fringilla in nisl. Aenean pretium blandit ligula. Integer dignissim, mauris vel consequat porttitor, arcu urna accumsan ante, ac blandit sapien mauris at magna. Praesent ultrices molestie viverra. Sed pellentesque tempor consectetur. Curabitur faucibus risus eget elit gravida hendrerit. Integer odio lectus, faucibus a bibendum eu, sollicitudin ut massa. Nam et eros eu justo hendrerit tincidunt viverra quis augue. Nullam ac rutrum diam. Ut nec sem dignissim ante tristique molestie et a lorem. Vivamus egestas quam vitae sollicitudin vehicula. Fusce elementum lacus et metus blandit, et pulvinar dui maximus. Mauris at ultrices turpis.\n\nProin auctor efficitur eros id vehicula. Vivamus porttitor porttitor nibh, a iaculis nunc gravida accumsan. Sed tristique justo purus, vitae posuere elit ultricies a. Praesent eros nunc, accumsan a tempus et, dapibus in orci. Quisque placerat sit amet orci sit amet maximus. Fusce rhoncus placerat massa sed consectetur. Sed semper bibendum libero et vulputate. Nunc pulvinar magna et justo iaculis aliquam. Praesent aliquet nibh tortor, vel scelerisque leo suscipit quis.\n\nIn hac habitasse platea dictumst. Morbi a bibendum arcu, ut porta diam. Etiam congue ante non blandit vulputate. Duis feugiat viverra felis vel consectetur. Ut neque est, sagittis a erat non, pretium convallis neque. Duis rhoncus neque leo, ac posuere erat blandit a. Nunc tempor ipsum eget lectus sollicitudin, in porta erat luctus. Quisque ac fringilla massa, ut egestas diam. Praesent ut erat odio.\n\nMorbi eleifend et felis nec maximus. Mauris et nisl viverra arcu vestibulum ultricies sed ac mauris. Quisque facilisis lorem a orci iaculis, quis vehicula urna tempor. Phasellus sapien nunc, efficitur eu tincidunt id, elementum vitae magna. Vivamus in elementum metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc eget faucibus ipsum. Nulla elementum risus sapien, ac tempor est varius ac. Duis sodales, mauris at accumsan varius, lorem purus aliquam mi, a tempor elit erat quis nisl. Pellentesque tempor sollicitudin risus, non condimentum ex ullamcorper et. Vivamus dignissim consectetur elit, in iaculis nulla fermentum vitae. Maecenas dictum eu purus at tincidunt. Integer posuere elit erat, ac finibus libero tristique nec. Morbi id viverra nulla.\n\nSuspendisse velit massa, fringilla id lorem et, feugiat blandit arcu. Morbi nulla diam, cursus eget dui vitae, condimentum tempus quam. Cras placerat dapibus lorem, eget porta sem varius quis. Curabitur at vestibulum magna. Sed scelerisque elit semper magna iaculis varius. Curabitur pulvinar eros odio, efficitur bibendum risus iaculis non. Sed interdum enim pellentesque laoreet consectetur. Nam sed consequat neque. Maecenas lectus metus, condimentum pharetra mauris in, dapibus mollis enim. Suspendisse nec nulla porttitor, ornare mauris in, lobortis libero. Pellentesque rhoncus, quam ac venenatis fringilla, urna mi tristique dui, sit amet ultricies leo mauris posuere eros. Vestibulum id erat augue. Fusce quis quam quis mi commodo scelerisque. Morbi a massa sit amet nunc viverra fringilla sit amet eget risus.\n    ";
         //DEMONSTRATION VARIABLE ONLY DELETE FOR RELEASE
@@ -199,6 +201,18 @@ var WorkstationComponent = (function () {
     WorkstationComponent.prototype.select = function (num, grade) {
         return num === parseInt(grade);
     };
+    WorkstationComponent.prototype.hasNextSubmission = function () {
+        return this.navigationService.existsNext();
+    };
+    WorkstationComponent.prototype.hasPreviousSubmission = function () {
+        return this.navigationService.existsPrevious();
+    };
+    WorkstationComponent.prototype.navigateNext = function () {
+        this.navigationService.navigateNext();
+    };
+    WorkstationComponent.prototype.navigatePrevious = function () {
+        this.navigationService.navigatePrevious();
+    };
     __decorate([
         core_1.ViewChild('code'), 
         __metadata('design:type', core_1.ElementRef)
@@ -209,7 +223,7 @@ var WorkstationComponent = (function () {
             templateUrl: '/app/examiner/workstation/workstation.component.html',
             styleUrls: ['app/examiner/workstation/workstation.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router, submission_service_1.SubmissionService, router_1.ActivatedRoute, exam_service_1.ExamService, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [router_1.Router, submission_service_1.SubmissionService, router_1.ActivatedRoute, exam_service_1.ExamService, auth_service_1.AuthService, navigation_service_1.NavigationService])
     ], WorkstationComponent);
     return WorkstationComponent;
 }());

@@ -12,6 +12,7 @@ import { ModalModule, AlertModule} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {ExaminerService} from './../shared/examiner.service'
 import {SubmissionService} from './submission.service'
+import {NavigationService} from './navigation.service'
 
 import {SubmissionStatusPipe} from './submission-status.pipe'
 
@@ -35,6 +36,7 @@ declarations: [
   providers: [
     ExaminerService,
     SubmissionService,
+    NavigationService
   ]
 })
 export class ExaminerModule {}

@@ -13,6 +13,8 @@ import { Submission } from './../../model/submission'
 import { Exam } from './../../model/exam'
 import { Examiner } from './../../model/examiner'
 
+import {NavigationService} from './../navigation.service'
+
 
 
 @Component({
@@ -37,7 +39,8 @@ export class DashboardComponent implements OnInit {
     private examiner: Examiner = new Examiner();
 
 
-    constructor(private _router: Router, private authService: AuthService, private examinerService: ExaminerService) {
+    constructor(private _router: Router, private authService: AuthService, 
+                private examinerService: ExaminerService, private navigationService:NavigationService) {
         this.oldStatus = "All";
     }
 
@@ -136,6 +139,27 @@ export class DashboardComponent implements OnInit {
 
     private setExaminer(data: any) {
         this.examiner = data;
+    }
+
+    private createIndexArray(array:any[]){
+
+        var indexArray:number[] = new Array<number>();
+        var elem:any;
+
+        for(elem in array){
+            indexArray.push(elem.id);
+        }
+        return indexArray;
+    }
+
+    onSelect(submission:Submission){
+
+
+        //JUST FOR TESTING THE WORKSTATION SCREEN
+        this.navigationService.buildService([1], 1);        
+
+        this._router.navigate(['/examiner/workstation', 1]);
+
     }
 
 

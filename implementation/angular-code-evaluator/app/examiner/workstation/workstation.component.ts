@@ -13,7 +13,7 @@ import {SubmissionCriteria} from './../../model/submissioncriteria'
 import {SubmissionService} from './../submission.service'
 import {ExamService} from './../../admin/exam.service'
 import {AuthService} from './../../shared/auth.service'
-
+import {NavigationService} from './../navigation.service'
 
 declare var hljs: any;
 
@@ -95,7 +95,7 @@ int missing_number_array(int a[],  int n)
 
     constructor(private _router:Router, private submissionService:SubmissionService,
                 private activatedRoute:ActivatedRoute, private examService:ExamService,
-                private authService:AuthService){}
+                private authService:AuthService, private navigationService:NavigationService){}
     
     @ViewChild('code') codeElement: ElementRef;
 
@@ -272,6 +272,7 @@ int missing_number_array(int a[],  int n)
         return array;
     }
 
+
     logout(){
         this.authService.logout();
     }
@@ -292,5 +293,23 @@ int missing_number_array(int a[],  int n)
     select(num:number, grade:any){
         return num === parseInt(grade);
     }
+
+    hasNextSubmission():boolean{
+        return this.navigationService.existsNext();
+    }
+
+    hasPreviousSubmission():boolean{
+        return this.navigationService.existsPrevious();
+    }
+
+    navigateNext():void{
+        this.navigationService.navigateNext();
+    }
+
+    navigatePrevious():void{
+        this.navigationService.navigatePrevious();
+    }
+
+
 
 }	
