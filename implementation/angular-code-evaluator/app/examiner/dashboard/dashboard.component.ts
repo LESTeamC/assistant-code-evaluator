@@ -67,7 +67,6 @@ export class DashboardComponent implements OnInit {
 
     successGetExercisesByExam(data: any) {
         this.setExercises(data);
-        console.log("Golo!");
         this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(data => this.successGetSubmissionsByExercise(data),
             error => this.fail(error));
     }
