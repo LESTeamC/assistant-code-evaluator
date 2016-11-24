@@ -92,10 +92,15 @@ export class DashboardComponent implements OnInit {
             return;
         }
 
-        if (status == "All") {
+       if (status == "All") {
             this.exercises = this.nonfilteredExercises.slice();
             return;
-        }
+        } else
+            if (status == "Open") {
+                status = "O";
+            } else if (status == "Closed") {
+                status = "C";
+            }
 
         // clean list
         this.exercises = [];
