@@ -9,12 +9,14 @@ import {Student} from './../../model/student'
 
 import {ExamService} from './../exam.service'
 import {ExerciseService} from './../../shared/exercise.service'
+import {SubmissionService} from './../../examiner/submission.service'
+
 
 
 @Component({	
     selector: 'admin',	
-    templateUrl: '/app/admin/global-view/global-view.component.html',
-    styleUrls: ['/app/admin/global-view/global-view.component.css']
+    templateUrl: 'app/admin/global-view/global-view.component.html',
+    styleUrls: ['app/admin/global-view/global-view.component.css']
 })
 export	class	GlobalViewComponent implements OnInit	{
 
@@ -23,8 +25,19 @@ export	class	GlobalViewComponent implements OnInit	{
     private exercises:Exercise[] = new Array<Exercise>();
     private submissions:Submission[] = new Array<Submission>();
 
+    private selectedExercise:Exercise = new Exercise();
+    private selectedSubmission:Submission = new Submission();
+    private selectedStudent:Student = new Student();
+
+    private existsSelectedExercise:boolean = false;
+    private existsSelectedSubmission:boolean = false;
+
     constructor(private _router:Router, private examService:ExamService,
-            private exerciseService:ExerciseService){}
+            private exerciseService:ExerciseService,
+            private submissionSericse:SubmissionService){
+
+            
+    }
 
     ngOnInit(){
         this.examService.getExam(this.id)
@@ -33,7 +46,7 @@ export	class	GlobalViewComponent implements OnInit	{
     }
 
     examSuccess(data:any){
-        this.exam = JSON.stringify(data);
+        this.exam = data
         this.exercises = data.exercises;
 
         console.log(data);
@@ -42,4 +55,60 @@ export	class	GlobalViewComponent implements OnInit	{
     examFail(error:any){
         this._router.navigate(['/admin/view-exams/'])
     }
+
+    private isSelectedExercise(exercise:Exercise):boolean{
+        return exercise.id === this.selectedExercise.id;
+    }
+
+    private isSelectedSubmission(submission:Submission):boolean{
+        return submission.id === this.selectedSubmission.id;
+    }
+
+    private getSubmissions(exercise:Exercise):void{
+
+        this.existsSelectedSubmission = false;
+        this.existsSelectedExercise = true;
+
+        this.selectedExercise = exercise;
+        this.selectedSubmission = new Submission();
+
+        this.submissionSericse.getSubmissionsByExercise(exercise.id)
+                    .subscribe(data => this.submissionSuccess(data),
+                       error => this.submissionFail(error));
+
+    }
+
+    private selectSubmission(submission:Submission){
+
+        this.existsSelectedSubmission = true;
+        this.selectedSubmission = submission;
+        this.selectedStudent = submission.student;
+    }
+
+    submissionSuccess(data:any){
+        this.submissions = data;
+
+    }
+
+    submissionFail(error:any){
+        this.examFail(error);
+    }
+
+    @ViewChild('submissionModal') public childModal:ModalDirective;
+ 
+     /**
+     * Shows modal
+     */
+    public showChildModal():void {
+        this.childModal.show();
+    }
+    
+    /**
+     * Hides modal
+     */
+    public hideChildModal():void {
+        this.childModal.hide();
+    }
+
+
 }	

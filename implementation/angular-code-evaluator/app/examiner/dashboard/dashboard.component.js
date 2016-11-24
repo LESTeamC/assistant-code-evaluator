@@ -41,7 +41,6 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.successGetExercisesByExam = function (data) {
         var _this = this;
         this.setExercises(data);
-        console.log("Golo!");
         this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
     };
     DashboardComponent.prototype.successGetSubmissionsByExercise = function (data) {
@@ -63,6 +62,12 @@ var DashboardComponent = (function () {
         if (status == "All") {
             this.exercises = this.nonfilteredExercises.slice();
             return;
+        }
+        else if (status == "Open") {
+            status = "O";
+        }
+        else if (status == "Closed") {
+            status = "C";
         }
         // clean list
         this.exercises = [];
