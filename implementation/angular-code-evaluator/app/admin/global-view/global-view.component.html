@@ -23,7 +23,7 @@
                 <tbody>
                     <tr *ngFor="let ex of exercises" [class.selected-row]="isSelectedExercise(ex)" (click)="getSubmissions(ex)">
                         <td>{{ex.name}}</td>
-                        <td>{{ex.progress}}</td>
+                        <td>{{ex.progress}}%</td>
                         <td>{{ex.status | status}}</td>
                         <td>{{ex.weight}}%</td>
                         <td [class.italic-red] = "!ex.examiner">{{ (ex.examiner) ? (ex.examiner.name) : "Unassigned" }}</td>
@@ -72,13 +72,30 @@
                 <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Submission Detail</h4>
+                <h4 class="modal-title">Submission Detail: {{selectedStudent.username}}, {{selectedStudent.name}}</h4>
             </div>
             <div class="modal-body">
-
-                {{selectedExercise.name}}
-                {{selectedStudent.username}}, {{selectedStudent.name}}
-                {{selectedExercise.question}}
+                <div class="modal-body-header">
+                    <h4>{{selectedExercise.name}}: </h4>
+                </div>
+                <div>
+                   <p class="question">Question: {{selectedExercise.question}}<p>
+                    <div class="form-group row" *ngFor="let crit of criteria; let i = index">
+                        <label for="example-text-input" class="col-xs-7 col-form-label">{{crit.criteria.description}}</label>
+                        <div class="col-xs-3">
+                            <select class="form-control form-control-sm" disabled>
+                                <option selected> {{filterUngradedSubmission(crit)}}  </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-1">
+                            <span>/{{crit.criteria.gama}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Weight of the exercise in the Exam is {{selectedExercise.weight}}%</p>
+                        <p *ngIf="isGraded(selectedSubmission)">Total score of this submission: <span class="score">{{selectedSubmission.grade}}</span> (out of 20)</p>
+                    </div>
+                </div>
 
 
                 <!--From For Examiners-->

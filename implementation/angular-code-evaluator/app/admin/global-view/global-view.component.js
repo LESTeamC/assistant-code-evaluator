@@ -28,6 +28,7 @@ var GlobalViewComponent = (function () {
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
         this.submissions = new Array();
+        this.criteria = new Array();
         this.selectedExercise = new exercise_1.Exercise();
         this.selectedSubmission = new submission_1.Submission();
         this.selectedStudent = new student_1.Student();
@@ -66,6 +67,14 @@ var GlobalViewComponent = (function () {
         this.existsSelectedSubmission = true;
         this.selectedSubmission = submission;
         this.selectedStudent = submission.student;
+        this.criteria = submission.criteria;
+        console.log(this.criteria);
+    };
+    GlobalViewComponent.prototype.isGraded = function (submission) {
+        return submission.status !== "O";
+    };
+    GlobalViewComponent.prototype.filterUngradedSubmission = function (criteria) {
+        return (criteria.grade < 0) ? "N/A" : criteria.grade;
     };
     GlobalViewComponent.prototype.submissionSuccess = function (data) {
         this.submissions = data;

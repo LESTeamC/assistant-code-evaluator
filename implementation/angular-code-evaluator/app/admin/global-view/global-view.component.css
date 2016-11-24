@@ -28,3 +28,15 @@
 .sub-detail-btn{
     margin-top:7px;
 }
+
+.modal-body-header h4, .modal-body-header h5, {
+    display: inline-block;
+}
+
+.modal-body h5{
+    margin-left:5px;
+}
+
+.question{
+    border-bottom: 1px solid black;
+}

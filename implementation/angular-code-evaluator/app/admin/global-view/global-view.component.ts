@@ -6,6 +6,8 @@ import {Exam} from './../../model/exam';
 import {Exercise} from './../../model/exercise';
 import {Submission} from './../../model/submission';
 import {Student} from './../../model/student'
+import {SubmissionCriteria} from './../../model/submissioncriteria'
+
 
 import {ExamService} from './../exam.service'
 import {ExerciseService} from './../../shared/exercise.service'
@@ -24,6 +26,7 @@ export	class	GlobalViewComponent implements OnInit	{
     private exam:Exam = new Exam();
     private exercises:Exercise[] = new Array<Exercise>();
     private submissions:Submission[] = new Array<Submission>();
+    private criteria:SubmissionCriteria[] = new Array<SubmissionCriteria>();
 
     private selectedExercise:Exercise = new Exercise();
     private selectedSubmission:Submission = new Submission();
@@ -81,8 +84,19 @@ export	class	GlobalViewComponent implements OnInit	{
     private selectSubmission(submission:Submission){
 
         this.existsSelectedSubmission = true;
+
         this.selectedSubmission = submission;
         this.selectedStudent = submission.student;
+        this.criteria = submission.criteria;
+        console.log(this.criteria);
+    }
+
+    private isGraded(submission:Submission){
+        return submission.status !== "O";
+    }
+
+    filterUngradedSubmission(criteria:SubmissionCriteria){
+        return (criteria.grade < 0) ? "N/A" : criteria.grade
     }
 
     submissionSuccess(data:any){
