@@ -19,6 +19,7 @@ var code_component_1 = require('./workstation/code.component');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var examiner_service_1 = require('./../shared/examiner.service');
 var submission_service_1 = require('./submission.service');
+var navigation_service_1 = require('./navigation.service');
 var submission_status_pipe_1 = require('./submission-status.pipe');
 var ExaminerModule = (function () {
     function ExaminerModule() {
@@ -42,6 +43,7 @@ var ExaminerModule = (function () {
             providers: [
                 examiner_service_1.ExaminerService,
                 submission_service_1.SubmissionService,
+                navigation_service_1.NavigationService
             ]
         }), 
         __metadata('design:paramtypes', [])

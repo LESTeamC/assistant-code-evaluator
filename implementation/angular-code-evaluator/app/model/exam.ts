@@ -19,4 +19,6 @@ export class Exam {
     public language?: string;
     public exercises?: Exercise[];
     public students?: Student[];
+    public dateString?: string;
+
 }

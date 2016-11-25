@@ -31,6 +31,19 @@ export class SubmissionService {
         
     }
 
+    getSubmissionsByExercise(exerciseId:number){
+
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .get(this.url+`/api/submissions_by_exercise/${exerciseId}`, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+
+        
+    }
+
     gradeSubmission(submission:Submission){
 
         //Get the user credentials from AuthService shared service

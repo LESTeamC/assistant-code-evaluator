@@ -61,6 +61,11 @@ a i {
     padding-bottom: 5px;
 }
 
+.nav-button{
+    background: transparent;
+    border: none;
+}
+
 code, pre, .panel-code{
     margin: 0;
     padding: 0;

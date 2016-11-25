@@ -13,11 +13,13 @@ var router_1 = require('@angular/router');
 var auth_service_1 = require('./../../shared/auth.service');
 var examiner_service_1 = require('./../../shared/examiner.service');
 var examiner_1 = require('./../../model/examiner');
+var navigation_service_1 = require('./../navigation.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(_router, authService, examinerService) {
+    function DashboardComponent(_router, authService, examinerService, navigationService) {
         this._router = _router;
         this.authService = authService;
         this.examinerService = examinerService;
+        this.navigationService = navigationService;
         this.selectedRow = -1;
         this.examiner = new examiner_1.Examiner();
         this.oldStatus = "All";
@@ -39,7 +41,6 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.successGetExercisesByExam = function (data) {
         var _this = this;
         this.setExercises(data);
-        console.log("Golo!");
         this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
     };
     DashboardComponent.prototype.successGetSubmissionsByExercise = function (data) {
@@ -61,6 +62,12 @@ var DashboardComponent = (function () {
         if (status == "All") {
             this.exercises = this.nonfilteredExercises.slice();
             return;
+        }
+        else if (status == "Open") {
+            status = "O";
+        }
+        else if (status == "Closed") {
+            status = "C";
         }
         // clean list
         this.exercises = [];
@@ -99,13 +106,26 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.setExaminer = function (data) {
         this.examiner = data;
     };
+    DashboardComponent.prototype.createIndexArray = function (array) {
+        var indexArray = new Array();
+        var elem;
+        for (elem in array) {
+            indexArray.push(elem.id);
+        }
+        return indexArray;
+    };
+    DashboardComponent.prototype.onSelect = function (submission) {
+        //JUST FOR TESTING THE WORKSTATION SCREEN
+        this.navigationService.buildService([1, 2, 3], 1);
+        this._router.navigate(['/examiner/workstation', 1]);
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard',
             templateUrl: "app/examiner/dashboard/dashboard.component.html",
             styleUrls: ['app/examiner/dashboard/dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, examiner_service_1.ExaminerService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, examiner_service_1.ExaminerService, navigation_service_1.NavigationService])
     ], DashboardComponent);
     return DashboardComponent;
 }());

@@ -60,4 +60,8 @@ export	class	ViewExamsComponent implements OnInit	{
         //this.messageImport='Go to import page!';
         this._router.navigate(['/admin/import-submission']);
     }
+
+    globalView(){
+        this._router.navigate(['/admin/global-view/'])
+    }
 }	

@@ -49,6 +49,7 @@ org/evaluator/ws/service/GreetingService.class
 org/evaluator/ws/service/SubmissionServiceBean.class
 org/evaluator/ws/service/StudentExamServiceBean.class
 org/evaluator/SecurityConfiguration$ActuatorWebSecurityConfigurerAdapter.class
+org/evaluator/ws/model/ExerciseDTO.class
 org/evaluator/ws/util/AsyncResponse.class
 org/evaluator/ws/web/api/ExaminerController.class
 org/evaluator/ws/util/BCryptPasswordEncoderUtil.class

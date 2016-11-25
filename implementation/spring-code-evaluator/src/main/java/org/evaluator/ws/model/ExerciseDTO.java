@@ -29,7 +29,7 @@ public class ExerciseDTO {
 	/**
 	 * Exam of the exercise
 	 */
-	private Exam exam;
+	private ExamDTO exam;
 	
 	/**
 	 * Exam of the exercise
@@ -99,7 +99,7 @@ public class ExerciseDTO {
 		super();
 		this.id = id;
 		this.examiner = examiner;
-		this.exam = exam;
+		this.exam = new ExamDTO( exam );
 		this.examname = examname;
 		this.question = question;
 		this.name = name;
@@ -117,7 +117,7 @@ public class ExerciseDTO {
 		this.id = e.getId();
 		this.examiner = e.getExaminer();
 		e.getExam().setExercises(null);
-		this.exam = e.getExam();
+		this.exam = new ExamDTO( e.getExam() );
 		this.examname = e.getExamname();
 		this.question = e.getQuestion();
 		this.name = e.getName();
@@ -149,11 +149,11 @@ public class ExerciseDTO {
 		this.examiner = examiner;
 	}
 
-	public Exam getExam() {
+	public ExamDTO getExam() {
 		return exam;
 	}
 
-	public void setExam(Exam exam) {
+	public void setExam(ExamDTO exam) {
 		this.exam = exam;
 	}
 
