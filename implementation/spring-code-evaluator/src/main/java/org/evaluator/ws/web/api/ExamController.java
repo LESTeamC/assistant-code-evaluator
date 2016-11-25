@@ -7,6 +7,7 @@ import java.util.List;
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.model.ExerciseDTO;
+import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.service.ExamService;
 import org.hibernate.JDBCException;
 import org.slf4j.Logger;
@@ -145,5 +146,18 @@ public class ExamController extends BaseController {
 		logger.info("< getExercisesByExaminer id:{}", usernameID);
 		return new ResponseEntity<Collection<ExerciseDTO>>(exercises, HttpStatus.OK);
 	}	
+	
+    @RequestMapping(
+            value = "/admin/exam/{id}",
+            method = RequestMethod.DELETE)
+    public ResponseEntity<Exam> deleteExam(
+            @PathVariable("id") Long id) {
+        logger.info("> deleteExam id:{}", id);
+
+        examService.delete(id);
+
+        logger.info("< deleteExam id:{}", id);
+        return new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
+    }
 	
 }

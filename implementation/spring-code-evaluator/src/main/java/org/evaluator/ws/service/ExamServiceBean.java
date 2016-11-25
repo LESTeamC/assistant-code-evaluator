@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -155,5 +156,17 @@ public class ExamServiceBean implements ExamService {
 		logger.info("< findExercisesByExaminer");
 		return exercises;
 	}
+		
+	    @Override
+	    @Transactional(
+	            propagation = Propagation.REQUIRED,
+	            readOnly = false)
+	    public void delete(Long id) {
+	        logger.info("> delete id:{}", id);
+
+	        examRepository.delete(id);
+
+	        logger.info("< delete id:{}", id);
+	    }		
 	
 }

@@ -13,8 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -25,6 +23,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Exam extends TransactionalEntity {
+	
+	public Exam(){};
+	
+	public Exam(String name, Date date, String degree, String course, String language){
+		this.name = name;
+		this.date = date;
+		this.degree = degree;
+		this.course = course;
+		this.language = language;
+	};
 
 	/**
 	 * The default serial version UID.

@@ -7,7 +7,6 @@ import javax.persistence.NoResultException;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
-import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExamRepository;
 import org.evaluator.ws.repository.ExerciseRepository;
@@ -16,7 +15,6 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +41,9 @@ public class SubmissionServiceBean implements SubmissionService {
     
     @Autowired
     private ExerciseService exerciseService;
+    
+    @Autowired
+    private ExamService examService;
     
 	@Override
 	public Submission findOne(Long id) {
@@ -84,7 +85,8 @@ public class SubmissionServiceBean implements SubmissionService {
         submission.setStatus("C");
         Submission updatedSubmission = submissionRepository.save(submission);
         
-        this.updateExamAndExerciseStatus(updatedSubmission);
+        //this.updateExamAndExerciseStatus(updatedSubmission);
+        this.updateExamAndExercise(updatedSubmission);
 
         logger.info("< updateSubmission id:{}", updatedSubmission.getId());
         return updatedSubmission;
@@ -134,6 +136,26 @@ public class SubmissionServiceBean implements SubmissionService {
     			examRepository.save(examToUpdate);
     		}
     	}
+    }
+    
+    private void updateExamAndExercise(Submission submission){
+    	
+    	Exercise exerciseToUpdate = exerciseRepository.findOne(submission.getExercise().getId());
+    	Exam examToUpdate = examRepository.findById(submission.getExercise().getExam().getId());
+    	
+    	exerciseToUpdate.setProgress(exerciseToUpdate.getProgress() + 1);
+    	
+    	if (exerciseToUpdate.getProgress() == exerciseToUpdate.getNsubmissions()){
+    		exerciseToUpdate.setStatus("C");
+    		
+    		examToUpdate.setProgress(examToUpdate.getProgress() + 1);
+    		if (examToUpdate.getProgress() == examToUpdate.getNquestions()){
+    			examToUpdate.setStatus("C");
+    		}
+    	}
+    	
+    	exerciseRepository.save(exerciseToUpdate);
+    	examRepository.save(examToUpdate);
     }
 
 }
