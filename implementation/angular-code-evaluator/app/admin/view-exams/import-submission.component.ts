@@ -17,4 +17,8 @@ export	class	ImportSubmissionComponent implements OnInit	{
         console.log("import submission");
     }
 
+    importSubmissions(){
+        console.log("IMPORT")
+    }
+
 }

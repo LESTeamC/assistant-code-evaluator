@@ -1,1 +1,12 @@
-<h3>IMPORT SUBMISSIONS SCREEN</h3>
+<h3>Submission Import</h3>
+
+<alert type="info" dismissible="true">
+  The submitted file should be a compressed file (.zip) with all the student submissions for the given exam.<br>
+  The student submissions should have the followint name convention:<br>
+
+  <span class="name-convention">username + _ + exercise name</span>
+</alert>
+
+<label class="btn blue-bg btn-file">
+    Import Submissions... <input id="submission-input" type="file" style="display: none;" (change)="importSubmissions()" accept=".zip">
+</label>
