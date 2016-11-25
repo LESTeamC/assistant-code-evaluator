@@ -1,0 +1,84 @@
+<h5>Available exams in the platform</h5>
+
+<div style="overflow-x:auto;" class="table-responsive">
+  <table class="table">
+    <thead>
+    <!--<p>EXAMS TABLE!!</p>-->
+    <tr>
+    <th>Exam</th>
+    <th>Degree</th> 
+    <th>Class</th>
+    <th>Date</th>
+    <th>Code Language</th>
+    <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>MESW01_LES</td>
+    <td>Master</td> 
+    <td>1/2016</td>
+    <td>10/10/2016</td>
+    <td>C++</td>
+    <td>Incomplete</td>
+  </tr>
+  <tr>
+    <td>Exam1</td>
+    <td>Licenc</td> 
+    <td>2/2016</td>
+    <td>11/11/2016</td>
+    <td>Java</td> 
+    <td>Incomplete!</td>
+  </tr>
+  </tbody>
+  </table>
+</div>
+
+<div class="text-center">
+<button class="btn blue-bg edit-btn" type="submit" (click)="editExams()">Edit</button> {{messageEdit}}
+
+<!--delete exam-->
+<button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()">Delete</button>
+
+<!--Modal for delete exam-->
+<div bsModal #deleteModal="bs-modal" id="modalDelete" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+ <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title">Delete Exam</h3>
+      </div>
+      <div class="modal-body"><p>Are you sure you want to delete it?</p>
+        <button type="button" class="btn btn-modalyes">Yes</button>
+
+        <button type="button" class="btn btn-modalno" (click)="hideChildModal()">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()">Export Grade</button> {{messageExport}}
+
+<button class="btn blue-bg global-btn" type="submit" (click)="visionGlobal()">Global</button> {{messageGlobal}}
+
+<button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()">Import Submissions</button> {{messageImport}}
+<<<<<<< HEAD
+</div>
+
+
+<!-- Modal -->
+
+
+   
+=======
+
+<button class="btn blue-bg import-btn" type="submit" (click)="globalView()">Global View</button>
+
+</div>
+>>>>>>> ff19eb6bccf7d343c8e5b26a76c10c46083c1e6e

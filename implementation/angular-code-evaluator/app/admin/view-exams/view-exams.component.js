@@ -51,6 +51,9 @@ var ViewExamsComponent = (function () {
         //this.messageImport='Go to import page!';
         this._router.navigate(['/admin/import-submission']);
     };
+    ViewExamsComponent.prototype.globalView = function () {
+        this._router.navigate(['/admin/global-view/']);
+    };
     __decorate([
         core_1.ViewChild('deleteModal'), 
         __metadata('design:type', ng2_bootstrap_1.ModalDirective)

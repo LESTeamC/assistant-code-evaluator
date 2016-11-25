@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild}	from '@angular/core';
 import {Router} from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
-import {ImportSubmission} from './import-submission.component';
+import {ImportSubmissionComponent} from './import-submission.component';
 
 @Component({	
     selector: 'view-exams',
