@@ -16,7 +16,7 @@ public interface ExamService {
      * @return An Exam instance or <code>null</code> if none found.
      */
     Exam findById(Long id);
-    
+        
     Exam findBySubmissionId(Long id);
     
     Collection<Exam> findAll();

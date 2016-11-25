@@ -38,7 +38,7 @@ import { AuthGuard } from './../shared/auth-guard.service'
             component: DelegateComponent,
           },
           {
-            path: 'global-view',
+            path: 'global-view/:id',
             component: GlobalViewComponent,
           },
           {

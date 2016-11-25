@@ -1,44 +1,47 @@
 <h5>Available exams in the platform</h5>
 
-<div style="overflow-x:auto;" class="table-responsive">
+<alert type="danger" dismissible="true" *ngIf="exams.length<=0">
+  There are no exams in the Platform yet.
+</alert>
+
+<div *ngIf="exams.length > 0" style="overflow-x:auto;" class="table-responsive">
   <table class="table">
     <thead>
     <!--<p>EXAMS TABLE!!</p>-->
-    <tr>
-    <th>Exam</th>
-    <th>Degree</th> 
-    <th>Class</th>
-    <th>Date</th>
-    <th>Code Language</th>
-    <th>Status</th>
-    </tr>
+      <tr>
+        <th>Exam</th>
+        <th>Degree</th> 
+        <th>Class</th>
+        <th>Date</th>
+        <th>Code Language</th>
+        <th>Status</th>
+      </tr>
   </thead>
-  <tbody>
-  <tr>
-    <td>MESW01_LES</td>
-    <td>Master</td> 
-    <td>1/2016</td>
-    <td>10/10/2016</td>
-    <td>C++</td>
-    <td>Incomplete</td>
-  </tr>
-  <tr>
-    <td>Exam1</td>
-    <td>Licenc</td> 
-    <td>2/2016</td>
-    <td>11/11/2016</td>
-    <td>Java</td> 
-    <td>Incomplete!</td>
-  </tr>
-  </tbody>
+    <tbody>
+      <tr *ngFor="let ex of exams">
+          <td>{{ex.name}}</td>
+          <td>{{ex.degree}}</td> 
+          <td>{{ex.course}}</td>
+          <td>{{ex.date | date:'fullDate'}}</td>
+          <td>{{ex.language}}</td>
+          <td>{{ex.status | status}}</td>
+      </tr>
+    </tbody>
   </table>
 </div>
 
-<div class="text-center">
-<button class="btn blue-bg edit-btn" type="submit" (click)="editExams()">Edit</button> {{messageEdit}}
+<div *ngIf="exams.length > 0" class="text-center">
+  <button class="btn blue-bg edit-btn" type="submit" (click)="editExams()">Edit</button> {{messageEdit}}
 
-<!--delete exam-->
-<button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()">Delete</button>
+  <!--delete exam-->
+  <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()">Delete</button>
+
+  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()">Export Grade</button> {{messageExport}}
+
+  <button class="btn blue-bg global-btn" type="submit" (click)="globalView()">Global View</button> {{messageGlobal}}
+
+  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()">Import Submissions</button> {{messageImport}}
+</div>
 
 <!--Modal for delete exam-->
 <div bsModal #deleteModal="bs-modal" id="modalDelete" class="modal fade" role="dialog" aria-hidden="true">
@@ -60,18 +63,4 @@
 
   </div>
 </div>
-
-
-
-<button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()">Export Grade</button> {{messageExport}}
-
-<button class="btn blue-bg global-btn" type="submit" (click)="visionGlobal()">Global</button> {{messageGlobal}}
-
-<button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()">Import Submissions</button> {{messageImport}}
-</div>
-
-
-<!-- Modal -->
-
-
    
