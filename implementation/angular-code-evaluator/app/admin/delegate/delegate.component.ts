@@ -18,8 +18,11 @@ export	class	DelegateComponent implements OnInit	{
 
     private examiners:Examiner[];
     private exercises:Exercise[];
-    private selectedRow:number = -1;
+
+    private selectedExercise:Exercise = new Exercise();
     private selectedExaminer:Examiner = null;
+    private selectedExaminerModal:Examiner = null;
+
     private lastDelegatedExercise:Exercise;
 
     //Alert variables
@@ -43,7 +46,6 @@ export	class	DelegateComponent implements OnInit	{
 
     successGetExaminers(data:any){
         this.examiners = data;
-        console.log(this.examiners)
     }
 
     failGetExaminers(error:any){
@@ -52,7 +54,6 @@ export	class	DelegateComponent implements OnInit	{
 
     successGetExercises(data:any){
         this.exercises = data;
-        console.log(this.exercises)
     }
 
     failGetExercises(error:any){
@@ -60,11 +61,9 @@ export	class	DelegateComponent implements OnInit	{
     }
 
     successDelegate(data:any){
-        this.exercises.find(d => d.id === this.selectedRow).examiner = this.selectedExaminer;
+        this.exercises.find(d => d.id === this.selectedExercise.id).examiner = this.selectedExaminerModal;
         this.lastDelegatedExercise = data;
         
-        //this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
-
         if (!data.examiner){
             this.successDelegation = false;    
             this.failedDelegation = false;       
@@ -73,7 +72,7 @@ export	class	DelegateComponent implements OnInit	{
             this.successUndelegation = false;
             this.failedDelegation = false;
             this.successDelegation = true;
-        }//alert
+        }
     }
 
     failDelegate(data:any){
@@ -81,44 +80,34 @@ export	class	DelegateComponent implements OnInit	{
         this.successUndelegation = false;
         this.successDelegation = false;
         this.failedDelegation = true;
-        //alert
     }
 
     private isSelected(id:number):boolean{
-        return id === this.selectedRow;
+        return id === this.selectedExercise.id;
     }
 
-    private selectRow(id:number):void{
-        this.selectedRow = id;
-
-        var selectedExercise =  this.exercises.find(d => d.id === id);
-        this.selectedExaminer = selectedExercise.examiner;
-
-        console.log(this.selectedExaminer);
+    private selectRow(exercise:Exercise):void{
+        this.selectedExercise = exercise;
+        this.selectedExaminer = exercise.examiner;
     }
 
     private selectExaminer():void{
         this.hideChildModal();
 
         //call delegate method on backend
-        console.log(this.selectedExaminer);
-        this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
+        console.log(this.selectedExaminerModal);
+        this.selectedExaminerModal = (this.selectedExaminerModal === "null") ? null : this.selectedExaminerModal;
 
-        let examinerId:number = (this.selectedExaminer === null) ? undefined : this.selectedExaminer.id;
+        let examinerId:number = (this.selectedExaminerModal === null) ? undefined : this.selectedExaminerModal.id;
 
-        this.exerciseService.delegateExercise(this.selectedRow, examinerId)
+        this.exerciseService.delegateExercise(this.selectedExercise.id, examinerId)
                 .subscribe(data => this.successDelegate(data),
                            error => this.failDelegate(error));
-    }
-
-    private getExerciseFromId(id:number):string{
-        return this.exercises.find(d => d.id === id).name;
     }
 
     private isSelectedExaminer(examiner:Examiner){
 
         if (examiner === null || this.selectedExaminer ===null ) return false; 
-    
         return examiner.name === this.selectedExaminer.name;
     }
 

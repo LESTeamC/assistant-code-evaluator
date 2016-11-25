@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex.id)">
+                    <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
                         <td>{{ex.examname}}</td>
                         <td>{{ex.name}}</td>
                         <td>{{ex.status | status}}</td>
@@ -28,7 +28,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn" (click)="showChildModal()" [disabled]="this.selectedRow === -1">Assign Exercise</button>
+            <button type="button" class="btn" (click)="showChildModal()" [disabled]="!this.selectedExercise.id">Assign Exercise</button>
         </div>
     </div>
 </div>
@@ -64,7 +64,7 @@
                 <form #createExerciseForm="ngForm">
                     <label for="exercise-name">Examiner</label>
                     <div class="input-group">
-                        <select class="form-control" [(ngModel)]="selectedExaminer" #name="ngModel" name="examiner" required>
+                        <select class="form-control" [(ngModel)]="selectedExaminerModal" #name="ngModel" name="examiner" required>
                             <option [value]="null"
                                 [selected]="selectedExaminer === null">Unassigned</option>
                             <option [ngValue]="examiner" *ngFor="let examiner of examiners"

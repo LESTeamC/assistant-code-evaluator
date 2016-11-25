@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+var exercise_1 = require('./../../model/exercise');
 var examiner_service_1 = require('./../../shared/examiner.service');
 var exercise_service_1 = require('./../../shared/exercise.service');
 var DelegateComponent = (function () {
@@ -18,8 +19,9 @@ var DelegateComponent = (function () {
         this._router = _router;
         this.examinerService = examinerService;
         this.exerciseService = exerciseService;
-        this.selectedRow = -1;
+        this.selectedExercise = new exercise_1.Exercise();
         this.selectedExaminer = null;
+        this.selectedExaminerModal = null;
         //Alert variables
         this.successDelegation = false;
         this.successUndelegation = false;
@@ -34,23 +36,20 @@ var DelegateComponent = (function () {
     };
     DelegateComponent.prototype.successGetExaminers = function (data) {
         this.examiners = data;
-        console.log(this.examiners);
     };
     DelegateComponent.prototype.failGetExaminers = function (error) {
         this._router.navigate(['/loginadmin']);
     };
     DelegateComponent.prototype.successGetExercises = function (data) {
         this.exercises = data;
-        console.log(this.exercises);
     };
     DelegateComponent.prototype.failGetExercises = function (error) {
         this._router.navigate(['/loginadmin']);
     };
     DelegateComponent.prototype.successDelegate = function (data) {
         var _this = this;
-        this.exercises.find(function (d) { return d.id === _this.selectedRow; }).examiner = this.selectedExaminer;
+        this.exercises.find(function (d) { return d.id === _this.selectedExercise.id; }).examiner = this.selectedExaminerModal;
         this.lastDelegatedExercise = data;
-        //this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
         if (!data.examiner) {
             this.successDelegation = false;
             this.failedDelegation = false;
@@ -60,35 +59,29 @@ var DelegateComponent = (function () {
             this.successUndelegation = false;
             this.failedDelegation = false;
             this.successDelegation = true;
-        } //alert
+        }
     };
     DelegateComponent.prototype.failDelegate = function (data) {
         this.successUndelegation = false;
         this.successDelegation = false;
         this.failedDelegation = true;
-        //alert
     };
     DelegateComponent.prototype.isSelected = function (id) {
-        return id === this.selectedRow;
+        return id === this.selectedExercise.id;
     };
-    DelegateComponent.prototype.selectRow = function (id) {
-        this.selectedRow = id;
-        var selectedExercise = this.exercises.find(function (d) { return d.id === id; });
-        this.selectedExaminer = selectedExercise.examiner;
-        console.log(this.selectedExaminer);
+    DelegateComponent.prototype.selectRow = function (exercise) {
+        this.selectedExercise = exercise;
+        this.selectedExaminer = exercise.examiner;
     };
     DelegateComponent.prototype.selectExaminer = function () {
         var _this = this;
         this.hideChildModal();
         //call delegate method on backend
-        console.log(this.selectedExaminer);
-        this.selectedExaminer = (this.selectedExaminer === "null") ? null : this.selectedExaminer;
-        var examinerId = (this.selectedExaminer === null) ? undefined : this.selectedExaminer.id;
-        this.exerciseService.delegateExercise(this.selectedRow, examinerId)
+        console.log(this.selectedExaminerModal);
+        this.selectedExaminerModal = (this.selectedExaminerModal === "null") ? null : this.selectedExaminerModal;
+        var examinerId = (this.selectedExaminerModal === null) ? undefined : this.selectedExaminerModal.id;
+        this.exerciseService.delegateExercise(this.selectedExercise.id, examinerId)
             .subscribe(function (data) { return _this.successDelegate(data); }, function (error) { return _this.failDelegate(error); });
-    };
-    DelegateComponent.prototype.getExerciseFromId = function (id) {
-        return this.exercises.find(function (d) { return d.id === id; }).name;
     };
     DelegateComponent.prototype.isSelectedExaminer = function (examiner) {
         if (examiner === null || this.selectedExaminer === null)
