@@ -3,6 +3,9 @@ import {Router} from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import {ImportSubmissionComponent} from './import-submission.component';
 
+import {ExamService} from './../exam.service'
+import {Exam} from './../../model/exam'
+
 @Component({	
     selector: 'view-exams',
     templateUrl: 'app/admin/view-exams/view-exams.component.html',
@@ -11,7 +14,8 @@ import {ImportSubmissionComponent} from './import-submission.component';
 
 export	class	ViewExamsComponent implements OnInit	{
 
-    constructor(private _router:Router){}
+    private exams:Exam[] = new Array<Exam>();
+    constructor(private _router:Router, private examService:ExamService){}
 
     messageEdit='';
     messageDelete='';
@@ -21,6 +25,20 @@ export	class	ViewExamsComponent implements OnInit	{
 
     ngOnInit(){
         console.log("view exams");
+
+         this.examService.getExams()
+            .subscribe(data => this.examsSuccess(data),
+                       error => this.examsFail(error));
+
+
+    }
+
+    examsSuccess(data:any){
+        this.exams = data;
+    }
+
+    examsFail(error:any){
+
     }
 
     editExams(){
@@ -52,16 +70,12 @@ export	class	ViewExamsComponent implements OnInit	{
         this.messageExport='Go to export page!';
     }
 
-    visionGlobal(){
-        this.messageGlobal='Go to global view page!';
-    }
-
     importSubmission(){
         //this.messageImport='Go to import page!';
         this._router.navigate(['/admin/import-submission']);
     }
 
     globalView(){
-        this._router.navigate(['/admin/global-view/'])
+        this._router.navigate(['/admin/global-view/', 1])
     }
 }	

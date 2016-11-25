@@ -11,9 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+var exam_service_1 = require('./../exam.service');
 var ViewExamsComponent = (function () {
-    function ViewExamsComponent(_router) {
+    function ViewExamsComponent(_router, examService) {
         this._router = _router;
+        this.examService = examService;
+        this.exams = new Array();
         this.messageEdit = '';
         this.messageDelete = '';
         this.messageExport = '';
@@ -21,7 +24,15 @@ var ViewExamsComponent = (function () {
         this.messageImport = '';
     }
     ViewExamsComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log("view exams");
+        this.examService.getExams()
+            .subscribe(function (data) { return _this.examsSuccess(data); }, function (error) { return _this.examsFail(error); });
+    };
+    ViewExamsComponent.prototype.examsSuccess = function (data) {
+        this.exams = data;
+    };
+    ViewExamsComponent.prototype.examsFail = function (error) {
     };
     ViewExamsComponent.prototype.editExams = function () {
         this.messageEdit = 'Go to edit exams page!';
@@ -44,15 +55,12 @@ var ViewExamsComponent = (function () {
     ViewExamsComponent.prototype.exportGrade = function () {
         this.messageExport = 'Go to export page!';
     };
-    ViewExamsComponent.prototype.visionGlobal = function () {
-        this.messageGlobal = 'Go to global view page!';
-    };
     ViewExamsComponent.prototype.importSubmission = function () {
         //this.messageImport='Go to import page!';
         this._router.navigate(['/admin/import-submission']);
     };
     ViewExamsComponent.prototype.globalView = function () {
-        this._router.navigate(['/admin/global-view/']);
+        this._router.navigate(['/admin/global-view/', 1]);
     };
     __decorate([
         core_1.ViewChild('deleteModal'), 
@@ -64,7 +72,7 @@ var ViewExamsComponent = (function () {
             templateUrl: 'app/admin/view-exams/view-exams.component.html',
             styleUrls: ['app/admin/view-exams/view-exams.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService])
     ], ViewExamsComponent);
     return ViewExamsComponent;
 }());

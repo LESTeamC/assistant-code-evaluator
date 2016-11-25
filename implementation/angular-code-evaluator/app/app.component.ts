@@ -12,5 +12,6 @@ export class AppComponent {
     constructor(public viewContainerRef:ViewContainerRef, private router:Router){
         this.viewContainerRef = viewContainerRef;
         this.router.navigate(['/login'])
+
     }
  }

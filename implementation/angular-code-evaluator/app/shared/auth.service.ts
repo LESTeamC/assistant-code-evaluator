@@ -31,7 +31,16 @@ export class AuthService {
     //Variable that holds the username;
     private _username:string;
 
-    constructor(private router:Router){}
+
+    constructor(private router:Router){
+        this.loggedIn = !!localStorage.getItem('auth-token');
+
+        if (this.loggedIn){
+            this.loginType = localStorage.getItem('login');
+            this._header = this.makeHeaderWithToken(localStorage.getItem('auth-token'));
+            this._username = localStorage.getItem('username');
+        }
+    }
 
     get logInType(){
         return this.loginType;
@@ -45,14 +54,20 @@ export class AuthService {
         return this._username;
     }
 
-    login(loginType:string){
+    login(login:Credentials, loginType:string){
         this.loggedIn = true;
         this.loginType = loginType;
+        localStorage.setItem('login', loginType);
+
+        this.setCredentials(login);
+
     }
 
     logout(){
         this.loggedIn = false;
         this._header = undefined;
+
+        localStorage.clear();
 
         this.redirectUser();
     }
@@ -64,6 +79,9 @@ export class AuthService {
     setCredentials(login:Credentials) {
         this._header = this.makeHeader(login);
         this._username = login.username;
+
+        localStorage.setItem('username', login.username);
+        localStorage.setItem('auth-token', this.makeToken(login));
     }
 
     removeCredentials(){
@@ -75,6 +93,14 @@ export class AuthService {
      */
     private makeHeader(login: Credentials): string{
         return "Basic " + btoa(login.username + ":" + login.password);
+    }
+
+    private makeHeaderWithToken(login: string): string{
+        return "Basic " + login;
+    }
+
+    private makeToken(credentials: Credentials):string{
+        return btoa(credentials.username + ":" + credentials.password);
     }
 
 
