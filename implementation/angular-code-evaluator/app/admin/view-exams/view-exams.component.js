@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var ViewExamsComponent = (function () {
     function ViewExamsComponent(_router) {
         this._router = _router;
@@ -28,6 +29,18 @@ var ViewExamsComponent = (function () {
     ViewExamsComponent.prototype.deleteExams = function () {
         this.messageDelete = 'are u sure?';
     };
+    /**
+    * Shows modal
+    */
+    ViewExamsComponent.prototype.showChildModal = function () {
+        this.childModal.show();
+    };
+    /**
+     * Hides modal
+     */
+    ViewExamsComponent.prototype.hideChildModal = function () {
+        this.childModal.hide();
+    };
     ViewExamsComponent.prototype.exportGrade = function () {
         this.messageExport = 'Go to export page!';
     };
@@ -35,11 +48,15 @@ var ViewExamsComponent = (function () {
         this.messageGlobal = 'Go to global view page!';
     };
     ViewExamsComponent.prototype.importSubmission = function () {
-        this.messageImport = 'Go to import page!';
+        //this.messageImport='Go to import page!';
+        this._router.navigate(['/admin/import-submission']);
     };
+    __decorate([
+        core_1.ViewChild('deleteModal'), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], ViewExamsComponent.prototype, "childModal", void 0);
     ViewExamsComponent = __decorate([
         core_1.Component({
-            //selector: 'admin',	
             selector: 'view-exams',
             templateUrl: 'app/admin/view-exams/view-exams.component.html',
             styleUrls: ['app/admin/view-exams/view-exams.component.css'],

@@ -24,7 +24,6 @@ var DashboardComponent = (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log("ngOnInit");
         this.header = this.authService.credentials;
         this.examinerUsername = this.authService.username;
         this.examinerService.getExaminer(this.examinerUsername)
@@ -32,7 +31,6 @@ var DashboardComponent = (function () {
         this.examinerService.getExercisesByExaminer(this.authService.username).subscribe(function (data) { return _this.successGetExercisesByExam(data); }, function (error) { return _this.fail(error); });
     };
     DashboardComponent.prototype.ngAfterViewInit = function () {
-        console.log("ngAfterViewInit");
         this.updateMessage();
     };
     DashboardComponent.prototype.updateMessage = function () {
@@ -46,7 +44,6 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.successGetSubmissionsByExercise = function (data) {
         this.submissions = data;
-        console.log("Golo!");
     };
     DashboardComponent.prototype.setExercises = function (data) {
         this.exercises = data;
@@ -56,7 +53,6 @@ var DashboardComponent = (function () {
         return id === this.selectedRow;
     };
     DashboardComponent.prototype.filterByStatus = function (status) {
-        console.log(status);
         //validate input
         if (this.oldStatus == null || this.oldStatus == status) {
             this.oldStatus = status;
@@ -85,9 +81,7 @@ var DashboardComponent = (function () {
         // clean list
         this.exercises = [];
         var arrayLength = this.nonfilteredExercises.length;
-        console.log(this.nonfilteredExercises);
         for (var i = 0; i < arrayLength; i++) {
-            console.log(this.nonfilteredExercises[i].exam.degree);
             if (this.nonfilteredExercises[i].exam.degree.toUpperCase().indexOf(value.toUpperCase()) !== -1) {
                 // add the exercise that contais the degree entered by the user
                 this.exercises.push(this.nonfilteredExercises[i]);
@@ -96,11 +90,10 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.selectRow = function (id) {
         var _this = this;
-        console.log("SelectedRow!");
         this.examinerService.getSubmissionsByExercise(id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
     };
     DashboardComponent.prototype.fail = function (error) {
-        // this._router.navigate(['/loginadmin']);
+        this._router.navigate(['/loginadmin']);
         console.log("Fail");
     };
     DashboardComponent.prototype.setExaminer = function (data) {

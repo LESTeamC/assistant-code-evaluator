@@ -19,6 +19,7 @@ var delegate_component_1 = require('./delegate/delegate.component');
 var global_view_component_1 = require('./global-view/global-view.component');
 var view_examiners_component_1 = require('./view-examiners/view-examiners.component');
 var view_exams_component_1 = require('./view-exams/view-exams.component');
+var import_submission_component_1 = require('./view-exams/import-submission.component');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_service_1 = require('./exam.service');
 var examiner_service_1 = require('./../shared/examiner.service');
@@ -46,6 +47,7 @@ var AdminModule = (function () {
                 view_examiners_component_1.ViewExaminersComponent,
                 global_view_component_1.GlobalViewComponent,
                 delegate_component_1.DelegateComponent,
+                import_submission_component_1.ImportSubmissionComponent,
                 status_pipe_1.StatusPipe,
             ],
             providers: [

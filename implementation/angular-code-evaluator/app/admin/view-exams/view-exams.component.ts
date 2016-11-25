@@ -1,9 +1,9 @@
-import {Component, OnInit}	from '@angular/core';
+import {Component, OnInit, ViewChild}	from '@angular/core';
 import {Router} from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import {ImportSubmission} from './import-submission.component';
 
 @Component({	
-    //selector: 'admin',	
     selector: 'view-exams',
     templateUrl: 'app/admin/view-exams/view-exams.component.html',
     styleUrls: ['app/admin/view-exams/view-exams.component.css'],
@@ -31,6 +31,22 @@ export	class	ViewExamsComponent implements OnInit	{
         this.messageDelete='are u sure?';
     }
 
+    @ViewChild('deleteModal') public childModal:ModalDirective;
+ 
+     /**
+     * Shows modal
+     */
+    public showChildModal():void {
+        this.childModal.show();
+    }
+    
+    /**
+     * Hides modal
+     */
+    public hideChildModal():void {
+        this.childModal.hide();
+    }
+
 
     exportGrade(){
         this.messageExport='Go to export page!';
@@ -41,6 +57,7 @@ export	class	ViewExamsComponent implements OnInit	{
     }
 
     importSubmission(){
-        this.messageImport='Go to import page!';
+        //this.messageImport='Go to import page!';
+        this._router.navigate(['/admin/import-submission']);
     }
 }	

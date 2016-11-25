@@ -11,6 +11,8 @@ import { DelegateComponent }    from './delegate/delegate.component'
 import { GlobalViewComponent }    from './global-view/global-view.component'
 import { ViewExaminersComponent }    from './view-examiners/view-examiners.component'
 import { ViewExamsComponent }    from './view-exams/view-exams.component'
+import { ImportSubmissionComponent }    from './view-exams/import-submission.component'
+
 import { ModalModule, AlertModule, DatepickerModule} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {ExamService} from './exam.service'
@@ -38,6 +40,7 @@ declarations: [
     ViewExaminersComponent,
     GlobalViewComponent,
     DelegateComponent,
+    ImportSubmissionComponent,
     StatusPipe,
   ],
   providers: [
