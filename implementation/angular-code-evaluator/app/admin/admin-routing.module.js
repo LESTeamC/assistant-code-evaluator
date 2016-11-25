@@ -48,7 +48,7 @@ var AdminRoutingModule = (function () {
                                 component: delegate_component_1.DelegateComponent,
                             },
                             {
-                                path: 'global-view',
+                                path: 'global-view/:id',
                                 component: global_view_component_1.GlobalViewComponent,
                             },
                             {

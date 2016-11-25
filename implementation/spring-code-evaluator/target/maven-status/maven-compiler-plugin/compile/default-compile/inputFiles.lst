@@ -1,5 +1,6 @@
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/web/api/LoginController.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/web/api/BaseController.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/ExamDTO.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/Account.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/util/AsyncResponse.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/web/filter/SimpleCorsFilter.java
