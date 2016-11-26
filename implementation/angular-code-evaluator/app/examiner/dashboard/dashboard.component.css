@@ -1,7 +1,5 @@
-.a1 {
-    display: inline-block;
-        justify-content: space-between;
-
+.selected-row{
+    background-color: #6D7993;
 }
 
 
@@ -20,13 +18,6 @@
     border-radius: 0px !important;
 }
 
-.div1{
-     margin-right: 60px;
-}
-
-.selected-row{
-    background-color: #6D7993;
-}
 
 .table:hover{
     cursor: pointer;
