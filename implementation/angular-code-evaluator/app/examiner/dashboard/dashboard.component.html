@@ -1,4 +1,3 @@
-<!--<table width=100% height=100%>-->
 <div class="Header-logo" align="middle">
     <a href="/">
         <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" align="middle" />
@@ -11,58 +10,65 @@
     <div style="float: left;">
         <h6>{{examiner.name}}: <small>{{examiner.username}}</small></h6>
     </div>
-    <div style="float: right;"> <button><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></button></div>
+    <div style="float: right;"> <br><button><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></button></div>
 </div>
 
 <div><br>
-<br>
-<br>
+    <br>
+    <br>
     <hr>
 </div>
 
-<div class="a1">
-    <div class="input-group">
-        <span class="input-group-addon" id="exercise-status">Exam Status</span>
+<div class="row">
+    <!--<span class="input-group-addon" id="exercise-status">Exam Status</span>-->
+    <div class="col-xs-2 col-sm-1"> Exam Status
         <select class="form-control" (change)="filterByStatus($event.target.value)">
           <option>All</option>
           <option>Open</option>
           <option>Closed</option>
         </select>
-        <div></div>
-        <span class="input-group-addon">Degree</span>
+    </div>
+    <div class="col-xs-6 col-sm-4">
+        Degree<br>
         <input type="text" name="FirstName" (keypress)="filterByDegree($event.target.value)">
     </div>
-
 </div>
-<tr>
-    <td>
+
+<div class="row">
+    <div class="col-xs-4">
+
         <h4>Exercises Assigned to Me</h4>
-        <div class="panel-body criteria-panel">
-            <div>
-                <table class="table" border="0.5">
-                    <thead>
-                        <tr>
-                            <th>Exercise</th>
-                            <th>Degree</th>
-                            <th>Course</th>
-                            <th>Data</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex.id)">
-                            <td>{{ex.name}}</td>
-                            <td>{{ex.exam.degree}}</td>
-                            <td>{{ex.exam.course}}</td>
-                            <td>{{ex.exam.dateString}}</td>
-                            <td>{{ex.status}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="panel panel-default">
+            <div class="panel-body criteria-panel">
+                <div class="table-responsive">
+                    <div>
+                        <table class="table" border="0.5">
+                            <thead>
+                                <tr>
+                                    <th>Exercise</th>
+                                    <th>Degree</th>
+                                    <th>Course</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
+                                    <td>{{ex.name}}</td>
+                                    <td>{{ex.exam.degree}}</td>
+                                    <td>{{ex.exam.course}}</td>
+                                    <td>{{ex.exam.dateString}}</td>
+                                    <td>{{ex.status}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </td>
-    <td width=70%>
+    </div>
+    <div class="col-xs-8">
+
         <h4>Submissions</h4>
         <div class="table-responsive">
             <table class="table">
@@ -74,7 +80,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let su of submissions">
+                    <tr *ngFor="let su of submissions"  [class.selected-row]="isSelectedSubmission(su.id)" (click)="selectRowSubmission(su)">
                         <td>{{su.student.username}}</td>
                         <td>{{su.grade}}</td>
                         <td>{{su.status}}</td>
@@ -84,9 +90,10 @@
         </div>
         <h4>Comments</h4>
         <div>
-            <textarea width="100%" id="comments" disabled rows="4" cols="100"></textarea>
+            <textarea width="100%" id="comments" disabled rows="4" cols="100">{{this.comments}}</textarea>
         </div>
-      <button class="btn" (click)="onSelect(submission)">Select Submission</button>
-    </td>
-</tr>
-<!--</table>-->
+        <button class="btn" (click)="onSelect(submission)" [disabled]="shouldDisableButton()">Select Submission</button>
+
+    </div>
+
+</div>
