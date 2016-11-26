@@ -1,6 +1,7 @@
 package org.evaluator.ws.service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import org.evaluator.ws.AbstractTest;
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.ExerciseDTO;
 import org.evaluator.ws.util.RequestContext;
 import org.junit.Assert;
 import org.junit.Before;
@@ -71,6 +73,22 @@ public class ExamServiceTest extends AbstractTest {
         Assert.assertEquals("failure - expected nquestions attribute match", 2,
                 createdEntity.getNquestions());
 
+    }
+	
+    @Test
+    public void findByExaminer(){
+    	Long examinerID = Long.parseLong("1");
+    	Collection<Exam> collection = service.findByExaminer(examinerID);
+    	
+        Assert.assertNotNull("failure - expected not null", collection);
+    }
+    
+    @Test
+    public void findExamsByExaminer(){
+    	String username = "up20165544";
+    	Collection<ExerciseDTO> collection = service.findExamsByExaminer(username);
+    	
+        Assert.assertNotNull("failure - expected not null", collection);
     }
 
 }
