@@ -13,7 +13,7 @@ import { Submission } from './../../model/submission'
 import { Exam } from './../../model/exam'
 import { Examiner } from './../../model/examiner'
 
-import {NavigationService} from './../navigation.service'
+import { NavigationService } from './../navigation.service'
 
 
 
@@ -33,14 +33,19 @@ export class DashboardComponent implements OnInit {
     // list that always have the exercises - not represented in the html
     private nonfilteredExercises: Exercise[];
     private submissions: Submission[];
-    private selectedRow: number = -1;
+    private selectedExercise: Exercise = new Exercise();
+    private selectedSubmission: Submission = new Submission();
+
     //ExaminerService
     private examinerUsername: string;
     private examiner: Examiner = new Examiner();
 
+    private disableButton:boolean = true;
 
-    constructor(private _router: Router, private authService: AuthService, 
-                private examinerService: ExaminerService, private navigationService:NavigationService) {
+    private comments: string;
+
+    constructor(private _router: Router, private authService: AuthService,
+        private examinerService: ExaminerService, private navigationService: NavigationService) {
         this.oldStatus = "All";
     }
 
@@ -80,9 +85,7 @@ export class DashboardComponent implements OnInit {
         this.nonfilteredExercises = this.exercises.slice();
     }
 
-    private isSelected(id: number): boolean {
-        return id === this.selectedRow;
-    }
+
 
     private filterByStatus(status: string): void {
         //validate input
@@ -91,7 +94,7 @@ export class DashboardComponent implements OnInit {
             return;
         }
 
-       if (status == "All") {
+        if (status == "All") {
             this.exercises = this.nonfilteredExercises.slice();
             return;
         } else
@@ -130,9 +133,24 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    private selectRow(id: number): void {
-        this.examinerService.getSubmissionsByExercise(id).subscribe(data => this.successGetSubmissionsByExercise(data),
+    private isSelected(id: number): boolean {
+        return id === this.selectedExercise.id;
+    }
+
+    private selectRow(exercise: Exercise): void {
+        // this.selectedExercise = exercise;
+        this.examinerService.getSubmissionsByExercise(exercise.id).subscribe(data => this.successGetSubmissionsByExercise(data),
             error => this.fail(error));
+    }
+
+    private isSelectedSubmission(id: number): boolean {
+        return id === this.selectedSubmission.id;
+    }
+
+    private selectRowSubmission(selectedSubmission: Submission): void {
+        this.selectedSubmission = selectedSubmission;
+        this.disableButton = false;
+        this.comments = selectedSubmission.comment;
     }
 
     fail(error: any) {
@@ -145,26 +163,37 @@ export class DashboardComponent implements OnInit {
         this.examiner = data;
     }
 
-    private createIndexArray(array:any[]){
+    private createIndexArray(array: any[]) {
 
-        var indexArray:number[] = new Array<number>();
-        var elem:any;
+        var indexArray: number[] = new Array<number>();
+        var elem: any;
 
-        for(elem in array){
+        for (elem in array) {
             indexArray.push(elem.id);
         }
         return indexArray;
     }
 
-    onSelect(submission:Submission){
+    private filterIdsFromSubmission(): number[] {
+        var temps: Submission;
+        var output: number[] = new Array<number>();
+        for (var i = 0; i < this.submissions.length; i++) {
+            output[i] = this.submissions[i].id;
+        }
 
+        return output;
+    }
 
+    onSelect(submission: Submission) {
         //JUST FOR TESTING THE WORKSTATION SCREEN
-        this.navigationService.buildService([1,2,3], 1);        
-
+        this.navigationService.buildService(this.filterIdsFromSubmission(), this.selectedSubmission.id);
+        // this.navigationService.buildService( [1,2,3],1 );
         this._router.navigate(['/examiner/workstation', 1]);
 
     }
 
+    shouldDisableButton(): boolean {
+        return this.disableButton;
+    }
 
 }	
