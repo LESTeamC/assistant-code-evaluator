@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     private examinerUsername: string;
     private examiner: Examiner = new Examiner();
 
-    private disableButton:boolean = true;
+    private disableButton: boolean = true;
 
     private comments: string;
 
@@ -85,9 +85,17 @@ export class DashboardComponent implements OnInit {
         this.nonfilteredExercises = this.exercises.slice();
     }
 
+    private cleanSelectedSubmission() {
+        this.submissions = [];
+        this.disableButton = true;
+        //this.selectedSubmission = null;
+    }
+
 
 
     private filterByStatus(status: string): void {
+
+        this.cleanSelectedSubmission();
         //validate input
         if (this.oldStatus == null || this.oldStatus == status) {
             this.oldStatus = status;
@@ -116,6 +124,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private filterByDegree(value: string): void {
+        this.cleanSelectedSubmission();
+
         //validate input
         if (value == null || !value) {
             this.exercises = this.nonfilteredExercises.slice();
@@ -144,6 +154,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private isSelectedSubmission(id: number): boolean {
+        if(this.isSelectedSubmission == null) return false;
         return id === this.selectedSubmission.id;
     }
 
@@ -193,6 +204,7 @@ export class DashboardComponent implements OnInit {
     }
 
     shouldDisableButton(): boolean {
+        if( this.submissions === [] || this.selectedSubmission == null) return true; 
         return this.disableButton;
     }
 
