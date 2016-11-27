@@ -94,10 +94,7 @@ export	class	DelegateComponent implements OnInit	{
     private selectExaminer():void{
         this.hideChildModal();
 
-        //call delegate method on backend
-        console.log(this.selectedExaminerModal);
         this.selectedExaminerModal = (this.selectedExaminerModal === "null") ? null : this.selectedExaminerModal;
-
         let examinerId:number = (this.selectedExaminerModal === null) ? undefined : this.selectedExaminerModal.id;
 
         this.exerciseService.delegateExercise(this.selectedExercise.id, examinerId)

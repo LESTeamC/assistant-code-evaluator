@@ -29,10 +29,10 @@ export class DashboardComponent implements OnInit {
     // header
     private header: string;
     // list that is represented in html
-    private exercises: Exercise[];
+    private exercises: Exercise[] = new Array<Exercise>();
     // list that always have the exercises - not represented in the html
     private nonfilteredExercises: Exercise[];
-    private submissions: Submission[];
+    private submissions: Submission[] = new Array<Submission>();
     private selectedExercise: Exercise = new Exercise();
     private selectedSubmission: Submission = new Submission();
 
@@ -72,8 +72,12 @@ export class DashboardComponent implements OnInit {
 
     successGetExercisesByExam(data: any) {
         this.setExercises(data);
-        this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(data => this.successGetSubmissionsByExercise(data),
-            error => this.fail(error));
+        this.selectedExercise = this.exercises[0];
+
+        if (!!this.selectedExercise){
+            this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(data => this.successGetSubmissionsByExercise(data),
+                error => this.fail(error));
+        }
     }
 
     successGetSubmissionsByExercise(data: any) {
@@ -148,7 +152,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private selectRow(exercise: Exercise): void {
-        // this.selectedExercise = exercise;
+        this.selectedExercise = exercise;
+        this.selectedSubmission = new Submission();
         this.examinerService.getSubmissionsByExercise(exercise.id).subscribe(data => this.successGetSubmissionsByExercise(data),
             error => this.fail(error));
     }
@@ -195,17 +200,31 @@ export class DashboardComponent implements OnInit {
         return output;
     }
 
+    private getComment(){
+        return (!!this.selectedSubmission.comment)
+                        ? (this.selectedSubmission.comment) : "";
+    }
+
+    //same for exercise or submission
+    private getStatus(obj:any){
+        return (obj.status === "C") ? "Closed" : "Open";
+    }
+
     onSelect(submission: Submission) {
         //JUST FOR TESTING THE WORKSTATION SCREEN
         this.navigationService.buildService(this.filterIdsFromSubmission(), this.selectedSubmission.id);
         // this.navigationService.buildService( [1,2,3],1 );
-        this._router.navigate(['/examiner/workstation', 1]);
+        this._router.navigate(['/examiner/workstation', this.selectedSubmission.id]);
 
     }
 
     shouldDisableButton(): boolean {
         if( this.submissions === [] || this.selectedSubmission == null) return true; 
         return this.disableButton;
+    }
+
+    logout(){
+        this.authService.logout();
     }
 
 }	

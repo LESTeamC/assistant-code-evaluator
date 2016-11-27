@@ -7,7 +7,7 @@ export class NavigationService {
     private _currentId:number;
     private _currentIndex:number;
 
-    private submissionList:number[];
+    private submissionList:number[] = new Array<number>();
 
     constructor(private route:Router) { }
 

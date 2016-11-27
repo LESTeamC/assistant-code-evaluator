@@ -66,6 +66,14 @@ a i {
     border: none;
 }
 
+.fa {
+    color: black;
+}
+
+.gray{
+    color: gray;
+}
+
 code, pre, .panel-code{
     margin: 0;
     padding: 0;

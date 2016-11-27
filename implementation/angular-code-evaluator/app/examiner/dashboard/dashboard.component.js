@@ -12,6 +12,8 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var auth_service_1 = require('./../../shared/auth.service');
 var examiner_service_1 = require('./../../shared/examiner.service');
+var exercise_1 = require('./../../model/exercise');
+var submission_1 = require('./../../model/submission');
 var examiner_1 = require('./../../model/examiner');
 var navigation_service_1 = require('./../navigation.service');
 var DashboardComponent = (function () {
@@ -20,8 +22,13 @@ var DashboardComponent = (function () {
         this.authService = authService;
         this.examinerService = examinerService;
         this.navigationService = navigationService;
-        this.selectedRow = -1;
+        // list that is represented in html
+        this.exercises = new Array();
+        this.submissions = new Array();
+        this.selectedExercise = new exercise_1.Exercise();
+        this.selectedSubmission = new submission_1.Submission();
         this.examiner = new examiner_1.Examiner();
+        this.disableButton = true;
         this.oldStatus = "All";
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -41,7 +48,10 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.successGetExercisesByExam = function (data) {
         var _this = this;
         this.setExercises(data);
-        this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
+        this.selectedExercise = this.exercises[0];
+        if (!!this.selectedExercise) {
+            this.examinerService.getSubmissionsByExercise(this.exercises[0].id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
+        }
     };
     DashboardComponent.prototype.successGetSubmissionsByExercise = function (data) {
         this.submissions = data;
@@ -50,10 +60,13 @@ var DashboardComponent = (function () {
         this.exercises = data;
         this.nonfilteredExercises = this.exercises.slice();
     };
-    DashboardComponent.prototype.isSelected = function (id) {
-        return id === this.selectedRow;
+    DashboardComponent.prototype.cleanSelectedSubmission = function () {
+        this.submissions = [];
+        this.disableButton = true;
+        //this.selectedSubmission = null;
     };
     DashboardComponent.prototype.filterByStatus = function (status) {
+        this.cleanSelectedSubmission();
         //validate input
         if (this.oldStatus == null || this.oldStatus == status) {
             this.oldStatus = status;
@@ -80,6 +93,7 @@ var DashboardComponent = (function () {
         this.oldStatus = status;
     };
     DashboardComponent.prototype.filterByDegree = function (value) {
+        this.cleanSelectedSubmission();
         //validate input
         if (value == null || !value) {
             this.exercises = this.nonfilteredExercises.slice();
@@ -95,9 +109,24 @@ var DashboardComponent = (function () {
             }
         }
     };
-    DashboardComponent.prototype.selectRow = function (id) {
+    DashboardComponent.prototype.isSelected = function (id) {
+        return id === this.selectedExercise.id;
+    };
+    DashboardComponent.prototype.selectRow = function (exercise) {
         var _this = this;
-        this.examinerService.getSubmissionsByExercise(id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
+        this.selectedExercise = exercise;
+        this.selectedSubmission = new submission_1.Submission();
+        this.examinerService.getSubmissionsByExercise(exercise.id).subscribe(function (data) { return _this.successGetSubmissionsByExercise(data); }, function (error) { return _this.fail(error); });
+    };
+    DashboardComponent.prototype.isSelectedSubmission = function (id) {
+        if (this.isSelectedSubmission == null)
+            return false;
+        return id === this.selectedSubmission.id;
+    };
+    DashboardComponent.prototype.selectRowSubmission = function (selectedSubmission) {
+        this.selectedSubmission = selectedSubmission;
+        this.disableButton = false;
+        this.comments = selectedSubmission.comment;
     };
     DashboardComponent.prototype.fail = function (error) {
         this._router.navigate(['/loginadmin']);
@@ -114,10 +143,35 @@ var DashboardComponent = (function () {
         }
         return indexArray;
     };
+    DashboardComponent.prototype.filterIdsFromSubmission = function () {
+        var temps;
+        var output = new Array();
+        for (var i = 0; i < this.submissions.length; i++) {
+            output[i] = this.submissions[i].id;
+        }
+        return output;
+    };
+    DashboardComponent.prototype.getComment = function () {
+        return (!!this.selectedSubmission.comment)
+            ? (this.selectedSubmission.comment) : "";
+    };
+    //same for exercise or submission
+    DashboardComponent.prototype.getStatus = function (obj) {
+        return (obj.status === "C") ? "Closed" : "Open";
+    };
     DashboardComponent.prototype.onSelect = function (submission) {
         //JUST FOR TESTING THE WORKSTATION SCREEN
-        this.navigationService.buildService([1, 2, 3], 1);
-        this._router.navigate(['/examiner/workstation', 1]);
+        this.navigationService.buildService(this.filterIdsFromSubmission(), this.selectedSubmission.id);
+        // this.navigationService.buildService( [1,2,3],1 );
+        this._router.navigate(['/examiner/workstation', this.selectedSubmission.id]);
+    };
+    DashboardComponent.prototype.shouldDisableButton = function () {
+        if (this.submissions === [] || this.selectedSubmission == null)
+            return true;
+        return this.disableButton;
+    };
+    DashboardComponent.prototype.logout = function () {
+        this.authService.logout();
     };
     DashboardComponent = __decorate([
         core_1.Component({

@@ -76,8 +76,6 @@ var DelegateComponent = (function () {
     DelegateComponent.prototype.selectExaminer = function () {
         var _this = this;
         this.hideChildModal();
-        //call delegate method on backend
-        console.log(this.selectedExaminerModal);
         this.selectedExaminerModal = (this.selectedExaminerModal === "null") ? null : this.selectedExaminerModal;
         var examinerId = (this.selectedExaminerModal === null) ? undefined : this.selectedExaminerModal.id;
         this.exerciseService.delegateExercise(this.selectedExercise.id, examinerId)

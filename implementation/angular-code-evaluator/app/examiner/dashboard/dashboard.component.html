@@ -6,49 +6,41 @@
 
 <!-- Header -->
 
-<div>
-    <div style="float: left;">
-        <h6>{{examiner.name}}: <small>{{examiner.username}}</small></h6>
-    </div>
-    <div style="float: right;"> <br><button><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></button></div>
+<div class="page-header">
+    <h5 style="display:inline-block">{{examiner.name}}: <small>{{examiner.username}}</small></h5>
+    <button style="display:inline-block; float:right;" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
 </div>
 
-<div><br>
-    <br>
-    <br>
-    <hr>
-</div>
-
-<div class="row">
+<div class="row filters">
     <!--<span class="input-group-addon" id="exercise-status">Exam Status</span>-->
-    <div class="col-xs-2 col-sm-1"> Exam Status
-        <select class="form-control" (change)="filterByStatus($event.target.value)">
+    <div class="col-xs-3"> Exam Status
+        <select class="form-control full" (change)="filterByStatus($event.target.value)">
           <option>All</option>
           <option>Open</option>
           <option>Closed</option>
         </select>
     </div>
-    <div class="col-xs-6 col-sm-4">
+    <div class="col-xs-3">
         Degree<br>
-        <input type="text" name="FirstName" (keypress)="filterByDegree($event.target.value)">
+        <input class="full" type="text" name="FirstName" (keypress)="filterByDegree($event.target.value)">
     </div>
 </div>
 
 <div class="row">
-    <div class="col-xs-4">
-
-        <h4>Exercises Assigned to Me</h4>
+    <div class="col-xs-6">
         <div class="panel panel-default">
+            <div class="panel-heading">Exercises Assigned to Me</div>
             <div class="panel-body criteria-panel">
-                <div class="table-responsive">
+                <p *ngIf="exercises.length <= 0">You currently have no exercises assigned to you.</p>
+                <div class="table-responsive" *ngIf="exercises.length > 0">
                     <div>
-                        <table class="table" border="0.5">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Exercise</th>
                                     <th>Degree</th>
                                     <th>Course</th>
-                                    <th>Data</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -58,7 +50,7 @@
                                     <td>{{ex.exam.degree}}</td>
                                     <td>{{ex.exam.course}}</td>
                                     <td>{{ex.exam.dateString}}</td>
-                                    <td>{{ex.status}}</td>
+                                    <td>{{getStatus(ex)}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -67,33 +59,39 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-8">
 
-        <h4>Submissions</h4>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Grade</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let su of submissions"  [class.selected-row]="isSelectedSubmission(su.id)" (click)="selectRowSubmission(su)">
-                        <td>{{su.student.username}}</td>
-                        <td>{{su.grade}}</td>
-                        <td>{{su.status}}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="col-xs-6">
+        <div class="panel panel-default" *ngIf="exercises.length > 0">
+            <div class="panel-heading">Submissions</div>
+            <div class="panel-body">
+                <p *ngIf="submissions.length <= 0">This exercise has no Submissions<p>
+                <div class="table-responsive" *ngIf="submissions.length > 0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Grade</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let su of submissions"  [class.selected-row]="isSelectedSubmission(su.id)" (click)="selectRowSubmission(su)">
+                                <td>{{su.student.username}}</td>
+                                <td>{{su.grade}}%</td>
+                                <td>{{getStatus(su)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <div *ngIf="submissions.length > 0">
+                        <h6>Comment</h6>
+                        <textarea class="full" width="100%" id="comments" 
+                                disabled rows="4" cols="100" [value]="getComment()">{{this.comments}}
+                        </textarea>
+                    </div>
+                    <button *ngIf="submissions.length > 0" class="btn" (click)="onSelect(submission)" [disabled]="shouldDisableButton()">Select Submission</button>
+            </div>
         </div>
-        <h4>Comments</h4>
-        <div>
-            <textarea width="100%" id="comments" disabled rows="4" cols="100">{{this.comments}}</textarea>
-        </div>
-        <button class="btn" (click)="onSelect(submission)" [disabled]="shouldDisableButton()">Select Submission</button>
-
     </div>
 
 </div>

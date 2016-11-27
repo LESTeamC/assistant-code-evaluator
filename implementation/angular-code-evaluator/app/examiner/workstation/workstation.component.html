@@ -25,7 +25,7 @@
                 <div class="panel-body panel-code">
                     <pre>
                         <code #code highlight class="C">
-                            {{testLongCode}}
+                            {{codeString}}
                         </code>
                     </pre>
                 </div>
@@ -37,7 +37,7 @@
                     <p>Code Output</p>
                 </div>
                 <div class="panel-body panel-output">
-                    {{testLongString}}
+                    {{output}}
             <!--        {{submission.output}}-->
                 </div>
             </div>
@@ -101,12 +101,12 @@
 
 <nav class="navbar navbar-fixed-bottom">
     <div class="button-group">
-        <button [disabled] = !hasPreviousSubmission() (click)="navigatePrevious()" class="nav-button">
-            <i class="fa fa-chevron-circle-left" aria-hidden="true"></i></button>
+        <button [disabled] = "!hasPreviousSubmission()" (click)="navigatePrevious()" class="nav-button">
+            <i class="fa fa-chevron-circle-left" [class.gray]="!hasPreviousSubmission()" aria-hidden="true"></i></button>
         <a (click)="goHome()"><i class="fa fa-home" aria-hidden="true"></i></a>
         <button [disabled] = "!hasNextSubmission()" (click)="navigateNext()" class="nav-button">
             <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
-        <button class="logout-btn" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
+        <button class="logout-btn" (click)="logout()"><i class="fa fa-sign-out" [class.gray]="!hasNextSubmission()" aria-hidden="true"></i>Logout</button>
         <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" />
  
     </div>
