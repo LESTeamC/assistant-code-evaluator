@@ -12,22 +12,27 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_service_1 = require('./../exam.service');
+var exam_1 = require('./../../model/exam');
 var ViewExamsComponent = (function () {
     function ViewExamsComponent(_router, examService) {
         this._router = _router;
         this.examService = examService;
         this.exams = new Array();
+        this.selectedExam = new exam_1.Exam();
         this.messageEdit = '';
-        this.messageDelete = '';
         this.messageExport = '';
-        this.messageGlobal = '';
-        this.messageImport = '';
     }
     ViewExamsComponent.prototype.ngOnInit = function () {
         var _this = this;
         console.log("view exams");
         this.examService.getExams()
             .subscribe(function (data) { return _this.examsSuccess(data); }, function (error) { return _this.examsFail(error); });
+    };
+    ViewExamsComponent.prototype.isSelected = function (id) {
+        return id === this.selectedExam.id;
+    };
+    ViewExamsComponent.prototype.selectRow = function (exam) {
+        this.selectedExam = exam;
     };
     ViewExamsComponent.prototype.examsSuccess = function (data) {
         this.exams = data;
@@ -38,7 +43,7 @@ var ViewExamsComponent = (function () {
         this.messageEdit = 'Go to edit exams page!';
     };
     ViewExamsComponent.prototype.deleteExams = function () {
-        this.messageDelete = 'are u sure?';
+        //this.examService.deleteExam(this.exam);
     };
     /**
     * Shows modal
@@ -56,7 +61,6 @@ var ViewExamsComponent = (function () {
         this.messageExport = 'Go to export page!';
     };
     ViewExamsComponent.prototype.importSubmission = function () {
-        //this.messageImport='Go to import page!';
         this._router.navigate(['/admin/import-submission']);
     };
     ViewExamsComponent.prototype.globalView = function () {

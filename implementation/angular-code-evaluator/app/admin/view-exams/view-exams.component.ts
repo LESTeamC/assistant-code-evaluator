@@ -15,13 +15,11 @@ import {Exam} from './../../model/exam'
 export	class	ViewExamsComponent implements OnInit	{
 
     private exams:Exam[] = new Array<Exam>();
+    private selectedExam:Exam = new Exam();
     constructor(private _router:Router, private examService:ExamService){}
 
     messageEdit='';
-    messageDelete='';
     messageExport='';
-    messageGlobal='';
-    messageImport='';
 
     ngOnInit(){
         console.log("view exams");
@@ -32,6 +30,15 @@ export	class	ViewExamsComponent implements OnInit	{
 
 
     }
+
+     private isSelected(id:number):boolean{
+        return id === this.selectedExam.id;
+    }
+
+    private selectRow(exam:Exam):void{
+        this.selectedExam = exam;
+    }
+
 
     examsSuccess(data:any){
         this.exams = data;
@@ -46,7 +53,7 @@ export	class	ViewExamsComponent implements OnInit	{
     }
 
     deleteExams(){
-        this.messageDelete='are u sure?';
+        //this.examService.deleteExam(this.exam);
     }
 
     @ViewChild('deleteModal') public childModal:ModalDirective;
@@ -71,7 +78,6 @@ export	class	ViewExamsComponent implements OnInit	{
     }
 
     importSubmission(){
-        //this.messageImport='Go to import page!';
         this._router.navigate(['/admin/import-submission']);
     }
 

@@ -18,7 +18,7 @@
       </tr>
   </thead>
     <tbody>
-      <tr *ngFor="let ex of exams">
+      <tr *ngFor="let ex of exams" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
           <td>{{ex.name}}</td>
           <td>{{ex.degree}}</td> 
           <td>{{ex.course}}</td>
@@ -31,16 +31,16 @@
 </div>
 
 <div *ngIf="exams.length > 0" class="text-center">
-  <button class="btn blue-bg edit-btn" type="submit" (click)="editExams()">Edit</button> {{messageEdit}}
+  <button class="btn blue-bg edit-btn" type="submit" (click)="editExams()" [disabled]="!this.selectedExam.id">Edit</button> {{messageEdit}}
 
   <!--delete exam-->
-  <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()">Delete</button>
+  <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()" [disabled]="!this.selectedExam.id">Delete</button>
 
-  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()">Export Grade</button> {{messageExport}}
+  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!this.selectedExam.id">Export Grade</button> {{messageExport}}
 
-  <button class="btn blue-bg global-btn" type="submit" (click)="globalView()">Global View</button> {{messageGlobal}}
+  <button class="btn blue-bg global-btn" type="submit" (click)="globalView()" [disabled]="!this.selectedExam.id">Global View</button>
 
-  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()">Import Submissions</button> {{messageImport}}
+  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()" [disabled]="!this.selectedExam.id">Import Submissions</button>
 </div>
 
 <!--Modal for delete exam-->
@@ -54,7 +54,8 @@
         </button>
         <h3 class="modal-title">Delete Exam</h3>
       </div>
-      <div class="modal-body"><p>Are you sure you want to delete it?</p>
+      <div class="text-center"><p>Are you sure you want to delete?</p>
+        <p>All exercises and respective subsmissions will also be deleted.</p>
         <button type="button" class="btn btn-modalyes">Yes</button>
 
         <button type="button" class="btn btn-modalno" (click)="hideChildModal()">No</button>
