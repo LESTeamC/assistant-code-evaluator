@@ -61,8 +61,9 @@
                                     name="grade" 
                                     required>
                                 <option *ngFor="let num of createArray(crit.criteria.gama)" 
-                                        [value]="num"
-                                        [selected] = "select(num, crit.grade)" >{{num}}</option>
+                                        ([ngModel])="crit.grade"
+                                        name="grade"
+                                         >{{num}}</option>
                             </select>
                         </div>
                         <div class="col-xs-1">
@@ -70,7 +71,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-block"
-                                [disabled] = "existsUngraded()" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Evaluation</button>
+                                [disabled] = "existsUngraded() || criteria.length <= 0" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Evaluation</button>
                 </form>
             </div>
         </div>
@@ -105,8 +106,8 @@
             <i class="fa fa-chevron-circle-left" [class.gray]="!hasPreviousSubmission()" aria-hidden="true"></i></button>
         <a (click)="goHome()"><i class="fa fa-home" aria-hidden="true"></i></a>
         <button [disabled] = "!hasNextSubmission()" (click)="navigateNext()" class="nav-button">
-            <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
-        <button class="logout-btn" (click)="logout()"><i class="fa fa-sign-out" [class.gray]="!hasNextSubmission()" aria-hidden="true"></i>Logout</button>
+            <i class="fa fa-chevron-circle-right" [class.gray]="!hasNextSubmission()" aria-hidden="true"></i></button>
+        <button class="logout-btn" (click)="logout()"><i class="fa fa-sign-out"  aria-hidden="true"></i>Logout</button>
         <img class="Header-logo-image" src="./../../images/ACE_Logo_resized.png" alt="ACELogo" />
  
     </div>
