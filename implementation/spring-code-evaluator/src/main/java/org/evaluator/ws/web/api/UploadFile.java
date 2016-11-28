@@ -29,7 +29,7 @@ public class uploadFile {
     @RequestMapping(value = "/api/uploadFile", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(
-            @RequestParam("uploads[]") MultipartFile uploadfile) {
+            @RequestParam("uploadfile") MultipartFile uploadfile) {
 
         try {
             // Get the filename and build the local file path (be sure that the
