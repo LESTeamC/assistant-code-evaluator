@@ -31,12 +31,12 @@
 </div>
 
 <div *ngIf="exams.length > 0" class="text-center">
-  <button class="btn blue-bg edit-btn" type="submit" (click)="editExams()" [disabled]="!this.selectedExam.id">Edit</button> {{messageEdit}}
+  <button class="btn blue-bg edit-btn" type="submit" (click)="editExams()" [disabled]="!isValid">Edit</button> {{messageEdit}}
 
   <!--delete exam-->
   <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()" [disabled]="!this.selectedExam.id">Delete</button>
 
-  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!this.selectedExam.id">Export Grade</button> {{messageExport}}
+  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!isValid">Export Grade</button> {{messageExport}}
 
   <button class="btn blue-bg global-btn" type="submit" (click)="globalView()" [disabled]="!this.selectedExam.id">Global View</button>
 
@@ -56,7 +56,8 @@
       </div>
       <div class="text-center"><p>Are you sure you want to delete?</p>
         <p>All exercises and respective subsmissions will also be deleted.</p>
-        <button type="button" class="btn btn-modalyes">Yes</button>
+        <!-- delete exams feature not developed yet-->
+        <button type="button" class="btn btn-modalyes" [disabled]="!isValid">Yes</button>
 
         <button type="button" class="btn btn-modalno" (click)="hideChildModal()">No</button>
       </div>

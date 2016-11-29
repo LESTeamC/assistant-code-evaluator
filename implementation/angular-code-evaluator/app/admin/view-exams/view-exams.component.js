@@ -39,8 +39,9 @@ var ViewExamsComponent = (function () {
     };
     ViewExamsComponent.prototype.examsFail = function (error) {
     };
+    //Not developed yet
     ViewExamsComponent.prototype.editExams = function () {
-        this.messageEdit = 'Go to edit exams page!';
+        this.messageEdit = 'Edit exams funcionality not working yet.';
     };
     ViewExamsComponent.prototype.deleteExams = function () {
         //this.examService.deleteExam(this.exam);
@@ -57,6 +58,7 @@ var ViewExamsComponent = (function () {
     ViewExamsComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
+    //Not developed yet
     ViewExamsComponent.prototype.exportGrade = function () {
         this.messageExport = 'Go to export page!';
     };

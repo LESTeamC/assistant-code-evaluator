@@ -48,8 +48,9 @@ export	class	ViewExamsComponent implements OnInit	{
 
     }
 
+//Not developed yet
     editExams(){
-        this.messageEdit='Go to edit exams page!';
+        this.messageEdit='Edit exams funcionality not working yet.';
     }
 
     deleteExams(){
@@ -72,7 +73,7 @@ export	class	ViewExamsComponent implements OnInit	{
         this.childModal.hide();
     }
 
-
+//Not developed yet
     exportGrade(){
         this.messageExport='Go to export page!';
     }

@@ -22,6 +22,10 @@ th {
     text-align: center;
 }
 
+.table:hover{
+   cursor: pointer;
+}
+
 .selected-row{
     background-color: #6D7993;
 }
