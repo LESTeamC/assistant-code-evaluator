@@ -8,5 +8,5 @@
 </alert>
 
 <label class="btn blue-bg btn-file">
-    Import Submissions... <input id="submission-input" type="file" style="display: none;" (change)="importSubmissions()" accept=".zip">
+    Import Submissions... <input id="submission-input" type="file" style="display: none;" (change)="importSubmissions($event)" accept=".zip" multiple>
 </label>

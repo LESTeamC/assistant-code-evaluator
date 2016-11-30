@@ -25,6 +25,7 @@ var exam_service_1 = require('./exam.service');
 var examiner_service_1 = require('./../shared/examiner.service');
 var exercise_service_1 = require('./../shared/exercise.service');
 var csv_service_1 = require('./create-exams/csv.service');
+var upload_service_1 = require('./upload.service');
 var status_pipe_1 = require('./../shared/status.pipe');
 var AdminModule = (function () {
     function AdminModule() {
@@ -55,6 +56,7 @@ var AdminModule = (function () {
                 examiner_service_1.ExaminerService,
                 exercise_service_1.ExerciseService,
                 csv_service_1.CSVService,
+                upload_service_1.UploadService,
             ]
         }), 
         __metadata('design:paramtypes', [])

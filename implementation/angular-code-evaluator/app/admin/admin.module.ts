@@ -19,6 +19,7 @@ import {ExamService} from './exam.service'
 import {ExaminerService} from './../shared/examiner.service'
 import {ExerciseService} from './../shared/exercise.service'
 import {CSVService} from './create-exams/csv.service'
+import {UploadService} from './upload.service'
 
 import {StatusPipe} from './../shared/status.pipe'
 
@@ -48,6 +49,7 @@ declarations: [
     ExaminerService,
     ExerciseService,
     CSVService,
+    UploadService,
     
   ]
 })
