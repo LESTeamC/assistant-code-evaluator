@@ -20,48 +20,47 @@ import java.util.zip.ZipInputStream;
  */
 
 @RestController
-public class uploadFile {
+public class UploadFile {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     public String filenameZip, directoryZip;
 
+    //Receive a POST
+    @RequestMapping(value = "/api/uptest", method = RequestMethod.POST)
+    public @ResponseBody
+    String multipleSave(@RequestParam("uploadfile") MultipartFile[] files){ //Receive an Array Multipart with files.
+        String fileName = null;
+        String msg = "";
+        if (files != null && files.length >0) { //Runs the array getting the size and each file
+            for(int i =0 ;i< files.length; i++){
+                try {
+                    fileName = files[i].getOriginalFilename();
+                    byte[] bytes = files[i].getBytes();
+                    BufferedOutputStream buffStream =
+                            //Create a buffer of Bytes and save it to disk Location
+                            //This file location should be changed when you install in your computer
+                            new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//" + fileName)));
+                    buffStream.write(bytes);
+                    buffStream.close();
+                    msg += "You have successfully uploaded " + fileName +"<br/>";
 
-    @RequestMapping(value = "/api/uploadFile", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<?> uploadFile(
-            @RequestParam("uploadfile") MultipartFile uploadfile) {
-
-        try {
-            // Get the filename and build the local file path (be sure that the
-            // application have write permissions on such directory)
-            String filename = uploadfile.getOriginalFilename();
-            
-            //CHANGE THE LOCATION OF THE FOLDER TO SAVE
-            String directory = "C://Develop//files";
-            String filepath = Paths.get(directory, filename).toString();
-
-            //CHANGE THE LOCATION OF THE FOLDER TO SAVE
-            filenameZip = "c:/Develop/files/"+filename;
-            directoryZip = "c:/Develop/files";
-
-            // Save the file locally
-            BufferedOutputStream stream =
-                    new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-            stream.write(uploadfile.getBytes());
-            stream.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    //Unzip FIle
+                    filenameZip = "c:/Develop/files/"+fileName;
+                    directoryZip = "c:/Develop/files";
+                    unzip(filenameZip, directoryZip);
+                } catch (Exception e) {
+                    return "You failed to upload " + fileName + ": " + e.getMessage() +"<br/>";
+                }
+            }
+            return msg;
+        } else {
+            return "Unable to upload. File is empty.";
         }
-            unzip(filenameZip, directoryZip);
-            return new ResponseEntity<>(HttpStatus.OK);
-    } // method uploadFile
+    }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////
-    //Unzip File
 
+
+    //SimpleFile Unzip
     public static void unzip(String zipFilePath, String destDir) {
         File dir = new File(destDir);
         // create output directory if it doesn't exist
@@ -103,5 +102,4 @@ public class uploadFile {
         }
 
     }
-
 }
