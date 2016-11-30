@@ -115,5 +115,18 @@ public class ExaminerServiceBean implements ExaminerService {
         
         return examiner;
     }
+    
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            readOnly = false)
+    public void delete(Long id) {
+    	
+        logger.info("> delete id:{}", id);
+
+        examinerRepository.delete(id);
+
+        logger.info("< delete id:{}", id);
+    }	
 
 }

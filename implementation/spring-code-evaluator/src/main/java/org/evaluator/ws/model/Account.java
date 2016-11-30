@@ -42,8 +42,7 @@ public class Account extends TransactionalEntity {
     private boolean locked = false;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "AccountRole",
             joinColumns = @JoinColumn(

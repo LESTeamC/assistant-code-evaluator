@@ -1,7 +1,7 @@
 <h5>Available exams in the platform</h5>
 
-<alert type="danger" dismissible="true" *ngIf="exams.length<=0">
-  There are no exams in the Platform yet.
+<alert type="info" dismissible="true" *ngIf="exams.length<=0">
+  There are no exams in the Platform.
 </alert>
 
 <div *ngIf="exams.length > 0" style="overflow-x:auto;" class="table-responsive">

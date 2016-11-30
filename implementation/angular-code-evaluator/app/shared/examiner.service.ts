@@ -106,5 +106,19 @@ export class ExaminerService {
                 .map( (response:Response) => response.json())
     }
 
+
+    deleteExaminer(id:number){
+        
+        
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .delete(this.url+`/admin/examiner/${id}`, {headers : this.headers} )
+    }
+
     
 }

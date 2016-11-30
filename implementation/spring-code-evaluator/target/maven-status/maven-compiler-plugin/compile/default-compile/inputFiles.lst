@@ -18,6 +18,7 @@
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/web/api/SubmissionController.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/util/RequestContext.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/service/GreetingServiceBean.java
+/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/web/api/UploadFile.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/Exercise.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/model/SubmissionCriteria.java
 /Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/implementation/spring-code-evaluator/src/main/java/org/evaluator/ws/security/AccountUserDetailsService.java

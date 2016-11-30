@@ -2,9 +2,11 @@ package org.evaluator.ws.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.StudentExam;
+import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExamRepository;
 import org.evaluator.ws.repository.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +28,48 @@ public class StudentExamServiceBean implements StudentExamService {
 	
 	public Collection<StudentExam> buildGrades(Long examId){
 		
-		Collection<Student> students = examRepository.findOne(examId).getStudents();
+		List<Submission> submissions = submissionRepository.findByExamIdOrderByStudentId(examId);
 		Collection<StudentExam> grades = new ArrayList<StudentExam>();
 		
-		for (Student student : students){
+		// if (submissions.size() == 0) Throw and Exception!.
+		
+		//Variable for current student. The query is ordered by student for separation.
+		Student currentStudent = submissions.get(0).getStudent();
+		
+		//The exam will always be the same
+		String examName = examRepository.findOne(examId).getName();
+		
+		//Initialize variables 
+		StudentExam studentExam = new StudentExam(examName, currentStudent.getUsername());
+		double finalGrade = 0;
+		
+		for (Submission s: submissions){
 			
-			//1. Collect student's submissions from SubmissionRepository
-			//2. Create StudentExamObject with exam name and student name
-			//3. for each submission
-				//3.1. Calculate grade for Exercise
-				//3.2  Add exercise - grade entry to HashMap
-			//4. Calculate final grade
-			//5. Add entry to grades List
+			if (s.getStudent().getId() == currentStudent.getId()){
+				
+				studentExam.addGrade(s.getExercise().getName(), s.getGrade() * (20.0/100.0));
+				
+				finalGrade += s.getGrade() * (20.0 / 100.0);
+				studentExam.setFinalGrade(finalGrade);
+			}else{
+				
+				// Add previous student grades to list
+				grades.add(studentExam);
+				
+				currentStudent = s.getStudent();
+				studentExam = new StudentExam(examName, currentStudent.getUsername());
+				finalGrade = 0;
+				
+				studentExam.addGrade(s.getExercise().getName(), s.getGrade() * (20.0/100.0));
+				
+				finalGrade += s.getGrade() * (20.0 / 100.0);
+				studentExam.setFinalGrade(finalGrade);				
+			}
 		}
 		
-		return null;
+		grades.add(studentExam);
+		
+		return grades;
 	}
-
+	
 }

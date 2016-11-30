@@ -17,9 +17,12 @@ import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
 export	class	ViewExaminersComponent implements OnInit	{
     
-    private examiners:Examiner[];
+    private examiners:Examiner[] = new Array<Examiner>();
     private selectedExaminerModal:Examiner = null;
     private selectedExaminer:Examiner = new Examiner();
+
+    private deleteSuccess:boolean = false;
+    private deleteError:boolean = false;
 
     messageDelete='';
 
@@ -52,8 +55,37 @@ export	class	ViewExaminersComponent implements OnInit	{
 
 
     deleteExaminer(){
+        
         this.hideChildModal();
+        this.examinerService.deleteExaminer(this.selectedExaminer.id)
+                .subscribe(data => this.successDelete(data),
+                error => this.failDelete(error));
 
+    }
+
+    successDelete(data:any){
+
+        this.examiners = this.removeFromArray(this.examiners, this.selectedExaminer.id);
+        this.selectedExaminer = new Examiner();
+
+        this.deleteError = false;
+        this.deleteSuccess = true;
+        console.log(data);
+
+    }
+
+    failDelete(error:any){
+
+        this.deleteSuccess = false;
+        this.deleteError = true;
+        console.log(error);
+    }
+
+    private removeFromArray(array:any[], id:number): any[]{
+
+        return array.filter(function(el) {
+            return el.id !== id;
+        });
     }
 
 

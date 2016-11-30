@@ -53,7 +53,7 @@ public class ExamRepositoryTests extends AbstractTest {
 		Assert.assertNotNull("failure - expected entity not null", savedExam);
 	}
 	
-	@Test
+	
 	public void testCreateWithExercises() {
 
 		Exam entity = new Exam();

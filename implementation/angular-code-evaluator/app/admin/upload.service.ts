@@ -27,12 +27,14 @@ export class UploadService {
         //make Post request to persist exam, including header
         //formData.append("uploadfile", files[0]);
 
-        for(var i = 0; i < files.length; i++){
-            formData.append("uploadfile", files[i]);
+        if(files.length > 0){
+
+            for(var i = 0; i < files.length; i++){
+                formData.append("uploadfile", files[i]);
+            }
+            return this.http
+                .post(this.url + '/api/uptest', formData, {headers : this.headers} )
         }
-        return this.http
-            .post(this.url + '/api/uptest', formData, {headers : this.headers} )
-           
 
     }
 }

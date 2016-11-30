@@ -1,4 +1,4 @@
-package org.evaluator.ws.service;
+/*package org.evaluator.ws.service;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -59,3 +59,4 @@ public class SubmissionServiceTest extends AbstractTest {
 	
 
 }
+*/

@@ -38,14 +38,14 @@ public class UploadFile {
                     BufferedOutputStream buffStream =
                             //Create a buffer of Bytes and save it to disk Location
                             //This file location should be changed when you install in your computer
-                            new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//" + fileName)));
+                            new BufferedOutputStream(new FileOutputStream(new File("/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/files/" + fileName)));
                     buffStream.write(bytes);
                     buffStream.close();
                     msg += "You have successfully uploaded " + fileName +"<br/>";
 
                     //Unzip FIle
-                    filenameZip = "c:/Develop/files/"+fileName;
-                    directoryZip = "c:/Develop/files";
+                    filenameZip = "/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/files/"+fileName;
+                    directoryZip = "/Users/mzamith/Desktop/MESW/LES/assistant-code-evaluator/files";
                     unzip(filenameZip, directoryZip);
                 } catch (Exception e) {
                     return "You failed to upload " + fileName + ": " + e.getMessage() +"<br/>";

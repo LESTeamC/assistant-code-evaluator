@@ -1,3 +1,4 @@
+org/evaluator/ws/service/StudentExamServiceTest.class
 org/evaluator/ws/repository/SubmissionRepositoryTests.class
 org/evaluator/ws/repository/AccountRepositoryTests.class
 org/evaluator/ws/AppTest.class
@@ -7,7 +8,6 @@ org/evaluator/ws/repository/ExamRepositoryTests.class
 org/evaluator/ws/service/ExamServiceTest.class
 org/evaluator/ws/repository/ExaminerRepositoryTests.class
 org/evaluator/ws/repository/ExerciseRepositoryTests.class
-org/evaluator/ws/service/SubmissionServiceTest.class
 org/evaluator/ws/service/StudentServiceTest.class
 org/evaluator/ws/AbstractControllerTest.class
 org/evaluator/ws/AbstractTest.class

@@ -14,6 +14,7 @@ org/evaluator/ws/service/ExamServiceBean.class
 org/evaluator/ws/repository/ExerciseRepository.class
 org/evaluator/ws/repository/RoleRepository.class
 org/evaluator/ws/model/ExamDTO.class
+org/evaluator/ws/web/api/UploadFile.class
 org/evaluator/ws/repository/ExaminerRepository.class
 org/evaluator/ws/repository/SubmissionRepository.class
 org/evaluator/ws/security/AccountAuthenticationProvider.class

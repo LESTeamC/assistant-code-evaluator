@@ -11,15 +11,19 @@ import java.util.HashMap;
 
 public class StudentExam {
 	
-	public StudentExam(){}
+	public StudentExam(){
+		this.gradesByExercise = new HashMap<String, Double>();
+	}
 	
 	public StudentExam(String examName){
 		this.examName = examName;
+		this.gradesByExercise = new HashMap<String, Double>();
 	}
 	
 	public StudentExam(String examName, String username){
 		this.examName = examName;
 		this.studentUsername = username;
+		this.gradesByExercise = new HashMap<String, Double>();
 	}
 	
 	public String examName;
@@ -60,6 +64,10 @@ public class StudentExam {
 
 	public void setFinalGrade(double finalGrade) {
 		this.finalGrade = finalGrade;
+	}
+	
+	public void addGrade(String exerciseName, double grade){
+		this.gradesByExercise.put(exerciseName, grade);
 	}
 	
 }
