@@ -18,7 +18,6 @@ public class Student {
 	/**
 	 * Student name
 	 */
-	@NotNull
 	private String name;
 
 	/**

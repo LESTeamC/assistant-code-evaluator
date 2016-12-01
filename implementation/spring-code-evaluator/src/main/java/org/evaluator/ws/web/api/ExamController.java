@@ -5,12 +5,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.evaluator.ws.model.Exam;
-import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.model.ExerciseDTO;
-import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.StudentExam;
 import org.evaluator.ws.service.ExamService;
-import org.evaluator.ws.service.StudentExamService;
 import org.hibernate.JDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +29,6 @@ public class ExamController extends BaseController {
 
 	@Autowired
 	private ExamService examService;
-	
-	@Autowired
-	private StudentExamService studentExamService;
 	
     @RequestMapping(
             value = "/admin/exam/{id}",
@@ -171,12 +165,18 @@ public class ExamController extends BaseController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StudentExam>> getGrades(@PathVariable("id") Long id) {
         logger.info("> getGrades id:{}", id);
+        
+        try{
+        	List<StudentExam> grades = examService.buildGrades(id);
+            logger.info("< getGrades id:{}", id);
+            return new ResponseEntity<List<StudentExam>>(grades, HttpStatus.OK);
+            
+        }catch(Exception e){
+        	return new ResponseEntity<List<StudentExam>>(HttpStatus.BAD_REQUEST);
+        }
 
-        List<StudentExam> grades = studentExamService.buildGrades(id);
 
 
-        logger.info("< getGrades id:{}", id);
-        return new ResponseEntity<List<StudentExam>>(grades, HttpStatus.OK);
     }
 	
 }

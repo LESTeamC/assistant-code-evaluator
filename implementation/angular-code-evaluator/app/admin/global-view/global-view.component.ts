@@ -125,7 +125,7 @@ export	class	GlobalViewComponent implements OnInit	{
         this.examFail(error);
     }
 
-    getExerciseGrade(g:Grade, i:number){
+    getExerciseGrade(g:Grade, i:number):any{
 
          var grade = g.gradesByExercise[this.exercises[i].name];
 
@@ -134,7 +134,7 @@ export	class	GlobalViewComponent implements OnInit	{
          }else if (grade === -1){
              return "NE"
          }else{
-             return grade;
+             return (Math.round(grade * 100) / 100).toFixed(2);
          }
 
     }
@@ -152,14 +152,13 @@ export	class	GlobalViewComponent implements OnInit	{
                 size ++; 
             }
         }
-
-        return (size > 0) ? (sum/size) : 0;
+        return (size > 0) ? (Math.round((sum/size) * 100) / 100) : 0;
     }
 
     calculateGlobalAverage(){
 
         var globalGrades = this.getGlobalGrades();
-        return this.calcAvg(globalGrades);
+        return Math.round(this.calcAvg(globalGrades) * 100.0) / 100.0;
     }
 
     private isEvaluated(g:any):boolean{
@@ -179,7 +178,7 @@ export	class	GlobalViewComponent implements OnInit	{
 
         for (let i = 0; i < this.grades.length; i++){
             if(this.isEvaluated(this.grades[i].gradesByExercise)){
-                globalGrades.push(s.finalGrade);
+                globalGrades.push(this.grades[i].finalGrade);
             }
         }
         return globalGrades;
@@ -191,10 +190,10 @@ export	class	GlobalViewComponent implements OnInit	{
 
         var sum = 0;
         for( var i = 0; i < array.length; i++ ){
-            sum += array[i]; //don't forget to add the base
+            sum += array[i]; 
 
         }
-        var avg = sum/array.length;
+        return sum/array.length;
     }
 
 

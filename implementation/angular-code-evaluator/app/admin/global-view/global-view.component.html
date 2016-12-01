@@ -47,7 +47,7 @@
                             <tr>
                                 <th>Student</th>
                                 <th>Status</th>
-                                <th>Grade</th>
+                                <th>Grade (%)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,17 +76,22 @@
                         <thead>
                             <tr>
                                 <th>Student</th>
-                                <th *ngFor="let exe of exercises">{{exe.name}}</th>
+                                <th *ngFor="let exe of exercises">{{exe.name}} <br>
+                                                         <span class="detail">({{exe.weight}}%)</span></th>
                                 <th>Grade</th>
-                            </tr>
+                            </tr>                           
                         </thead>
                         <tbody>
                             <tr *ngFor="let g of grades">
                                 <td>{{g.studentUsername}}</td>
-                                <td *ngFor="let exe of exercises; let i = index" [class.red]="!(getExerciseGrade(g, i) < 0)">{{getExerciseGrade(g, i)}}</td>
-                                <td>{{g.finalGrade}}</td>
+                                <td *ngFor="let exe of exercises; let i = index" [class.red]="!(getExerciseGrade(g, i) >= 0)">{{getExerciseGrade(g, i)}}</td>
+                                <td class="averages">{{g.finalGrade.toFixed(2)}}</td>
                             </tr>
-                            <tr>
+
+                            <!--Dummy row-->
+                            <tr><td></td><td *ngFor="let exe of exercises"></td><td></td></tr>
+                            
+                            <tr class="averages">
                                 <td>AVERAGE</td>
                                 <td *ngFor="let exe of exercises; let i = index">{{calculateExerciseAverage(exe.name)}}</td>
                                 <td>{{calculateGlobalAverage()}}</td>
@@ -95,7 +100,7 @@
                     </table>
                     <div class="legend">
                         <p>NS - This exercise was not submitted by the student</p>
-                        <p>NE - This submission was not grades by an examiner</p>
+                        <p>NE - This submission was not graded by an examiner</p>
                     </div>
                 </div>
             </div>

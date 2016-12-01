@@ -1,10 +1,11 @@
 package org.evaluator.ws.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.evaluator.ws.model.Exam;
-import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.model.ExerciseDTO;
+import org.evaluator.ws.model.StudentExam;
 
 
 public interface ExamService {
@@ -28,5 +29,7 @@ public interface ExamService {
     Collection<Exam> findByExaminer(Long examinerID);
     
     Collection<ExerciseDTO> findExamsByExaminer(String usernameID);
+    
+    List<StudentExam> buildGrades(Long examId);
 
 }

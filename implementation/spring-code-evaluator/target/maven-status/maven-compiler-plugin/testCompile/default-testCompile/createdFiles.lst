@@ -1,4 +1,3 @@
-org/evaluator/ws/service/StudentExamServiceTest.class
 org/evaluator/ws/repository/SubmissionRepositoryTests.class
 org/evaluator/ws/repository/AccountRepositoryTests.class
 org/evaluator/ws/AppTest.class

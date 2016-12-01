@@ -221,7 +221,7 @@ DROP TABLE IF EXISTS `codeevaluator`.`Student` ;
 
 CREATE TABLE IF NOT EXISTS `codeevaluator`.`Student` (
   `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45),
   `username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `number_UNIQUE` (`username` ASC))

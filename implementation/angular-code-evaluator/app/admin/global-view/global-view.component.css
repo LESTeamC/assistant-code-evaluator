@@ -56,3 +56,12 @@
     color:red;
     font-style: italic;
 }
+
+.averages{
+    font-weight: bolder !important;
+    margin-top: 10px;
+}
+
+.detail{
+    font-size:11px;
+}
