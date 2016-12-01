@@ -36,6 +36,7 @@ org/evaluator/ws/service/ExerciseServiceBean.class
 org/evaluator/ws/model/ReferenceEntity.class
 org/evaluator/ws/actuator/health/GreetingHealthIndicator.class
 org/evaluator/ws/model/Student.class
+org/evaluator/ws/model/ExerciseSubmissionImportDTO.class
 org/evaluator/ws/model/Exercise.class
 org/evaluator/ws/model/Exam.class
 org/evaluator/SecurityConfiguration.class

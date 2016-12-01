@@ -38,6 +38,8 @@ var CreateExamsComponent = (function () {
         this.createdSuccess = false;
         this.weightErrorCriteria = false;
         this.weightErrorExercise = false;
+        //avoid error with date.
+        this.exam.date = new Date();
     };
     /**
      * Submission funtion. Add created exercises to Exam and POST on server

@@ -164,7 +164,7 @@ public class ExamServiceBean implements ExamService {
 	@Override
 	public List<StudentExam> buildGrades(Long examId) {
 
-		//List of submissions for given exam, ordere by the student ID
+		//List of submissions for given exam, ordered by the student ID
 		List<Submission> submissions = submissionRepository.findByExamIdOrderByStudentId(examId);
 		List<StudentExam> grades = new ArrayList<StudentExam>();
 		
@@ -176,7 +176,8 @@ public class ExamServiceBean implements ExamService {
 			throw new EntityExistsException("Exam does not exist.");
 		}
 		
-		//Make sure there are submissions for the exam. Else, return an empty array and avoid NPEs
+		//Make sure there are submissions for the exam. 
+		//Else, return an empty array and avoid Index out of Bounds Exception
 		if (submissions.size() == 0) {
 			return grades;
 		}
@@ -193,20 +194,23 @@ public class ExamServiceBean implements ExamService {
 
 		// Iterate over all submissions
 		for (Submission s : submissions) {
+			
+			// Calculate the submission grade, from 0-20;
+			double submissionGrade = this.getFinalGrade(s);
+			
+			//Get the exerciseName
+			String exerciseName = s.getExercise().getName();
 
 			//If the Student did not change, Build the data and add it to Current Object
-			if (s.getStudent().getId() == currentStudent.getId()) {
-				
-				// Calculate the submission grade, from 0-20;
-				double submissionGrade = this.getFinalGrade(s);
+			if (s.getStudent().getId() == currentStudent.getId()) {				
 
 				//As a convention, if the submission exists but is not yet graded by an examiner,
 				//we set the grade to a negative value;
 				if (s.getStatus().equals("O")) {
-					studentExam.addGrade(s.getExercise().getName(), -1);
+					studentExam.addGrade(exerciseName, -1);
 				//If the submission is graded, add the grade to the ExerciseMap for the student
 				} else {
-					studentExam.addGrade(s.getExercise().getName(), submissionGrade);
+					studentExam.addGrade(exerciseName, submissionGrade);
 				}
 
 				// Sum up the value, as to calculate the Exam Final Grade, which is the sum of the submissions grades
@@ -222,14 +226,12 @@ public class ExamServiceBean implements ExamService {
 				currentStudent = s.getStudent();
 				studentExam = new StudentExam(examName, currentStudent.getUsername());
 				finalGrade = 0;
-				
-				double submissionGrade = this.getFinalGrade(s);
 
 				if (s.getStatus().equals("O")) {
-					studentExam.addGrade(s.getExercise().getName(), -1);
+					studentExam.addGrade(exerciseName, -1);
 				} else {
 
-					studentExam.addGrade(s.getExercise().getName(), submissionGrade);
+					studentExam.addGrade(exerciseName, submissionGrade);
 				}
 
 				finalGrade += submissionGrade;

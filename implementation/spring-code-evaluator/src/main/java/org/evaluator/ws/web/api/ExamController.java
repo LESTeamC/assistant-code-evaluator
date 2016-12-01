@@ -124,7 +124,7 @@ public class ExamController extends BaseController {
 	public ResponseEntity<List<Exam>> getExamByExaminer(@PathVariable("id") Long examinerID) {
 		logger.info("> getExamByExaminer id:{}", examinerID);
 		
-		ArrayList<Exam> exams =  (ArrayList) examService.findByExaminer(examinerID);
+		ArrayList<Exam> exams =  (ArrayList<Exam>) examService.findByExaminer(examinerID);
 		if (exams == null) {
 			return new ResponseEntity<List<Exam>>(HttpStatus.NOT_FOUND);
 		}
@@ -174,8 +174,6 @@ public class ExamController extends BaseController {
         }catch(Exception e){
         	return new ResponseEntity<List<StudentExam>>(HttpStatus.BAD_REQUEST);
         }
-
-
 
     }
 	

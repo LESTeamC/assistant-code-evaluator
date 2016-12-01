@@ -60,6 +60,9 @@ export	class	CreateExamsComponent implements OnInit	{
         this.weightErrorCriteria = false;
         this.weightErrorExercise = false;     
 
+        //avoid error with date.
+        this.exam.date = new Date();
+
     }
 
     /**
