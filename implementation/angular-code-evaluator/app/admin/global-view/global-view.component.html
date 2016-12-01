@@ -5,59 +5,96 @@
     <h6>{{exam.course}}</h6>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Exercises</div>
-    <div class="panel-body">
-        <p *ngIf="exercises.length === 0">There are no exercises available for this exam.</p>
-        <div class="table-responsive" *ngIf="exercises.length>0">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Exercise</th>
-                        <th>Progress</th>
-                        <th>Status</th>
-                        <th>Weight</th>
-                        <th>Assignee</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let ex of exercises" [class.selected-row]="isSelectedExercise(ex)" (click)="getSubmissions(ex)">
-                        <td>{{ex.name}}</td>
-                        <td>{{ex.progress}}%</td>
-                        <td>{{ex.status | status}}</td>
-                        <td>{{ex.weight}}%</td>
-                        <td [class.italic-red] = "!ex.examiner">{{ (ex.examiner) ? (ex.examiner.name) : "Unassigned" }}</td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Exercises</div>
+            <div class="panel-body">
+                <p *ngIf="exercises.length === 0">There are no exercises available for this exam.</p>
+                <div class="table-responsive" *ngIf="exercises.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Weight</th>
+                                <th>Assignee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ex of exercises" [class.selected-row]="isSelectedExercise(ex)" (click)="getSubmissions(ex)">
+                                <td>{{ex.name}}</td>
+                                <td>{{ex.progress}}%</td>
+                                <td>{{ex.status | status}}</td>
+                                <td>{{ex.weight}}%</td>
+                                <td [class.italic-red] = "!ex.examiner">{{ (ex.examiner) ? (ex.examiner.name) : "Unassigned" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Submissions</div>
+            <div class="panel-body">
+                <p *ngIf="submissions.length === 0 && !existsSelectedExercise ">Please select an Exercise.</p>
+                <p *ngIf="submissions.length === 0 && existsSelectedExercise">There are no submissions for the selected Exercise.</p>
+                <div class="table-responsive" *ngIf="submissions.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Status</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let su of submissions" [class.selected-row]="isSelectedSubmission(su)" (click)="selectSubmission(su)">
+                                <td>{{su.student.username}}</td>
+                                <td>{{su.status | status}}</td>
+                                <td>{{su.grade}}</td>
+                            </tr>
+                        </tbody>
+                        <button type="button" class="btn sub-detail-btn" (click)="showChildModal()"
+                                [disabled]="!existsSelectedSubmission">Submission Details</button>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Submissions</div>
-    <div class="panel-body">
-        <p *ngIf="submissions.length === 0 && !existsSelectedExercise ">Please select an Exercise.</p>
-        <p *ngIf="submissions.length === 0 && existsSelectedExercise">There are no submissions for the selected Exercise.</p>
-        <div class="table-responsive" *ngIf="submissions.length>0">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Status</th>
-                        <th>Grade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let su of submissions" [class.selected-row]="isSelectedSubmission(su)" (click)="selectSubmission(su)">
-                        <td>{{su.student.username}}</td>
-                        <td>{{su.status | status}}</td>
-                        <td>{{su.grade}}</td>
-                    </tr>
-                </tbody>
-                <button type="button" class="btn sub-detail-btn" (click)="showChildModal()"
-                        [disabled]="!existsSelectedSubmission">Submission Details</button>
-            </table>
+<!--    STUDENT GRADES-->
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"> Grades</div>
+            <div class="panel-body">
+                <p *ngIf="grades.length <= 0">There are no grades available.</p>
+                <div class="table-responsive" *ngIf="grades.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th *ngFor="let exe of exercises">{{exe.name}}</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let g of grades">
+                                <td>{{g.studentUsername}}</td>
+                                <td *ngFor="let exe of exercises; let i = index">{{getExerciseGrade(g, i)}}</td>
+                                <td>{{g.finalGrade}}</td>
+                            </tr>
+                            <tr>
+                                <td>AVERAGE</td>
+                                <td *ngFor="let exe of exercises; let i = index">1</td>
+                                <td>{{calculateGlobalAverage()}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

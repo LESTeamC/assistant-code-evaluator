@@ -18,6 +18,9 @@ export	class	ViewExamsComponent implements OnInit	{
     private selectedExam:Exam = new Exam();
     constructor(private _router:Router, private examService:ExamService){}
 
+    private deleteSuccess:boolean = false;
+    private deleteFail: boolean = false;
+
     messageEdit='';
     messageExport='';
 
@@ -83,6 +86,34 @@ export	class	ViewExamsComponent implements OnInit	{
     }
 
     globalView(){
-        this._router.navigate(['/admin/global-view/', 1])
+        this._router.navigate(['/admin/global-view/', this.selectedExam.id])
+    }
+
+    deleteExam(){
+        this.hideChildModal();
+        this.examService.deleteExam(this.selectedExam.id)
+            .subscribe(data => this.deleteExamSuccess(data),
+                       error => this.deleteExamFail(error));
+    }
+
+    deleteExamSuccess(data:any){
+
+        this.exams = this.removeFromArray(this.exams, this.selectedExam.id);
+        this.selectedExam = new Exam();
+
+        this.deleteFail = false;
+        this.deleteSuccess = true;
+    }
+
+    deleteExamFail(error:any){
+        this.deleteFail = false;
+        this.deleteSuccess = true;
+    }
+
+    private removeFromArray(array:any[], id:number): any[]{
+
+        return array.filter(function(el) {
+            return el.id !== id;
+        });
     }
 }	

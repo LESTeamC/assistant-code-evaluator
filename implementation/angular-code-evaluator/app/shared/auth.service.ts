@@ -95,8 +95,8 @@ export class AuthService {
         return "Basic " + btoa(login.username + ":" + login.password);
     }
 
-    private makeHeaderWithToken(login: string): string{
-        return "Basic " + login;
+    private makeHeaderWithToken(token: string): string{
+        return "Basic " + token;
     }
 
     private makeToken(credentials: Credentials):string{

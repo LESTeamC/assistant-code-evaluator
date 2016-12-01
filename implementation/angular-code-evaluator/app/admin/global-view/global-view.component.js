@@ -19,16 +19,17 @@ var exam_service_1 = require('./../exam.service');
 var exercise_service_1 = require('./../../shared/exercise.service');
 var submission_service_1 = require('./../../examiner/submission.service');
 var GlobalViewComponent = (function () {
-    function GlobalViewComponent(_router, examService, exerciseService, submissionSericse) {
+    function GlobalViewComponent(_router, examService, exerciseService, submissionSericse, activatedRoute) {
         this._router = _router;
         this.examService = examService;
         this.exerciseService = exerciseService;
         this.submissionSericse = submissionSericse;
-        this.id = 1;
+        this.activatedRoute = activatedRoute;
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
         this.submissions = new Array();
         this.criteria = new Array();
+        this.grades = new Array();
         this.selectedExercise = new exercise_1.Exercise();
         this.selectedSubmission = new submission_1.Submission();
         this.selectedStudent = new student_1.Student();
@@ -37,16 +38,25 @@ var GlobalViewComponent = (function () {
     }
     GlobalViewComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.examService.getExam(this.id)
+        this.activatedRoute.params
+            .switchMap(function (params) { return _this.examService.getExam(+params['id']); })
             .subscribe(function (data) { return _this.examSuccess(data); }, function (error) { return _this.examFail(error); });
     };
     GlobalViewComponent.prototype.examSuccess = function (data) {
+        var _this = this;
         this.exam = data;
         this.exercises = data.exercises;
-        console.log(data);
+        this.examService.getGrades(this.exam.id)
+            .subscribe(function (data) { return _this.gradesSuccess(data); }, function (error) { return _this.gradesFail(error); });
     };
     GlobalViewComponent.prototype.examFail = function (error) {
         this._router.navigate(['/admin/view-exams/']);
+    };
+    GlobalViewComponent.prototype.gradesSuccess = function (data) {
+        this.grades = data;
+    };
+    GlobalViewComponent.prototype.gradesFail = function (error) {
+        this.examFail(error);
     };
     GlobalViewComponent.prototype.isSelectedExercise = function (exercise) {
         return exercise.id === this.selectedExercise.id;
@@ -82,6 +92,53 @@ var GlobalViewComponent = (function () {
     GlobalViewComponent.prototype.submissionFail = function (error) {
         this.examFail(error);
     };
+    GlobalViewComponent.prototype.getExerciseGrade = function (g, i) {
+        var grade = g.gradesByExercise[this.exercises[i].name];
+        if (grade === undefined) {
+            return "NS";
+        }
+        else if (grade === -1) {
+            return "NE";
+        }
+        else {
+            return grade;
+        }
+    };
+    GlobalViewComponent.prototype.calculateExerciseAverage = function (i) {
+    };
+    GlobalViewComponent.prototype.calculateGlobalAverage = function () {
+        var globalGrades = this.getGlobalGrades();
+        return this.calcAvg(globalGrades);
+    };
+    GlobalViewComponent.prototype.isEvaluated = function (g) {
+        var ex;
+        var returnValue = true;
+        for (ex in g) {
+            if (parseInt(g[ex]) < 0) {
+                return false;
+            }
+        }
+        return true;
+    };
+    GlobalViewComponent.prototype.getGlobalGrades = function () {
+        var globalGrades = new Array();
+        var s;
+        for (var i = 0; i < this.grades.length; i++) {
+            if (this.isEvaluated(this.grades[i].gradesByExercise)) {
+                globalGrades.push(s.finalGrade);
+            }
+        }
+        return globalGrades;
+    };
+    GlobalViewComponent.prototype.calcAvg = function (array) {
+        if (array.length === 0)
+            return 0;
+        var sum = 0;
+        for (var i = 0; i < array.length; i++) {
+            sum += array[i]; //don't forget to add the base
+        }
+        var avg = sum / array.length;
+    };
     /**
     * Shows modal
     */
@@ -104,7 +161,7 @@ var GlobalViewComponent = (function () {
             templateUrl: 'app/admin/global-view/global-view.component.html',
             styleUrls: ['app/admin/global-view/global-view.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService, exercise_service_1.ExerciseService, submission_service_1.SubmissionService])
+        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService, exercise_service_1.ExerciseService, submission_service_1.SubmissionService, router_1.ActivatedRoute])
     ], GlobalViewComponent);
     return GlobalViewComponent;
 }());

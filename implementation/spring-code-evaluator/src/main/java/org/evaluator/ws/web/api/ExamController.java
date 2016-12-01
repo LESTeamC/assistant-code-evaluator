@@ -8,7 +8,9 @@ import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.model.ExerciseDTO;
 import org.evaluator.ws.model.Greeting;
+import org.evaluator.ws.model.StudentExam;
 import org.evaluator.ws.service.ExamService;
+import org.evaluator.ws.service.StudentExamService;
 import org.hibernate.JDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,9 @@ public class ExamController extends BaseController {
 
 	@Autowired
 	private ExamService examService;
+	
+	@Autowired
+	private StudentExamService studentExamService;
 	
     @RequestMapping(
             value = "/admin/exam/{id}",
@@ -158,6 +163,20 @@ public class ExamController extends BaseController {
 
         logger.info("< deleteExam id:{}", id);
         return new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(
+            value = "/admin/grades/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentExam>> getGrades(@PathVariable("id") Long id) {
+        logger.info("> getGrades id:{}", id);
+
+        List<StudentExam> grades = studentExamService.buildGrades(id);
+
+
+        logger.info("< getGrades id:{}", id);
+        return new ResponseEntity<List<StudentExam>>(grades, HttpStatus.OK);
     }
 	
 }

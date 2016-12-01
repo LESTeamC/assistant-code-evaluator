@@ -19,6 +19,8 @@ var ViewExamsComponent = (function () {
         this.examService = examService;
         this.exams = new Array();
         this.selectedExam = new exam_1.Exam();
+        this.deleteSuccess = false;
+        this.deleteFail = false;
         this.messageEdit = '';
         this.messageExport = '';
     }
@@ -66,7 +68,28 @@ var ViewExamsComponent = (function () {
         this._router.navigate(['/admin/import-submission']);
     };
     ViewExamsComponent.prototype.globalView = function () {
-        this._router.navigate(['/admin/global-view/', 1]);
+        this._router.navigate(['/admin/global-view/', this.selectedExam.id]);
+    };
+    ViewExamsComponent.prototype.deleteExam = function () {
+        var _this = this;
+        this.hideChildModal();
+        this.examService.deleteExam(this.selectedExam.id)
+            .subscribe(function (data) { return _this.deleteExamSuccess(data); }, function (error) { return _this.deleteExamFail(error); });
+    };
+    ViewExamsComponent.prototype.deleteExamSuccess = function (data) {
+        this.exams = this.removeFromArray(this.exams, this.selectedExam.id);
+        this.selectedExam = new exam_1.Exam();
+        this.deleteFail = false;
+        this.deleteSuccess = true;
+    };
+    ViewExamsComponent.prototype.deleteExamFail = function (error) {
+        this.deleteFail = false;
+        this.deleteSuccess = true;
+    };
+    ViewExamsComponent.prototype.removeFromArray = function (array, id) {
+        return array.filter(function (el) {
+            return el.id !== id;
+        });
     };
     __decorate([
         core_1.ViewChild('deleteModal'), 

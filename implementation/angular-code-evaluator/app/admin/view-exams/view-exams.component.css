@@ -29,3 +29,7 @@ th {
 .selected-row{
     background-color: #6D7993;
 }
+
+.text-center{
+    padding:20px;
+}

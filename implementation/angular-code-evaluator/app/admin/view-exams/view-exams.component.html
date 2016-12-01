@@ -3,6 +3,12 @@
 <alert type="info" dismissible="true" *ngIf="exams.length<=0">
   There are no exams in the Platform.
 </alert>
+<alert type="success" dismissible="true" *ngIf="deleteSuccess">
+  Exam deleted Successfully.
+</alert>
+<alert type="danger" dismissible="true" *ngIf="deleteFail">
+  Error deleting Exam.
+</alert>
 
 <div *ngIf="exams.length > 0" style="overflow-x:auto;" class="table-responsive">
   <table class="table">
@@ -56,9 +62,7 @@
       </div>
       <div class="text-center"><p>Are you sure you want to delete?</p>
         <p>All exercises and respective subsmissions will also be deleted.</p>
-        <!-- delete exams feature not developed yet-->
-        <button type="button" class="btn btn-modalyes" [disabled]="!isValid">Yes</button>
-
+        <button type="button" class="btn btn-modalyes" (click)="deleteExam()">Yes</button>
         <button type="button" class="btn btn-modalno" (click)="hideChildModal()">No</button>
       </div>
     </div>

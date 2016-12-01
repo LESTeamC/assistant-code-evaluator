@@ -26,10 +26,10 @@ public class StudentExamServiceBean implements StudentExamService {
     @Autowired
     private SubmissionRepository submissionRepository;
 	
-	public Collection<StudentExam> buildGrades(Long examId){
+	public List<StudentExam> buildGrades(Long examId){
 		
 		List<Submission> submissions = submissionRepository.findByExamIdOrderByStudentId(examId);
-		Collection<StudentExam> grades = new ArrayList<StudentExam>();
+		List<StudentExam> grades = new ArrayList<StudentExam>();
 		
 		// if (submissions.size() == 0) Throw and Exception!.
 		
@@ -47,7 +47,12 @@ public class StudentExamServiceBean implements StudentExamService {
 			
 			if (s.getStudent().getId() == currentStudent.getId()){
 				
-				studentExam.addGrade(s.getExercise().getName(), s.getGrade() * (20.0/100.0));
+				if (s.getStatus().equals("O")){
+					studentExam.addGrade(s.getExercise().getName(), -1);
+				}else{
+				
+					studentExam.addGrade(s.getExercise().getName(), s.getGrade() * (20.0/100.0));
+				}
 				
 				finalGrade += s.getGrade() * (20.0 / 100.0);
 				studentExam.setFinalGrade(finalGrade);
@@ -60,7 +65,12 @@ public class StudentExamServiceBean implements StudentExamService {
 				studentExam = new StudentExam(examName, currentStudent.getUsername());
 				finalGrade = 0;
 				
-				studentExam.addGrade(s.getExercise().getName(), s.getGrade() * (20.0/100.0));
+				if (s.getStatus().equals("O")){
+					studentExam.addGrade(s.getExercise().getName(), -1);
+				}else{
+				
+					studentExam.addGrade(s.getExercise().getName(), s.getGrade() * (20.0/100.0));
+				}
 				
 				finalGrade += s.getGrade() * (20.0 / 100.0);
 				studentExam.setFinalGrade(finalGrade);				

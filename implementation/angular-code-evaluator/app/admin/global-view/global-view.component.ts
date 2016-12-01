@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild}	from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {Exam} from './../../model/exam';
@@ -7,6 +7,7 @@ import {Exercise} from './../../model/exercise';
 import {Submission} from './../../model/submission';
 import {Student} from './../../model/student'
 import {SubmissionCriteria} from './../../model/submissioncriteria'
+import {Grade} from './../../model/grade'
 
 
 import {ExamService} from './../exam.service'
@@ -22,11 +23,11 @@ import {SubmissionService} from './../../examiner/submission.service'
 })
 export	class	GlobalViewComponent implements OnInit	{
 
-    private id:number = 1;
     private exam:Exam = new Exam();
     private exercises:Exercise[] = new Array<Exercise>();
     private submissions:Submission[] = new Array<Submission>();
     private criteria:SubmissionCriteria[] = new Array<SubmissionCriteria>();
+    private grades:Grade[] = new Array<Grade>();
 
     private selectedExercise:Exercise = new Exercise();
     private selectedSubmission:Submission = new Submission();
@@ -37,27 +38,43 @@ export	class	GlobalViewComponent implements OnInit	{
 
     constructor(private _router:Router, private examService:ExamService,
             private exerciseService:ExerciseService,
-            private submissionSericse:SubmissionService){
+            private submissionSericse:SubmissionService,
+            private activatedRoute:ActivatedRoute,){
 
             
     }
 
     ngOnInit(){
-        this.examService.getExam(this.id)
+
+        this.activatedRoute.params
+            // (+) converts string 'id' to a number
+            .switchMap((params: Params) => this.examService.getExam(+params['id']))
             .subscribe(data => this.examSuccess(data),
-                       error => this.examFail(error));
+                        error => this.examFail(error));
+
     }
 
     examSuccess(data:any){
         this.exam = data
         this.exercises = data.exercises;
 
-        console.log(data);
+        this.examService.getGrades(this.exam.id)
+            .subscribe(data => this.gradesSuccess(data),
+                       error => this.gradesFail(error));
+
     }
 
     examFail(error:any){
         this._router.navigate(['/admin/view-exams/'])
     }
+
+    gradesSuccess(data:any){
+        this.grades = data
+    }
+
+    gradesFail(error:any){
+        this.examFail(error);
+    }    
 
     private isSelectedExercise(exercise:Exercise):boolean{
         return exercise.id === this.selectedExercise.id;
@@ -107,6 +124,66 @@ export	class	GlobalViewComponent implements OnInit	{
     submissionFail(error:any){
         this.examFail(error);
     }
+
+    getExerciseGrade(g:Grade, i:number){
+
+         var grade = g.gradesByExercise[this.exercises[i].name];
+
+         if (grade === undefined) {
+             return "NS";
+         }else if (grade === -1){
+             return "NE"
+         }else{
+             return grade;
+         }
+
+    }
+
+    calculateExerciseAverage(i:number){
+
+    }
+
+    calculateGlobalAverage(){
+
+        var globalGrades = this.getGlobalGrades();
+        return this.calcAvg(globalGrades);
+    }
+
+    private isEvaluated(g:any):boolean{
+        var ex:any;
+        var returnValue:boolean = true;
+        for (ex in g){
+            if (parseInt(g[ex]) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private getGlobalGrades(){
+        var globalGrades:number[] = new Array<number>();
+        var s:any;
+
+        for (let i = 0; i < this.grades.length; i++){
+            if(this.isEvaluated(this.grades[i].gradesByExercise)){
+                globalGrades.push(s.finalGrade);
+            }
+        }
+        return globalGrades;
+    }
+
+    private calcAvg(array:number[]){
+
+        if (array.length === 0) return 0;
+
+        var sum = 0;
+        for( var i = 0; i < array.length; i++ ){
+            sum += array[i]; //don't forget to add the base
+
+        }
+        var avg = sum/array.length;
+    }
+
 
     @ViewChild('submissionModal') public childModal:ModalDirective;
  
