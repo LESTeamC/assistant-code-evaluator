@@ -104,7 +104,17 @@ var GlobalViewComponent = (function () {
             return grade;
         }
     };
-    GlobalViewComponent.prototype.calculateExerciseAverage = function (i) {
+    GlobalViewComponent.prototype.calculateExerciseAverage = function (name) {
+        var sum = 0;
+        var size = 0;
+        for (var i = 0; i < this.grades.length; i++) {
+            var grade = this.grades[i].gradesByExercise[name];
+            if (grade >= 0) {
+                sum += grade;
+                size++;
+            }
+        }
+        return (size > 0) ? (sum / size) : 0;
     };
     GlobalViewComponent.prototype.calculateGlobalAverage = function () {
         var globalGrades = this.getGlobalGrades();

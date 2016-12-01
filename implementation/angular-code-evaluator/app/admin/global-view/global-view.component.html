@@ -83,16 +83,20 @@
                         <tbody>
                             <tr *ngFor="let g of grades">
                                 <td>{{g.studentUsername}}</td>
-                                <td *ngFor="let exe of exercises; let i = index">{{getExerciseGrade(g, i)}}</td>
+                                <td *ngFor="let exe of exercises; let i = index" [class.red]="!(getExerciseGrade(g, i) < 0)">{{getExerciseGrade(g, i)}}</td>
                                 <td>{{g.finalGrade}}</td>
                             </tr>
                             <tr>
                                 <td>AVERAGE</td>
-                                <td *ngFor="let exe of exercises; let i = index">1</td>
+                                <td *ngFor="let exe of exercises; let i = index">{{calculateExerciseAverage(exe.name)}}</td>
                                 <td>{{calculateGlobalAverage()}}</td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="legend">
+                        <p>NS - This exercise was not submitted by the student</p>
+                        <p>NE - This submission was not grades by an examiner</p>
+                    </div>
                 </div>
             </div>
         </div>

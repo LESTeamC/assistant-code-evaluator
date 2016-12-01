@@ -139,8 +139,21 @@ export	class	GlobalViewComponent implements OnInit	{
 
     }
 
-    calculateExerciseAverage(i:number){
+    calculateExerciseAverage(name:string){
 
+        var sum = 0;
+        var size = 0;
+
+        for (var i = 0; i < this.grades.length; i++){
+
+            var grade = this.grades[i].gradesByExercise[name];
+            if (grade >= 0){
+                sum += grade;
+                size ++; 
+            }
+        }
+
+        return (size > 0) ? (sum/size) : 0;
     }
 
     calculateGlobalAverage(){
