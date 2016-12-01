@@ -22,7 +22,7 @@
                         <td>{{ex.examname}}</td>
                         <td>{{ex.name}}</td>
                         <td>{{ex.status | status}}</td>
-                        <td>{{ex.progress}}%</td>
+                        <td>{{ex.progress}}/{{ex.nsubmissions}}</td>
                         <td>{{ex.weight}}%</td>
                         <td [class.italic-red] = "!ex.examiner">{{ (ex.examiner) ? (ex.examiner.name) : "Unassigned" }}</td>
                     </tr>

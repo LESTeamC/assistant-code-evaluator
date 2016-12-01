@@ -196,6 +196,14 @@ export	class	GlobalViewComponent implements OnInit	{
         return sum/array.length;
     }
 
+    private calculateValueOfSubmission(s: Submission):number{
+
+        return Math.round(s.grade * 
+            this.selectedExercise.weight * 0.01 * 
+            (20.0 / 100.0) * 100.0) / 100.0;
+    }
+
+
 
     @ViewChild('submissionModal') public childModal:ModalDirective;
  

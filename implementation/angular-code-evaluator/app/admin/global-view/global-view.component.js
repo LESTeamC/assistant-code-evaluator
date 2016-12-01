@@ -149,6 +149,11 @@ var GlobalViewComponent = (function () {
         }
         return sum / array.length;
     };
+    GlobalViewComponent.prototype.calculateValueOfSubmission = function (s) {
+        return Math.round(s.grade *
+            this.selectedExercise.weight * 0.01 *
+            (20.0 / 100.0) * 100.0) / 100.0;
+    };
     /**
     * Shows modal
     */
