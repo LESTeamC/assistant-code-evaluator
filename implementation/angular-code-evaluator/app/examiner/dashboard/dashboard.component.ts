@@ -90,7 +90,10 @@ export class DashboardComponent implements OnInit {
     }
 
     private cleanSelectedSubmission() {
-        this.submissions = [];
+        this.submissions = new Array<Submission>();
+        this.selectedExercise = new Exercise();
+        this.selectedSubmission = new Submission();
+
         this.disableButton = true;
         //this.selectedSubmission = null;
     }
@@ -100,6 +103,7 @@ export class DashboardComponent implements OnInit {
     private filterByStatus(status: string): void {
 
         this.cleanSelectedSubmission();
+
         //validate input
         if (this.oldStatus == null || this.oldStatus == status) {
             this.oldStatus = status;
@@ -128,6 +132,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private filterByDegree(value: string): void {
+
         this.cleanSelectedSubmission();
 
         //validate input

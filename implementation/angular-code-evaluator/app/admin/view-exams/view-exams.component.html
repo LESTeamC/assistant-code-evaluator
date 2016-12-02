@@ -42,7 +42,7 @@
   <!--delete exam-->
   <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()" [disabled]="!this.selectedExam.id">Delete</button>
 
-  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!isValid">Export Grade</button> {{messageExport}}
+  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!this.selectedExam.id">Export Grade</button> {{messageExport}}
 
   <button class="btn blue-bg global-btn" type="submit" (click)="globalView()" [disabled]="!this.selectedExam.id">Global View</button>
 

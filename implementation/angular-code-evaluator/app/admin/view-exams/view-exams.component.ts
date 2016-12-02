@@ -4,7 +4,11 @@ import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import {ImportSubmissionComponent} from './import-submission.component';
 
 import {ExamService} from './../exam.service'
+import {CSVService} from './../csv.service'
+
 import {Exam} from './../../model/exam'
+import {Grade} from './../../model/grade'
+
 
 @Component({	
     selector: 'view-exams',
@@ -15,8 +19,11 @@ import {Exam} from './../../model/exam'
 export	class	ViewExamsComponent implements OnInit	{
 
     private exams:Exam[] = new Array<Exam>();
+    private exportedGrades:Grade[] = new Array<Grade>();
+
     private selectedExam:Exam = new Exam();
-    constructor(private _router:Router, private examService:ExamService){}
+    constructor(private _router:Router, private examService:ExamService,
+                    private csvService:CSVService){}
 
     private deleteSuccess:boolean = false;
     private deleteFail: boolean = false;
@@ -78,7 +85,21 @@ export	class	ViewExamsComponent implements OnInit	{
 
 //Not developed yet
     exportGrade(){
-        this.messageExport='Go to export page!';
+        
+        this.examService.getGrades(this.selectedExam.id)
+            .subscribe(data => this.successGrades(data),
+                        error => this.failGrades(error));
+
+    }
+
+    successGrades(data:any){
+        this.exportedGrades = data;
+
+        this.csvService.downloadToCSV(this.exportedGrades, this.selectedExam.exercises, this.selectedExam.name);
+    }
+
+    failGrades(error:any){
+
     }
 
     importSubmission(){

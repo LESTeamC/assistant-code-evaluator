@@ -54,7 +54,7 @@
                             <tr *ngFor="let su of submissions" [class.selected-row]="isSelectedSubmission(su)" (click)="selectSubmission(su)">
                                 <td>{{su.student.username}}</td>
                                 <td>{{su.status | status}}</td>
-                                <td>{{su.grade}}</td>
+                                <td>{{(su.status === "O") ? "" : su.grade }}</td>
                             </tr>
                         </tbody>
                         <button type="button" class="btn sub-detail-btn" (click)="showChildModal()"

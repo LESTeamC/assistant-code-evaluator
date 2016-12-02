@@ -61,7 +61,9 @@ var DashboardComponent = (function () {
         this.nonfilteredExercises = this.exercises.slice();
     };
     DashboardComponent.prototype.cleanSelectedSubmission = function () {
-        this.submissions = [];
+        this.submissions = new Array();
+        this.selectedExercise = new exercise_1.Exercise();
+        this.selectedSubmission = new submission_1.Submission();
         this.disableButton = true;
         //this.selectedSubmission = null;
     };

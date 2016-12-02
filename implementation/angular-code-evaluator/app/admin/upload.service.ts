@@ -15,7 +15,7 @@ export class UploadService {
 
     constructor(private http:Http, private authService:AuthService) { }
 
-    uploadLibraries(files:FileList){
+    uploadLibraries(files:Array<File>){
 
         var formData = new FormData();
 

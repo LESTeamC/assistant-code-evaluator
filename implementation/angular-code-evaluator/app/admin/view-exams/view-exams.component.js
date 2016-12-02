@@ -12,12 +12,15 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_service_1 = require('./../exam.service');
+var csv_service_1 = require('./../csv.service');
 var exam_1 = require('./../../model/exam');
 var ViewExamsComponent = (function () {
-    function ViewExamsComponent(_router, examService) {
+    function ViewExamsComponent(_router, examService, csvService) {
         this._router = _router;
         this.examService = examService;
+        this.csvService = csvService;
         this.exams = new Array();
+        this.exportedGrades = new Array();
         this.selectedExam = new exam_1.Exam();
         this.deleteSuccess = false;
         this.deleteFail = false;
@@ -62,7 +65,15 @@ var ViewExamsComponent = (function () {
     };
     //Not developed yet
     ViewExamsComponent.prototype.exportGrade = function () {
-        this.messageExport = 'Go to export page!';
+        var _this = this;
+        this.examService.getGrades(this.selectedExam.id)
+            .subscribe(function (data) { return _this.successGrades(data); }, function (error) { return _this.failGrades(error); });
+    };
+    ViewExamsComponent.prototype.successGrades = function (data) {
+        this.exportedGrades = data;
+        this.csvService.downloadToCSV(this.exportedGrades, this.selectedExam.exercises, this.selectedExam.name);
+    };
+    ViewExamsComponent.prototype.failGrades = function (error) {
     };
     ViewExamsComponent.prototype.importSubmission = function () {
         this._router.navigate(['/admin/import-submission']);
@@ -101,7 +112,7 @@ var ViewExamsComponent = (function () {
             templateUrl: 'app/admin/view-exams/view-exams.component.html',
             styleUrls: ['app/admin/view-exams/view-exams.component.css'],
         }), 
-        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService])
+        __metadata('design:paramtypes', [router_1.Router, exam_service_1.ExamService, csv_service_1.CSVService])
     ], ViewExamsComponent);
     return ViewExamsComponent;
 }());

@@ -64,20 +64,21 @@
         <div class="panel panel-default" *ngIf="exercises.length > 0">
             <div class="panel-heading">Submissions</div>
             <div class="panel-body">
-                <p *ngIf="submissions.length <= 0">This exercise has no Submissions<p>
+                <p *ngIf = "!selectedExercise.id">Please select an Exercise.</p>
+                <p *ngIf="submissions.length <= 0 && !!selectedExercise.id">This exercise has no Submissions.<p>
                 <div class="table-responsive" *ngIf="submissions.length > 0">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>Student</th>
-                                <th>Grade</th>
+                                <th>Grade (%)</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let su of submissions"  [class.selected-row]="isSelectedSubmission(su.id)" (click)="selectRowSubmission(su)">
                                 <td>{{su.student.username}}</td>
-                                <td>{{su.grade}}%</td>
+                                <td>{{(su.status === "O") ? "" : su.grade}}</td>
                                 <td>{{getStatus(su)}}</td>
                             </tr>
                         </tbody>

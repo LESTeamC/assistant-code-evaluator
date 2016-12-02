@@ -25,9 +25,9 @@ export	class	ImportSubmissionComponent implements OnInit	{
         var files:any = $event.target.files;
         console.log(files);
 
-        this.uploadService.uploadLibraries(files)
+/*        this.uploadService.uploadLibraries(files)
                 .subscribe(data => this.successImport(data),
-                error => this.failImport(error));
+                error => this.failImport(error));*/
     }
 
     successImport(data:any){console.log("yey")}
