@@ -90,6 +90,7 @@ export	class	CreateExamsComponent implements OnInit	{
         this.lastExamName = exam.name;
         this.createdSuccess = true;
         this.exam = new Exam();
+        this.exam.date = new Date();
         this.exercises = new Array<Exercise>();
         this.students = new Array<Student>();
         
