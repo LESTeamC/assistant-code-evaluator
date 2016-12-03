@@ -10,6 +10,10 @@
   Error deleting Exam.
 </alert>
 
+<alert type="danger" dismissible="true" *ngIf="exportFail">
+  There are no grades available for the selected Exam
+</alert>
+
 <div *ngIf="exams.length > 0" style="overflow-x:auto;" class="table-responsive">
   <table class="table">
     <thead>

@@ -19,11 +19,11 @@ var exam_service_1 = require('./../exam.service');
 var exercise_service_1 = require('./../../shared/exercise.service');
 var submission_service_1 = require('./../../examiner/submission.service');
 var GlobalViewComponent = (function () {
-    function GlobalViewComponent(_router, examService, exerciseService, submissionSericse, activatedRoute) {
+    function GlobalViewComponent(_router, examService, exerciseService, submissionService, activatedRoute) {
         this._router = _router;
         this.examService = examService;
         this.exerciseService = exerciseService;
-        this.submissionSericse = submissionSericse;
+        this.submissionService = submissionService;
         this.activatedRoute = activatedRoute;
         this.exam = new exam_1.Exam();
         this.exercises = new Array();
@@ -70,7 +70,7 @@ var GlobalViewComponent = (function () {
         this.existsSelectedExercise = true;
         this.selectedExercise = exercise;
         this.selectedSubmission = new submission_1.Submission();
-        this.submissionSericse.getSubmissionsByExercise(exercise.id)
+        this.submissionService.getSubmissionsByExercise(exercise.id)
             .subscribe(function (data) { return _this.submissionSuccess(data); }, function (error) { return _this.submissionFail(error); });
     };
     GlobalViewComponent.prototype.selectSubmission = function (submission) {

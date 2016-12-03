@@ -38,7 +38,7 @@ export	class	GlobalViewComponent implements OnInit	{
 
     constructor(private _router:Router, private examService:ExamService,
             private exerciseService:ExerciseService,
-            private submissionSericse:SubmissionService,
+            private submissionService:SubmissionService,
             private activatedRoute:ActivatedRoute,){
 
             
@@ -92,7 +92,7 @@ export	class	GlobalViewComponent implements OnInit	{
         this.selectedExercise = exercise;
         this.selectedSubmission = new Submission();
 
-        this.submissionSericse.getSubmissionsByExercise(exercise.id)
+        this.submissionService.getSubmissionsByExercise(exercise.id)
                     .subscribe(data => this.submissionSuccess(data),
                        error => this.submissionFail(error));
 

@@ -33,10 +33,10 @@ export class CSVService {
 
     }
 
-    downloadToCSV(grades:Grade[], exercises:Exercise[], exam:string):void{
+    downloadCSV(grades:Grade[], exercises:Exercise[], exam:string):boolean{
 
         if (grades === null || exercises === null || grades.length <= 0 || exercises.length <= 0){
-            return;
+            return false;
         }
 
         var csv:string = this.buildCSV(grades, exercises);
@@ -49,6 +49,8 @@ export class CSVService {
         document.body.appendChild(link);
 
         link.click(); 
+
+        return true;
 
 
     }

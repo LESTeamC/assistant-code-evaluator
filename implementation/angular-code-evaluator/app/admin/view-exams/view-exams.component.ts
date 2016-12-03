@@ -27,6 +27,7 @@ export	class	ViewExamsComponent implements OnInit	{
 
     private deleteSuccess:boolean = false;
     private deleteFail: boolean = false;
+    private exportFail: boolean = false;
 
     messageEdit='';
     messageExport='';
@@ -95,7 +96,8 @@ export	class	ViewExamsComponent implements OnInit	{
     successGrades(data:any){
         this.exportedGrades = data;
 
-        this.csvService.downloadToCSV(this.exportedGrades, this.selectedExam.exercises, this.selectedExam.name);
+        if (!this.csvService.downloadCSV(this.exportedGrades, this.selectedExam.exercises, this.selectedExam.name))
+            this.exportFail = true;
     }
 
     failGrades(error:any){
@@ -103,7 +105,7 @@ export	class	ViewExamsComponent implements OnInit	{
     }
 
     importSubmission(){
-        this._router.navigate(['/admin/import-submission']);
+        this._router.navigate(['/admin/import-submission', this.selectedExam.id]);
     }
 
     globalView(){
@@ -122,11 +124,13 @@ export	class	ViewExamsComponent implements OnInit	{
         this.exams = this.removeFromArray(this.exams, this.selectedExam.id);
         this.selectedExam = new Exam();
 
+        this.exportFail = false;
         this.deleteFail = false;
         this.deleteSuccess = true;
     }
 
     deleteExamFail(error:any){
+        this.exportFail = false;
         this.deleteFail = false;
         this.deleteSuccess = true;
     }

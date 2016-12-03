@@ -60,7 +60,7 @@ var AdminRoutingModule = (function () {
                                 component: view_examiners_component_1.ViewExaminersComponent,
                             },
                             {
-                                path: 'import-submission',
+                                path: 'import-submission/:id',
                                 component: import_submission_component_1.ImportSubmissionComponent,
                             },
                         ]

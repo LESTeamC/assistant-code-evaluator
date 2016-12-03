@@ -50,7 +50,7 @@ import { AuthGuard } from './../shared/auth-guard.service'
             component: ViewExaminersComponent,
           },
           {
-            path: 'import-submission',
+            path: 'import-submission/:id',
             component: ImportSubmissionComponent,
           },
         ]

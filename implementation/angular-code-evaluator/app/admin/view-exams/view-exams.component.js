@@ -24,6 +24,7 @@ var ViewExamsComponent = (function () {
         this.selectedExam = new exam_1.Exam();
         this.deleteSuccess = false;
         this.deleteFail = false;
+        this.exportFail = false;
         this.messageEdit = '';
         this.messageExport = '';
     }
@@ -71,12 +72,13 @@ var ViewExamsComponent = (function () {
     };
     ViewExamsComponent.prototype.successGrades = function (data) {
         this.exportedGrades = data;
-        this.csvService.downloadToCSV(this.exportedGrades, this.selectedExam.exercises, this.selectedExam.name);
+        if (!this.csvService.downloadCSV(this.exportedGrades, this.selectedExam.exercises, this.selectedExam.name))
+            this.exportFail = true;
     };
     ViewExamsComponent.prototype.failGrades = function (error) {
     };
     ViewExamsComponent.prototype.importSubmission = function () {
-        this._router.navigate(['/admin/import-submission']);
+        this._router.navigate(['/admin/import-submission', this.selectedExam.id]);
     };
     ViewExamsComponent.prototype.globalView = function () {
         this._router.navigate(['/admin/global-view/', this.selectedExam.id]);
@@ -90,10 +92,12 @@ var ViewExamsComponent = (function () {
     ViewExamsComponent.prototype.deleteExamSuccess = function (data) {
         this.exams = this.removeFromArray(this.exams, this.selectedExam.id);
         this.selectedExam = new exam_1.Exam();
+        this.exportFail = false;
         this.deleteFail = false;
         this.deleteSuccess = true;
     };
     ViewExamsComponent.prototype.deleteExamFail = function (error) {
+        this.exportFail = false;
         this.deleteFail = false;
         this.deleteSuccess = true;
     };
