@@ -25,6 +25,7 @@ org/evaluator/ws/service/SubmissionService.class
 org/evaluator/ws/repository/StudentRepository.class
 org/evaluator/ws/service/ExaminerService.class
 org/evaluator/ws/service/StudentServiceBean.class
+org/evaluator/ws/web/api/UnzipFile.class
 org/evaluator/ws/web/filter/SimpleCorsFilter.class
 org/evaluator/Application.class
 org/evaluator/ws/util/RequestContext.class

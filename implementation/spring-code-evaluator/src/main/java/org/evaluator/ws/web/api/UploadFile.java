@@ -37,14 +37,14 @@ public class UploadFile {
                     BufferedOutputStream buffStream =
                             //Create a buffer of Bytes and save it to disk Location
                             //This file location should be changed when you install in your computer
-                            new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//"+ fileName)));
+                            new BufferedOutputStream(new FileOutputStream(new File("/Users/mzamith/Desktop/"+ fileName)));
                     buffStream.write(bytes);
                     buffStream.close();
 
                     msg += "You have successfully uploaded " + fileName +"<br/>";
 
-                    String zipFilePath = "c:/Develop/Files/"+fileName;
-                    String destDirectory = "c:/Develop/files/";
+                    String zipFilePath = "/Users/mzamith/Desktop/"+fileName;
+                    String destDirectory = "/Users/mzamith/Desktop/";
                     String fileFolder = fileName.substring(0, fileName.lastIndexOf('.'));;
 
                     UnzipFile unzipper = new UnzipFile();

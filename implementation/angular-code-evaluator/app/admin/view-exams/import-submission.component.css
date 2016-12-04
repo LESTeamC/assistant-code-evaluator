@@ -14,3 +14,8 @@
 .invalid{
     background-color: #F2DEDE;
 }
+
+.submission-panel{
+    max-height: 500px;
+    overflow: scroll;
+}
