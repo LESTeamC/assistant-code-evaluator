@@ -43,7 +43,7 @@ export	class	ImportSubmissionComponent implements OnInit	{
     examSuccess(data:any){
         this.exam = data;
 
-        this.exercises = this.getExerciseNames();
+        this.exercises = this.getExerciseNames(this.exam);
     }
 
     examFail(eror:any){
@@ -135,17 +135,6 @@ export	class	ImportSubmissionComponent implements OnInit	{
 
     isOK(studentExercises: StudentExercises){
       return studentExercises.exercises.length === this.exam.exercises.length;
-    }
-
-    cancelImport(){
-        this.imported = false;
-
-        this.submissions = new Array<StudentExercises>();
-        this.fileNames = new Array<string>();
-    }
-
-    uploadFile(){
-        
     }
 
 }

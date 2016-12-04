@@ -26,3 +26,19 @@ export class ZipService {
         })
     }
 }
+
+
+    /*                    console.log(fileInZip);
+                        zip.file(fileInZip.name)
+                            .async("arraybuffer")
+                            .then((content: any) => {
+                                let buffer = new Uint8Array(content);
+                                let blob = new Blob([buffer.buffer]);
+                                // here is where I want to push this object into the filesFromZip object somehow....
+                                filesFromZip.push({
+                                    fileName: fileInZip.name,
+                                    blobURL: URL.createObjectURL(blob)
+                                });
+                            });*/
+
+
