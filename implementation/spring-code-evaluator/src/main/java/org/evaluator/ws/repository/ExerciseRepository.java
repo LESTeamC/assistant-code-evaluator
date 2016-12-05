@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 	
 	List<Exercise> findByStatus(String status);
+	
+	List<Exercise> findByStatusAndExamId (String status, Long examId);
 
 }

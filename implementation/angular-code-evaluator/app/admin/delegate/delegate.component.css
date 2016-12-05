@@ -18,3 +18,8 @@
 .form-control select{
     width: 100%;
 }
+
+.italic-red{
+    color:red;
+    font-style: italic;
+}

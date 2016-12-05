@@ -33,5 +33,7 @@ public interface ExaminerService {
     Examiner findOne(Long id);
     
     Examiner create(Examiner examiner);
+    
+    void delete(Long id);
 
 }

@@ -57,6 +57,9 @@ export class Utils {
 
     static CSV2JSON(csv:string) {
         var array = this.CSVToArray(csv);
+
+        array.splice(0, 0, ["name", "username"]);
+
         var objArray:any[] = [];
 
         for (var i = 1; i < array.length; i++) {

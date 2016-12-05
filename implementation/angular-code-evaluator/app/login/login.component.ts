@@ -43,8 +43,8 @@ export class LoginComponent {
      * @param: Account returned from API
      */
     loginSuccess(data: any) {
-        this._authService.setCredentials(this.login);
-        this._authService.login("examiner");
+        //this._authService.setCredentials(this.login);
+        this._authService.login(this.login, "examiner");
         this.errorMessage = "";
         this._router.navigate(['/examiner/dashboard']);
     }

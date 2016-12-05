@@ -24,6 +24,150 @@ pre, code{
     height:100%;
 }
 
+.panel-code{
+    max-height:600px;
+    overflow: scroll;
+}
+
+.panel-output{
+    max-height: 400px;
+    overflow: scroll;
+    font-family: 'Inconsolata', monospace !important;
+    background: black;
+    color: lightgrey;
+}
+
 .panel{
     width:100%;
+}
+
+.navbar{
+    background-color: #96858F;
+    text-align: center;
+}
+
+a i {
+    color: black;
+}
+
+.fa-home{
+    font-size: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.fa-chevron-circle-left, .fa-chevron-circle-right{
+    font-size: 30px;
+    padding-bottom: 5px;
+}
+
+.nav-button{
+    background: transparent;
+    border: none;
+}
+
+.fa {
+    color: black;
+}
+
+.gray{
+    color: gray;
+}
+
+code, pre, .panel-code{
+    margin: 0;
+    padding: 0;
+}
+
+code{
+    font-size: 12px;
+    font-family: 'Inconsolata', monospace;
+}
+
+pre{
+    background: #2F1E2E;
+}
+
+.exercise-question {
+    font-style: italic;
+    padding-bottom: 10px;
+}
+
+.question-title{
+    font-style: bold;
+    border-bottom: 1px solid grey;
+}
+
+.page-header{
+    display: inline-block;
+    padding-left: 15px;
+    width: 100%;
+    background: #6D7993;
+    color: white;
+    margin-top: 0 !important;
+}
+
+.page-header h4, .page-header h6{
+    padding-right:20px;
+    display: inline-block;
+}
+
+.student-panel h6, .student-panel h5{
+    margin: 0;
+    padding: 0;
+}
+
+.student-panel{
+    padding-bottom: 100px;
+}
+
+.green{
+    color: mediumspringgreen;
+}
+
+.red{
+    color: red;
+}
+
+.logout-btn{
+    float: right;
+    background: transparent;
+    height: 100%;
+    border:none;
+    line-height: 52px;
+}
+
+
+.Header-logo-image{
+  max-width: 52px;
+  width: auto;
+  border: 3px solid black;
+
+  padding: 2px;
+  border-radius: 50%;
+  background-color: white;
+
+  -webkit-transition: 1s cubic-bezier(.68,-.55,.265,1.55); /* Safari */
+  transition: 0.5s cubic-bezier(.68,-.55,.265,1.55);
+
+  float: left;
+  margin-left:20px;
+
+}
+
+.Header-logo-image:hover{
+  -webkit-transform: rotateZ(360deg);
+  transform: rotateZ(360deg);
+}
+
+.fa{
+    padding-right:10px;
+}
+
+.comment{
+    margin-bottom: 8px;
+}
+
+.green-border{
+    border: 2px solid limegreen;
 }

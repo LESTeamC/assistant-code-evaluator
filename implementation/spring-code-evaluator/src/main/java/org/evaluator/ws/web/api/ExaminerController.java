@@ -13,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -93,6 +94,19 @@ public class ExaminerController extends BaseController {
         
 
        
+    }
+    
+    @RequestMapping(
+            value = "/admin/examiner/{id}",
+            method = RequestMethod.DELETE)
+    public ResponseEntity<Exam> deleteExaminer(
+            @PathVariable("id") Long id) {
+        logger.info("> deleteExaminer id:{}", id);
+
+        examinerService.delete(id);
+
+        logger.info("< deleteExaminer id:{}", id);
+        return new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
     }
        
 

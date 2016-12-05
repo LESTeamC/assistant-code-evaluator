@@ -2,6 +2,7 @@ package org.evaluator.ws.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,8 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -33,7 +33,7 @@ public class Submission {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "exerciseId")
-	@JsonIgnore
+	
 	private Exercise exercise;
 
 	
@@ -63,7 +63,7 @@ public class Submission {
 	 * Total current grade of the submission
 	 */
 	@NotNull
-	private int grade;
+	private double grade = 0;
 	
 	/**
 	 * Directory path to the files of this submission
@@ -76,10 +76,16 @@ public class Submission {
 	 */
 	private String output;
 	
+	/**
+	 * comment of the submission, if its able to run
+	 */
+	private String comment;
+	
 	@OneToMany(
 			fetch = FetchType.EAGER,
+			cascade = CascadeType.ALL,
 			mappedBy ="submission")
-	@JsonIgnore
+	@JsonManagedReference
 	private Set<SubmissionCriteria> criteria;
 
 	public Long getId() {
@@ -115,11 +121,11 @@ public class Submission {
 		this.status = status;
 	}
 
-	public int getGrade() {
+	public double getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(double grade) {
 		this.grade = grade;
 	}
 
@@ -154,7 +160,14 @@ public class Submission {
 	public void setOutput(String output) {
 		this.output = output;
 	}
-	
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	
 
 }

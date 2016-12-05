@@ -17,8 +17,9 @@ import {AuthGuard} from './../shared/auth-guard.service'
         component: ExaminerComponent,
         canActivateChild: [AuthGuard],
         children: [
-            {
-                path: 'workstation',
+            {   
+                //always navigate passing the submission ID.
+                path: 'workstation/:id',
                 component: WorkstationComponent,
             },
             {

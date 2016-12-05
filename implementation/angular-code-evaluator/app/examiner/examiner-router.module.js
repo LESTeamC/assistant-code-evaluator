@@ -27,7 +27,8 @@ var ExaminerRoutingModule = (function () {
                         canActivateChild: [auth_guard_service_1.AuthGuard],
                         children: [
                             {
-                                path: 'workstation',
+                                //always navigate passing the submission ID.
+                                path: 'workstation/:id',
                                 component: workstation_component_1.WorkstationComponent,
                             },
                             {

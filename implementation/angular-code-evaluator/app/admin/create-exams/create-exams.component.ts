@@ -1,56 +1,62 @@
-import {Component, OnInit, ViewChild}	from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
-import {Exam} from './../../model/exam';
-import {Exercise} from './../../model/exercise';
-import {ExerciseCriteria} from './../../model/exercise-criteria';
-import {Student} from './../../model/student'
+import { Exam } from './../../model/exam';
+import { Exercise } from './../../model/exercise';
+import { ExerciseCriteria } from './../../model/exercise-criteria';
+import { Student } from './../../model/student'
+import { FileExercise } from './../../model/file-exercise'
 
-import {ExamService} from './../exam.service'
-import {CSVService} from './csv.service'
+import { ExamService } from './../exam.service'
+import { CSVService } from './../csv.service'
+import { UploadService } from './../upload.service'
 
-import {Utils} from './../../util/util'
+import { Utils } from './../../util/util'
 
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 
 
-@Component({	
-    selector: 'create-exam',	
-	templateUrl: 'app/admin/create-exams/create-exams.component.html',
-    styleUrls: ['app/admin/create-exams/create-exams.component.css']
+@Component({
+    selector: 'create-exam',
+    templateUrl: 'app/admin/create-exams/create-exams.component.html',
+    styleUrls: ['app/admin/create-exams/create-exams.component.css'],
 })
 /**
  * Create Exams Screen
  * @component.
  */
-export	class	CreateExamsComponent implements OnInit	{
+export class CreateExamsComponent implements OnInit {
 
     //Objects to use in Model and leter persist in Database (exam, exercises and criteria)
     private exam = new Exam();
     private exercises: Exercise[] = new Array<Exercise>();
     private criteria: ExerciseCriteria[] = new Array<ExerciseCriteria>();
     private students: any[] = new Array<any>();
-    
+
+    private exerciseFile: File = null;
+    private files: FileExercise[] = new Array<FileExercise>();
+
     //Placeholder objects to use wile user is creating exercise
     private currentExercise = new Exercise();
     private currentCriteria = new ExerciseCriteria();
 
     //Auxiliary string to place on error message.
-    private lastExamName:string;
+    private lastExamName: string;
 
     //Boolean variables for each kind of error (useful for displaying error messages)
-    private serverError:boolean;
-    private conflictError:boolean;
-    private conflictErrorExercise:boolean;
-    private weightErrorExercise:boolean;
-    private weightErrorCriteria:boolean;
-    private createdSuccess:boolean;
+    private serverError: boolean;
+    private conflictError: boolean;
+    private conflictErrorExercise: boolean;
+    private weightErrorExercise: boolean;
+    private weightErrorCriteria: boolean;
+    private createdSuccess: boolean;
 
-    constructor(private _router:Router, private examService:ExamService, private csvService: CSVService){}
+    constructor(private _router: Router, private examService: ExamService,
+        private csvService: CSVService, private uploadService: UploadService) { }
 
-    ngOnInit(){
+    ngOnInit() {
 
         //Initialize variables with FALSE on Init.
         this.serverError = false;
@@ -60,12 +66,15 @@ export	class	CreateExamsComponent implements OnInit	{
         this.weightErrorCriteria = false;
         this.weightErrorExercise = false;
 
+        //avoid error with date.
+        this.exam.date = new Date();
+
     }
 
     /**
      * Submission funtion. Add created exercises to Exam and POST on server
      */
-    onSubmit(){
+    onSubmit() {
 
         this.exam.exercises = this.exercises;
         this.exam.students = this.students;
@@ -79,17 +88,19 @@ export	class	CreateExamsComponent implements OnInit	{
      * Success Funtion. Restart variables and display success message
      * @param: Exam returned by server (created exam)
      */
-    successCreate(exam: any){
-        console.log("Exam Created successfully")
+    successCreate(exam: any) {
 
         this.conflictError = false;
         this.serverError = false;
         this.lastExamName = exam.name;
         this.createdSuccess = true;
         this.exam = new Exam();
+        this.exam.date = new Date();
         this.exercises = new Array<Exercise>();
         this.students = new Array<Student>();
-        
+
+        this.uploadFiles();
+
     }
 
     /**
@@ -98,22 +109,37 @@ export	class	CreateExamsComponent implements OnInit	{
      * Else, show a generic error message.
      * @param error object returned by API
      */
-    failCreate(error: any){
+    failCreate(error: any) {
 
-        if (error.status === 409){
+        if (error.status === 409) {
 
             this.lastExamName = this.exam.name;
             this.createdSuccess = false;
             this.serverError = false;
             this.conflictError = true;
-        }else {
+        } else {
 
             this.lastExamName = this.exam.name;
             this.createdSuccess = false;
             this.conflictError = false;
             this.serverError = true;
         }
+    }
 
+
+    uploadFiles() {
+        this.uploadService.uploadLibraries(this.createFileList())
+            .subscribe();
+    }
+
+    private createFileList(){
+        var fileList:File[] = new Array<File>();
+
+        for (let i =0 ; i < this.files.length ; i++){
+            fileList.push(this.files[i].file);
+        }
+
+        return fileList;
     }
 
     /**
@@ -121,17 +147,17 @@ export	class	CreateExamsComponent implements OnInit	{
      * Checks if name already exists;
      * Checks if weight exceeds 100
      */
-    addExercise():void{
+    addExercise(): void {
 
-        if(this.hasName(this.exercises, this.currentExercise.name) >= 0){
+        if (this.hasName(this.exercises, this.currentExercise.name) >= 0) {
             this.weightErrorExercise = false;
             this.weightErrorCriteria = false;
             this.conflictErrorExercise = true;
-        }else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100){
+        } else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100) {
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
             this.weightErrorExercise = true;
-        }else{
+        } else {
             this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
             this.currentExercise = new Exercise();
@@ -140,33 +166,56 @@ export	class	CreateExamsComponent implements OnInit	{
             this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
+
+            this.addLibraryFile(this.exerciseFile);
+            this.exerciseFile = null;
+
+            console.log(this.files);
+
             this.hideChildModal();
         }
-        
+
     }
 
     /**
      * Deletes Exercise from list
      * @param: exercise to delete;
      */
-    deleteExercise(exercise:Exercise):void{
+    deleteExercise(exercise: Exercise): void {
         let index = this.exercises.indexOf(exercise);
-        if (index > -1){
+        if (index > -1) {
             this.exercises.splice(index, 1);
         }
+
+        let indexf:number = this.findFile(exercise);
+        if (index > -1) {
+            this.files.splice(index, 1);
+        }
+
+        console.log(this.files);
+    }
+
+    private findFile(exercise:Exercise):number{
+        
+        for (let i=0; i < this.files.length; i ++){
+            if (this.files[i].exercise.name === exercise.name){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
      * Adds criteria to list;
      * Checks if total weight exceeds 100
      */
-    addCriteria(){
+    addCriteria() {
 
-        if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100){
+        if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100) {
             this.conflictErrorExercise = false;
-            this.weightErrorExercise = false; 
-            this.weightErrorCriteria = true;           
-        }else{
+            this.weightErrorExercise = false;
+            this.weightErrorCriteria = true;
+        } else {
             this.criteria.push(this.currentCriteria);
             this.currentCriteria = new ExerciseCriteria();
         }
@@ -176,9 +225,9 @@ export	class	CreateExamsComponent implements OnInit	{
      * Deletes criteria from list
      * @param: criteria to delete
      */
-    deleteCriteria(criteria:ExerciseCriteria):void{
+    deleteCriteria(criteria: ExerciseCriteria): void {
         let index = this.criteria.indexOf(criteria);
-        if (index > -1){
+        if (index > -1) {
             this.criteria.splice(index, 1);
         }
     }
@@ -189,8 +238,8 @@ export	class	CreateExamsComponent implements OnInit	{
      * @param: string name
      * @returns: -1 if false, the index if true
      */
-    private hasName(list:Exercise[], name:string):number {
-        let i:number;
+    private hasName(list: Exercise[], name: string): number {
+        let i: number;
         for (i = 0; i < list.length; i++) {
             if (list[i].name === name) {
                 return i; //Returns element position, so it exists
@@ -204,13 +253,13 @@ export	class	CreateExamsComponent implements OnInit	{
      * @param: list of exercises
      * @returns: total weight value
      */
-    private calcTotalWeight(list:Exercise[]):number {
-        let i:number;
-        let sum:number = 0;
+    private calcTotalWeight(list: Exercise[]): number {
+        let i: number;
+        let sum: number = 0;
         for (i = 0; i < list.length; i++) {
             sum += list[i].weight;
         }
-        return sum; //The element isn't in your array
+        return sum;
     };
 
     /**
@@ -218,37 +267,51 @@ export	class	CreateExamsComponent implements OnInit	{
      * @param: list of criteria
      * @returns: total weight value
      */
-    private calcTotalWeightCriteria(list:ExerciseCriteria[]):number {
-        let i:number;
-        let sum:number = 0;
+    private calcTotalWeightCriteria(list: ExerciseCriteria[]): number {
+        let i: number;
+        let sum: number = 0;
         for (i = 0; i < list.length; i++) {
             sum += list[i].weight;
         }
-        return sum; //The element isn't in your array
+        return sum;
     };
 
 
-    private uploadCSV($event:any){
+    private uploadCSV($event: any) {
 
-        var file:any = $event.target.files[0];
+        var file: any = $event.target.files[0];
         var subscription = this.csvService.getStudentsFromCSV(file)
-                                .subscribe((data:any) => this.students = data);
+            .subscribe((data: any) => this.students = data);
 
     }
 
-    @ViewChild('exerciseModal') public childModal:ModalDirective;
- 
-     /**
-     * Shows modal
-     */
-    public showChildModal():void {
+    addLibraryFile(file: File) {
+        this.files.push(new FileExercise(file, this.currentExercise));
+    }
+
+    selectFile($event: any) {
+        this.exerciseFile = $event.target.files[0];
+        console.log($event.target.files[0]);
+    }
+
+    @ViewChild('exerciseModal') public childModal: ModalDirective;
+
+    /**
+    * Shows modal
+    */
+    public showChildModal(): void {
         this.childModal.show();
     }
-    
+
     /**
      * Hides modal
      */
-    public hideChildModal():void {
+    public hideChildModal(): void {
         this.childModal.hide();
+    }
+
+    private closeModal():void{
+        this.exerciseFile = null;
+        this.hideChildModal(); 
     }
 }	

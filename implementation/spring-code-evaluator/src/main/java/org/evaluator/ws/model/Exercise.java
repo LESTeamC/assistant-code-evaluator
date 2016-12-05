@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -23,6 +24,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Exercise {
+	
+	public Exercise(){};
+	
+	public Exercise(String question, String name, int weight){
+		this.question = question;
+		this.name = name;
+		this.weight = weight;
+	}
 
 	/**
 	 * The default serial version UID.
@@ -122,6 +131,13 @@ public class Exercise {
 			mappedBy ="exercise")
 	@JsonManagedReference
 	private Set<ExerciseCriteria> criteria;
+	
+	@OneToMany(
+			fetch = FetchType.EAGER, 
+			cascade = CascadeType.ALL,
+			mappedBy ="exercise")
+	@JsonIgnore
+	private Set<Submission> submissions;
 
 	
 	public Long getId() {
@@ -234,6 +250,14 @@ public class Exercise {
 
 	public void setExamname(String examname) {
 		this.examname = examname;
+	}
+
+	public Set<Submission> getSubmissions() {
+		return submissions;
+	}
+
+	public void setSubmissions(Set<Submission> submissions) {
+		this.submissions = submissions;
 	}	
 	
 	

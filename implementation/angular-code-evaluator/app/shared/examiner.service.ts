@@ -78,5 +78,47 @@ export class ExaminerService {
             
     }
 
+//Rocket
+    getExercisesByExaminer(examinerId:any){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .get(this.url+`/api/exercises_by_examiner/${examinerId}`, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
+
+    //Rocket
+    getSubmissionsByExercise(exerciseID:any){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .get(this.url+`/api/submissions_by_exercise/${exerciseID}`, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+    }
+
+
+    deleteExaminer(id:number){
+        
+        
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .delete(this.url+`/admin/examiner/${id}`, {headers : this.headers} )
+    }
+
     
 }

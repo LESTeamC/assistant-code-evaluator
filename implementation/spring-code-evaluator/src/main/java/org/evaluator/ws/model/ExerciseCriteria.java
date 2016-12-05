@@ -1,7 +1,8 @@
 package org.evaluator.ws.model;
 
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ExerciseCriteria {
@@ -53,6 +54,13 @@ public class ExerciseCriteria {
 	 */
 	@NotNull
 	private int weight;
+	
+	@OneToMany(
+			fetch = FetchType.EAGER,
+			cascade = CascadeType.ALL,
+			mappedBy ="criteria")
+	@JsonIgnore
+	private List<SubmissionCriteria> criteria;
 
 	public Long getId() {
 		return id;

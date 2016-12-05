@@ -37,7 +37,7 @@ var LoginAdminComponent = (function () {
      */
     LoginAdminComponent.prototype.loginSuccess = function (data) {
         this._authService.setCredentials(this.login);
-        this._authService.login("admin");
+        this._authService.login(this.login, "admin");
         this.errorMessage = "";
         this._router.navigate(['/admin/view-exams']);
     };

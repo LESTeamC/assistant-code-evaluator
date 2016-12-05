@@ -1,8 +1,9 @@
+import {ExerciseCriteria} from './exercise-criteria'
 
 export class SubmissionCriteria {
 
     public id?: number;
-    public name?: string;
     public grade?: number;
+    public criteria?: ExerciseCriteria;
 
 }

@@ -57,7 +57,7 @@ SELECT Exercise.id, 'code compiled', 3, 50
 FROM Exercise WHERE Exercise.name='Exercise1';
 
 INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) 
-SELECT Exercise.id, 'two if blocks', 3, 50 
+SELECT Exercise.id, 'two if blocks', 6, 50 
 FROM Exercise WHERE Exercise.name='Exercise1';
 
 INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) 
@@ -96,29 +96,33 @@ FROM Student s, Exam e WHERE s.name='Luis' and e.name='Exam2';
 
 -- Submission DATA
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two'
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two', ""
 FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' , 'one two'
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' , 'one two', ""
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise3';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' , 'one two'
-FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' , 'one two', ""
+FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise3';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' , 'one two'
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' , 'one two', ""
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise3';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions', 'one two'
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions', 'one two', ""
 FROM Exercise ex, Student s WHERE s.name='Luis' and ex.name='Exercise3';
 
 
 -- Submission Criteria Data
 
 INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade)
-SELECT s.id, ec.id, 0
+SELECT s.id, ec.id, -1
 FROM Submission s, ExerciseCriteria ec WHERE s.id=1  and ec.id=1;
+
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade)
+SELECT s.id, ec.id, -1
+FROM Submission s, ExerciseCriteria ec WHERE s.id=1  and ec.id=2;

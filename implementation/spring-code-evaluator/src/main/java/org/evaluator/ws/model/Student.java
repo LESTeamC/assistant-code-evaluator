@@ -1,7 +1,5 @@
 package org.evaluator.ws.model;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +18,6 @@ public class Student {
 	/**
 	 * Student name
 	 */
-	@NotNull
 	private String name;
 
 	/**
