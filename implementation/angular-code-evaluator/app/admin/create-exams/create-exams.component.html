@@ -263,9 +263,9 @@
                   #name="ngModel"
                   name="exercise-runcommand">
           </div>
-           <label class="btn blue-bg btn-file">
+<!--           <label class="btn blue-bg btn-file">
               Import Libraries... <input id="library-input" type="file" style="display: none;" (change)="selectFile($event)" accept=".zip">
-          </label>
+          </label>-->
           <button type="button" class="btn login-btn" [disabled]="!createExerciseForm.valid" (click)="addExercise()">Create Exercise</button>
           <p *ngIf="(exerciseFile === null) ? '' : exerciseFile.name" ><strong>Added: </strong>{{exerciseFile.name}}</p>
         </form>

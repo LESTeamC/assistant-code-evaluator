@@ -27,7 +27,7 @@
           <tr *ngFor="let s of submissions" [class.invalid]="!isOK(s)">
             <td>{{s.username}}</td>
             <td>{{ !!(s.name) ? s.name : "" }}</td>
-            <td *ngFor="let exe of exercises; let i = index">
+            <td *ngFor="let exe of exercises">
               <i *ngIf="!s.hasExercise(exe)" class="fa fa-times-circle" aria-hidden="true"></i>
               <i *ngIf="s.hasExercise(exe)" class="fa fa-check-circle" aria-hidden="true"></i>
             </td>
