@@ -29,6 +29,10 @@ public class ExaminerController extends BaseController {
 	@Autowired
 	private ExaminerService examinerService;
 	
+	//Autowire the SendEmail Class
+	@Autowired
+	private SendEmail sendEmail;
+	
 	@RequestMapping(
 			value = "/api/examiner",
 			method = RequestMethod.GET,
@@ -66,6 +70,10 @@ public class ExaminerController extends BaseController {
         try{
         	Examiner savedExaminer = examinerService.create(examiner);
         	logger.info("< createExaminer");
+		
+		//Params to send email to examiner //Email//Username//Password//
+		sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), examiner.getAccount().getPassword().toString());
+			
         	
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.CREATED);
             
