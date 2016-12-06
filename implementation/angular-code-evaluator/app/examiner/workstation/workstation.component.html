@@ -94,7 +94,7 @@
     <div class="col-xs-6 col-md-4 student-panel"></div>
     <div class="col-xs-6 col-md-4 student-panel">
         <h6>Current Score: {{calcTotalGrade(criteria)}}%, or
-            {{calcTotalGrade(criteria) * 20 * exercise.weight * 0.0001}} values (out of 20)</h6>
+            {{calcGradeInValues(criteria)}} values (out of 20)</h6>
         <h6>This exercise is worth {{exercise.weight}}% of the Exam</h6>
         <h6>Status: <span [class.green]="isSubmitted()" [class.red]="!isSubmitted()">{{submission.status | submissionStatus}}</span></h6>
     </div>

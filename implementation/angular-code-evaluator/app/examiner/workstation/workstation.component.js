@@ -14,6 +14,7 @@ var submission_1 = require('./../../model/submission');
 var exercise_1 = require('./../../model/exercise');
 var exam_1 = require('./../../model/exam');
 var student_1 = require('./../../model/student');
+var testdata_1 = require('./../../util/testdata');
 var submission_service_1 = require('./../submission.service');
 var exam_service_1 = require('./../../admin/exam.service');
 var auth_service_1 = require('./../../shared/auth.service');
@@ -67,11 +68,11 @@ var WorkstationComponent = (function () {
         this.exercise = data.exercise;
         this.student = data.student;
         this.comment = data.comment;
-        this.output = data.output;
-        this.codeString = data.code;
+        //this.output = data.output;
+        //this.codeString = data.code;
         //FOR DEMONSTRATION ONLY!!!
-        //this.codeString = TestData.codeBlock;
-        //this.output = TestData.longString;
+        this.codeString = testdata_1.TestData.codeBlock;
+        this.output = testdata_1.TestData.longString;
         this.codeElement.nativeElement.textContent = this.codeString;
         hljs.highlightBlock(this.codeElement.nativeElement);
         this.getExam(data.id);
@@ -113,6 +114,19 @@ var WorkstationComponent = (function () {
         this.submissionService.gradeSubmission(this.submission)
             .subscribe(function (data) { return _this.gradeSuccess(data); }, function (error) { return _this.gradeFail(error); });
     };
+    WorkstationComponent.prototype.simpleSave = function () {
+        var _this = this;
+        //Set variables in main submission object
+        this.submission.comment = this.comment;
+        this.submission.exercise = this.exercise;
+        this.submission.criteria = this.criteria;
+        this.submission.grade = this.calcTotalGrade(this.criteria);
+        this.submissionService.gradeSubmission(this.submission)
+            .subscribe(function (data) { return _this.simpleGradeSuccess(data); }, function (error) { return _this.gradeFail(error); });
+    };
+    WorkstationComponent.prototype.simpleGradeSuccess = function (data) {
+        this.gradeError = false;
+    };
     WorkstationComponent.prototype.gradeSuccess = function (data) {
         this.submission = data;
         this.exercise = data.exercise;
@@ -147,7 +161,7 @@ var WorkstationComponent = (function () {
      * @returns percentage value for grade
      */
     WorkstationComponent.prototype.calcGrade = function (num, gama) {
-        return num * 100 / gama;
+        return Math.round(((num * 100 / gama) * 100.0) / 100.0);
     };
     /**
      * Auxiliary function to grade from list of criteria
@@ -162,7 +176,11 @@ var WorkstationComponent = (function () {
             //ignore this error
             grade += ((parseInt(subGrade) / s.criteria.gama) * s.criteria.weight);
         }
-        return (grade < 0) ? 0 : grade;
+        return (grade < 0) ? 0 : Math.round(grade * 100.0) / 100.0;
+    };
+    WorkstationComponent.prototype.calcGradeInValues = function (subCriteria) {
+        return Math.round(this.calcTotalGrade(subCriteria) * 20
+            * 0.0001 * 100.0 * this.exercise.weight) / 100.0;
     };
     /**
      * Auxiliary function to tell if the grading process is incomplete
@@ -230,11 +248,15 @@ var WorkstationComponent = (function () {
             }
         }
         else if (this.criteria.length > 0) {
-            this.saveEvaluation();
+            this.simpleSave();
             this.navigationService.navigateNext();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }
         else {
             this.navigationService.navigateNext();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }
     };
     WorkstationComponent.prototype.navigatePrevious = function () {
@@ -246,11 +268,15 @@ var WorkstationComponent = (function () {
             }
         }
         else if (this.criteria.length > 0) {
-            this.saveEvaluation();
+            this.simpleSave();
             this.navigationService.navigatePrevious();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }
         else {
             this.navigationService.navigatePrevious();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }
     };
     __decorate([

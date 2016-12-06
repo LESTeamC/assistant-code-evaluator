@@ -141,6 +141,25 @@ export	class	WorkstationComponent implements OnInit	{
                            error => this.gradeFail(error));
     }
 
+
+    simpleSave(){
+        //Set variables in main submission object
+        this.submission.comment = this.comment;
+        this.submission.exercise = this.exercise;
+        this.submission.criteria = this.criteria;
+        this.submission.grade = this.calcTotalGrade(this.criteria);
+
+        this.submissionService.gradeSubmission(this.submission)
+                .subscribe(data => this.simpleGradeSuccess(data),
+                           error => this.gradeFail(error));
+    }
+
+    simpleGradeSuccess(data:any){
+
+        this.gradeError = false;
+
+    }
+
     gradeSuccess(data:any){
 
         this.submission = data;
@@ -184,7 +203,7 @@ export	class	WorkstationComponent implements OnInit	{
      * @returns percentage value for grade
      */
     private calcGrade(num:any, gama:any):number{
-        return num * 100 / gama;
+        return Math.round(((num * 100 / gama) * 100.0) / 100.0);
     }
 
 
@@ -203,8 +222,14 @@ export	class	WorkstationComponent implements OnInit	{
             grade += ((parseInt(subGrade) / s.criteria.gama) * s.criteria.weight);
         }
 
-        return (grade < 0) ? 0: grade;
+        return (grade < 0) ? 0: Math.round(grade * 100.0) / 100.0;
 
+    }
+
+    private calcGradeInValues(subCriteria:SubmissionCriteria[]):number{
+    
+        return Math.round(this.calcTotalGrade(subCriteria) * 20
+                * 0.0001 * 100.0 * this.exercise.weight) / 100.0;
     }
 
     /**
@@ -287,10 +312,14 @@ export	class	WorkstationComponent implements OnInit	{
             }
 
         }else if (this.criteria.length > 0){
-            this.saveEvaluation();
+            this.simpleSave();
             this.navigationService.navigateNext();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }else{
             this.navigationService.navigateNext();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }
 
         
@@ -308,10 +337,14 @@ export	class	WorkstationComponent implements OnInit	{
             }           
 
         }else if (this.criteria.length > 0){
-            this.saveEvaluation();
+            this.simpleSave();
             this.navigationService.navigatePrevious();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }else{
             this.navigationService.navigatePrevious();
+            this.gradeError = false;
+            this.gradeSuccess_ = false;
         }
         
     }
