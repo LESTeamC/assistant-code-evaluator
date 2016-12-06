@@ -28,6 +28,7 @@ var csv_service_1 = require('./csv.service');
 var upload_service_1 = require('./upload.service');
 var zip_service_1 = require('./zip.service');
 var status_pipe_1 = require('./../shared/status.pipe');
+var orderby_pipe_1 = require('./view-exams/orderby.pipe');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -50,7 +51,8 @@ var AdminModule = (function () {
                 global_view_component_1.GlobalViewComponent,
                 delegate_component_1.DelegateComponent,
                 import_submission_component_1.ImportSubmissionComponent,
-                status_pipe_1.StatusPipe
+                status_pipe_1.StatusPipe,
+                orderby_pipe_1.OrderByPipe
             ],
             providers: [
                 exam_service_1.ExamService,

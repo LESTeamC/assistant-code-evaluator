@@ -1,4 +1,4 @@
-<h5>Available exams in the platform</h5>
+<h5>Available exams in the platform:</h5>
 
 <alert type="info" dismissible="true" *ngIf="exams.length<=0">
   There are no exams in the Platform.
@@ -14,6 +14,13 @@
   There are no grades available for the selected Exam
 </alert>
 
+<label for="disabledSelect">Order:</label>
+<select class="form-control exam-filter" (change)="changeSorter($event.target.value)">
+    <option value="date" selected>Date</option>
+    <option value="status">Status</option>
+    <option value="name">Name</option>
+</select>
+
 <div *ngIf="exams.length > 0" style="overflow-x:auto;" class="table-responsive">
   <table class="table">
     <thead>
@@ -28,7 +35,7 @@
       </tr>
   </thead>
     <tbody>
-      <tr *ngFor="let ex of exams" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
+      <tr *ngFor="let ex of exams | sort:selectedSorter" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
           <td>{{ex.name}}</td>
           <td>{{ex.degree}}</td> 
           <td>{{ex.course}}</td>
@@ -50,7 +57,7 @@
 
   <button class="btn blue-bg global-btn" type="submit" (click)="globalView()" [disabled]="!this.selectedExam.id">Global View</button>
 
-  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()" [disabled]="true">Import Submissions</button>
+  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()" [disabled]="!this.selectedExam.id">Import Submissions</button>
 </div>
 
 <!--Modal for delete exam-->

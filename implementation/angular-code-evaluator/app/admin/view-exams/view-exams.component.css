@@ -33,3 +33,8 @@ th {
 .text-center{
     padding:20px;
 }
+
+.exam-filter{
+    margin-bottom:20px;
+    width: 150px;
+}
