@@ -2,6 +2,8 @@ package org.evaluator.ws.web.api;
 
 import java.util.Collection;
 
+import javax.mail.MessagingException;
+
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.service.ExaminerService;
@@ -68,11 +70,13 @@ public class ExaminerController extends BaseController {
         logger.info("> createExaminer");
         
         try{
+        	
+        	String pw = examiner.getAccount().getPassword();
         	Examiner savedExaminer = examinerService.create(examiner);
         	logger.info("< createExaminer");
 		
-		//Params to send email to examiner //Email//Username//Password//
-		sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), examiner.getAccount().getPassword().toString());
+        	//Params to send email to examiner //Email//Username//Password//
+        	sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
 			
         	
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.CREATED);
@@ -120,6 +124,6 @@ public class ExaminerController extends BaseController {
 
 	 //Method to send the Login info to the examiners with the credentials
 	public void sendEMail(String to, String username, String password) throws MessagingException {
-		sendEmail.send(to,"Assistent Code Evaluator", username, password);
+		sendEmail.send(to,"Assistant Code Evaluator", username, password);
 	}
 }

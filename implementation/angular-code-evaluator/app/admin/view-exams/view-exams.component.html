@@ -14,8 +14,8 @@
   There are no grades available for the selected Exam
 </alert>
 
-<label for="disabledSelect">Order:</label>
-<select class="form-control exam-filter" (change)="changeSorter($event.target.value)">
+<label *ngIf="exams.length > 0" for="disabledSelect">Order:</label>
+<select *ngIf="exams.length > 0" class="form-control exam-filter" (change)="changeSorter($event.target.value)">
     <option value="date" selected>Date</option>
     <option value="status">Status</option>
     <option value="name">Name</option>
