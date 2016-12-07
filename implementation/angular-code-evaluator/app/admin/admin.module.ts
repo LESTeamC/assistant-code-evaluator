@@ -23,6 +23,8 @@ import { UploadService } from './upload.service'
 import { ZipService } from './zip.service'
 
 import { StatusPipe } from './../shared/status.pipe'
+import { OrderByPipe } from './view-exams/orderby.pipe'
+
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { StatusPipe } from './../shared/status.pipe'
     GlobalViewComponent,
     DelegateComponent,
     ImportSubmissionComponent,
-    StatusPipe
+    StatusPipe,
+    OrderByPipe
   ],
   providers: [
     ExamService,

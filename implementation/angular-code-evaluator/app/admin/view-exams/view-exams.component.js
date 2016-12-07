@@ -25,6 +25,7 @@ var ViewExamsComponent = (function () {
         this.deleteSuccess = false;
         this.deleteFail = false;
         this.exportFail = false;
+        this.selectedSorter = "date";
         this.messageEdit = '';
         this.messageExport = '';
     }
@@ -105,6 +106,9 @@ var ViewExamsComponent = (function () {
         return array.filter(function (el) {
             return el.id !== id;
         });
+    };
+    ViewExamsComponent.prototype.changeSorter = function (sorter) {
+        this.selectedSorter = sorter;
     };
     __decorate([
         core_1.ViewChild('deleteModal'), 

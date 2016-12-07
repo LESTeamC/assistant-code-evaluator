@@ -28,6 +28,8 @@ export	class	ViewExamsComponent implements OnInit	{
     private deleteSuccess:boolean = false;
     private deleteFail: boolean = false;
     private exportFail: boolean = false;
+    
+    private selectedSorter:string = "date";
 
     messageEdit='';
     messageExport='';
@@ -140,5 +142,9 @@ export	class	ViewExamsComponent implements OnInit	{
         return array.filter(function(el) {
             return el.id !== id;
         });
+    }
+
+    changeSorter(sorter:string){
+        this.selectedSorter = sorter;
     }
 }	

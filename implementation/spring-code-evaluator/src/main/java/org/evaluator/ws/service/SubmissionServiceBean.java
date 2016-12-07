@@ -82,11 +82,12 @@ public class SubmissionServiceBean implements SubmissionService {
             throw new NoResultException("Requested entity not found.");
         }
         
+
+        //this.updateExamAndExerciseStatus(updatedSubmission);
+        this.updateExamAndExercise(submissionToUpdate);
+        
         submission.setStatus("C");
         Submission updatedSubmission = submissionRepository.save(submission);
-        
-        //this.updateExamAndExerciseStatus(updatedSubmission);
-        this.updateExamAndExercise(updatedSubmission);
 
         logger.info("< updateSubmission id:{}", updatedSubmission.getId());
         return updatedSubmission;
@@ -143,7 +144,7 @@ public class SubmissionServiceBean implements SubmissionService {
     	Exercise exerciseToUpdate = exerciseRepository.findOne(submission.getExercise().getId());
     	Exam examToUpdate = examRepository.findById(submission.getExercise().getExam().getId());
     	
-    	exerciseToUpdate.setProgress(exerciseToUpdate.getProgress() + 1);
+    	if (submission.getStatus().equals("O")) exerciseToUpdate.setProgress(exerciseToUpdate.getProgress() + 1);
     	
     	if (exerciseToUpdate.getProgress() == exerciseToUpdate.getNsubmissions()){
     		exerciseToUpdate.setStatus("C");
