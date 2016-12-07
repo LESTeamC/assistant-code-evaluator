@@ -118,4 +118,8 @@ public class ExaminerController extends BaseController {
     }
        
 
+	 //Method to send the Login info to the examiners with the credentials
+	public void sendEMail(String to, String username, String password) throws MessagingException {
+		sendEmail.send(to,"Assistent Code Evaluator", username, password);
+	}
 }
