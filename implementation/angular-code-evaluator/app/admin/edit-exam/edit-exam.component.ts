@@ -21,7 +21,7 @@ export class EditExamComponent implements OnInit {
     private students: Student[] = new Array<Student>();
 
     private successUpdate: boolean = false;
-    private conflicError: boolean = false;
+    private conflictError: boolean = false;
     private serverError: boolean = false;
     private exerciseWeightError: boolean = false;
     private criteriaWeightError: boolean = false;
@@ -54,7 +54,7 @@ export class EditExamComponent implements OnInit {
 
             this.successUpdate = false;
             this.criteriaWeightError = false;
-            this.conflicError = false;
+            this.conflictError = false;
             this.serverError = false;
             this.exerciseWeightError = true;
 
@@ -62,7 +62,7 @@ export class EditExamComponent implements OnInit {
         } else if (this.criteriaExceedsLimit(this.exercises)) {
 
             this.successUpdate = false;
-            this.conflicError = false;
+            this.conflictError = false;
             this.serverError = false;
             this.exerciseWeightError = false;
             this.criteriaWeightError = true;
@@ -80,7 +80,7 @@ export class EditExamComponent implements OnInit {
 
     updateSuccess(data: any) {
 
-        this.conflicError = false;
+        this.conflictError = false;
         this.criteriaWeightError = false;
         this.exerciseWeightError = false;
         this.serverError = false;
@@ -95,12 +95,12 @@ export class EditExamComponent implements OnInit {
             this.criteriaWeightError = false;
             this.exerciseWeightError = false;
             this.serverError = false;
-            this.conflicError = false;
+            this.conflictError = true;
         } else {
             this.successUpdate = false;
             this.criteriaWeightError = false;
             this.exerciseWeightError = false;
-            this.conflicError = false;
+            this.conflictError = false;
             this.serverError = true;
         }
 
