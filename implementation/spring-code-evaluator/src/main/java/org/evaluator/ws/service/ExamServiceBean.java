@@ -292,20 +292,47 @@ public class ExamServiceBean implements ExamService {
             throw new NoResultException("Requested entity not found.");
         }
         
-        Exam updatedExam = examRepository.save(exam);
+        examToUpdate = this.generateNewExam(exam, examToUpdate);
+        
+        Exam updatedExam = examRepository.save(examToUpdate);
         this.updateGrades(updatedExam);
 
         logger.info("< updateExam id:{}", exam.getId());
         return updatedExam;
     }
     
+    private Exam generateNewExam(Exam exam, Exam examToUpdate){
+    	
+    	examToUpdate.setName(exam.getName());
+    	examToUpdate.setDegree(exam.getDegree());
+    	examToUpdate.setCourse(exam.getCourse());
+    	examToUpdate.setDate(exam.getDate());
+    	examToUpdate.setLanguage(exam.getLanguage());
+    	
+    	for (Exercise e : examToUpdate.getExercises()){
+    		for (Exercise ex : exam.getExercises()){
+    			if(e.getId() == ex.getId()){
+    				e.setWeight(ex.getWeight());
+    			}
+    			
+    			for(ExerciseCriteria ec : e.getCriteria()){
+    				for (ExerciseCriteria exc: ex.getCriteria()){
+    					if (ec.getId() == exc.getId()){
+    						ec.setWeight(exc.getWeight());
+    					}
+    				}
+    			}
+    		}
+    	}
+    	
+    	return examToUpdate;
+    	
+}
+
+    
     private void updateGrades(Exam examToUpdate){
     	
     	List<Submission> submissions = submissionRepository.findByExamIdOrderByStudentId(examToUpdate.getId());
-    	
-    	//Update final grade of each submission
-    	
-    	// 1. For each submission:
     	
     	for (Submission s : submissions){
     		double grade = this.calculateGrade(s);
@@ -322,10 +349,10 @@ public class ExamServiceBean implements ExamService {
     	for (SubmissionCriteria s : submission.getCriteria()){
     		
     		ExerciseCriteria criteria = s.getCriteria();
+    		
     		if(s.getGrade() >= 0){
     			grade += (s.getGrade() / criteria.getGama()) * criteria.getWeight();
     		}
-    		
     	}
     	
     	return grade;

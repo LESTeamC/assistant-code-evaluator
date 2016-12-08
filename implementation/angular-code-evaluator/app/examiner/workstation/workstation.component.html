@@ -56,12 +56,12 @@
                         <label for="example-text-input" class="col-xs-7 col-form-label">{{crit.criteria.description}}</label>
                         <div class="col-xs-3">
                             <select class="form-control form-control-sm"
-                                    [(ngModel)]="criteria[i].grade" 
-                                    #name="ngModel" 
+                                    [value]="criteria[i].grade" 
+                                    (change) = "criteria[i].grade = $event.target.value"
                                     name="grade" 
                                     required>
                                 <option *ngFor="let num of createArray(crit.criteria.gama)" 
-                                        ([ngModel])="crit.grade"
+                                        
                                         name="grade"
                                          >{{num}}</option>
                             </select>

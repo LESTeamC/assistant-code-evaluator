@@ -61,6 +61,7 @@ alert span{
 
 .btn-long{
     width: 100%;
+    margin-top: 20px;
 }
 
 .date-header{
@@ -71,4 +72,9 @@ alert span{
 .students-panel{
     max-height: 500px;
     overflow: scroll;
+}
+
+h5, h6{
+    width: 100%;
+    border-bottom: 1px solid black;
 }

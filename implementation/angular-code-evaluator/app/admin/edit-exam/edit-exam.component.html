@@ -1,7 +1,19 @@
-<div class="row">
-    <div class="col-sm-12 col-md-6" style="text-align:center;">
-        <form (ngSubmit)="onSubmit()" #editExamForm="ngForm">
-            <div class="input-group" [class.error]="false">
+<alert type="success" dismissible="true"
+       *ngIf="successUpdate">The Exam was updated successfully</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="conflictError">There is already an exam with the name "<span>{{exam.name}}". </span>Please chose another</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="exerciseWeightError">Total sum of exercises' weight must equal 100%.</alert>
+<alert type="danger" dismissible="true"
+       *ngIf="criteriaWeightError">Total sum of criteria's weight per exercise must equal 100%.</alert>
+
+<form (ngSubmit)="onSubmit()" #editExamForm="ngForm">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6" style="text-align:center;">
+            <div class="input-group" [class.error]="conflicError">
                 <span class="input-group-addon" id="exam-name">Exam Name</span>
                 <input type="text" class="form-control" [(ngModel)]="exam.name" name="name" #name="ngModel" required>
             </div>
@@ -30,54 +42,85 @@
                 <p class="date-header">Date:</p>
                 <datepicker [(ngModel)]="exam.date" [showWeeks]="false" name="date" #name="ngModel"></datepicker>
             </div>
-            <button class="btn blue-bg btn-long" type="submit" [disabled]="!editExamForm.valid">Submit</button>
-        </form>
-    </div>
 
-    <div class="col-sm-12 col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading blue-bg">Students</div>
-            <div class="panel-body students-panel">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead *ngIf="students.length>0">
-                            <tr>
-                                <th>Name</th>
-                                <th>Username</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let student of students">
-                                <td>{{student.name}}</td>
-                                <td>{{student.username}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading blue-bg">Students</div>
+                <div class="panel-body students-panel">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead *ngIf="students.length>0">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let student of students">
+                                    <td>{{student.name}}</td>
+                                    <td>{{student.username}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
-<accordion [closeOthers]="oneAtATime">
-    <accordion-group heading="Static Header, initially expanded" [isOpen]="true" [isDisabled]="false">
-        This content is straight in the template.
-    </accordion-group>
-    <accordion-group [heading]="hello">
-        HELLO
-    </accordion-group>
-    <accordion-group heading="Dynamic Body Content">
-        <p>The body of the accordion group grows to fit the contents</p>
-        <button type="button" class="btn btn-primary btn-sm">Add Item</button>
-        <div>item</div>
-    </accordion-group>
-    <accordion-group #group [isOpen]="true">
-        <div accordion-heading>
-            I can have markup, too!
-            <i class="pull-right glyphicon"></i>
-        </div>
-        This is just some content to illustrate fancy headings.
-    </accordion-group>
-</accordion>
+    <div class="row">
+        <h5>Exercises</h5>
+        <accordion [closeOthers]="true" *ngIf="exercises.length > 0">
+            <accordion-group *ngFor="let ex of exercises let exIndex=index" [heading]="ex.name" [isOpen]="false" [isDisabled]="false">
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-xs-3 col-form-label">Question</label>
+                    <div class="col-xs-9">
+                        {{ex.question}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-xs-3 col-form-label">Weight</label>
+                    <div class="col-xs-9">
+                        <input style="width: 60px !important;" class="form-control" type="number" [value]="ex.weight" (input)="exercises[exIndex].weight = $event.target.value" name="exercise-weight" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-xs-3 col-form-label">Compile Command</label>
+                    <div class="col-xs-9">
+                        <code>{{ex.commandbuild}}</code>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-xs-3 col-form-label">Execution Command</label>
+                    <div class="col-xs-9">
+                        <code>{{ex.commandrun}}</code>
+                    </div>
+                </div>
+                <h6>Criteria</h6>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead *ngIf="ex.criteria.length>0">
+                            <tr>
+                                <th>Description</th>
+                                <th>Gama</th>
+                                <th>Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let crit of exercises[exIndex].criteria let critIndex=index;">
+                                <td>{{crit.description}}</td>
+                                <td>{{crit.gama}}</td>
+                                <td>
+                                    <input style="width: 60px !important;" class="form-control" type="number" [value]="exercises[exIndex].criteria[critIndex].weight" (input)="exercises[exIndex].criteria[critIndex].weight = $event.target.value" name="criteria-weight" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <button class="btn blue-bg btn-long" type="submit" [disabled]="!editExamForm.valid">Submit</button>
+</form>
