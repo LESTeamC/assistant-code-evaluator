@@ -2,6 +2,18 @@
     Select an Exercise and pick an Examiner. The selected examiner will see this exercise in his/her dashboard.
 </alert>
 
+<alert type="danger" *ngIf="failedDelegation" dismissible="true">
+    Failed to Delegate Exercise.
+</alert>
+
+<alert type="success" *ngIf="successDelegation" dismissible="true">
+    Successfully delegated exercise {{lastDelegatedExercise.name}} to {{lastDelegatedExercise.examiner.name}}
+</alert>
+
+<alert type="success" *ngIf="successUndelegation" dismissible="true">
+    Successfully undelegated exercise {{lastDelegatedExercise.name}}
+</alert>
+
 <div class="panel panel-default">
     <div class="panel-heading">Open Exercises</div>
     <div class="panel-body criteria-panel">
@@ -28,22 +40,10 @@
                     </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn" (click)="showChildModal()" [disabled]="!this.selectedExercise.id">Assign Exercise</button>
         </div>
     </div>
 </div>
-
-<alert type="danger" *ngIf="failedDelegation" dismissible="true">
-    Failed to Delegate Exercise.
-</alert>
-
-<alert type="success" *ngIf="successDelegation" dismissible="true">
-    Successfully delegated exercise {{lastDelegatedExercise.name}} to {{lastDelegatedExercise.examiner.name}}
-</alert>
-
-<alert type="success" *ngIf="successUndelegation" dismissible="true">
-    Successfully undelegated exercise {{lastDelegatedExercise.name}}
-</alert>
+<button type="button" class="btn" (click)="showChildModal()" [disabled]="!this.selectedExercise.id">Assign Exercise</button>
 
 <!--MODAL for Delegate exercise-->
 

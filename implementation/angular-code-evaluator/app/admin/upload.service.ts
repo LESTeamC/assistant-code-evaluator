@@ -15,7 +15,7 @@ export class UploadService {
 
     constructor(private http:Http, private authService:AuthService) { }
 
-    uploadLibraries(files:Array<File>){
+    uploadLibraries(files:Array<File>, exercisesToken:string){
 
         var formData = new FormData();
 
@@ -33,7 +33,7 @@ export class UploadService {
                 formData.append("uploadfile", files[i]);
             }
             return this.http
-                .post(this.url + '/api/uptest', formData, {headers : this.headers} )
+                .post(this.url + '/api/uptest?token={$exercisesToken}', formData, {headers : this.headers} )
         }
 
     }

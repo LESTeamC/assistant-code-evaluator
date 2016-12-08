@@ -14,6 +14,7 @@ var AppComponent = (function () {
     function AppComponent(viewContainerRef, router) {
         this.viewContainerRef = viewContainerRef;
         this.router = router;
+        this.spin = true;
         this.viewContainerRef = viewContainerRef;
         this.router.navigate(['/login']);
     }

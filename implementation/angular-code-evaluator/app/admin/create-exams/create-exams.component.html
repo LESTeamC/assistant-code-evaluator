@@ -7,7 +7,8 @@
        *ngIf="conflictError">There is already an exam with the name "<span>{{lastExamName}}". </span>Please chose another</alert>
 <alert type="danger" dismissible="true"
        *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
-
+<alert type="danger" dismissible="true"
+       *ngIf="totalWeightErrorExercise">Total sum of exercises' weight must equal 100%.</alert>
 <!--Left side CREATE EXAM Form-->
 
 <form (ngSubmit)="onSubmit()" #createExamForm="ngForm">
@@ -263,9 +264,9 @@
                   #name="ngModel"
                   name="exercise-runcommand">
           </div>
-<!--           <label class="btn blue-bg btn-file">
+           <label class="btn blue-bg btn-file">
               Import Libraries... <input id="library-input" type="file" style="display: none;" (change)="selectFile($event)" accept=".zip">
-          </label>-->
+          </label>
           <button type="button" class="btn login-btn" [disabled]="!createExerciseForm.valid" (click)="addExercise()">Create Exercise</button>
           <p *ngIf="(exerciseFile === null) ? '' : exerciseFile.name" ><strong>Added: </strong>{{exerciseFile.name}}</p>
         </form>
@@ -277,6 +278,8 @@
        *ngIf="weightErrorExercise">Total weight exceeds 100%</alert>
        <alert type="danger" dismissible="true"
        *ngIf="weightErrorCriteria">Total weight exceeds 100%</alert>
+        <alert type="danger" dismissible="true"
+       *ngIf="totalWeightErrorCriteria">Total weight of criteria must be 100%</alert>
       </div>
     </div>
   </div>

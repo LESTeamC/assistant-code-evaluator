@@ -7,6 +7,7 @@ export class FileExercise {
         this.exercise = exercise;
     }
 
-    public file: File;
-    public exercise: Exercise;
+    public id?: number;
+    public file?: File;
+    public exercise?: Exercise;
 }

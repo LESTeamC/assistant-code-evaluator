@@ -7,22 +7,11 @@ import { Exam } from './../../model/exam'
 })
 export class OrderByPipe {
     transform(array: Array<Exam>, args: string): Array<Exam> {
-
-        if (args === "name") {
+        if (args !== "date") {
             return array.sort((a: any, b: any) => {
-                if (a.name < b.name) {
+                if (a[args].toUpperCase() < b[args].toUpperCase()) {
                     return -1;
-                } else if (a.name > b.name) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-        } else if (args === "status") {
-           return  array.sort((a: any, b: any) => {
-                if (a.status > b.status) {
-                    return -1;
-                } else if (a.status < b.status) {
+                } else if (a[args].toUpperCase() > b[args].toUpperCase()) {
                     return 1;
                 } else {
                     return 0;
@@ -30,7 +19,7 @@ export class OrderByPipe {
             });
         } else {
             return array.sort((a: any, b: any) => {
-                return a.date - b.date;
+                return b.date - a.date;
             })
         }
     }

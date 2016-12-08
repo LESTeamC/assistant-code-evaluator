@@ -51,6 +51,9 @@ export class CreateExamsComponent implements OnInit {
     private conflictErrorExercise: boolean;
     private weightErrorExercise: boolean;
     private weightErrorCriteria: boolean;
+    private totalWeightErrorExercise: boolean;
+    private totalWeightErrorCriteria: boolean;
+
     private createdSuccess: boolean;
 
     constructor(private _router: Router, private examService: ExamService,
@@ -65,22 +68,32 @@ export class CreateExamsComponent implements OnInit {
         this.createdSuccess = false;
         this.weightErrorCriteria = false;
         this.weightErrorExercise = false;
-
+        this.totalWeightErrorCriteria = false;
+        this.totalWeightErrorExercise = false;
         //avoid error with date.
         this.exam.date = new Date();
 
     }
 
     /**
-     * Submission funtion. Add created exercises to Exam and POST on server
+     * Submission function. Add created exercises to Exam and POST on server
      */
     onSubmit() {
 
         this.exam.exercises = this.exercises;
         this.exam.students = this.students;
-        this.examService.createExam(this.exam)
-            .subscribe(data => this.successCreate(data),
-                       error => this.failCreate(error));
+
+        if (this.calcTotalWeight(this.exercises) !== 100.0){
+            this.conflictError = false;
+            this.serverError = false;
+            this.createdSuccess = false;
+            this.totalWeightErrorExercise = true;
+        }else{
+
+            this.examService.createExam(this.exam)
+                .subscribe(data => this.successCreate(data),
+                        error => this.failCreate(error));
+        }
 
     }
 
@@ -93,13 +106,18 @@ export class CreateExamsComponent implements OnInit {
         this.conflictError = false;
         this.serverError = false;
         this.lastExamName = exam.name;
+        this.totalWeightErrorExercise = false;
         this.createdSuccess = true;
         this.exam = new Exam();
         this.exam.date = new Date();
         this.exercises = new Array<Exercise>();
         this.students = new Array<Student>();
 
-        this.uploadFiles();
+        this.getExerciseIds(exam);
+        var token:string = this.buildExerciseToken();
+        console.log(token);
+
+        //this.uploadFiles(token);
 
     }
 
@@ -115,20 +133,22 @@ export class CreateExamsComponent implements OnInit {
 
             this.lastExamName = this.exam.name;
             this.createdSuccess = false;
+            this.totalWeightErrorExercise = false;
             this.serverError = false;
             this.conflictError = true;
         } else {
 
             this.lastExamName = this.exam.name;
             this.createdSuccess = false;
+            this.totalWeightErrorExercise = false;
             this.conflictError = false;
             this.serverError = true;
         }
     }
 
 
-    uploadFiles() {
-        this.uploadService.uploadLibraries(this.createFileList())
+    uploadFiles(token:string) {
+        this.uploadService.uploadLibraries(this.createFileList(), token)
             .subscribe();
     }
 
@@ -152,25 +172,34 @@ export class CreateExamsComponent implements OnInit {
         if (this.hasName(this.exercises, this.currentExercise.name) >= 0) {
             this.weightErrorExercise = false;
             this.weightErrorCriteria = false;
+            this.totalWeightErrorCriteria = false;
             this.conflictErrorExercise = true;
-        } else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100) {
+        } else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100.0) {
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
+            this.totalWeightErrorCriteria = false;
             this.weightErrorExercise = true;
+        }else if (this.calcTotalWeightCriteria(this.criteria) !== 100.0){
+            this.conflictErrorExercise = false;
+            this.weightErrorCriteria = false;
+            this.weightErrorExercise = false;        
+            this.totalWeightErrorCriteria = true;
         } else {
             this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
-            this.currentExercise = new Exercise();
+            
             this.currentCriteria = new ExerciseCriteria();
             this.criteria = new Array<ExerciseCriteria>(),
             this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
+            this.totalWeightErrorCriteria = false;
 
             this.addLibraryFile(this.exerciseFile);
+            this.currentExercise = new Exercise();
             this.exerciseFile = null;
 
-            console.log(this.files);
+            //console.log(this.files);
 
             this.hideChildModal();
         }
@@ -192,7 +221,7 @@ export class CreateExamsComponent implements OnInit {
             this.files.splice(index, 1);
         }
 
-        console.log(this.files);
+        //console.log(this.files);
     }
 
     private findFile(exercise:Exercise):number{
@@ -214,8 +243,10 @@ export class CreateExamsComponent implements OnInit {
         if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100) {
             this.conflictErrorExercise = false;
             this.weightErrorExercise = false;
+            this.totalWeightErrorCriteria = false;
             this.weightErrorCriteria = true;
         } else {
+            this.weightErrorCriteria = false;
             this.criteria.push(this.currentCriteria);
             this.currentCriteria = new ExerciseCriteria();
         }
@@ -276,6 +307,34 @@ export class CreateExamsComponent implements OnInit {
         return sum;
     };
 
+    private getExerciseIds(exam:Exam){
+
+        for (let i = 0; i < this.files.length ; i++){
+            for (let j = 0; j < exam.exercises.length; j++){
+                if (exam.exercises[j].name === this.files[i].exercise.name){
+                    this.files[i].id = exam.exercises[j].id;
+                }
+            }
+        }
+
+    }
+
+    private buildExerciseToken(){
+        var token:string = "";
+        for (let j = 0; j < this.files.length; j++){
+            if (!!this.files[j].id){
+                if (j === 0) {
+                    token += this.files[j].id.toString()
+                }else{
+                    token += "_" + this.files[j].id.toString()
+                }
+            }
+            
+        }
+
+        return token;
+    }
+
 
     private uploadCSV($event: any) {
 
@@ -287,11 +346,13 @@ export class CreateExamsComponent implements OnInit {
 
     addLibraryFile(file: File) {
         this.files.push(new FileExercise(file, this.currentExercise));
+
+        console.log(this.files);
     }
 
     selectFile($event: any) {
         this.exerciseFile = $event.target.files[0];
-        console.log($event.target.files[0]);
+        //console.log($event.target.files[0]);
     }
 
     @ViewChild('exerciseModal') public childModal: ModalDirective;
