@@ -59,7 +59,7 @@ public class SendEmail {
                 "    <td class=\"tg-baqh\"></td>\n" +
                 "  </tr>\n" +
                 "  <tr>\n" +
-                "    <td class=\"tg-baqh\" colspan=\"5\"><br/><br/><br/><br/><br/>For more info about Assistante Code Evaluator <br/> contact our administrator at <br/><br/> admin@assistantcodeevaluator.gmail.com</td>\n" +
+                "    <td class=\"tg-baqh\" colspan=\"5\"><br/><br/><br/><br/><br/>For more info about Assistante Code Evaluator <br/> contact our administrator at <br/><br/> assistantcodevaluator@gmail.com</td>\n" +
                 "  </tr>\n" +
                 "</table>", true);
 
