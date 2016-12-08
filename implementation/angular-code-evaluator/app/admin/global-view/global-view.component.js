@@ -113,16 +113,18 @@ var GlobalViewComponent = (function () {
                 sum += grade;
                 size++;
             }
+            else if (grade === undefined) {
+                size++;
+            }
         }
-        return (size > 0) ? (Math.round((sum / size) * 100) / 100) : 0;
+        return ((size > 0) ? (Math.round((sum / size) * 100) / 100) : 0).toFixed(2);
     };
     GlobalViewComponent.prototype.calculateGlobalAverage = function () {
         var globalGrades = this.getGlobalGrades();
-        return Math.round(this.calcAvg(globalGrades) * 100.0) / 100.0;
+        return (Math.round(this.calcAvg(globalGrades) * 100.0) / 100.0).toFixed(2);
     };
     GlobalViewComponent.prototype.isEvaluated = function (g) {
         var ex;
-        var returnValue = true;
         for (ex in g) {
             if (parseInt(g[ex]) < 0) {
                 return false;

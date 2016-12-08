@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.ExerciseDTO;
-import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.StudentExam;
 import org.evaluator.ws.service.ExamService;
 import org.hibernate.JDBCException;
