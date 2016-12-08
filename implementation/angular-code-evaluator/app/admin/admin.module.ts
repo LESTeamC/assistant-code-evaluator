@@ -13,6 +13,7 @@ import { ViewExaminersComponent } from './view-examiners/view-examiners.componen
 import { ViewExamsComponent } from './view-exams/view-exams.component'
 import { ImportSubmissionComponent } from './view-exams/import-submission.component'
 import { EditExamComponent } from './edit-exam/edit-exam.component'
+import { EditExaminerComponent } from './edit-examiner/edit-examiner.component'
 
 import { ModalModule, AlertModule, DatepickerModule, AccordionModule } from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -44,6 +45,7 @@ import { OrderByPipe } from './view-exams/orderby.pipe'
     CreateExaminersComponent,
     ViewExamsComponent,
     EditExamComponent,
+    EditExaminerComponent,
     ViewExaminersComponent,
     GlobalViewComponent,
     DelegateComponent,

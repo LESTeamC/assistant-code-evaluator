@@ -120,5 +120,24 @@ export class ExaminerService {
                 .delete(this.url+`/admin/examiner/${id}`, {headers : this.headers} )
     }
 
+
+  /**
+    * Persists Examiner in DB
+    * @param: Examiner to persist
+    */
+    updateExaminer(examiner: Examiner){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        return this.http
+                .put(this.url+`/admin/examiner/${examiner.id}`, examiner, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+            
+    }
+
     
 }

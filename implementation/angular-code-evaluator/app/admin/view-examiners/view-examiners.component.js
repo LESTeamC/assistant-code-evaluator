@@ -59,6 +59,9 @@ var ViewExaminersComponent = (function () {
         this.deleteError = true;
         console.log(error);
     };
+    ViewExaminersComponent.prototype.editExaminer = function () {
+        this._router.navigate(['/admin/edit-examiner', this.selectedExaminer.username]);
+    };
     ViewExaminersComponent.prototype.removeFromArray = function (array, id) {
         return array.filter(function (el) {
             return el.id !== id;

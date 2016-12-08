@@ -167,8 +167,10 @@ public class ExaminerServiceBean implements ExaminerService {
     	
     	examinerToUpdate.getAccount().setUsername(examiner.getUsername());
     	
-    	BCryptPasswordEncoderUtil a = new BCryptPasswordEncoderUtil();
-    	examinerToUpdate.getAccount().setPassword(a.encode(examiner.getAccount().getPassword()));
+    	if (!examinerToUpdate.getAccount().getPassword().equals(examiner.getAccount().getPassword())){
+        	BCryptPasswordEncoderUtil a = new BCryptPasswordEncoderUtil();
+        	examinerToUpdate.getAccount().setPassword(a.encode(examiner.getAccount().getPassword()));
+    	}
     	
     	return examinerToUpdate;
     }

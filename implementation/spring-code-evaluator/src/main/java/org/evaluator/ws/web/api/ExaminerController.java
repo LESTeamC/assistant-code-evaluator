@@ -144,8 +144,10 @@ public class ExaminerController extends BaseController {
         	logger.info("< updateExaminer");
 		
         	//Params to send email to examiner //Email//Username//Password//
-        	sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
-			
+        	
+        	if(!pw.equals(savedExaminer.getAccount().getPassword())){
+        		sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
+        	}
         	
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.OK);
             

@@ -21,6 +21,7 @@ var view_examiners_component_1 = require('./view-examiners/view-examiners.compon
 var view_exams_component_1 = require('./view-exams/view-exams.component');
 var import_submission_component_1 = require('./view-exams/import-submission.component');
 var edit_exam_component_1 = require('./edit-exam/edit-exam.component');
+var edit_examiner_component_1 = require('./edit-examiner/edit-examiner.component');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_service_1 = require('./exam.service');
 var examiner_service_1 = require('./../shared/examiner.service');
@@ -50,6 +51,7 @@ var AdminModule = (function () {
                 create_examiners_component_1.CreateExaminersComponent,
                 view_exams_component_1.ViewExamsComponent,
                 edit_exam_component_1.EditExamComponent,
+                edit_examiner_component_1.EditExaminerComponent,
                 view_examiners_component_1.ViewExaminersComponent,
                 global_view_component_1.GlobalViewComponent,
                 delegate_component_1.DelegateComponent,

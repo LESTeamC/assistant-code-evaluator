@@ -40,7 +40,7 @@
 
 <div class="text-center" *ngIf="examiners.length>0">
    <!--edit examiner   (click)="editExaminers()-->
-  <button class="btn blue-bg edit-btn" type="submit" disabled>Edit</button>
+  <button class="btn blue-bg edit-btn" type="submit" (click)="editExaminer()" [disabled]="!selectedExaminer.id">Edit</button>
 
   <!--delete examiner-->
   <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()" [disabled]="!selectedExaminer.id">Delete</button>
