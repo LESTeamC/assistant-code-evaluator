@@ -83,7 +83,7 @@
                 <div class="form-group row">
                     <label for="example-text-input" class="col-xs-3 col-form-label">Weight</label>
                     <div class="col-xs-9">
-                        <input style="width: 60px !important;" class="form-control" type="number" [value]="ex.weight" (input)="exercises[exIndex].weight = $event.target.value" name="exercise-weight" required>
+                        <input style="width: 60px !important;" class="form-control" type="number" [value]="ex.weight" (input)="getInputExercise($event, exIndex)" name="exercise-weight" required>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -113,7 +113,7 @@
                                 <td>{{crit.description}}</td>
                                 <td>{{crit.gama}}</td>
                                 <td>
-                                    <input style="width: 60px !important;" class="form-control" type="number" [value]="exercises[exIndex].criteria[critIndex].weight" (input)="exercises[exIndex].criteria[critIndex].weight = $event.target.value" name="criteria-weight" required>
+                                    <input style="width: 60px !important;" class="form-control" type="number" [value]="exercises[exIndex].criteria[critIndex].weight" (input)="getInputCriteria($event, exIndex, critIndex)" name="criteria-weight" required>
                                 </td>
                             </tr>
                         </tbody>

@@ -69,13 +69,11 @@ export class EditExamComponent implements OnInit {
 
         } else {
 
-            console.log(this.exercises);
-
-/*            this.exam.exercises = this.exercises;
+            this.exam.exercises = this.exercises;
 
             this.examService.updateExam(this.exam)
                 .subscribe(data => this.updateSuccess(data),
-                error => this.updateFail(error));*/
+                error => this.updateFail(error));
         }
 
     }
@@ -129,10 +127,17 @@ export class EditExamComponent implements OnInit {
     private criteriaExceedsLimit(exercises: Exercise[]): boolean {
 
         for (let i = 0; i < exercises.length; i++) {
-            console.log(this.exercises[i].criteria)
             if (this.calcTotalWeightCriteria(exercises[i].criteria) !== 100.0) return true;
         }
         return false;
+    }
+
+    getInputExercise($event: any, index:number){
+        this.exercises[index].weight = parseInt($event.target.value);
+    }
+
+    getInputCriteria($event: any, indexE:number, indexC:number){
+        this.exercises[indexE].criteria[indexC].weight = parseInt($event.target.value);
     }
 
 
