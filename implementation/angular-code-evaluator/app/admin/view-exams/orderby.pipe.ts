@@ -6,8 +6,11 @@ import { Exam } from './../../model/exam'
     name: "sort"
 })
 export class OrderByPipe {
-    transform(array: Array<Exam>, args: string): Array<Exam> {
+    transform(array: Array<any>, args: string): Array<any> {
+
         if (args !== "date") {
+
+ 
             return array.sort((a: any, b: any) => {
                 if (a[args].toUpperCase() < b[args].toUpperCase()) {
                     return -1;

@@ -6,8 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
 
 import org.evaluator.ws.model.Examiner;
+import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.Role;
 import org.evaluator.ws.repository.ExaminerRepository;
 import org.evaluator.ws.repository.RoleRepository;
@@ -15,6 +17,7 @@ import org.evaluator.ws.util.BCryptPasswordEncoderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +101,46 @@ public class ExaminerServiceBean implements ExaminerService {
         return savedExaminer;
     }
     
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            readOnly = false)
+    public void delete(Long id) {
+    	
+        logger.info("> delete id:{}", id);
+
+        examinerRepository.delete(id);
+
+        logger.info("< delete id:{}", id);
+    }	
+    
+    
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            readOnly = false)
+    public Examiner update(Examiner examiner) {
+        logger.info("> update id:{}", examiner.getId());
+
+        // Ensure the entity object to be updated exists in the repository to
+        // prevent the default behavior of save() which will persist a new
+        // entity if the entity matching the id does not exist
+        Examiner examinerToUpdate = findOne(examiner.getId());
+        if (examinerToUpdate == null) {
+            // Cannot update Greeting that hasn't been persisted
+            logger.error(
+                    "Attempted to update an examiner, but the entity does not exist.");
+            throw new NoResultException("Requested entity not found.");
+        }
+
+        examinerToUpdate = this.createNewExaminer(examinerToUpdate, examiner);
+        Examiner updatedExaminer = examinerRepository.save(examinerToUpdate);
+
+        logger.info("< update id:{}", examiner.getId());
+        return updatedExaminer;
+    }
+    
+    
     private Examiner setUpAccount(Examiner examiner){
         
     	examiner.getAccount().setCreatedAt(new Date());
@@ -116,17 +159,18 @@ public class ExaminerServiceBean implements ExaminerService {
         return examiner;
     }
     
-    @Override
-    @Transactional(
-            propagation = Propagation.REQUIRED,
-            readOnly = false)
-    public void delete(Long id) {
+    private Examiner createNewExaminer(Examiner examinerToUpdate, Examiner examiner){
     	
-        logger.info("> delete id:{}", id);
-
-        examinerRepository.delete(id);
-
-        logger.info("< delete id:{}", id);
-    }	
+    	examinerToUpdate.setName(examiner.getName());
+    	examinerToUpdate.setUsername(examiner.getUsername());
+    	examinerToUpdate.setEmail(examiner.getEmail());
+    	
+    	examinerToUpdate.getAccount().setUsername(examiner.getUsername());
+    	
+    	BCryptPasswordEncoderUtil a = new BCryptPasswordEncoderUtil();
+    	examinerToUpdate.getAccount().setPassword(a.encode(examiner.getAccount().getPassword()));
+    	
+    	return examinerToUpdate;
+    }
 
 }

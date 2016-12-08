@@ -15,22 +15,22 @@
         <div class="col-sm-12 col-md-6" style="text-align:center;">
             <div class="input-group" [class.error]="conflictError">
                 <span class="input-group-addon" id="exam-name">Exam Name</span>
-                <input type="text" class="form-control" [(ngModel)]="exam.name" name="name" #name="ngModel" required>
+                <input type="text" class="form-control" [(ngModel)]="exam.name" name="name" required>
             </div>
 
             <div class="input-group">
                 <span class="input-group-addon" id="exam-degree">Degree</span>
-                <input type="text" class="form-control" [(ngModel)]="exam.degree" name="degree" #name="ngModel" required>
+                <input type="text" class="form-control" [(ngModel)]="exam.degree" name="degree" required>
             </div>
 
             <div class="input-group">
                 <span class="input-group-addon" id="exam-class">Course</span>
-                <input type="text" class="form-control" [(ngModel)]="exam.course" name="course" #name="ngModel" required>
+                <input type="text" class="form-control" [(ngModel)]="exam.course" name="course" required>
             </div>
 
             <div class="input-group">
                 <span class="input-group-addon" id="exam-language">Code Language</span>
-                <select class="form-control" [(ngModel)]="exam.language" #name="ngModel" name="language" required>
+                <select class="form-control" [(ngModel)]="exam.language"  name="language" required>
           <option>Java</option>
           <option>C</option>
           <option>C++</option>
@@ -40,7 +40,7 @@
             </div>
             <div style="display:inline-block; min-height:290px;">
                 <p class="date-header">Date:</p>
-                <datepicker [(ngModel)]="exam.date" [showWeeks]="false" name="date" #name="ngModel"></datepicker>
+                <datepicker [(ngModel)]="exam.date" [showWeeks]="false" name="date" ></datepicker>
             </div>
 
         </div>
@@ -73,7 +73,7 @@
     <div class="row">
         <h5>Exercises</h5>
         <accordion [closeOthers]="true" *ngIf="exercises.length > 0">
-            <accordion-group *ngFor="let ex of exercises let exIndex=index" [heading]="ex.name" [isOpen]="false" [isDisabled]="false">
+            <accordion-group *ngFor="let ex of (exercises | sort:'name'); let exIndex=index" [heading]="ex.name" [isOpen]="false" [isDisabled]="false">
                 <div class="form-group row">
                     <label for="example-text-input" class="col-xs-3 col-form-label">Question</label>
                     <div class="col-xs-9">

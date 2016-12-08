@@ -27,7 +27,7 @@
                 </thead>
 
                 <tbody>
-                     <tr *ngFor="let ex of examiners" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
+                     <tr *ngFor="let ex of examiners | sort:'name'" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
                           <td>{{ex.name}}</td>
                           <td>{{ex.username}}</td>
                           <td>{{ex.email}}</td>

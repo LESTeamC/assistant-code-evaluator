@@ -17,7 +17,7 @@ import {ExerciseService} from './../../shared/exercise.service'
 export	class	DelegateComponent implements OnInit	{
 
     private examiners:Examiner[];
-    private exercises:Exercise[];
+    private exercises:Exercise[] = new Array<Exercise>();
 
     private selectedExercise:Exercise = new Exercise();
     private selectedExaminer:Examiner = null;

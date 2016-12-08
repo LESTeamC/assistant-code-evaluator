@@ -126,4 +126,53 @@ public class ExaminerController extends BaseController {
 	public void sendEMail(String to, String username, String password) throws MessagingException {
 		sendEmail.send(to,"Assistant Code Evaluator", username, password);
 	}
+	
+	
+    @RequestMapping(
+            value = "/admin/examiner/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Examiner> updateExaminer(
+            @RequestBody Examiner examiner) {
+        logger.info("> updateExaminer");
+        
+        try{
+        	
+        	String pw = examiner.getAccount().getPassword();
+        	Examiner savedExaminer = examinerService.update(examiner);
+        	logger.info("< updateExaminer");
+		
+        	//Params to send email to examiner //Email//Username//Password//
+        	sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
+			
+        	
+            return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.OK);
+            
+        }catch(DataIntegrityViolationException SQLe){
+        	
+        	//Check for duplicate Key in Request (duplicate name)
+        	
+        	//From mySQL Docs:
+        	//Error: 1022 SQLSTATE: 23000 (ER_DUP_KEY)
+        	//Message: Can't write; duplicate key in table '%s'
+        	        	
+        	if (SQLe.getCause() instanceof JDBCException){
+        	
+	            if (((JDBCException) SQLe.getCause()).getSQLException().getSQLState().equals("23000") ) {
+	        		return new ResponseEntity<Examiner>(HttpStatus.CONFLICT);
+	        	}else return new ResponseEntity<Examiner>(HttpStatus.BAD_REQUEST);
+        	}else{
+        		return new ResponseEntity<Examiner>(HttpStatus.BAD_REQUEST);
+        	}
+        	
+        }catch(Exception e){
+        	logger.info("> createExaminer");
+        	logger.error(e.getMessage());
+        	return new ResponseEntity<Examiner>(HttpStatus.BAD_REQUEST);
+        }
+        
+
+       
+    }
 }
