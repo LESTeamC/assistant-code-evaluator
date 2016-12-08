@@ -1,13 +1,13 @@
 <form (ngSubmit)="onSubmit()" #editExaminerForm="ngForm">
     <span class="required_notification">* Required Fields</span>
 
-    <div class="input-group" [class.error]="conflictError">
+    <div class="input-group">
         <span class="input-group-addon" id="examiner-name">Name</span>
         <input [(ngModel)]="examiner.name" name="name" id="examiner-name" type="text" class="form-control" placeholder="Insert Examiner Name"
-            required minlength="3" maxlength="20">
+            required minlength="3" maxlength="40">
     </div>
 
-    <div class="input-group">
+    <div class="input-group" [class.error]="conflictError">
         <span class="input-group-addon" id="examiner-user">Username</span>
         <input [(ngModel)]="examiner.username" name="username"  id="examiner-user" type="text" class="form-control"
             placeholder="Insert Examiner Username" required minlength="3" maxlength="20">
