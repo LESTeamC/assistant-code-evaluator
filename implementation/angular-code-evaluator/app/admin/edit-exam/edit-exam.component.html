@@ -1,24 +1,83 @@
-<h1>EDIT EXAM</h1>
+<div class="row">
+    <div class="col-sm-12 col-md-6" style="text-align:center;">
+        <form (ngSubmit)="onSubmit()" #editExamForm="ngForm">
+            <div class="input-group" [class.error]="false">
+                <span class="input-group-addon" id="exam-name">Exam Name</span>
+                <input type="text" class="form-control" [(ngModel)]="exam.name" name="name" #name="ngModel" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="exam-degree">Degree</span>
+                <input type="text" class="form-control" [(ngModel)]="exam.degree" name="degree" #name="ngModel" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="exam-class">Course</span>
+                <input type="text" class="form-control" [(ngModel)]="exam.course" name="course" #name="ngModel" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="exam-language">Code Language</span>
+                <select class="form-control" [(ngModel)]="exam.language" #name="ngModel" name="language" required>
+          <option>Java</option>
+          <option>C</option>
+          <option>C++</option>
+          <option>Python</option>
+          <option>Ruby</option>
+        </select>
+            </div>
+            <div style="display:inline-block; min-height:290px;">
+                <p class="date-header">Date:</p>
+                <datepicker [(ngModel)]="exam.date" [showWeeks]="false" name="date" #name="ngModel"></datepicker>
+            </div>
+            <button class="btn blue-bg btn-long" type="submit" [disabled]="!editExamForm.valid">Submit</button>
+        </form>
+    </div>
+
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading blue-bg">Students</div>
+            <div class="panel-body students-panel">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead *ngIf="students.length>0">
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of students">
+                                <td>{{student.name}}</td>
+                                <td>{{student.username}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <accordion [closeOthers]="oneAtATime">
-  <accordion-group heading="Static Header, initially expanded"
-                   [isOpen]="true"
-                   [isDisabled]="false">
-    This content is straight in the template.
-  </accordion-group>
-  <accordion-group [heading]="hello">
-     HELLO
-  </accordion-group>
-  <accordion-group heading="Dynamic Body Content">
-    <p>The body of the accordion group grows to fit the contents</p>
-    <button type="button" class="btn btn-primary btn-sm">Add Item</button>
-    <div>item</div>
-  </accordion-group>
-  <accordion-group #group [isOpen]="true">
-    <div accordion-heading>
-      I can have markup, too!
-      <i class="pull-right glyphicon"></i>
-    </div>
-    This is just some content to illustrate fancy headings.
-  </accordion-group>
+    <accordion-group heading="Static Header, initially expanded" [isOpen]="true" [isDisabled]="false">
+        This content is straight in the template.
+    </accordion-group>
+    <accordion-group [heading]="hello">
+        HELLO
+    </accordion-group>
+    <accordion-group heading="Dynamic Body Content">
+        <p>The body of the accordion group grows to fit the contents</p>
+        <button type="button" class="btn btn-primary btn-sm">Add Item</button>
+        <div>item</div>
+    </accordion-group>
+    <accordion-group #group [isOpen]="true">
+        <div accordion-heading>
+            I can have markup, too!
+            <i class="pull-right glyphicon"></i>
+        </div>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
 </accordion>
