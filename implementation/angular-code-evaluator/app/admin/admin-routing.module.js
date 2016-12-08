@@ -18,6 +18,7 @@ var global_view_component_1 = require('./global-view/global-view.component');
 var view_exams_component_1 = require('./view-exams/view-exams.component');
 var view_examiners_component_1 = require('./view-examiners/view-examiners.component');
 var import_submission_component_1 = require('./view-exams/import-submission.component');
+var edit_exam_component_1 = require('./edit-exam/edit-exam.component');
 var auth_guard_service_1 = require('./../shared/auth-guard.service');
 var AdminRoutingModule = (function () {
     function AdminRoutingModule() {
@@ -62,6 +63,10 @@ var AdminRoutingModule = (function () {
                             {
                                 path: 'import-submission/:id',
                                 component: import_submission_component_1.ImportSubmissionComponent,
+                            },
+                            {
+                                path: 'edit-exam/:id',
+                                component: edit_exam_component_1.EditExamComponent,
                             },
                         ]
                     }

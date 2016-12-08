@@ -10,6 +10,7 @@ import { GlobalViewComponent }     from './global-view/global-view.component';
 import { ViewExamsComponent }     from './view-exams/view-exams.component';
 import { ViewExaminersComponent }     from './view-examiners/view-examiners.component';
 import { ImportSubmissionComponent }     from './view-exams/import-submission.component';
+import { EditExamComponent } from './edit-exam/edit-exam.component'
 
 import { AuthGuard } from './../shared/auth-guard.service'
 
@@ -52,6 +53,10 @@ import { AuthGuard } from './../shared/auth-guard.service'
           {
             path: 'import-submission/:id',
             component: ImportSubmissionComponent,
+          },
+          {
+            path: 'edit-exam/:id',
+            component: EditExamComponent,
           },
         ]
       }

@@ -1,0 +1,24 @@
+<h1>EDIT EXAM</h1>
+
+<accordion [closeOthers]="oneAtATime">
+  <accordion-group heading="Static Header, initially expanded"
+                   [isOpen]="true"
+                   [isDisabled]="false">
+    This content is straight in the template.
+  </accordion-group>
+  <accordion-group [heading]="hello">
+     HELLO
+  </accordion-group>
+  <accordion-group heading="Dynamic Body Content">
+    <p>The body of the accordion group grows to fit the contents</p>
+    <button type="button" class="btn btn-primary btn-sm">Add Item</button>
+    <div>item</div>
+  </accordion-group>
+  <accordion-group #group [isOpen]="true">
+    <div accordion-heading>
+      I can have markup, too!
+      <i class="pull-right glyphicon"></i>
+    </div>
+    This is just some content to illustrate fancy headings.
+  </accordion-group>
+</accordion>

@@ -20,6 +20,7 @@ var global_view_component_1 = require('./global-view/global-view.component');
 var view_examiners_component_1 = require('./view-examiners/view-examiners.component');
 var view_exams_component_1 = require('./view-exams/view-exams.component');
 var import_submission_component_1 = require('./view-exams/import-submission.component');
+var edit_exam_component_1 = require('./edit-exam/edit-exam.component');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var exam_service_1 = require('./exam.service');
 var examiner_service_1 = require('./../shared/examiner.service');
@@ -40,13 +41,15 @@ var AdminModule = (function () {
                 admin_routing_module_1.AdminRoutingModule,
                 ng2_bootstrap_1.ModalModule,
                 ng2_bootstrap_1.DatepickerModule,
-                ng2_bootstrap_1.AlertModule
+                ng2_bootstrap_1.AlertModule,
+                ng2_bootstrap_1.AccordionModule
             ],
             declarations: [
                 admin_component_1.AdminComponent,
                 create_exams_component_1.CreateExamsComponent,
                 create_examiners_component_1.CreateExaminersComponent,
                 view_exams_component_1.ViewExamsComponent,
+                edit_exam_component_1.EditExamComponent,
                 view_examiners_component_1.ViewExaminersComponent,
                 global_view_component_1.GlobalViewComponent,
                 delegate_component_1.DelegateComponent,
