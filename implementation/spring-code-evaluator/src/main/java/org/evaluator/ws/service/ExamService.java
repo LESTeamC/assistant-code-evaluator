@@ -31,5 +31,7 @@ public interface ExamService {
 	Collection<ExerciseDTO> findExamsByExaminer(String usernameID);
 
 	List<StudentExam> buildGrades(Long examId);
+	
+	Exam update(Exam exam);
 
 }

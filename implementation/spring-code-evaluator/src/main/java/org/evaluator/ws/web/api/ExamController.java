@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.ExerciseDTO;
+import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.StudentExam;
 import org.evaluator.ws.service.ExamService;
 import org.hibernate.JDBCException;
@@ -172,5 +173,24 @@ public class ExamController extends BaseController {
 		}
 
 	}
+	
+    @RequestMapping(
+            value = "/admin/exam/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Exam> updateExam(
+            @RequestBody Exam exam) {
+        logger.info("> updateExam id:{}", exam.getId());
+
+        Exam updatedExam = examService.update(exam);
+        if (updatedExam == null) {
+            return new ResponseEntity<Exam>(
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        logger.info("< updateGreeting id:{}", exam.getId());
+        return new ResponseEntity<Exam>(updatedExam, HttpStatus.OK);
+    }
 
 }
