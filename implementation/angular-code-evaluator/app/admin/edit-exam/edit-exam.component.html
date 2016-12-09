@@ -49,7 +49,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading blue-bg">Students</div>
                 <div class="panel-body students-panel">
-                    <div class="table-responsive">
+                    <p *ngIf="students.length <= 0">This exam has no associated students</p>
+                    <div class="table-responsive" *ngIf="students.length >0">
                         <table class="table">
                             <thead *ngIf="students.length>0">
                                 <tr>

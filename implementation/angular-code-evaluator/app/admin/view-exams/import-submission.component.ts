@@ -23,6 +23,8 @@ export	class	ImportSubmissionComponent implements OnInit	{
     private submissions: StudentExercises[] = new Array<StudentExercises>();
     private fileNames: string[] = new Array<string>();
 
+    private files:FileList = null;
+
     private exam: Exam = new Exam();
     private exercises: string[] = new Array<string>();
     private imported:boolean = false;
@@ -52,8 +54,8 @@ export	class	ImportSubmissionComponent implements OnInit	{
 
     importSubmissions($event:any){
 
-        var files:any = $event.target.files;
-        this.zipService.getNamesFromZip(files[0])
+        this.files = $event.target.files;
+        this.zipService.getNamesFromZip(this.files[0])
             .subscribe((data:any) => this.successImport(data));
        
     }
@@ -145,6 +147,9 @@ export	class	ImportSubmissionComponent implements OnInit	{
     }
 
     uploadFile(){
+        console.log("asdasd");
+        this.uploadService.uploadSubmissions(this.files, this.exam.id)
+            .subscribe();
         
     }
 

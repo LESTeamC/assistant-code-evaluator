@@ -40,12 +40,10 @@ export class EditExaminerComponent implements OnInit {
 
     examinerSuccess(data: any) {
         this.examiner = data;
-        console.log("yey")
     }
 
     examinerFail(error: any) {
         this._router.navigate(['/admin/view-examiners/'])
-        console.log("ney")
     }
 
     toggleCheckBox() {

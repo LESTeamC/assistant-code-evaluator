@@ -33,7 +33,30 @@ export class UploadService {
                 formData.append("uploadfile", files[i]);
             }
             return this.http
-                .post(this.url + '/api/uptest?token={$exercisesToken}', formData, {headers : this.headers} )
+                .post(this.url + `/api/uptest?token=${exercisesToken}`, formData, {headers : this.headers} )
+        }
+
+    }
+
+    uploadSubmissions(files:FileList, id:number){
+
+        var formData = new FormData();
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Post request to persist exam, including header
+        //formData.append("uploadfile", files[0]);
+
+        console.log(files);
+        if(files.length > 0){
+
+            formData.append("uploadfile", files[0]);
+            
+            return this.http
+                .post(this.url + `/api/student_submissions/${id}`, formData, {headers : this.headers} )
         }
 
     }
