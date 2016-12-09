@@ -260,6 +260,23 @@ public class Exercise {
 		this.submissions = submissions;
 	}	
 	
+	public void addSubmission(Submission submission){
+		
+		for(ExerciseCriteria ec : this.criteria){
+			submission.getCriteria().add(new SubmissionCriteria(submission, ec));
+		}
+		
+		// update the submission if already present
+		for(Submission s: this.submissions){
+			if(s.getStudent() != null && s.getStudent().getUsername().compareToIgnoreCase(submission.getStudent().getUsername()) == 0){
+				s = submission;
+				return;
+			}
+		}
+		this.submissions.add(submission);
+		this.nsubmissions++;
+	}
+	
 	
 
 }
