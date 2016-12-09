@@ -3,6 +3,10 @@
     margin-right: 0px !important;
 }
 
+.first-row{
+    margin-top: 55px;
+}
+
 pre, code{
     margin: 0 !important;
     padding: 0 !important;
@@ -44,6 +48,7 @@ pre, code{
 .navbar{
     background-color: #96858F;
     text-align: center;
+    border-bottom: 1px solid white !important;
 }
 
 a i {
@@ -104,10 +109,10 @@ pre{
     width: 100%;
     background: #6D7993;
     color: white;
-    margin-top: 0 !important;
+    height: 60px;
 }
 
-.page-header h4, .page-header h6{
+.page-header h5, .page-header h6{
     padding-right:20px;
     display: inline-block;
 }
@@ -170,4 +175,8 @@ pre{
 
 .green-border{
     border: 2px solid limegreen;
+}
+
+.comment-header{
+    margin-bottom: 0px !important;
 }

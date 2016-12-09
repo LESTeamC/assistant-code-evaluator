@@ -29,6 +29,8 @@ export class ImportSubmissionComponent implements OnInit {
     private exercises: string[] = new Array<string>();
     private imported: boolean = false;
 
+    private zipError: boolean = false;
+
     constructor(private _router: Router, private uploadService: UploadService,
         private zipService: ZipService, private activatedRoute: ActivatedRoute,
         private examService: ExamService) { }
@@ -39,7 +41,7 @@ export class ImportSubmissionComponent implements OnInit {
             // (+) converts string 'id' to a number
             .switchMap((params: Params) => this.examService.getExam(+params['id']))
             .subscribe(data => this.examSuccess(data),
-                    error => this.examFail(error));
+            error => this.examFail(error));
     }
 
     examSuccess(data: any) {
@@ -56,18 +58,27 @@ export class ImportSubmissionComponent implements OnInit {
 
         this.files = $event.target.files;
         this.zipService.getNamesFromZip(this.files[0])
-            .subscribe((data: any) => this.successImport(data));
+            .subscribe((data: any) => this.successImport(data),
+                    (error: any) => this.failImport(error));
 
     }
 
     successImport(data: any) {
         this.fileNames = data;
-        this.calculateMatchingTable();
 
+        try{
+            this.calculateMatchingTable();
+        }catch(err){
+            this.zipError = true;
+        }
+
+        this.zipError = false;
         this.imported = true;
     }
 
-    failImport(error: any) { console.log(error) }
+    failImport(error: any) { 
+        this.zipError = true;
+    }
 
     private getDataFromFile(fileName: string): void {
 
@@ -146,6 +157,7 @@ export class ImportSubmissionComponent implements OnInit {
     }
 
     uploadFile() {
+        this.zipError = false;
         this.uploadService.uploadSubmissions(this.files, this.exam.id)
             .subscribe();
     }

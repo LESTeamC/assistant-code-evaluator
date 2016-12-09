@@ -309,6 +309,7 @@ export	class	WorkstationComponent implements OnInit	{
                          + "Are you sure you want to proceed?") ){
 
                 this.navigationService.navigateNext();
+                this.saveComment();
             }
 
         }else if (this.criteria.length > 0){
@@ -334,6 +335,7 @@ export	class	WorkstationComponent implements OnInit	{
                          + "Are you sure you want to proceed?") ){
 
                 this.navigationService.navigatePrevious();
+                this.saveComment();
             }           
 
         }else if (this.criteria.length > 0){

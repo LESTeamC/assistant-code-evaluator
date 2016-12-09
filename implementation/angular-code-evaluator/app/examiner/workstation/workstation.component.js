@@ -245,6 +245,7 @@ var WorkstationComponent = (function () {
                 + "If you proceed, your progress will not be saved."
                 + "Are you sure you want to proceed?")) {
                 this.navigationService.navigateNext();
+                this.saveComment();
             }
         }
         else if (this.criteria.length > 0) {
@@ -265,6 +266,7 @@ var WorkstationComponent = (function () {
                 + "If you proceed, your progress will not be saved."
                 + "Are you sure you want to proceed?")) {
                 this.navigationService.navigatePrevious();
+                this.saveComment();
             }
         }
         else if (this.criteria.length > 0) {
