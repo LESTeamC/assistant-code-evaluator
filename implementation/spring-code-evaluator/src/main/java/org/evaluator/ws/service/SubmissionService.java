@@ -1,5 +1,6 @@
 package org.evaluator.ws.service;
 
+import java.io.InputStream;
 import java.util.Collection;
 
 import org.evaluator.ws.model.Submission;
@@ -13,5 +14,11 @@ public interface SubmissionService {
 		Submission changeComment(Long submissionId, String comment);
 		
 		Submission update(Submission submission);
+	
+		void validateSubmissionFile(InputStream file, Long examID);
+	
+		void analyseCode(InputStream file, Long examID);
+		
+		boolean isOSLinux();
 
 }
