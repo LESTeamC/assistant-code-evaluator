@@ -117,6 +117,16 @@ public class ExerciseServiceBean implements ExerciseService {
         logger.info("< getSubmissionsByExercise id:{}", exerciseID);
 		return submissions;
 	}
+	
+	@Override
+	public Exercise submission_update(Exercise exercise){
+		logger.info("<> updateExercise");
+		Exercise tmp = this.exerciseRepository.findOne(exercise.getId());
+		System.out.println("[bd]: tmp" + tmp.getId());
+		tmp.setNsubmissions(exercise.getNsubmissions());
+		tmp.setSubmissions(exercise.getSubmissions());
+		return this.exerciseRepository.save(tmp);
+	}
     
 
 }
