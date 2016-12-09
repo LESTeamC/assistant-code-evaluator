@@ -6,6 +6,7 @@ import javax.mail.MessagingException;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Examiner;
+import org.evaluator.ws.service.EmailService;
 import org.evaluator.ws.service.ExaminerService;
 import org.hibernate.JDBCException;
 import org.slf4j.Logger;
@@ -34,6 +35,9 @@ public class ExaminerController extends BaseController {
 	//Autowire the SendEmail Class
 	@Autowired
 	private SendEmail sendEmail;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@RequestMapping(
 			value = "/api/examiner",
@@ -76,8 +80,9 @@ public class ExaminerController extends BaseController {
         	logger.info("< createExaminer");
 		
         	//Params to send email to examiner //Email//Username//Password//
-        	sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
+        	//sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
 			
+        	emailService.sendAsync(examiner.getEmail(), examiner.getUsername(), pw);
         	
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.CREATED);
             
@@ -146,7 +151,9 @@ public class ExaminerController extends BaseController {
         	//Params to send email to examiner //Email//Username//Password//
         	
         	if(!pw.equals(savedExaminer.getAccount().getPassword())){
-        		sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
+        		//sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
+            	emailService.sendAsync(examiner.getEmail(), examiner.getUsername(), pw);
+
         	}
         	
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.OK);

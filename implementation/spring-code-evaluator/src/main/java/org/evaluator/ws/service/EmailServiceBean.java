@@ -2,10 +2,14 @@ package org.evaluator.ws.service;
 
 import java.util.concurrent.Future;
 
+import javax.mail.MessagingException;
+
 import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.util.AsyncResponse;
+import org.evaluator.ws.web.api.SendEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -23,20 +27,23 @@ public class EmailServiceBean implements EmailService {
      */
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
+	private SendEmail sendEmail;
+    
     @Override
-    public Boolean send(Greeting greeting) {
+    public Boolean send(String to, String username, String password) throws MessagingException {
         logger.info("> send");
 
         Boolean success = Boolean.FALSE;
 
-        // Simulate method execution time
-        long pause = 5000;
         try {
-            Thread.sleep(pause);
+        	sendEmail.send(to,"Assistant Code Evaluator", username, password);
+        	
         } catch (Exception e) {
+        	
+        	logger.error("Failed to Send Email");
             // do nothing
         }
-        logger.info("Processing time was {} seconds.", pause / 1000);
 
         success = Boolean.TRUE;
 
@@ -46,35 +53,16 @@ public class EmailServiceBean implements EmailService {
 
     @Async
     @Override
-    public void sendAsync(Greeting greeting) {
+    public void sendAsync(String to, String username, String password) {
         logger.info("> sendAsync");
 
         try {
-            send(greeting);
+            send(to, username, password);
         } catch (Exception e) {
             logger.warn("Exception caught sending asynchronous mail.", e);
         }
 
         logger.info("< sendAsync");
-    }
-
-    @Async
-    @Override
-    public Future<Boolean> sendAsyncWithResult(Greeting greeting) {
-        logger.info("> sendAsyncWithResult");
-
-        AsyncResponse<Boolean> response = new AsyncResponse<Boolean>();
-
-        try {
-            Boolean success = send(greeting);
-            response.complete(success);
-        } catch (Exception e) {
-            logger.warn("Exception caught sending asynchronous mail.", e);
-            response.completeExceptionally(e);
-        }
-
-        logger.info("< sendAsyncWithResult");
-        return response;
     }
 
 }
