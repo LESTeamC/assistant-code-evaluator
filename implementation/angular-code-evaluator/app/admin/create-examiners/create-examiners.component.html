@@ -5,6 +5,7 @@
         <span class="input-group-addon" id="examiner-name">Name</span>
         <input [(ngModel)]="examiner.name" name="name" #name="ngModel" id="examiner-name" type="text" class="form-control" placeholder="Insert Examiner Name"
             required minlength="3" maxlength="40">
+            
     </div>
 
     <div class="input-group" [class.error]="conflictError">
