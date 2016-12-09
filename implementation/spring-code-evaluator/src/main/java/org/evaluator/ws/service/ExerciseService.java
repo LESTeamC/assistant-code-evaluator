@@ -19,6 +19,8 @@ public interface ExerciseService {
 	Exercise delegate(Exercise exercise, Examiner examiner);
 	
 	Collection<Submission> getSubmissionsByExercise(Long exerciseID);
+	
+	Exercise submission_update(Exercise exercise);
 
 
 }
