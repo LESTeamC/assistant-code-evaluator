@@ -351,4 +351,30 @@ public class ExamServiceBean implements ExamService {
 
 		return grade;
 	}
+	
+	@Override
+	public void assign_students(Long examId, List<Student> stu) {
+		logger.info("< assign_students");
+
+		Exam tmp = this.examRepository.findOne(examId);
+		List<Student> l = new ArrayList<Student>();
+		l = this.studentService.createList(stu);
+		tmp.setStudents(l);
+		this.examRepository.save(tmp);
+		
+		logger.info("> assign_students");
+	}
+	
+	@Override
+	@Transactional
+	public Exam submission_update(Exam exam) {
+		logger.info("<> updateExam");
+		
+		Exam tmp = this.examRepository.findOne(exam.getId());
+		tmp.setStudents(exam.getStudents());
+		tmp.setExercises(exam.getExercises());
+		logger.info("> updateExam");
+		
+		return this.examRepository.save(tmp);
+	}
 }
