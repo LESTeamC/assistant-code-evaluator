@@ -269,7 +269,8 @@ export	class	WorkstationComponent implements OnInit	{
             if( confirm("This submission is not totally evaluated yet."
                         + "If you proceed, your progress will not be saved."
                          + "Are you sure you want to proceed?") ){
-
+                
+                this.saveComment();
                 this._router.navigate(['/examiner/dashboard']);
             }   
             
@@ -307,9 +308,10 @@ export	class	WorkstationComponent implements OnInit	{
             if( confirm("This submission is not totally evaluated yet."
                         + "If you proceed, your progress will not be saved."
                          + "Are you sure you want to proceed?") ){
-
-                this.navigationService.navigateNext();
+                
                 this.saveComment();
+                this.navigationService.navigateNext();
+                
             }
 
         }else if (this.criteria.length > 0){
@@ -333,9 +335,9 @@ export	class	WorkstationComponent implements OnInit	{
              if( confirm("This submission is not totally evaluated yet."
                         + "If you proceed, your progress will not be saved."
                          + "Are you sure you want to proceed?") ){
-
-                this.navigationService.navigatePrevious();
+                
                 this.saveComment();
+                this.navigationService.navigatePrevious();
             }           
 
         }else if (this.criteria.length > 0){

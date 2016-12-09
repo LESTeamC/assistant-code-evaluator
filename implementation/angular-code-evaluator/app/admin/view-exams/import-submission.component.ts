@@ -30,6 +30,10 @@ export class ImportSubmissionComponent implements OnInit {
     private imported: boolean = false;
 
     private zipError: boolean = false;
+    private uploadSuccess: boolean = false;
+    private uploadFail: boolean = false;
+
+    private errorMessage: string = "";
 
     constructor(private _router: Router, private uploadService: UploadService,
         private zipService: ZipService, private activatedRoute: ActivatedRoute,
@@ -108,7 +112,6 @@ export class ImportSubmissionComponent implements OnInit {
         }
 
         this.addExamStudents();
-        console.log(this.submissions);
     }
 
     private addExamStudents() {
@@ -159,6 +162,21 @@ export class ImportSubmissionComponent implements OnInit {
     uploadFile() {
         this.zipError = false;
         this.uploadService.uploadSubmissions(this.files, this.exam.id)
-            .subscribe();
+            .subscribe((data: any) => this.successUpload(data),
+                    (error: any) => this.failUpload(error));
+    }
+
+    failUpload(error:any){
+        this.zipError = false;
+        this.uploadSuccess = false;
+        this.uploadFail = true
+
+        this.errorMessage = error._body;
+    }
+
+    successUpload(data:any){
+        this.zipError = false;
+        this.uploadFail = false;
+        this.uploadSuccess = true;
     }
 }

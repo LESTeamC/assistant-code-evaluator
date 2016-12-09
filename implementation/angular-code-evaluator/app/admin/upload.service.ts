@@ -56,7 +56,7 @@ export class UploadService {
             formData.append("uploadfile", files[0]);
             
             return this.http
-                .post(this.url + `/api/student_submissions/${id}`, formData, {headers : this.headers} )
+                .post(this.url + `/api/students_submissions/${id}`, formData, {headers : this.headers} )
         }
 
     }
