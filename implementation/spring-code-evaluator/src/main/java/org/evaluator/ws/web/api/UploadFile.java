@@ -1,8 +1,11 @@
 package org.evaluator.ws.web.api;
 
+import org.evaluator.ws.service.SubmissionService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,8 @@ import java.util.zip.ZipInputStream;
 @RestController
 public class UploadFile {
 
+    	@Autowired
+	private SubmissionService submissionService;
     
     //Receive a POST
     @RequestMapping(value = "/api/uptest", method = RequestMethod.POST)
@@ -65,4 +70,17 @@ public class UploadFile {
             return "Unable to upload. File is empty.";
         }
     }
+    
+    @RequestMapping(value = "/api/students_submissions/{exam_id}", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<String> importStudentsSubmission(@RequestParam("uploadfile") MultipartFile file,
+			@PathVariable("exam_id") Long exam_id) throws IOException {
+
+		if (file == null)
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		if( !this.submissionService.isOSLinux() )  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Operative System is not Linux. \nTherefore cannot compile or execute.");
+		this.submissionService.validateSubmissionFile(file.getInputStream(), exam_id);
+		this.submissionService.analyseCode(file.getInputStream(), exam_id);
+
+		return ResponseEntity.ok("SUCCESS!");
+	}
 }
