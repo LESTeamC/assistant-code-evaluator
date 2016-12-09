@@ -22,7 +22,6 @@ export class ZipService {
                     observer.next(filesFromZip);
                     observer.complete();
             })
-
         })
     }
 }

@@ -26,6 +26,9 @@ export class DashboardComponent implements OnInit {
 
     // variable to get the chosen status
     private oldStatus: string;
+
+    private degreeFilter: string = "";
+    private statusFilter: string = ""
     // header
     private header: string;
     // list that is represented in html
@@ -100,7 +103,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-    private filterByStatus(status: string): void {
+/*    private filterByStatus(status: string): void {
 
         this.cleanSelectedSubmission();
 
@@ -129,9 +132,9 @@ export class DashboardComponent implements OnInit {
             }
         }
         this.oldStatus = status;
-    }
+    }*/
 
-    private filterByDegree(value: string): void {
+/*    private filterByDegree(value: string): void {
 
         this.cleanSelectedSubmission();
 
@@ -150,7 +153,7 @@ export class DashboardComponent implements OnInit {
                 this.exercises.push(this.nonfilteredExercises[i]);
             }
         }
-    }
+    }*/
 
     private isSelected(id: number): boolean {
         return id === this.selectedExercise.id;

@@ -1,6 +1,7 @@
 package org.evaluator.ws.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import javax.persistence.NoResultException;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExamRepository;
 import org.evaluator.ws.repository.ExerciseRepository;

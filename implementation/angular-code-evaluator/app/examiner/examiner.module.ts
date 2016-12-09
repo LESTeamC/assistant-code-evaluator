@@ -15,6 +15,7 @@ import {SubmissionService} from './submission.service'
 import {NavigationService} from './navigation.service'
 
 import {SubmissionStatusPipe} from './submission-status.pipe'
+import {FilterPipe} from './filter.pipe'
 
 
 @NgModule({
@@ -30,7 +31,8 @@ declarations: [
     WorkstationComponent,
     ExaminerComponent,
     CodeComponent,
-    SubmissionStatusPipe
+    SubmissionStatusPipe,
+    FilterPipe
     
   ],
   providers: [

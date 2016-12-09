@@ -14,17 +14,20 @@
 <div class="row filters">
     <!--<span class="input-group-addon" id="exercise-status">Exam Status</span>-->
     <div class="col-xs-3"> Exam Status
-        <select class="form-control full" (change)="filterByStatus($event.target.value)">
-          <option>All</option>
-          <option>Open</option>
-          <option>Closed</option>
+        <select class="form-control full" [(ngModel)]="statusFilter" name="degree">
+          <option selected value="">All</option>
+          <option value="O">Open</option>
+          <option value="C">Closed</option>
         </select>
-    </div>
+<!--        (change)="filterByStatus($event.target.value)"
+-->    </div>
     <div class="col-xs-3">
         Degree<br>
-        <input class="full" type="text" name="FirstName" (keypress)="filterByDegree($event.target.value)">
+        <input class="full" type="text" name="FirstName" [(ngModel)]="degreeFilter">
     </div>
-</div>
+
+<!--    (keypress)="filterByDegree($event.target.value)"
+--></div>
 
 <div class="row">
     <div class="col-xs-6">
@@ -45,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let ex of exercises" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
+                                <tr *ngFor="let ex of exercises | filter:'status':statusFilter | filter:'degree':degreeFilter" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
                                     <td>{{ex.name}}</td>
                                     <td>{{ex.exam.degree}}</td>
                                     <td>{{ex.exam.course}}</td>

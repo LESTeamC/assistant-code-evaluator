@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.ExerciseDTO;
+import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.StudentExam;
 
 public interface ExamService {
