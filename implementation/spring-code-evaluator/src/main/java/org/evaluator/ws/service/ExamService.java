@@ -33,5 +33,9 @@ public interface ExamService {
 	List<StudentExam> buildGrades(Long examId);
 	
 	Exam update(Exam exam);
+		
+	Exam submission_update(Exam exam);
+
+	void assign_students(Long examID, List<Student> stu);
 
 }
