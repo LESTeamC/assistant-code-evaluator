@@ -154,6 +154,9 @@ export class ImportSubmissionComponent implements OnInit {
 
     cancelImport() {
         this.imported = false;
+        this.zipError = false;
+        this.uploadFail = false;
+        this.uploadSuccess = false;
 
         this.submissions = new Array<StudentExercises>();
         this.fileNames = new Array<string>();
@@ -171,7 +174,7 @@ export class ImportSubmissionComponent implements OnInit {
         this.uploadSuccess = false;
         this.uploadFail = true
 
-        this.errorMessage = error._body;
+        this.errorMessage = (!error._body) ? error : error._body;
     }
 
     successUpload(data:any){

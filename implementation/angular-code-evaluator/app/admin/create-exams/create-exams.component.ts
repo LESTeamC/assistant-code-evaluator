@@ -117,7 +117,7 @@ export class CreateExamsComponent implements OnInit {
         var token:string = this.buildExerciseToken();
         console.log(token);
 
-        //this.uploadFiles(token);
+        this.uploadFiles(token);
 
     }
 
@@ -148,8 +148,11 @@ export class CreateExamsComponent implements OnInit {
 
 
     uploadFiles(token:string) {
-        this.uploadService.uploadLibraries(this.createFileList(), token)
-            .subscribe();
+
+        console.log(this.createFileList());
+        console.log(token);
+/*        this.uploadService.uploadLibraries(this.createFileList(), token)
+            .subscribe();*/
     }
 
     private createFileList(){

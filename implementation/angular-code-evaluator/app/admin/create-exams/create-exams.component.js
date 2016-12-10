@@ -83,7 +83,7 @@ var CreateExamsComponent = (function () {
         this.getExerciseIds(exam);
         var token = this.buildExerciseToken();
         console.log(token);
-        //this.uploadFiles(token);
+        this.uploadFiles(token);
     };
     /**
      * Failure funtion.
@@ -108,8 +108,10 @@ var CreateExamsComponent = (function () {
         }
     };
     CreateExamsComponent.prototype.uploadFiles = function (token) {
-        this.uploadService.uploadLibraries(this.createFileList(), token)
-            .subscribe();
+        console.log(this.createFileList());
+        console.log(token);
+        /*        this.uploadService.uploadLibraries(this.createFileList(), token)
+                    .subscribe();*/
     };
     CreateExamsComponent.prototype.createFileList = function () {
         var fileList = new Array();

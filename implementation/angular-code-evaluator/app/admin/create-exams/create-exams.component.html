@@ -248,22 +248,34 @@
             </div>
           </div>
 
+     <!--     <alert type="info" dismissible="true"
+                >In the command build, name of the specific file should be put inside square brackets. Example: "gcc [file name] library.c"<br>
+                For the execution command, in the place where the name of the file should be, insert square brackers. Example: "[file name] arg1 arg2"</alert>-->
+
           <div class="input-group">
             <span class="input-group-addon" id="exercise-commandbuild">Compilation command</span>
             <input type="text" 
                   [(ngModel)]="currentExercise.commandbuild" 
                   #name="ngModel"
                   class="form-control"
-                  name="exercise-commandbuild">
+                  name="exercise-commandbuild"
+                  placeholder="Ex: gcc [file name] library.c">
           </div>
+          <alert type="info" dismissible="true"
+                >In the command build, where the name of the specific file should be, put something in square brackets. Example: "gcc [file name] library.c"</alert>
+                
           <div class="input-group">
             <span class="input-group-addon" id="exercise-runcommand">Execution command</span>
             <input type="text" 
                   class="form-control"
                   [(ngModel)]="currentExercise.commandrun" 
                   #name="ngModel"
-                  name="exercise-runcommand">
+                  name="exercise-runcommand"
+                  placeholder="Example: [file name] arg1 arg2">
           </div>
+          <alert type="info" dismissible="true"
+                >
+                For the execution command, in the place where the name of the file should be, insert square brackers. Example: "[file name] arg1 arg2"</alert>
            <label class="btn blue-bg btn-file">
               Import Libraries... <input id="library-input" type="file" style="display: none;" (change)="selectFile($event)" accept=".zip">
           </label>

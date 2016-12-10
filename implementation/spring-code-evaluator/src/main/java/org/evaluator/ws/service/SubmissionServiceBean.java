@@ -143,26 +143,6 @@ public class SubmissionServiceBean implements SubmissionService {
         return updatedSubmission;
     }
     
-    private void updateExamAndExerciseStatus(Submission submission){
-    	
-    	
-    	if (this.findOpenByExercise(submission.getExercise().getId()).size() == 0) {
-    		//updateExercise to Closed
-    		
-    		Exercise exerciseToUpdate = submission.getExercise();
-    		
-    		exerciseToUpdate.setStatus("C");
-    		Exercise updatedExercise = exerciseRepository.save(exerciseToUpdate);
-    		
-    		if (exerciseService.findAllOpenByExam(updatedExercise.getExam().getId()).size() == 0) {
-    			//updateExam to Closed
-    			
-    			Exam examToUpdate = updatedExercise.getExam();
-    			examToUpdate.setStatus("C");
-    			examRepository.save(examToUpdate);
-    		}
-    	}
-    }
     
     private void updateExamAndExercise(Submission submission){
     	

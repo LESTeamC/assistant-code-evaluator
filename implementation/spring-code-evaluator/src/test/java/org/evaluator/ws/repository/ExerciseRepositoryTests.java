@@ -80,6 +80,7 @@ public class ExerciseRepositoryTests extends AbstractTest {
 	
 	}
 	
+	//TODO REFACTOR
 	@Test
 	public void testDeleteExaminerExamNull() {
 		
