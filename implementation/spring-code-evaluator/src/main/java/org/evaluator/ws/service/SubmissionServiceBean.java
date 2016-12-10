@@ -69,6 +69,13 @@ public class SubmissionServiceBean implements SubmissionService {
     
     @Autowired
     private ExamService examService;
+	
+	private final String fileIdentifier = "[nome do ficheiro]";
+	private final String studentFileName = "main.c";
+	private final String studentExecutableName = "main";
+
+	private final String compilerError = "The Server Does Not Have A Compiler For The Selected Language.";
+	private final String internalError = "The Server Crashed During Compilation. Please Analyse The Error: ";
     
 	@Override
 	public Submission findOne(Long id) {
@@ -165,18 +172,29 @@ public class SubmissionServiceBean implements SubmissionService {
     }
 
 		
+	public final class FileName {
+		public String studentName;
+		public String exerciseName;
+
+		public FileName(String studentName, String exerciseName) {
+			super();
+			this.studentName = studentName;
+			this.exerciseName = exerciseName;
+		}
+
+	}
+
 	@Override
 	public void validateSubmissionFile(InputStream file, Long examID) {
 		Exam exam = this.examRepository.findById(examID);
 		if (exam == null)
 			return;
-		List<Student> listOfStudents = new ArrayList<Student>();
+		List<FileName> fileNames = new ArrayList<FileName>();
 
 		try {
 
 			ZipInputStream zipIn = new ZipInputStream(file);
 			ZipEntry entry = zipIn.getNextEntry();
-			String studentUsername = "none";
 
 			// for each file
 			while (entry != null) {
@@ -189,21 +207,15 @@ public class SubmissionServiceBean implements SubmissionService {
 				}
 
 				if (!list[0].isEmpty() && !list[1].isEmpty()) {
-					studentUsername = list[1];
+					// studentUsername = list[1];
 					// check if student is present at exam
-					Student stu = exam.getStudentByName(studentUsername);
-					if (stu == null) {
-						// create student
-						stu = new Student("no-name", studentUsername);
-					}
-					listOfStudents.add(stu);
-
+					fileNames.add(new FileName(list[1], list[0]));
 				}
 				zipIn.closeEntry();
 				entry = zipIn.getNextEntry();
 			}
 			zipIn.close();
-			this.examService.assign_students(exam.getId(), listOfStudents);
+			assign_students(exam, fileNames);
 			System.out.println("---done!--");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -212,7 +224,25 @@ public class SubmissionServiceBean implements SubmissionService {
 		}
 	}
 
-	
+	private void assign_students(Exam exam, List<FileName> fileNames) {
+		List<Student> listOfStudents = new ArrayList<Student>();
+		String studentUsername;
+
+		for (FileName f : fileNames) {
+			if (!f.exerciseName.isEmpty() && !f.studentName.isEmpty()) {
+				studentUsername = f.studentName;
+				// check if student is present at exam
+				Student stu = exam.getStudentByName(studentUsername);
+				if (stu == null) {
+					// create student
+					stu = new Student("no-name", studentUsername);
+				}
+				listOfStudents.add(stu);
+			}
+		}
+		this.examService.assign_students(exam.getId(), listOfStudents);
+	}
+
 	@Async
 	@Override
 	public void analyseCode(InputStream file, Long examID) {
@@ -224,7 +254,6 @@ public class SubmissionServiceBean implements SubmissionService {
 			return;
 
 		try {
-
 			ZipInputStream zipIn = new ZipInputStream(file);
 			ZipEntry entry = zipIn.getNextEntry();
 			String studentUsername = "none";
@@ -250,7 +279,7 @@ public class SubmissionServiceBean implements SubmissionService {
 					// if exercise found
 					if (d != null && e != null) {
 						// compile and execute
-						Submission submission = generateSubmission(code, e, d);
+						Submission submission = generateSubmission(exam, code, e, d);
 						if (submission != null) {
 							addToMap(submissions, e, submission);
 						}
@@ -271,6 +300,7 @@ public class SubmissionServiceBean implements SubmissionService {
 			return;
 		}
 	}
+
 
 	private void addToMap(Map<Exercise, List<Submission>> submissions, Exercise e, Submission s) {
 		if (submissions.get(e) == null) {
@@ -303,7 +333,25 @@ public class SubmissionServiceBean implements SubmissionService {
 	}
 
 	
-	private Submission generateSubmission(String code, Exercise exe, Student stu)
+	private Submission generateSubmission(Exam exam, String code, Exercise exe, Student stu) {
+
+		if (exam.getLanguage().compareToIgnoreCase("C") == 0) {
+			try {
+				return Ccompiler(code, exe, stu);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				return new Submission(code, internalError + e.getMessage(), exe, stu);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				return new Submission(code, internalError + e.getMessage(), exe, stu);
+			}
+		} // else if (JAVA)
+
+		return new Submission(code, compilerError, exe, stu);
+
+	}
+
+	private Submission Ccompiler(String code, Exercise exe, Student stu)
 			throws FileNotFoundException, UnsupportedEncodingException {
 		String output = "";
 
@@ -334,13 +382,27 @@ public class SubmissionServiceBean implements SubmissionService {
 
 			// compile
 			// System.out.println("---compiling---");
-			String[] compilationMessage = executeCommand(" (cd " + dirPath + " ; " + exe.getCommandbuild() + ")");
+			String compilation = exe.getCommandbuild();
+			if (compilation.contains(fileIdentifier)) {
+				int first = compilation.indexOf(fileIdentifier);
+				compilation = compilation.substring(0, first) + "-o " + this.studentExecutableName + " "
+						+ this.studentFileName + compilation.substring(first + fileIdentifier.length());
+			}
+
+			String[] compilationMessage = executeCommand(" (cd " + dirPath + " ; " + compilation + ")");
 
 			if (compilationMessage != null && (compilationMessage[1] == null || compilationMessage[1].isEmpty())) {
 				compilationError = false;
 				// execute
 				// System.out.println("---executing---");
-				compilationMessage = executeCommand("(cd " + dirPath + " ; " + exe.getCommandrun() + ")");
+				String executable = exe.getCommandrun();
+				if (executable.contains(fileIdentifier)) {
+					int first = compilation.indexOf(fileIdentifier);
+					executable = "./" + this.studentExecutableName + " " + this.studentFileName
+							+ executable.substring(first + fileIdentifier.length());
+				}
+
+				compilationMessage = executeCommand("(cd " + dirPath + " ; " + executable + ")");
 
 				if (compilationMessage == null) {
 					System.out.println("### error in execution ###");
