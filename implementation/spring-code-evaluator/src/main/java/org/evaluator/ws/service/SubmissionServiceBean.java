@@ -76,6 +76,8 @@ public class SubmissionServiceBean implements SubmissionService {
 
 	private final String compilerError = "The Server Does Not Have A Compiler For The Selected Language.";
 	private final String internalError = "The Server Crashed During Compilation. Please Analyse The Error: ";
+	private final String osError = "OS is not Linux, therefore the server could not compile.";
+
     
 	@Override
 	public Submission findOne(Long id) {
@@ -333,7 +335,7 @@ public class SubmissionServiceBean implements SubmissionService {
 	}
 	
 	private Submission generateSubmission(Exam exam, String code, Exercise exe, Student stu) {
-
+		if(!isOSLinux()) 		return new Submission(code, osError, exe, stu);
 		if (exam.getLanguage().compareToIgnoreCase("C") == 0) {
 			try {
 				return Ccompiler(code, exe, stu);
