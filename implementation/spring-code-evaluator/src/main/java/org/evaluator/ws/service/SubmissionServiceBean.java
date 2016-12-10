@@ -331,7 +331,6 @@ public class SubmissionServiceBean implements SubmissionService {
 		}
 		return true;
 	}
-
 	
 	private Submission generateSubmission(Exam exam, String code, Exercise exe, Student stu) {
 
@@ -339,10 +338,10 @@ public class SubmissionServiceBean implements SubmissionService {
 			try {
 				return Ccompiler(code, exe, stu);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				return new Submission(code, internalError + e.getMessage(), exe, stu);
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
+				return new Submission(code, internalError + e.getMessage(), exe, stu);
+			} catch (IOException e) {
 				return new Submission(code, internalError + e.getMessage(), exe, stu);
 			}
 		} // else if (JAVA)
@@ -352,87 +351,79 @@ public class SubmissionServiceBean implements SubmissionService {
 	}
 
 	private Submission Ccompiler(String code, Exercise exe, Student stu)
-			throws FileNotFoundException, UnsupportedEncodingException {
+			throws IOException {
 		String output = "";
 
 		boolean compilationError = true;
+		// create dedicated directory
+		String dirPath = "/tmp/" + stu.getUsername() + "_";
+		dirPath += new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		// creating dir
+		// System.out.println("---creating dir---");
+		new File(dirPath).mkdir();
 
-		try {
-			// create dedicated directory
-			String dirPath = "/tmp/" + stu.getUsername() + "_";
-			dirPath += new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-			// creating dir
-			// System.out.println("---creating dir---");
-			new File(dirPath).mkdir();
+		// write file with code
+		// System.out.println("---writing file!---");
+		// TODO - change main.c to a variable from the user!
+		PrintWriter writer = new PrintWriter(dirPath + "/main.c", "UTF-8");
+		writer.println(code);
+		writer.close();
+		// System.out.println(code);
 
-			// write file with code
-			// System.out.println("---writing file!---");
-			// TODO - change main.c to a variable from the user!
-			PrintWriter writer = new PrintWriter(dirPath + "/main.c", "UTF-8");
-			writer.println(code);
-			writer.close();
-			// System.out.println(code);
-
-			// get Library
-			// System.out.println("---searching for Library---");
-			if (!moveLibraryContent(exe, dirPath)) {
-				System.out.println("#### library Not Found " + exe + " ###");
-				return null;
-			}
-
-			// compile
-			// System.out.println("---compiling---");
-			String compilation = exe.getCommandbuild();
-			if (compilation.contains(fileIdentifier)) {
-				int first = compilation.indexOf(fileIdentifier);
-				compilation = compilation.substring(0, first) + "-o " + this.studentExecutableName + " "
-						+ this.studentFileName + compilation.substring(first + fileIdentifier.length());
-			}
-
-			String[] compilationMessage = executeCommand(" (cd " + dirPath + " ; " + compilation + ")");
-
-			if (compilationMessage != null && (compilationMessage[1] == null || compilationMessage[1].isEmpty())) {
-				compilationError = false;
-				// execute
-				// System.out.println("---executing---");
-				String executable = exe.getCommandrun();
-				if (executable.contains(fileIdentifier)) {
-					int first = compilation.indexOf(fileIdentifier);
-					executable = "./" + this.studentExecutableName + " " + this.studentFileName
-							+ executable.substring(first + fileIdentifier.length());
-				}
-
-				compilationMessage = executeCommand("(cd " + dirPath + " ; " + executable + ")");
-
-				if (compilationMessage == null) {
-					System.out.println("### error in execution ###");
-				}
-
-			} else {
-				System.out.println("### error in compilation: " + compilationMessage[1] + " ###");
-			}
-
-			// remove dedicated directory
-			String[] tmp = executeCommand("rm -r " + dirPath);
-			if (!(tmp != null && (tmp[1] == null || tmp[1].isEmpty())))
-				System.out.println("ERROR: removing dedicated directory");
-			if (compilationError) {
-				output = "---[COMPILATION ERROR]---\n" + compilationMessage[1];
-			} else {
-				if (compilationMessage != null && compilationMessage[1] != null && !compilationMessage[1].isEmpty()) {
-					output = "---[EXECUTION ERROR]---\n" + compilationMessage[1];
-				} else {
-					output = "---[EXECUTION OUTPUT]---\n" + compilationMessage[0];
-				}
-			}
-
-			return new Submission(code, output, exe, stu);
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		// get Library
+		// System.out.println("---searching for Library---");
+		if (!moveLibraryContent(exe, dirPath)) {
+			System.out.println("#### library Not Found " + exe + " ###");
+			return new Submission(code, "The Server Could Not Compile Beacuse The Library Was Not Found.", exe, stu);
 		}
 
-		return null;
+		// compile
+		// System.out.println("---compiling---");
+		String compilation = exe.getCommandbuild();
+		if (compilation.contains(fileIdentifier)) {
+			int first = compilation.indexOf(fileIdentifier);
+			compilation = compilation.substring(0, first) + "-o " + this.studentExecutableName + " "
+					+ this.studentFileName + compilation.substring(first + fileIdentifier.length());
+		}
+
+		String[] compilationMessage = executeCommand(" (cd " + dirPath + " ; " + compilation + ")");
+
+		if (compilationMessage != null && (compilationMessage[1] == null || compilationMessage[1].isEmpty())) {
+			compilationError = false;
+			// execute
+			// System.out.println("---executing---");
+			String executable = exe.getCommandrun();
+			if (executable.contains(fileIdentifier)) {
+				int first = compilation.indexOf(fileIdentifier);
+				executable = "./" + this.studentExecutableName + " " + this.studentFileName
+						+ executable.substring(first + fileIdentifier.length());
+			}
+
+			compilationMessage = executeCommand("(cd " + dirPath + " ; " + executable + ")");
+
+			if (compilationMessage == null) {
+				System.out.println("### error in execution ###");
+			}
+
+		} else {
+			System.out.println("### error in compilation: " + compilationMessage[1] + " ###");
+		}
+
+		// remove dedicated directory
+		String[] tmp = executeCommand("rm -r " + dirPath);
+		if (!(tmp != null && (tmp[1] == null || tmp[1].isEmpty())))
+			System.out.println("ERROR: removing dedicated directory");
+		if (compilationError) {
+			output = "---[COMPILATION ERROR]---\n" + compilationMessage[1];
+		} else {
+			if (compilationMessage != null && compilationMessage[1] != null && !compilationMessage[1].isEmpty()) {
+				output = "---[EXECUTION ERROR]---\n" + compilationMessage[1];
+			} else {
+				output = "---[EXECUTION OUTPUT]---\n" + compilationMessage[0];
+			}
+		}
+
+		return new Submission(code, output, exe, stu);
 	}
 
 	private final boolean moveLibraryContent(Exercise exe, String destinationPath) throws IOException {
