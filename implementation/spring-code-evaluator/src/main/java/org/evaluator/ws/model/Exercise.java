@@ -126,14 +126,14 @@ public class Exercise {
 	 * Different Criteria for this exercise
 	 */
 	@OneToMany(
-			fetch = FetchType.EAGER,
+			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
 			mappedBy ="exercise")
 	@JsonManagedReference
 	private Set<ExerciseCriteria> criteria;
 	
 	@OneToMany(
-			fetch = FetchType.EAGER, 
+			fetch = FetchType.LAZY, 
 			cascade = CascadeType.ALL,
 			mappedBy ="exercise")
 	@JsonIgnore
