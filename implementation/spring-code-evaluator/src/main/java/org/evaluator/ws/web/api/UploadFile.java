@@ -18,6 +18,15 @@ import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
+import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.repository.ExerciseRepository;
+import org.evaluator.ws.util.RequestContext;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * Created by Ricardo on 25/11/2016.
  */
@@ -31,9 +40,48 @@ public class UploadFile {
     //Receive a POST
     @RequestMapping(value = "/api/uptest", method = RequestMethod.POST)
     public @ResponseBody
-    String multipleSave(@RequestParam("uploadfile") MultipartFile[] files){ //Receive an Array Multipart with files.
+    String multipleSave(@RequestParam("uploadfile") MultipartFile[] files, , HttpServletRequest request){ //Receive an Array Multipart with files.
         String fileName = null;
         String msg = "";
+	
+	//Token Hanlder
+        try {
+            //Manage to get the Tokens ID
+            StringBuffer requestURL = request.getRequestURL();
+            String queryString = request.getQueryString();
+            String token = requestURL.append('?').append(queryString).toString();
+            String result[] = token.split("=");
+            String returnValue = result[result.length - 1];
+
+            //Split the token and save it on a Array
+            String[] b = returnValue.split("_");
+
+            Long[] examId = new Long[50];
+            //Convert String to Long Id
+            for (int i = 0 ; i < b.length; i++){
+                Long converter = Long.parseLong(b[i]);
+                examId[i] = converter;  //Array with all exam ids as long
+            }
+
+
+
+            String[] ExerciceName = new String[50];
+            //Gets the Ids and search for the exam name according to its iD.
+            for (int i = 0 ; i <= examId.length-1; i++){
+
+                if (examId[i] != null){
+                    Exercise exercise = exerciseRepository.findOne(examId[i]);
+                    ExerciceName[i] = exercise.getName();
+                    System.out.println(exercise.getName().toString());
+                }
+           }
+
+        } finally {
+
+        }    
+	    
+	    
+	    
         if (files != null && files.length >0) { //Runs the array getting the size and each file
             for(int i =0 ;i< files.length; i++){
                 try {
