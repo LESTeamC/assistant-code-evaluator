@@ -93,9 +93,9 @@ public class UploadFile {
         }
 
 
-        for (int i = 0; i <= examId.length - 1; i++) {
+   //     for (int i = 0; i <= examId.length - 1; i++) {
 
-            if (examId[i] != null) {
+     //       if (examId[i] != null) {
 
                 if (files != null && files.length > 0) {
 
@@ -115,7 +115,7 @@ public class UploadFile {
                             String zipFilePath = destDirectory + fileName;
 
                             String fileFolder = fileName.substring(0, fileName.lastIndexOf('.'));
-                            String newFolderName = String.valueOf(examId[i]);
+                            String newFolderName = String.valueOf(examId[b]);
                             UnzipFile unzipper = new UnzipFile();
 
                             try {
@@ -136,9 +136,9 @@ public class UploadFile {
                 } else {
                     return "Unable to upload. File is empty.";
                 }
-            }
-        }
-        return fileName;
+         //   }
+       // }
+        //return fileName;
     }
 
 
