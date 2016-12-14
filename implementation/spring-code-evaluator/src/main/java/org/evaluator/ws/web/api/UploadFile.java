@@ -108,7 +108,7 @@ public class UploadFile {
                             BufferedOutputStream buffStream =
                                     //Create a buffer of Bytes and save it to disk Location
                                     //This file location should be changed when you install in your computer
-                                    new BufferedOutputStream(new FileOutputStream(new File("//opt//ace" + fileName)));
+                                    new BufferedOutputStream(new FileOutputStream(new File("/opt/ace/" + fileName)));
                             buffStream.write(bytes);
                             buffStream.close();
 
