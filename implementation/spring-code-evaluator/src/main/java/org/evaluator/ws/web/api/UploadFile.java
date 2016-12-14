@@ -55,6 +55,7 @@ public class UploadFile {
         String msg = "";
 
         //Token Hanlder
+        
         try {
             //Manage to get the Tokens ID
             StringBuffer requestURL = request.getRequestURL();
@@ -102,11 +103,12 @@ public class UploadFile {
                     for (int b = 0; b < files.length; b++) {
                         try {
                             fileName = files[b].getOriginalFilename();
+                            
                             byte[] bytes = files[b].getBytes();
                             BufferedOutputStream buffStream =
                                     //Create a buffer of Bytes and save it to disk Location
                                     //This file location should be changed when you install in your computer
-                                    new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//" + fileName)));
+                                    new BufferedOutputStream(new FileOutputStream(new File("//opt//ace" + fileName)));
                             buffStream.write(bytes);
                             buffStream.close();
 

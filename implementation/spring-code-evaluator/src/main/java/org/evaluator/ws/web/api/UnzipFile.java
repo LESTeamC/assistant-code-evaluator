@@ -34,7 +34,7 @@ public class UnzipFile {
 
         folderName = newFolderName;
 
-        File destDir = new File(destDirectory + "/" + fileFolder);
+        File destDir = new File(destDirectory + fileFolder);
         if (!destDir.exists()) {
             destDir.mkdir();
         }
