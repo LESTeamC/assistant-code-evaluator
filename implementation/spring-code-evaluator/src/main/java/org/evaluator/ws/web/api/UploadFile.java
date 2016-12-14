@@ -39,6 +39,8 @@ public class UploadFile {
     
     @Autowired ExerciseRepository exerciseRepository;
     
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     //Const that has the folder direction
     private static final String destDirectory = "/home/itporto/ace/";
     public String[] exerciceName = new String[50];
@@ -89,7 +91,9 @@ public class UploadFile {
             //     }
             // }
 
-        } 
+        } finally {
+
+        }
 
 
    //     for (int i = 0; i <= examId.length - 1; i++) {
@@ -106,7 +110,7 @@ public class UploadFile {
                             BufferedOutputStream buffStream =
                                     //Create a buffer of Bytes and save it to disk Location
                                     //This file location should be changed when you install in your computer
-                                    new BufferedOutputStream(new FileOutputStream(new File("//home//itporto//ace//" + fileName)));
+                                    new BufferedOutputStream(new FileOutputStream(new File("//home//itporto/ace/" + fileName)));
                             buffStream.write(bytes);
                             buffStream.close();
 
@@ -128,8 +132,8 @@ public class UploadFile {
 
 
                             // /opt/ace
-                        } catch (IllegalArgumentException e) {
-                            return "You failed to upload " + fileName + ": " + e.getMessage() + "<br/>";
+                        } catch (Exception e) {
+                            logger.error(e.getMessage() + e.toString());
                         }
                     }
                     return msg;
