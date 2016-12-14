@@ -81,6 +81,10 @@ export	class	ViewExaminersComponent implements OnInit	{
         console.log(error);
     }
 
+    editExaminer(){
+        this._router.navigate(['/admin/edit-examiner', this.selectedExaminer.username])
+    }
+
     private removeFromArray(array:any[], id:number): any[]{
 
         return array.filter(function(el) {

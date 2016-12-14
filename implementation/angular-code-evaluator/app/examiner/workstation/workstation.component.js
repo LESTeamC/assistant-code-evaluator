@@ -14,7 +14,6 @@ var submission_1 = require('./../../model/submission');
 var exercise_1 = require('./../../model/exercise');
 var exam_1 = require('./../../model/exam');
 var student_1 = require('./../../model/student');
-var testdata_1 = require('./../../util/testdata');
 var submission_service_1 = require('./../submission.service');
 var exam_service_1 = require('./../../admin/exam.service');
 var auth_service_1 = require('./../../shared/auth.service');
@@ -68,11 +67,11 @@ var WorkstationComponent = (function () {
         this.exercise = data.exercise;
         this.student = data.student;
         this.comment = data.comment;
-        //this.output = data.output;
-        //this.codeString = data.code;
+        this.output = data.output;
+        this.codeString = data.code;
         //FOR DEMONSTRATION ONLY!!!
-        this.codeString = testdata_1.TestData.codeBlock;
-        this.output = testdata_1.TestData.longString;
+        //this.codeString = TestData.codeBlock;
+        //this.output = TestData.longString;
         this.codeElement.nativeElement.textContent = this.codeString;
         hljs.highlightBlock(this.codeElement.nativeElement);
         this.getExam(data.id);
@@ -212,6 +211,7 @@ var WorkstationComponent = (function () {
             if (confirm("This submission is not totally evaluated yet."
                 + "If you proceed, your progress will not be saved."
                 + "Are you sure you want to proceed?")) {
+                this.saveComment();
                 this._router.navigate(['/examiner/dashboard']);
             }
         }
@@ -244,6 +244,7 @@ var WorkstationComponent = (function () {
             if (confirm("This submission is not totally evaluated yet."
                 + "If you proceed, your progress will not be saved."
                 + "Are you sure you want to proceed?")) {
+                this.saveComment();
                 this.navigationService.navigateNext();
             }
         }
@@ -264,6 +265,7 @@ var WorkstationComponent = (function () {
             if (confirm("This submission is not totally evaluated yet."
                 + "If you proceed, your progress will not be saved."
                 + "Are you sure you want to proceed?")) {
+                this.saveComment();
                 this.navigationService.navigatePrevious();
             }
         }

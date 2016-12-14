@@ -172,5 +172,50 @@ public class ExamController extends BaseController {
 		}
 
 	}
+	
+    @RequestMapping(
+            value = "/admin/exam/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Exam> updateExam(
+            @RequestBody Exam exam) {
+        logger.info("> updateExam id:{}", exam.getId());
+        
+		try {
+			
+	        Exam updatedExam = examService.update(exam);
+	        if (updatedExam == null) {
+	            return new ResponseEntity<Exam>(
+	                    HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
+
+	        logger.info("< updateGreeting id:{}", exam.getId());
+	        return new ResponseEntity<Exam>(updatedExam, HttpStatus.OK);
+
+		} catch (DataIntegrityViolationException SQLe) {
+
+			// Check for duplicate Key in Request (duplicate name)
+
+			// From mySQL Docs:
+			// Error: 1022 SQLSTATE: 23000 (ER_DUP_KEY)
+			// Message: Can't write; duplicate key in table '%s'
+
+			if (SQLe.getCause() instanceof JDBCException) {
+
+				if (((JDBCException) SQLe.getCause()).getSQLException().getSQLState().equals("23000")) {
+					return new ResponseEntity<Exam>(HttpStatus.CONFLICT);
+				} else
+					return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
+			} else {
+				return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
+			}
+
+		} catch (Exception e) {
+			logger.info("> createExam");
+			logger.error(e.getMessage());
+			return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
+		}
+    }
 
 }

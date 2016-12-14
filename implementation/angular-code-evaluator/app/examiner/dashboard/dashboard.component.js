@@ -22,6 +22,8 @@ var DashboardComponent = (function () {
         this.authService = authService;
         this.examinerService = examinerService;
         this.navigationService = navigationService;
+        this.degreeFilter = "";
+        this.statusFilter = "";
         // list that is represented in html
         this.exercises = new Array();
         this.submissions = new Array();
@@ -67,50 +69,56 @@ var DashboardComponent = (function () {
         this.disableButton = true;
         //this.selectedSubmission = null;
     };
-    DashboardComponent.prototype.filterByStatus = function (status) {
-        this.cleanSelectedSubmission();
-        //validate input
-        if (this.oldStatus == null || this.oldStatus == status) {
+    /*    private filterByStatus(status: string): void {
+    
+            this.cleanSelectedSubmission();
+    
+            //validate input
+            if (this.oldStatus == null || this.oldStatus == status) {
+                this.oldStatus = status;
+                return;
+            }
+    
+            if (status == "All") {
+                this.exercises = this.nonfilteredExercises.slice();
+                return;
+            } else
+                if (status == "Open") {
+                    status = "O";
+                } else if (status == "Closed") {
+                    status = "C";
+                }
+    
+            // clean list
+            this.exercises = [];
+            var arrayLength = this.nonfilteredExercises.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if (this.nonfilteredExercises[i].status === status) {
+                    this.exercises.push(this.nonfilteredExercises[i]);
+                }
+            }
             this.oldStatus = status;
-            return;
-        }
-        if (status == "All") {
-            this.exercises = this.nonfilteredExercises.slice();
-            return;
-        }
-        else if (status == "Open") {
-            status = "O";
-        }
-        else if (status == "Closed") {
-            status = "C";
-        }
-        // clean list
-        this.exercises = [];
-        var arrayLength = this.nonfilteredExercises.length;
-        for (var i = 0; i < arrayLength; i++) {
-            if (this.nonfilteredExercises[i].status === status) {
-                this.exercises.push(this.nonfilteredExercises[i]);
+        }*/
+    /*    private filterByDegree(value: string): void {
+    
+            this.cleanSelectedSubmission();
+    
+            //validate input
+            if (value == null || !value) {
+                this.exercises = this.nonfilteredExercises.slice();
+                return;
             }
-        }
-        this.oldStatus = status;
-    };
-    DashboardComponent.prototype.filterByDegree = function (value) {
-        this.cleanSelectedSubmission();
-        //validate input
-        if (value == null || !value) {
-            this.exercises = this.nonfilteredExercises.slice();
-            return;
-        }
-        // clean list
-        this.exercises = [];
-        var arrayLength = this.nonfilteredExercises.length;
-        for (var i = 0; i < arrayLength; i++) {
-            if (this.nonfilteredExercises[i].exam.degree.toUpperCase().indexOf(value.toUpperCase()) !== -1) {
-                // add the exercise that contais the degree entered by the user
-                this.exercises.push(this.nonfilteredExercises[i]);
+    
+            // clean list
+            this.exercises = [];
+            var arrayLength = this.nonfilteredExercises.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if (this.nonfilteredExercises[i].exam.degree.toUpperCase().indexOf(value.toUpperCase()) !== -1) {
+                    // add the exercise that contais the degree entered by the user
+                    this.exercises.push(this.nonfilteredExercises[i]);
+                }
             }
-        }
-    };
+        }*/
     DashboardComponent.prototype.isSelected = function (id) {
         return id === this.selectedExercise.id;
     };

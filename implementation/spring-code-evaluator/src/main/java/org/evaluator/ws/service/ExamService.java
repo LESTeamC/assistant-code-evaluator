@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.ExerciseDTO;
+import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.StudentExam;
 
 public interface ExamService {
@@ -31,5 +32,11 @@ public interface ExamService {
 	Collection<ExerciseDTO> findExamsByExaminer(String usernameID);
 
 	List<StudentExam> buildGrades(Long examId);
+	
+	Exam update(Exam exam);
+		
+	Exam submission_update(Exam exam);
+
+	void assign_students(Long examID, List<Student> stu);
 
 }

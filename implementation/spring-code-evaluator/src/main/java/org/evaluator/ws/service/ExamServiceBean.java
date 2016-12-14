@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
 
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Exercise;
+import org.evaluator.ws.model.ExerciseCriteria;
 import org.evaluator.ws.model.ExerciseDTO;
 import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.StudentExam;
 import org.evaluator.ws.model.Submission;
+import org.evaluator.ws.model.SubmissionCriteria;
 import org.evaluator.ws.repository.ExamRepository;
 import org.evaluator.ws.repository.SubmissionRepository;
 import org.slf4j.Logger;
@@ -265,5 +268,113 @@ public class ExamServiceBean implements ExamService {
 		double mask = Math.pow(10.0, decimalCases);
 
 		return Math.round(number * mask) / mask;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public Exam update(Exam exam) {
+		logger.info("> updateExam id:{}", exam.getId());
+
+		counterService.increment("method.invoked.greetingServiceBean.update");
+
+		// Ensure the entity object to be updated exists in the repository to
+		// prevent the default behavior of save() which will persist a new
+		// entity if the entity matching the id does not exist
+		Exam examToUpdate = this.findById(exam.getId());
+		if (examToUpdate == null) {
+			// Cannot update Greeting that hasn't been persisted
+			logger.error("Attempted to update an Exam, but the entity does not exist.");
+			throw new NoResultException("Requested entity not found.");
+		}
+
+		examToUpdate = this.generateNewExam(exam, examToUpdate);
+
+		Exam updatedExam = examRepository.save(examToUpdate);
+		this.updateGrades(updatedExam);
+
+		logger.info("< updateExam id:{}", exam.getId());
+		return updatedExam;
+	}
+
+	private Exam generateNewExam(Exam exam, Exam examToUpdate) {
+
+		examToUpdate.setName(exam.getName());
+		examToUpdate.setDegree(exam.getDegree());
+		examToUpdate.setCourse(exam.getCourse());
+		examToUpdate.setDate(exam.getDate());
+		examToUpdate.setLanguage(exam.getLanguage());
+
+		for (Exercise e : examToUpdate.getExercises()) {
+			for (Exercise ex : exam.getExercises()) {
+				if (e.getId() == ex.getId()) {
+					e.setWeight(ex.getWeight());
+				}
+
+				for (ExerciseCriteria ec : e.getCriteria()) {
+					for (ExerciseCriteria exc : ex.getCriteria()) {
+						if (ec.getId() == exc.getId()) {
+							ec.setWeight(exc.getWeight());
+						}
+					}
+				}
+			}
+		}
+
+		return examToUpdate;
+
+	}
+
+	private void updateGrades(Exam examToUpdate) {
+
+		List<Submission> submissions = submissionRepository.findByExamIdOrderByStudentId(examToUpdate.getId());
+
+		for (Submission s : submissions) {
+			double grade = this.calculateGrade(s);
+			s.setGrade(this.roundDecimal(grade, 2));
+			submissionRepository.save(s);
+		}
+
+	}
+
+	private double calculateGrade(Submission submission) {
+
+		double grade = 0;
+
+		for (SubmissionCriteria s : submission.getCriteria()) {
+
+			ExerciseCriteria criteria = s.getCriteria();
+
+			if (s.getGrade() >= 0) {
+				grade += (s.getGrade() / criteria.getGama()) * criteria.getWeight();
+			}
+		}
+
+		return grade;
+	}
+	
+	@Override
+	public void assign_students(Long examId, List<Student> stu) {
+		logger.info("< assign_students");
+
+		Exam tmp = this.examRepository.findOne(examId);
+		List<Student> l = new ArrayList<Student>();
+		l = this.studentService.createList(stu);
+		tmp.setStudents(l);
+		this.examRepository.save(tmp);
+		
+		logger.info("> assign_students");
+	}
+	
+	@Override
+	@Transactional
+	public Exam submission_update(Exam exam) {
+		logger.info("<> updateExam");
+		
+		Exam tmp = this.examRepository.findOne(exam.getId());
+		tmp.setStudents(exam.getStudents());
+		tmp.setExercises(exam.getExercises());
+		logger.info("> updateExam");
+		
+		return this.examRepository.save(tmp);
 	}
 }

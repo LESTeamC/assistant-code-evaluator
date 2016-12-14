@@ -25,6 +25,18 @@ public class Student {
 	 */
 	@NotNull
 	private String username;
+	
+	public Student() {
+		super();
+	}
+
+	
+	public Student(String name, String username) {
+		super();
+		this.name = name;
+		this.username = username;
+	}
+
 
 	public Long getId() {
 		return id;

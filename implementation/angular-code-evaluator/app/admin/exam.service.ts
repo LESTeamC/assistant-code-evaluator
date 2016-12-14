@@ -46,7 +46,6 @@ export class ExamService {
         this.headers = new Headers();
         this.headers.append('Authorization', this.authService.credentials);
         
-        //make Post request to persist exam, including header
         return this.http
                 .get(this.url+`/api/exam-by-submission/${submissionId}`, {headers : this.headers} )
                 .map( (response:Response) => response.json())
@@ -59,7 +58,6 @@ export class ExamService {
         this.headers = new Headers();
         this.headers.append('Authorization', this.authService.credentials);
         
-        //make Post request to persist exam, including header
         return this.http
                 .get(this.url+`/admin/exam/${id}`, {headers : this.headers} )
                 .map( (response:Response) => response.json())        
@@ -73,7 +71,6 @@ export class ExamService {
         this.headers = new Headers();
         this.headers.append('Authorization', this.authService.credentials);
         
-        //make Post request to persist exam, including header
         return this.http
                 .get(this.url+`/admin/exams`, {headers : this.headers} )
                 .map( (response:Response) => response.json())        
@@ -86,7 +83,6 @@ export class ExamService {
         this.headers = new Headers();
         this.headers.append('Authorization', this.authService.credentials);
         
-        //make Post request to persist exam, including header
         return this.http
                 .delete(this.url+`/admin/exam/${id}`, {headers : this.headers} )
     }
@@ -98,9 +94,26 @@ export class ExamService {
         this.headers = new Headers();
         this.headers.append('Authorization', this.authService.credentials);
         
-        //make Post request to persist exam, including header
         return this.http
                 .get(this.url+`/admin/grades/${id}`, {headers : this.headers} )
                 .map( (response:Response) => response.json())        
+    }
+
+    /**
+    * Persists Edited Exam in DB
+    * @param: Exam to persist
+    */
+    updateExam(exam: Exam){
+
+        //Get the user credentials from AuthService shared service
+        //Important for Basic Authorization header
+        this.headers = new Headers();
+        this.headers.append('Authorization', this.authService.credentials);
+        
+        //make Put request to persist exam, including header
+        return this.http
+                .put(this.url+`/admin/exam/${exam.id}`, exam, {headers : this.headers} )
+                .map( (response:Response) => response.json())
+            
     }
 }

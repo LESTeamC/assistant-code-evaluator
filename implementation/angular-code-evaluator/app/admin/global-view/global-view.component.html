@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let ex of exercises" [class.selected-row]="isSelectedExercise(ex)" (click)="getSubmissions(ex)">
+                            <tr *ngFor="let ex of exercises | sort:'name'" [class.selected-row]="isSelectedExercise(ex)" (click)="getSubmissions(ex)">
                                 <td>{{ex.name}}</td>
                                 <td>{{ex.progress}}/{{ex.nsubmissions}}</td>
                                 <td>{{ex.status | status}}</td>
@@ -76,8 +76,8 @@
                         <thead>
                             <tr>
                                 <th>Student</th>
-                                <th *ngFor="let exe of exercises">{{exe.name}} <br>
-                                                         <span class="detail">({{exe.weight}}%)</span></th>
+                                <th *ngFor="let exe of exercises | sort:'name'">{{exe.name}} <br>
+                                      <span class="detail">({{exe.weight}}%)</span></th>
                                 <th>Grade</th>
                             </tr>                           
                         </thead>
@@ -99,7 +99,7 @@
                         </tbody>
                     </table>
                     <div class="legend">
-                        <p>NS - This exercise was not submitted by the student</p>
+                        <p>NS - This exercise was not submitted by the student. This means the student grade equals 0.00</p>
                         <p>NE - This submission was not graded by an examiner</p>
                     </div>
                 </div>
@@ -142,10 +142,6 @@
                         <p *ngIf="isGraded(selectedSubmission)">Total score of this submission: <span class="score">{{selectedSubmission.grade}}%</span>, whitch sums up to {{calculateValueOfSubmission(selectedSubmission)}} values, out of a possible 20</p>
                     </div>
                 </div>
-
-
-                <!--From For Examiners-->
-
             </div>
         </div>
     </div>

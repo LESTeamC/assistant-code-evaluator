@@ -46,12 +46,8 @@ var ViewExamsComponent = (function () {
     };
     ViewExamsComponent.prototype.examsFail = function (error) {
     };
-    //Not developed yet
-    ViewExamsComponent.prototype.editExams = function () {
-        this.messageEdit = 'Edit exams funcionality not working yet.';
-    };
-    ViewExamsComponent.prototype.deleteExams = function () {
-        //this.examService.deleteExam(this.exam);
+    ViewExamsComponent.prototype.editExam = function () {
+        this._router.navigate(['/admin/edit-exam', this.selectedExam.id]);
     };
     /**
     * Shows modal
@@ -65,7 +61,6 @@ var ViewExamsComponent = (function () {
     ViewExamsComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
-    //Not developed yet
     ViewExamsComponent.prototype.exportGrade = function () {
         var _this = this;
         this.examService.getGrades(this.selectedExam.id)

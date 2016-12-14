@@ -9,7 +9,6 @@ import {Student} from './../../model/student'
 import {SubmissionCriteria} from './../../model/submissioncriteria'
 import {Grade} from './../../model/grade'
 
-
 import {ExamService} from './../exam.service'
 import {ExerciseService} from './../../shared/exercise.service'
 import {SubmissionService} from './../../examiner/submission.service'
@@ -150,20 +149,21 @@ export	class	GlobalViewComponent implements OnInit	{
             if (grade >= 0){
                 sum += grade;
                 size ++; 
+            }else if(grade === undefined){
+                size++;
             }
         }
-        return (size > 0) ? (Math.round((sum/size) * 100) / 100) : 0;
+        return ((size > 0) ? (Math.round((sum/size) * 100) / 100) : 0).toFixed(2);
     }
 
     calculateGlobalAverage(){
 
         var globalGrades = this.getGlobalGrades();
-        return Math.round(this.calcAvg(globalGrades) * 100.0) / 100.0;
+        return (Math.round(this.calcAvg(globalGrades) * 100.0) / 100.0).toFixed(2);
     }
 
     private isEvaluated(g:any):boolean{
         var ex:any;
-        var returnValue:boolean = true;
         for (ex in g){
             if (parseInt(g[ex]) < 0) {
                 return false;

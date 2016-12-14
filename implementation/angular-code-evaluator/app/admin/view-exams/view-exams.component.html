@@ -48,16 +48,15 @@
 </div>
 
 <div *ngIf="exams.length > 0" class="text-center">
-  <button class="btn blue-bg edit-btn" type="submit" (click)="editExams()" [disabled]="!isValid">Edit</button> {{messageEdit}}
+  <button class="btn blue-bg edit-btn" type="submit" (click)="editExam()" [disabled]="!this.selectedExam.id">Edit</button>
 
-  <!--delete exam-->
   <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()" [disabled]="!this.selectedExam.id">Delete</button>
 
-  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!this.selectedExam.id">Export Grade</button> {{messageExport}}
+  <button class="btn blue-bg export-btn" type="submit" (click)="exportGrade()" [disabled]="!this.selectedExam.id">Export Grade</button>
 
   <button class="btn blue-bg global-btn" type="submit" (click)="globalView()" [disabled]="!this.selectedExam.id">Global View</button>
 
-  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()" [disabled]="true">Import Submissions</button>
+  <button class="btn blue-bg import-btn" type="submit" (click)="importSubmission()" [disabled]="!this.selectedExam.id">Import Submissions</button>
 </div>
 
 <!--Modal for delete exam-->

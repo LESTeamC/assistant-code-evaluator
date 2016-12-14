@@ -11,6 +11,7 @@ org/evaluator/ws/service/GreetingServiceBean.class
 org/evaluator/ws/web/api/BaseController.class
 org/evaluator/ws/service/ExaminerServiceBean.class
 org/evaluator/ws/service/ExamServiceBean.class
+org/evaluator/ws/web/api/SendEmail.class
 org/evaluator/ws/repository/ExerciseRepository.class
 org/evaluator/ws/repository/RoleRepository.class
 org/evaluator/ws/model/ExamDTO.class

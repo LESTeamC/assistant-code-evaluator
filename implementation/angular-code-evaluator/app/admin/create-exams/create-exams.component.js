@@ -43,18 +43,28 @@ var CreateExamsComponent = (function () {
         this.createdSuccess = false;
         this.weightErrorCriteria = false;
         this.weightErrorExercise = false;
+        this.totalWeightErrorCriteria = false;
+        this.totalWeightErrorExercise = false;
         //avoid error with date.
         this.exam.date = new Date();
     };
     /**
-     * Submission funtion. Add created exercises to Exam and POST on server
+     * Submission function. Add created exercises to Exam and POST on server
      */
     CreateExamsComponent.prototype.onSubmit = function () {
         var _this = this;
         this.exam.exercises = this.exercises;
         this.exam.students = this.students;
-        this.examService.createExam(this.exam)
-            .subscribe(function (data) { return _this.successCreate(data); }, function (error) { return _this.failCreate(error); });
+        if (this.calcTotalWeight(this.exercises) !== 100.0) {
+            this.conflictError = false;
+            this.serverError = false;
+            this.createdSuccess = false;
+            this.totalWeightErrorExercise = true;
+        }
+        else {
+            this.examService.createExam(this.exam)
+                .subscribe(function (data) { return _this.successCreate(data); }, function (error) { return _this.failCreate(error); });
+        }
     };
     /**
      * Success Funtion. Restart variables and display success message
@@ -64,12 +74,17 @@ var CreateExamsComponent = (function () {
         this.conflictError = false;
         this.serverError = false;
         this.lastExamName = exam.name;
+        this.totalWeightErrorExercise = false;
         this.createdSuccess = true;
         this.exam = new exam_1.Exam();
         this.exam.date = new Date();
         this.exercises = new Array();
         this.students = new Array();
-        this.uploadFiles();
+        this.getExerciseIds(exam);
+        var token = this.buildExerciseToken();
+        console.log(token);
+        this.uploadFiles(token);
+        this.files = new Array();
     };
     /**
      * Failure funtion.
@@ -81,18 +96,22 @@ var CreateExamsComponent = (function () {
         if (error.status === 409) {
             this.lastExamName = this.exam.name;
             this.createdSuccess = false;
+            this.totalWeightErrorExercise = false;
             this.serverError = false;
             this.conflictError = true;
         }
         else {
             this.lastExamName = this.exam.name;
             this.createdSuccess = false;
+            this.totalWeightErrorExercise = false;
             this.conflictError = false;
             this.serverError = true;
         }
     };
-    CreateExamsComponent.prototype.uploadFiles = function () {
-        this.uploadService.uploadLibraries(this.createFileList())
+    CreateExamsComponent.prototype.uploadFiles = function (token) {
+        console.log(this.createFileList());
+        console.log(token);
+        this.uploadService.uploadLibraries(this.createFileList(), token)
             .subscribe();
     };
     CreateExamsComponent.prototype.createFileList = function () {
@@ -111,25 +130,34 @@ var CreateExamsComponent = (function () {
         if (this.hasName(this.exercises, this.currentExercise.name) >= 0) {
             this.weightErrorExercise = false;
             this.weightErrorCriteria = false;
+            this.totalWeightErrorCriteria = false;
             this.conflictErrorExercise = true;
         }
-        else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100) {
+        else if (this.calcTotalWeight(this.exercises) + this.currentExercise.weight > 100.0) {
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
+            this.totalWeightErrorCriteria = false;
             this.weightErrorExercise = true;
+        }
+        else if (this.calcTotalWeightCriteria(this.criteria) !== 100.0) {
+            this.conflictErrorExercise = false;
+            this.weightErrorCriteria = false;
+            this.weightErrorExercise = false;
+            this.totalWeightErrorCriteria = true;
         }
         else {
             this.currentExercise.criteria = this.criteria;
             this.exercises.push(this.currentExercise);
-            this.currentExercise = new exercise_1.Exercise();
             this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
             this.criteria = new Array(),
                 this.weightErrorExercise = false;
             this.conflictErrorExercise = false;
             this.weightErrorCriteria = false;
+            this.totalWeightErrorCriteria = false;
             this.addLibraryFile(this.exerciseFile);
+            this.currentExercise = new exercise_1.Exercise();
             this.exerciseFile = null;
-            console.log(this.files);
+            //console.log(this.files);
             this.hideChildModal();
         }
     };
@@ -146,7 +174,7 @@ var CreateExamsComponent = (function () {
         if (index > -1) {
             this.files.splice(index, 1);
         }
-        console.log(this.files);
+        //console.log(this.files);
     };
     CreateExamsComponent.prototype.findFile = function (exercise) {
         for (var i = 0; i < this.files.length; i++) {
@@ -164,9 +192,11 @@ var CreateExamsComponent = (function () {
         if (this.calcTotalWeight(this.criteria) + this.currentCriteria.weight > 100) {
             this.conflictErrorExercise = false;
             this.weightErrorExercise = false;
+            this.totalWeightErrorCriteria = false;
             this.weightErrorCriteria = true;
         }
         else {
+            this.weightErrorCriteria = false;
             this.criteria.push(this.currentCriteria);
             this.currentCriteria = new exercise_criteria_1.ExerciseCriteria();
         }
@@ -225,6 +255,29 @@ var CreateExamsComponent = (function () {
         return sum;
     };
     ;
+    CreateExamsComponent.prototype.getExerciseIds = function (exam) {
+        for (var i = 0; i < this.files.length; i++) {
+            for (var j = 0; j < exam.exercises.length; j++) {
+                if (exam.exercises[j].name === this.files[i].exercise.name) {
+                    this.files[i].id = exam.exercises[j].id;
+                }
+            }
+        }
+    };
+    CreateExamsComponent.prototype.buildExerciseToken = function () {
+        var token = "";
+        for (var j = 0; j < this.files.length; j++) {
+            if (!!this.files[j].id) {
+                if (j === 0) {
+                    token += this.files[j].id.toString();
+                }
+                else {
+                    token += "_" + this.files[j].id.toString();
+                }
+            }
+        }
+        return token;
+    };
     CreateExamsComponent.prototype.uploadCSV = function ($event) {
         var _this = this;
         var file = $event.target.files[0];
@@ -233,10 +286,11 @@ var CreateExamsComponent = (function () {
     };
     CreateExamsComponent.prototype.addLibraryFile = function (file) {
         this.files.push(new file_exercise_1.FileExercise(file, this.currentExercise));
+        console.log(this.files);
     };
     CreateExamsComponent.prototype.selectFile = function ($event) {
         this.exerciseFile = $event.target.files[0];
-        console.log($event.target.files[0]);
+        //console.log($event.target.files[0]);
     };
     /**
     * Shows modal

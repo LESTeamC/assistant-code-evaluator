@@ -87,6 +87,18 @@ public class Submission {
 			mappedBy ="submission")
 	@JsonManagedReference
 	private Set<SubmissionCriteria> criteria;
+	
+	public Submission() {
+	
+	}
+	
+	public Submission(String code, String output, Exercise e, Student s) {
+		this.code = code;
+		this.output = output;
+		this.exercise = e;
+		this.student = s;
+		this.path = "none";
+	}
 
 	public Long getId() {
 		return id;

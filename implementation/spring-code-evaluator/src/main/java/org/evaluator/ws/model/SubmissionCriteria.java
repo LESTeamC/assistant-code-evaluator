@@ -43,6 +43,16 @@ public class SubmissionCriteria {
 	
 	@NotNull
 	private double grade = -1;
+	
+	public SubmissionCriteria() {
+		super();
+	}
+
+	public SubmissionCriteria(Submission submission, ExerciseCriteria criteria) {
+		super();
+		this.submission = submission;
+		this.criteria = criteria;
+	}
 
 	public Long getId() {
 		return id;

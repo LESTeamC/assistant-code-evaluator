@@ -12,8 +12,10 @@ import { GlobalViewComponent } from './global-view/global-view.component'
 import { ViewExaminersComponent } from './view-examiners/view-examiners.component'
 import { ViewExamsComponent } from './view-exams/view-exams.component'
 import { ImportSubmissionComponent } from './view-exams/import-submission.component'
+import { EditExamComponent } from './edit-exam/edit-exam.component'
+import { EditExaminerComponent } from './edit-examiner/edit-examiner.component'
 
-import { ModalModule, AlertModule, DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { ModalModule, AlertModule, DatepickerModule, AccordionModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { ExamService } from './exam.service'
 import { ExaminerService } from './../shared/examiner.service'
@@ -34,13 +36,16 @@ import { OrderByPipe } from './view-exams/orderby.pipe'
     AdminRoutingModule,
     ModalModule,
     DatepickerModule,
-    AlertModule
+    AlertModule,
+    AccordionModule
   ],
   declarations: [
     AdminComponent,
     CreateExamsComponent,
     CreateExaminersComponent,
     ViewExamsComponent,
+    EditExamComponent,
+    EditExaminerComponent,
     ViewExaminersComponent,
     GlobalViewComponent,
     DelegateComponent,

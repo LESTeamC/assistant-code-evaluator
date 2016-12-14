@@ -21,6 +21,7 @@ var examiner_service_1 = require('./../shared/examiner.service');
 var submission_service_1 = require('./submission.service');
 var navigation_service_1 = require('./navigation.service');
 var submission_status_pipe_1 = require('./submission-status.pipe');
+var filter_pipe_1 = require('./filter.pipe');
 var ExaminerModule = (function () {
     function ExaminerModule() {
     }
@@ -38,7 +39,8 @@ var ExaminerModule = (function () {
                 workstation_component_1.WorkstationComponent,
                 examiner_component_1.ExaminerComponent,
                 code_component_1.CodeComponent,
-                submission_status_pipe_1.SubmissionStatusPipe
+                submission_status_pipe_1.SubmissionStatusPipe,
+                filter_pipe_1.FilterPipe
             ],
             providers: [
                 examiner_service_1.ExaminerService,

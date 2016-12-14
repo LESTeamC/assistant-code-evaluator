@@ -126,14 +126,14 @@ public class Exercise {
 	 * Different Criteria for this exercise
 	 */
 	@OneToMany(
-			fetch = FetchType.EAGER,
+			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
 			mappedBy ="exercise")
 	@JsonManagedReference
 	private Set<ExerciseCriteria> criteria;
 	
 	@OneToMany(
-			fetch = FetchType.EAGER, 
+			fetch = FetchType.LAZY, 
 			cascade = CascadeType.ALL,
 			mappedBy ="exercise")
 	@JsonIgnore
@@ -259,6 +259,23 @@ public class Exercise {
 	public void setSubmissions(Set<Submission> submissions) {
 		this.submissions = submissions;
 	}	
+	
+	public void addSubmission(Submission submission){
+		
+		for(ExerciseCriteria ec : this.criteria){
+			submission.getCriteria().add(new SubmissionCriteria(submission, ec));
+		}
+		
+		// update the submission if already present
+		for(Submission s: this.submissions){
+			if(s.getStudent() != null && s.getStudent().getUsername().compareToIgnoreCase(submission.getStudent().getUsername()) == 0){
+				s = submission;
+				return;
+			}
+		}
+		this.submissions.add(submission);
+		this.nsubmissions++;
+	}
 	
 	
 

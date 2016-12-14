@@ -1,6 +1,9 @@
 package org.evaluator.ws.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -190,6 +193,87 @@ public class Exam extends TransactionalEntity {
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+	
+		public void addStudent(Student stu) {
+		this.students.add(stu);
+	}
+	
+	// PB
+	public Exercise getExerciseByName(String name) {
+		for (Exercise e : this.exercises) {
+			if (e.getName().compareToIgnoreCase(name) == 0) {
+				return e;
+			}
+		}
+		return null;
+	}
+
+	// PB
+	public Student getStudentByName(String name) {
+		List<Student> students = new ArrayList<Student>(this.students);
+		for (Student s : students) {
+			if (s.getUsername().compareToIgnoreCase(name) == 0) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	//PB
+	public Boolean doesStudentExists(String studentUsername) {
+		List<Student> students = new ArrayList<Student>(this.students);
+		for (Student s : students) {
+			if (s.getUsername().compareToIgnoreCase(studentUsername) == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+		// PB
+	public void updateExamSubmission(Exercise e, Submission s) {
+
+		Iterator<Submission> it1 = e.getSubmissions().iterator();
+		while (it1.hasNext()) {
+			Submission sub = it1.next();
+			if (sub.getStudent().getUsername().compareToIgnoreCase(s.getStudent().getUsername()) == 0) {
+				sub.setOutput(s.getOutput());
+				sub.setCode(s.getCode());
+				break;
+			}
+		}
+		e.addSubmission(s);
+		this.exercises.add(e);
+	}
+	
+	// PB
+	public void updateExamSubmission(Exercise e, List<Submission> submissions) {
+		System.out.println("updateExamSubmission");
+
+		Set<ExerciseCriteria> criterias = e.getCriteria();
+		for (Submission s : submissions) {
+			Iterator<Submission> it1 = e.getSubmissions().iterator();
+			while (it1.hasNext()) {
+				Submission sub = it1.next();
+				if (sub.getStudent().getUsername().compareToIgnoreCase(s.getStudent().getUsername()) == 0) {
+					System.out.println("Changing" + sub.getStudent().getUsername());
+					sub.setOutput(s.getOutput());
+					sub.setCode(s.getCode());
+					break;
+				}
+			}
+			if (criterias != null) {
+				Set<SubmissionCriteria> subCriterias = new HashSet<SubmissionCriteria>();
+				for (ExerciseCriteria c : criterias) {
+					SubmissionCriteria subC = new SubmissionCriteria(s, c);
+					subCriterias.add(subC);
+				}
+				s.setCriteria(subCriterias);
+			}
+			e.addSubmission(s);
+		}
+		this.exercises.add(e);
 	}
 
 }

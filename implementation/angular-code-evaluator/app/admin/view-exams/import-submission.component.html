@@ -3,8 +3,19 @@
 <alert type="info" dismissible="true">
   The submitted file should be a compressed file (.zip) with all the student submissions for the given exam.<br> The student
   submissions should have the followint name convention:<br>
-
   <span class="name-convention">username + _ + exercise name</span>
+</alert>
+<alert type="danger" dismissible="true" *ngIf="uploadFail">
+  Failed to upload file <br>
+  <strong>Error message:</strong> <em>{{errorMessage}}</em>
+</alert>
+<alert type="success" dismissible="true" *ngIf="uploadSuccess">
+  Successfully uploaded files. Submissions will be analysed.
+</alert>
+
+<alert type="danger" dismissible="true" *ngIf="zipError">
+  There was an error importing the file.
+  Please make sure the files have the required format.
 </alert>
 
 <label class="btn blue-bg btn-file" *ngIf="!imported">

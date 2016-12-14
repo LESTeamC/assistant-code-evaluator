@@ -61,13 +61,8 @@ export	class	ViewExamsComponent implements OnInit	{
 
     }
 
-//Not developed yet
-    editExams(){
-        this.messageEdit='Edit exams funcionality not working yet.';
-    }
-
-    deleteExams(){
-        //this.examService.deleteExam(this.exam);
+    editExam(){
+        this._router.navigate(['/admin/edit-exam', this.selectedExam.id]);
     }
 
     @ViewChild('deleteModal') public childModal:ModalDirective;
@@ -86,7 +81,6 @@ export	class	ViewExamsComponent implements OnInit	{
         this.childModal.hide();
     }
 
-//Not developed yet
     exportGrade(){
         
         this.examService.getGrades(this.selectedExam.id)

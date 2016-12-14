@@ -72,8 +72,10 @@ export class CSVService {
 
                 var exerciseGrade = grades[i].gradesByExercise[exerciseNames[j]];
 
-                if (!(exerciseGrade > -1)){
+                if (exerciseGrade === -1){
                      result += "*";
+                }else if(exerciseGrade === undefined){
+                    result += "0";
                 }else{
                     result += grades[i].gradesByExercise[exerciseNames[j]];
                 }

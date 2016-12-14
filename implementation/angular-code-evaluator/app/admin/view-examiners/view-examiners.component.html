@@ -27,7 +27,7 @@
                 </thead>
 
                 <tbody>
-                     <tr *ngFor="let ex of examiners" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
+                     <tr *ngFor="let ex of examiners | sort:'name'" [class.selected-row]="isSelected(ex.id)" (click)="selectRow(ex)">
                           <td>{{ex.name}}</td>
                           <td>{{ex.username}}</td>
                           <td>{{ex.email}}</td>
@@ -40,7 +40,7 @@
 
 <div class="text-center" *ngIf="examiners.length>0">
    <!--edit examiner   (click)="editExaminers()-->
-  <button class="btn blue-bg edit-btn" type="submit" disabled>Edit</button>
+  <button class="btn blue-bg edit-btn" type="submit" (click)="editExaminer()" [disabled]="!selectedExaminer.id">Edit</button>
 
   <!--delete examiner-->
   <button class="btn blue-bg delete-btn" type="button" (click)="showChildModal()" [disabled]="!selectedExaminer.id">Delete</button>

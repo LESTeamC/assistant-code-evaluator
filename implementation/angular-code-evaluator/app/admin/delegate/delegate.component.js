@@ -19,6 +19,7 @@ var DelegateComponent = (function () {
         this._router = _router;
         this.examinerService = examinerService;
         this.exerciseService = exerciseService;
+        this.exercises = new Array();
         this.selectedExercise = new exercise_1.Exercise();
         this.selectedExaminer = null;
         this.selectedExaminerModal = null;

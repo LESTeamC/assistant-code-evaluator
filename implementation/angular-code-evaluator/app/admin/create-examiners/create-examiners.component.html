@@ -1,81 +1,43 @@
 <form (ngSubmit)="onSubmit()" #createExaminerForm="ngForm">
-<span class="required_notification">* Required Fields</span>
+    <span class="required_notification">* Required Fields</span>
 
-<div class="input-group" [class.error]="conflictError">
-    <span class="input-group-addon" 
-    id="examiner-name">Name</span>
-    <input
-    [(ngModel)]="examiner.name"
-    name="name"
-    #name="ngModel"
-    id="examiner-name"
-    type="text" 
-    class="form-control"
-    placeholder="Insert Examiner Name"
-    required minlength="3" maxlength="20">
-</div>
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-name">Name</span>
+        <input [(ngModel)]="examiner.name" name="name" #name="ngModel" id="examiner-name" type="text" class="form-control" placeholder="Insert Examiner Name"
+            required minlength="3" maxlength="40">
+            
+    </div>
 
-<div class="input-group">
-    <span class="input-group-addon" 
-    id="examiner-user">Username</span>
-    <input 
-    [(ngModel)]="examiner.username"
-    name="username"
-    #name="ngModel"
-    id="examiner-user"
-    type="text" 
-    class="form-control"
-    placeholder="Insert Examiner Username"
-    required minlength="3" maxlength="10">
-</div>
+    <div class="input-group" [class.error]="conflictError">
+        <span class="input-group-addon" id="examiner-user">Username</span>
+        <input [(ngModel)]="examiner.username" name="username" #name="ngModel" id="examiner-user" type="text" class="form-control"
+            placeholder="Insert Examiner Username" required minlength="3" maxlength="20">
+    </div>
 
 
-<div class="input-group">
-    <span class="input-group-addon" 
-    id="examiner-email">Email</span>
-    <input 
-    [(ngModel)]="examiner.email"
-    name="email"
-    #name="ngModel"
-    type="email" 
-    class="form-control"
-    placeholder="examiner@fe.up.pt"
-    required>
-</div>
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-email">Email</span>
+        <input [(ngModel)]="examiner.email" name="email" #name="ngModel" type="email" class="form-control" placeholder="examiner@fe.up.pt"
+            required>
+    </div>
 
-<div class="input-group">
-    <span class="input-group-addon" id="examiner-pass">Password</span>
-    <input 
-    [(ngModel)]="examiner.account.password"
-    name="password"
-    #name="ngModel"
-    type="password" 
-    class="form-control" 
-    placeholder="Insert Examiner password" 
-    required>
-</div>
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-pass">Password</span>
+        <input [(ngModel)]="examiner.account.password" name="password" #name="ngModel" type="password" class="form-control" placeholder="Insert Examiner password"
+            required>
+    </div>
 
-<div class="input-group">
-    <span class="input-group-addon" id="examiner-confirmpass">Confirm Password</span>
-    <input 
-    [(ngModel)]="confirmPass"
-    name="confirm-password"
-    #name="ngModel"
-    type="password"
-     class="form-control" 
-     placeholder="Confirm Examiner password" 
-     required>
-   </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-confirmpass">Confirm Password</span>
+        <input [(ngModel)]="confirmPass" name="confirm-password" #name="ngModel" type="password" class="form-control" placeholder="Confirm Examiner password"
+            required>
+    </div>
 
 
-<button class="btn createExaminer-btn" type="submit" [disabled]="!createExaminerForm.valid">Create</button>
+    <button class="btn createExaminer-btn" type="submit" [disabled]="!createExaminerForm.valid">Create</button>
 </form>
 
-<alert type="danger" dismissible="true" 
-        *ngIf="conflictError">Error: Already exists an Examiner with this name!</alert>
-<alert type="success" dismissible="true"
-       *ngIf="SuccessCheck">Examiner created successfully</alert>
-<alert type="danger" dismissible="true"
-       *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
-<alert type="danger" dismissible="true"
-       *ngIf="passwordError">Password must match Confirm Password.</alert>
+<alert type="danger" dismissible="true" *ngIf="conflictError">Error: Already exists an Examiner with this username!</alert>
+<alert type="success" dismissible="true" *ngIf="SuccessCheck">Examiner created successfully</alert>
+<alert type="danger" dismissible="true" *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
+<alert type="danger" dismissible="true" *ngIf="passwordError">Password must match Confirm Password.</alert>
