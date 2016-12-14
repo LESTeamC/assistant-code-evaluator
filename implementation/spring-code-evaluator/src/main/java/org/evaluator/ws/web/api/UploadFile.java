@@ -36,6 +36,13 @@ public class UploadFile {
 
     	@Autowired
 	private SubmissionService submissionService;
+	//Const that has the folder direction
+	private static final String destDirectory = "c:/Develop/files/";
+	public String[] exerciceName = new String[50];
+	public Long[] examId = new Long[50];
+	
+	
+	
     
     //Receive a POST
     @RequestMapping(value = "/api/uptest", method = RequestMethod.POST)
@@ -44,80 +51,90 @@ public class UploadFile {
         String fileName = null;
         String msg = "";
 	
-	//Token Hanlder
+	 //Token Hanlder
         try {
             //Manage to get the Tokens ID
             StringBuffer requestURL = request.getRequestURL();
+            System.out.println(requestURL);
             String queryString = request.getQueryString();
             String token = requestURL.append('?').append(queryString).toString();
+            System.out.println(token);
             String result[] = token.split("=");
             String returnValue = result[result.length - 1];
-
+            System.out.println(returnValue);
             //Split the token and save it on a Array
             String[] b = returnValue.split("_");
 
-            Long[] examId = new Long[50];
+            //Long[] examId = new Long[50];
             //Convert String to Long Id
-            for (int i = 0 ; i < b.length; i++){
+
+
+            for (int i = 0; i < b.length; i++) {
                 Long converter = Long.parseLong(b[i]);
                 examId[i] = converter;  //Array with all exam ids as long
             }
 
-
-
-            String[] ExerciceName = new String[50];
+            //String[] exerciceName = new String[50];
             //Gets the Ids and search for the exam name according to its iD.
-            for (int i = 0 ; i <= examId.length-1; i++){
+            //  for (int i = 0 ; i <= examId.length-1; i++){
 
-                if (examId[i] != null){
-                    Exercise exercise = exerciseRepository.findOne(examId[i]);
-                    ExerciceName[i] = exercise.getName();
-                    System.out.println(exercise.getName().toString());
-                }
-           }
+            //    if (examId[i] != null){
+            //        Exercise exercise = exerciseRepository.findOne(examId[i]);
+            //         exerciceName[i] = exercise.getName();
+            //          System.out.println(exercise.getName().toString());
+            //     }
+            // }
 
         } finally {
 
-        }    
-	    
-	    
-	    
-        if (files != null && files.length >0) { //Runs the array getting the size and each file
-            for(int i =0 ;i< files.length; i++){
-                try {
-                    fileName = files[i].getOriginalFilename();
-                    byte[] bytes = files[i].getBytes();
-                    BufferedOutputStream buffStream =
-                            //Create a buffer of Bytes and save it to disk Location
-                            //This file location should be changed when you install in your computer
-                            new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//"+ fileName)));
-                    buffStream.write(bytes);
-                    buffStream.close();
+        }
 
-                    msg += "You have successfully uploaded " + fileName +"<br/>";
+	    
+	 for (int i = 0; i <= examId.length - 1; i++) {
 
-                    String zipFilePath = "c:/Develop/Files/"+fileName;
-                    String destDirectory = "c:/Develop/files/";
-                    String fileFolder = fileName.substring(0, fileName.lastIndexOf('.'));;
+                if (examId[i] != null) {
 
-                    UnzipFile unzipper = new UnzipFile();
-                    try {
-                        unzipper.unzip(zipFilePath, destDirectory, fileFolder);
-                    } catch (Exception ex) {
-                        // some errors occurred
-                        ex.printStackTrace();
+                    if (files != null && files.length > 0) {
+
+                        for (int b = 0; b < files.length; b++) {
+                            try {
+                                fileName = files[b].getOriginalFilename();
+                                byte[] bytes = files[b].getBytes();
+                                BufferedOutputStream buffStream =
+                                        //Create a buffer of Bytes and save it to disk Location
+                                        //This file location should be changed when you install in your computer
+                                        new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//" + fileName)));
+                                buffStream.write(bytes);
+                                buffStream.close();
+
+                                msg += "You have successfully uploaded " + fileName + "<br/>";
+
+                                String zipFilePath = destDirectory + fileName;
+
+                                String fileFolder = fileName.substring(0, fileName.lastIndexOf('.'));
+                                String newFolderName = String.valueOf(examId[i]);
+                                UnzipFile unzipper = new UnzipFile();
+
+                                try {
+                                    unzipper.unzip(zipFilePath, destDirectory, fileFolder, newFolderName);
+
+                                } catch (Exception ex) {
+                                    // some errors occurred
+                                    ex.printStackTrace();
+                                }
+
+
+                                // /opt/ace
+                            } catch (Exception e) {
+                                return "You failed to upload " + fileName + ": " + e.getMessage() + "<br/>";
+                            }
+                        }
+                        return msg;
+                    } else {
+                        return "Unable to upload. File is empty.";
                     }
-
-
-                } catch (Exception e) {
-                    return "You failed to upload " + fileName + ": " + e.getMessage() +"<br/>";
                 }
             }
-            return msg;
-        } else {
-            return "Unable to upload. File is empty.";
-        }
-    }
     
        @RequestMapping(value = "/api/students_submissions/{exam_id}", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<String> importStudentsSubmission(@RequestParam("uploadfile") MultipartFile file,
