@@ -82,12 +82,12 @@ export	class	WorkstationComponent implements OnInit	{
         this.student = data.student;
         this.comment = data.comment;
         
-        //this.output = data.output;
-        //this.codeString = data.code;
+        this.output = data.output;
+        this.codeString = data.code;
 
         //FOR DEMONSTRATION ONLY!!!
-        this.codeString = TestData.codeBlock;
-        this.output = TestData.longString;
+        //this.codeString = TestData.codeBlock;
+        //this.output = TestData.longString;
 
 
         this.codeElement.nativeElement.textContent = this.codeString;
