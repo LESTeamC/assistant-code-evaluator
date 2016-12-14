@@ -118,6 +118,8 @@ export class CreateExamsComponent implements OnInit {
         console.log(token);
 
         this.uploadFiles(token);
+        
+        this.files = new Array<FileExercise>();
 
     }
 
@@ -151,8 +153,8 @@ export class CreateExamsComponent implements OnInit {
 
         console.log(this.createFileList());
         console.log(token);
-/*        this.uploadService.uploadLibraries(this.createFileList(), token)
-            .subscribe();*/
+        this.uploadService.uploadLibraries(this.createFileList(), token)
+            .subscribe();
     }
 
     private createFileList(){

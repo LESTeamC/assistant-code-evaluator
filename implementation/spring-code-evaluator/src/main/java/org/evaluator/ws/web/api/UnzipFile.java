@@ -2,8 +2,10 @@ package org.evaluator.ws.web.api;
 
 import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.repository.ExerciseRepository;
+import org.evaluator.ws.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Controller;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
@@ -12,6 +14,7 @@ import java.util.zip.ZipInputStream;
 /**
  * Created by Ricardo on 01/12/2016.
  */
+@Controller
 public class UnzipFile {
 
     private static final int BUFFER_SIZE = 4096;
@@ -25,11 +28,9 @@ public class UnzipFile {
      * @throws IOException
      */
 
-    @Autowired
-    ExerciseRepository exerciseRepository;
 
     @Async
-    public void unzip(String zipFilePath, String destDirectory, String fileFolder, String newFolderName) throws IOException {
+    public void unzip(String zipFilePath, String destDirectory, String fileFolder, String newFolderName, ExerciseRepository exerciseRepository) throws IOException {
 
         folderName = newFolderName;
 
@@ -58,6 +59,7 @@ public class UnzipFile {
         Exercise exercise = exerciseRepository.findOne(Long.parseLong(folderName));
         exercise.setPath(destDirectory + "/" + fileFolder);
         exerciseRepository.save(exercise);
+
 
         //File newName = new File("C://Develop//files//"+folderName);
         //destDir.renameTo(newName);

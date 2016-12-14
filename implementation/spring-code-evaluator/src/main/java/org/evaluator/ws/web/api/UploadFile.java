@@ -36,6 +36,9 @@ public class UploadFile {
 
     @Autowired
     private SubmissionService submissionService;
+    
+    @Autowired ExerciseRepository exerciseRepository;
+    
     //Const that has the folder direction
     private static final String destDirectory = "c:/Develop/files/";
     public String[] exerciceName = new String[50];
@@ -116,7 +119,7 @@ public class UploadFile {
                             UnzipFile unzipper = new UnzipFile();
 
                             try {
-                                unzipper.unzip(zipFilePath, destDirectory, fileFolder, newFolderName);
+                                unzipper.unzip(zipFilePath, destDirectory, fileFolder, newFolderName, exerciseRepository);
 
                             } catch (Exception ex) {
                                 // some errors occurred
