@@ -89,9 +89,7 @@ public class UploadFile {
             //     }
             // }
 
-        } finally {
-
-        }
+        } 
 
 
    //     for (int i = 0; i <= examId.length - 1; i++) {
@@ -130,7 +128,7 @@ public class UploadFile {
 
 
                             // /opt/ace
-                        } catch (Exception e) {
+                        } catch (IllegalArgumentException e) {
                             return "You failed to upload " + fileName + ": " + e.getMessage() + "<br/>";
                         }
                     }
