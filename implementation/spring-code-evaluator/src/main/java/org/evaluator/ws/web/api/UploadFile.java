@@ -34,24 +34,24 @@ import java.util.List;
 @RestController
 public class UploadFile {
 
-    	@Autowired
-	private SubmissionService submissionService;
-	//Const that has the folder direction
-	private static final String destDirectory = "c:/Develop/files/";
-	public String[] exerciceName = new String[50];
-	public Long[] examId = new Long[50];
-	
-	
-	
-    
+    @Autowired
+    private SubmissionService submissionService;
+    //Const that has the folder direction
+    private static final String destDirectory = "c:/Develop/files/";
+    public String[] exerciceName = new String[50];
+    public Long[] examId = new Long[50];
+
+
+
+
     //Receive a POST
     @RequestMapping(value = "/api/uptest", method = RequestMethod.POST)
     public @ResponseBody
-    String multipleSave(@RequestParam("uploadfile") MultipartFile[] files, , HttpServletRequest request){ //Receive an Array Multipart with files.
+    String multipleSave(@RequestParam("uploadfile") MultipartFile[] files, HttpServletRequest request) { //Receive an Array Multipart with files.
         String fileName = null;
         String msg = "";
-	
-	 //Token Hanlder
+
+        //Token Hanlder
         try {
             //Manage to get the Tokens ID
             StringBuffer requestURL = request.getRequestURL();
@@ -89,62 +89,66 @@ public class UploadFile {
 
         }
 
-	    
-	 for (int i = 0; i <= examId.length - 1; i++) {
 
-                if (examId[i] != null) {
+        for (int i = 0; i <= examId.length - 1; i++) {
 
-                    if (files != null && files.length > 0) {
+            if (examId[i] != null) {
 
-                        for (int b = 0; b < files.length; b++) {
+                if (files != null && files.length > 0) {
+
+                    for (int b = 0; b < files.length; b++) {
+                        try {
+                            fileName = files[b].getOriginalFilename();
+                            byte[] bytes = files[b].getBytes();
+                            BufferedOutputStream buffStream =
+                                    //Create a buffer of Bytes and save it to disk Location
+                                    //This file location should be changed when you install in your computer
+                                    new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//" + fileName)));
+                            buffStream.write(bytes);
+                            buffStream.close();
+
+                            msg += "You have successfully uploaded " + fileName + "<br/>";
+
+                            String zipFilePath = destDirectory + fileName;
+
+                            String fileFolder = fileName.substring(0, fileName.lastIndexOf('.'));
+                            String newFolderName = String.valueOf(examId[i]);
+                            UnzipFile unzipper = new UnzipFile();
+
                             try {
-                                fileName = files[b].getOriginalFilename();
-                                byte[] bytes = files[b].getBytes();
-                                BufferedOutputStream buffStream =
-                                        //Create a buffer of Bytes and save it to disk Location
-                                        //This file location should be changed when you install in your computer
-                                        new BufferedOutputStream(new FileOutputStream(new File("C://Develop//files//" + fileName)));
-                                buffStream.write(bytes);
-                                buffStream.close();
+                                unzipper.unzip(zipFilePath, destDirectory, fileFolder, newFolderName);
 
-                                msg += "You have successfully uploaded " + fileName + "<br/>";
-
-                                String zipFilePath = destDirectory + fileName;
-
-                                String fileFolder = fileName.substring(0, fileName.lastIndexOf('.'));
-                                String newFolderName = String.valueOf(examId[i]);
-                                UnzipFile unzipper = new UnzipFile();
-
-                                try {
-                                    unzipper.unzip(zipFilePath, destDirectory, fileFolder, newFolderName);
-
-                                } catch (Exception ex) {
-                                    // some errors occurred
-                                    ex.printStackTrace();
-                                }
-
-
-                                // /opt/ace
-                            } catch (Exception e) {
-                                return "You failed to upload " + fileName + ": " + e.getMessage() + "<br/>";
+                            } catch (Exception ex) {
+                                // some errors occurred
+                                ex.printStackTrace();
                             }
+
+
+                            // /opt/ace
+                        } catch (Exception e) {
+                            return "You failed to upload " + fileName + ": " + e.getMessage() + "<br/>";
                         }
-                        return msg;
-                    } else {
-                        return "Unable to upload. File is empty.";
                     }
+                    return msg;
+                } else {
+                    return "Unable to upload. File is empty.";
                 }
             }
-    
-       @RequestMapping(value = "/api/students_submissions/{exam_id}", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<String> importStudentsSubmission(@RequestParam("uploadfile") MultipartFile file,
-			@PathVariable("exam_id") Long exam_id) throws IOException {
+        }
+        return fileName;
+    }
 
-		if (file == null)
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		this.submissionService.validateSubmissionFile(file.getInputStream(), exam_id);
-		this.submissionService.analyseCode(file.getInputStream(), exam_id);
 
-		return ResponseEntity.ok("SUCCESS!");
-	}
-}
+
+        @RequestMapping(value = "/api/students_submissions/{exam_id}", method = RequestMethod.POST)
+        public @ResponseBody ResponseEntity<String> importStudentsSubmission(@RequestParam("uploadfile") MultipartFile file,
+                @PathVariable("exam_id") Long exam_id) throws IOException {
+
+            if (file == null)
+                return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+            this.submissionService.validateSubmissionFile(file.getInputStream(), exam_id);
+            this.submissionService.analyseCode(file.getInputStream(), exam_id);
+
+            return ResponseEntity.ok("SUCCESS!");
+        }
+    }
