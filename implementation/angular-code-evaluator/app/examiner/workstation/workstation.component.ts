@@ -80,7 +80,7 @@ export	class	WorkstationComponent implements OnInit	{
         this.criteria = data.criteria;
         this.exercise = data.exercise;
         this.student = data.student;
-        this.comment = data.comment;
+        this.comment = (data.comment === null) ? "" : data.comment;
         
         this.output = data.output;
         this.codeString = data.code;
