@@ -20,6 +20,7 @@ import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.repository.ExamRepository;
 import org.evaluator.ws.repository.ExerciseRepository;
+import org.evaluator.ws.repository.StudentRepository;
 import org.evaluator.ws.repository.SubmissionRepository;
 
 import java.io.BufferedReader;
@@ -63,6 +64,9 @@ public class SubmissionServiceBean implements SubmissionService {
     
     @Autowired
     private ExamRepository examRepository;
+	
+	@Autowired
+private StudentRepository studentRepository;
     
     @Autowired
     private ExerciseService exerciseService;
@@ -234,11 +238,12 @@ public class SubmissionServiceBean implements SubmissionService {
 			if (!f.exerciseName.isEmpty() && !f.studentName.isEmpty()) {
 				studentUsername = f.studentName;
 				// check if student is present at exam
-				Student stu = exam.getStudentByName(studentUsername);
+				Student stu = this.studentRepository.findByUsername(studentUsername);
 				if (stu == null) {
 					// create student
 					stu = new Student("no-name", studentUsername);
 				}
+				if(!listOfStudents.contains(stu))
 				listOfStudents.add(stu);
 			}
 		}
