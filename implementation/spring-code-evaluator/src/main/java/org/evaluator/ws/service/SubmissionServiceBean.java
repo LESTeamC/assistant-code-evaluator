@@ -78,6 +78,8 @@ public class SubmissionServiceBean implements SubmissionService {
 	private final String compilerError = "The Server Does Not Have A Compiler For The Selected Language.";
 	private final String internalError = "The Server Crashed During Compilation. Please Analyse The Error: ";
 	private final String osError = "OS is not Linux, therefore the server could not compile.";
+	private final String compilerCommandError = "Invalid Compiler Error.";
+
 
 	@Override
 	public Submission findOne(Long id) {
@@ -374,6 +376,7 @@ public class SubmissionServiceBean implements SubmissionService {
 		// compile
 		// System.out.println("---compiling---");
 		String compilation = exe.getCommandbuild();
+		if (compilation == null) return new Submission(code, compilerCommandError, exe, stu);
 		if (compilation.contains("[") && compilation.contains("]")) {
 			int first = compilation.indexOf("[");
 			int last = compilation.indexOf("]");
