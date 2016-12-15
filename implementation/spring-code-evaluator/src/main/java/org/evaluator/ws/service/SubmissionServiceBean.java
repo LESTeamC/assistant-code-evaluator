@@ -422,6 +422,11 @@ public class SubmissionServiceBean implements SubmissionService {
 	}
 
 	private final boolean moveLibraryContent(Exercise exe, String destinationPath) throws IOException {
+		if(exe.getPath() == null || exe.getPath().isEmpty()){
+			System.out.println("Invalid Exercise Library Path: "  + exe.getPath());
+			return false;
+		}
+		
 		File folder = new File(exe.getPath());
 		File bfile = new File(destinationPath);
 
