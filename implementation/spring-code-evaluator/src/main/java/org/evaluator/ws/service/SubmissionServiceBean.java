@@ -36,7 +36,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,34 +45,32 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(
-        propagation = Propagation.SUPPORTS,
-        readOnly = true)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class SubmissionServiceBean implements SubmissionService {
-	
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    /**
-     * The Spring Data repository for Student entities.
-     */
-    @Autowired
-    private SubmissionRepository submissionRepository;
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private ExerciseRepository exerciseRepository;
-    
-    @Autowired
-    private ExamRepository examRepository;
-	
+	/**
+	 * The Spring Data repository for Student entities.
+	 */
 	@Autowired
-private StudentRepository studentRepository;
-    
-    @Autowired
-    private ExerciseService exerciseService;
-    
-    @Autowired
-    private ExamService examService;
-	
+	private SubmissionRepository submissionRepository;
+
+	@Autowired
+	private ExerciseRepository exerciseRepository;
+
+	@Autowired
+	private ExamRepository examRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private ExerciseService exerciseService;
+
+	@Autowired
+	private ExamService examService;
+
 	private final String fileIdentifier = "[nome do ficheiro]";
 	private final String studentFileName = "main.c";
 	private final String studentExecutableName = "main";
@@ -82,102 +79,93 @@ private StudentRepository studentRepository;
 	private final String internalError = "The Server Crashed During Compilation. Please Analyse The Error: ";
 	private final String osError = "OS is not Linux, therefore the server could not compile.";
 
-    
 	@Override
 	public Submission findOne(Long id) {
-		
+
 		logger.info("> findSubmission id:{}", id);
-		
+
 		Submission submission = submissionRepository.findOne(id);
-		
+
 		logger.info("< findSubmission id:{}", id);
-		
+
 		return submission;
 	}
-	
+
 	@Override
-	public Collection<Submission> findOpenByExercise (Long exerciseId) {
-			
-		Collection<Submission> submissions = submissionRepository.findByStatusAndExerciseId("O", exerciseId);		
+	public Collection<Submission> findOpenByExercise(Long exerciseId) {
+
+		Collection<Submission> submissions = submissionRepository.findByStatusAndExerciseId("O", exerciseId);
 		return submissions;
 	}
-	
-    @Override
-    @Transactional(
-            propagation = Propagation.REQUIRED,
-            readOnly = false)
-    public Submission update(Submission submission) {
-        logger.info("> updateSubmission id:{}", submission.getId());
 
-        // Ensure the entity object to be updated exists in the repository to
-        // prevent the default behavior of save() which will persist a new
-        // entity if the entity matching the id does not exist
-        Submission submissionToUpdate = findOne(submission.getId());
-        if (submissionToUpdate == null) {
-            // Cannot update Greeting that hasn't been persisted
-            logger.error(
-                    "Attempted to update a Greeting, but the entity does not exist.");
-            throw new NoResultException("Requested entity not found.");
-        }
-        
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public Submission update(Submission submission) {
+		logger.info("> updateSubmission id:{}", submission.getId());
 
-        //this.updateExamAndExerciseStatus(updatedSubmission);
-        this.updateExamAndExercise(submissionToUpdate);
-        
-        submission.setStatus("C");
-        Submission updatedSubmission = submissionRepository.save(submission);
+		// Ensure the entity object to be updated exists in the repository to
+		// prevent the default behavior of save() which will persist a new
+		// entity if the entity matching the id does not exist
+		Submission submissionToUpdate = findOne(submission.getId());
+		if (submissionToUpdate == null) {
+			// Cannot update Greeting that hasn't been persisted
+			logger.error("Attempted to update a Greeting, but the entity does not exist.");
+			throw new NoResultException("Requested entity not found.");
+		}
 
-        logger.info("< updateSubmission id:{}", updatedSubmission.getId());
-        return updatedSubmission;
-    }
-    
-    @Override
-    @Transactional(
-            propagation = Propagation.REQUIRED,
-            readOnly = false)
-    public Submission changeComment(Long id, String comment) {
-        logger.info("> changeComment id:{}", id);
+		// this.updateExamAndExerciseStatus(updatedSubmission);
+		this.updateExamAndExercise(submissionToUpdate);
 
-        // Ensure the entity object to be updated exists in the repository to
-        // prevent the default behavior of save() which will persist a new
-        // entity if the entity matching the id does not exist
-        Submission submissionToUpdate = findOne(id);
-        if (submissionToUpdate == null) {
-            // Cannot update Greeting that hasn't been persisted
-            logger.error(
-                    "Attempted to update a Greeting, but the entity does not exist.");
-            throw new NoResultException("Requested entity not found.");
-        }
-        
-        submissionToUpdate.setComment(comment);
-        Submission updatedSubmission = submissionRepository.save(submissionToUpdate);
-        
-        logger.info("< changeComment id:{}", id);
-        return updatedSubmission;
-    }
-    
-    
-    private void updateExamAndExercise(Submission submission){
-    	
-    	Exercise exerciseToUpdate = exerciseRepository.findOne(submission.getExercise().getId());
-    	Exam examToUpdate = examRepository.findById(submission.getExercise().getExam().getId());
-    	
-    	if (submission.getStatus().equals("O")) exerciseToUpdate.setProgress(exerciseToUpdate.getProgress() + 1);
-    	
-    	if (exerciseToUpdate.getProgress() == exerciseToUpdate.getNsubmissions()){
-    		exerciseToUpdate.setStatus("C");
-    		
-    		examToUpdate.setProgress(examToUpdate.getProgress() + 1);
-    		if (examToUpdate.getProgress() == examToUpdate.getNquestions()){
-    			examToUpdate.setStatus("C");
-    		}
-    	}
-    	
-    	exerciseRepository.save(exerciseToUpdate);
-    	examRepository.save(examToUpdate);
-    }
+		submission.setStatus("C");
+		Submission updatedSubmission = submissionRepository.save(submission);
 
-		
+		logger.info("< updateSubmission id:{}", updatedSubmission.getId());
+		return updatedSubmission;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public Submission changeComment(Long id, String comment) {
+		logger.info("> changeComment id:{}", id);
+
+		// Ensure the entity object to be updated exists in the repository to
+		// prevent the default behavior of save() which will persist a new
+		// entity if the entity matching the id does not exist
+		Submission submissionToUpdate = findOne(id);
+		if (submissionToUpdate == null) {
+			// Cannot update Greeting that hasn't been persisted
+			logger.error("Attempted to update a Greeting, but the entity does not exist.");
+			throw new NoResultException("Requested entity not found.");
+		}
+
+		submissionToUpdate.setComment(comment);
+		Submission updatedSubmission = submissionRepository.save(submissionToUpdate);
+
+		logger.info("< changeComment id:{}", id);
+		return updatedSubmission;
+	}
+
+	private void updateExamAndExercise(Submission submission) {
+
+		Exercise exerciseToUpdate = exerciseRepository.findOne(submission.getExercise().getId());
+		Exam examToUpdate = examRepository.findById(submission.getExercise().getExam().getId());
+
+		if (submission.getStatus().equals("O"))
+			exerciseToUpdate.setProgress(exerciseToUpdate.getProgress() + 1);
+
+		if (exerciseToUpdate.getProgress() == exerciseToUpdate.getNsubmissions()) {
+			exerciseToUpdate.setStatus("C");
+
+			examToUpdate.setProgress(examToUpdate.getProgress() + 1);
+			if (examToUpdate.getProgress() == examToUpdate.getNquestions()) {
+				examToUpdate.setStatus("C");
+			}
+		}
+
+		exerciseRepository.save(exerciseToUpdate);
+		examRepository.save(examToUpdate);
+	}
+
 	public final class FileName {
 		public String studentName;
 		public String exerciseName;
@@ -243,8 +231,8 @@ private StudentRepository studentRepository;
 					// create student
 					stu = new Student("no-name", studentUsername);
 				}
-				if(!listOfStudents.contains(stu))
-				listOfStudents.add(stu);
+				if (!listOfStudents.contains(stu))
+					listOfStudents.add(stu);
 			}
 		}
 		this.examService.assign_students(exam.getId(), listOfStudents);
@@ -308,7 +296,6 @@ private StudentRepository studentRepository;
 		}
 	}
 
-
 	private void addToMap(Map<Exercise, List<Submission>> submissions, Exercise e, Submission s) {
 		if (submissions.get(e) == null) {
 			submissions.put(e, new ArrayList<Submission>());
@@ -338,9 +325,10 @@ private StudentRepository studentRepository;
 		}
 		return true;
 	}
-	
+
 	private Submission generateSubmission(Exam exam, String code, Exercise exe, Student stu) {
-		if(!isOSLinux()) 		return new Submission(code, osError, exe, stu);
+		if (!isOSLinux())
+			return new Submission(code, osError, exe, stu);
 		if (exam.getLanguage().compareToIgnoreCase("C") == 0) {
 			try {
 				return Ccompiler(code, exe, stu);
@@ -357,8 +345,7 @@ private StudentRepository studentRepository;
 
 	}
 
-	private Submission Ccompiler(String code, Exercise exe, Student stu)
-			throws IOException {
+	private Submission Ccompiler(String code, Exercise exe, Student stu) throws IOException {
 		String output = "";
 
 		boolean compilationError = true;
@@ -387,10 +374,11 @@ private StudentRepository studentRepository;
 		// compile
 		// System.out.println("---compiling---");
 		String compilation = exe.getCommandbuild();
-		if (compilation.contains(fileIdentifier)) {
-			int first = compilation.indexOf(fileIdentifier);
+		if (compilation.contains("[") && compilation.contains("]")) {
+			int first = compilation.indexOf("[");
+			int last = compilation.indexOf("]");
 			compilation = compilation.substring(0, first) + "-o " + this.studentExecutableName + " "
-					+ this.studentFileName + compilation.substring(first + fileIdentifier.length());
+					+ this.studentFileName + compilation.substring(last + 1);
 		}
 
 		String[] compilationMessage = executeCommand(" (cd " + dirPath + " ; " + compilation + ")");
@@ -400,13 +388,13 @@ private StudentRepository studentRepository;
 			// execute
 			// System.out.println("---executing---");
 			String executable = exe.getCommandrun();
-			if (executable.contains(fileIdentifier)) {
-				int first = compilation.indexOf(fileIdentifier);
-				executable = "./" + this.studentExecutableName + " " + this.studentFileName
-						+ executable.substring(first + fileIdentifier.length());
+			if (executable.contains("[") && executable.contains("]")) {
+				int last = executable.indexOf("]");
+				executable = "./" + this.studentExecutableName + " "
+						+ executable.substring(last+1);
 			}
-
-			compilationMessage = executeCommand("(cd " + dirPath + " ; " + executable + ")");
+			String timeoutCommand = " timeout --signal=SIGKILL 10s timeout --kill-after=5 --signal=SIGINT 5s";
+			compilationMessage = executeCommand("(cd " + dirPath + " ; " + timeoutCommand + " " + executable + ")");
 
 			if (compilationMessage == null) {
 				System.out.println("### error in execution ###");
@@ -457,7 +445,6 @@ private StudentRepository studentRepository;
 		return true;
 	}
 
-	
 	private final String[] executeCommand(String command) throws IOException {
 		String[] output = new String[2];
 		Runtime rt = Runtime.getRuntime();
