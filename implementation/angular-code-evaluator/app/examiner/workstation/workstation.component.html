@@ -17,7 +17,7 @@
     <h6>{{exam.course}}</h6>
     <h5>{{exercise.name}}</h5>
     <div style="float:right; display:inline-block">
-        <h5>{{student.name}}</h5>
+        <h5>{{(student.name === "no-name") ? "": student.name}}</h5>
         <h6>{{student.username}}</h6>
     </div>
 </div>

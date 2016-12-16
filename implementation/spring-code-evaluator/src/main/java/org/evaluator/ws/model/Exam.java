@@ -263,15 +263,22 @@ public class Exam extends TransactionalEntity {
 					break;
 				}
 			}
-			if (criterias != null) {
-				Set<SubmissionCriteria> subCriterias = new HashSet<SubmissionCriteria>();
-				for (ExerciseCriteria c : criterias) {
-					SubmissionCriteria subC = new SubmissionCriteria(s, c);
-					subCriterias.add(subC);
-				}
-				s.setCriteria(subCriterias);
-			}
+//			if (criterias != null) {
+//				Set<SubmissionCriteria> subCriterias = new HashSet<SubmissionCriteria>();
+//				for (ExerciseCriteria c : criterias) {
+//					SubmissionCriteria subC = new SubmissionCriteria(s, c);
+//					subCriterias.add(subC);
+//					
+//					System.err.println("");
+//					System.err.println(s.getStudent().getUsername());
+//					
+//					
+//				}
+//				s.setCriteria(subCriterias);
+//				System.err.println(s.getCriteria().size());
+//			}
 			e.addSubmission(s);
+//			System.err.println(s.getCriteria().size());
 		}
 		this.exercises.add(e);
 	}

@@ -1,5 +1,6 @@
 package org.evaluator.ws.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -261,6 +262,8 @@ public class Exercise {
 	}	
 	
 	public void addSubmission(Submission submission){
+		
+		if (submission.getCriteria() == null) submission.setCriteria(new HashSet<SubmissionCriteria>());
 		
 		for(ExerciseCriteria ec : this.criteria){
 			submission.getCriteria().add(new SubmissionCriteria(submission, ec));
