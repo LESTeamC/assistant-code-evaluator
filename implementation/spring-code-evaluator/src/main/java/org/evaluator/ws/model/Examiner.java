@@ -15,6 +15,11 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * The examiner class is a model Entity class, that represents an examiner
+ * @author Manuel Zamith
+ *
+ */
 @Entity
 public class Examiner {
 	
@@ -43,9 +48,6 @@ public class Examiner {
 	@NotNull
 	private String email;
 
-	/**
-	 * Descriptive name of the exercise
-	 */
 	@NotNull
 	@OneToOne(
 			fetch = FetchType.EAGER,
@@ -109,6 +111,10 @@ public class Examiner {
 		this.account = account;
 	}
 	
+	/**
+	 * Allows deletion of an examiner from the platform without compromising the Exercises data
+	 * When an Examiner is removed, all the exercises assigned to him will become unassigned (examiner column will be null)
+	 */
 	@PreRemove
 	private void preRemove() {
 	    for (Exercise e : exercises) {

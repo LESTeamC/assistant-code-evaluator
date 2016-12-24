@@ -15,6 +15,12 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * ExerciseCriteria is a model Entity Class
+ * Each exercise has a set of ExerciseCriteria that allow the examiner to grade the exercise
+ * @author Manuel Zamith
+ *
+ */
 @Entity
 public class ExerciseCriteria {
 

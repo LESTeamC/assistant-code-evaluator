@@ -15,6 +15,11 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
+/**
+ * The Submission class is an Entity Model
+ * @author Manuel Zamith
+ *
+ */
 @Entity
 public class Submission {
 
@@ -81,6 +86,9 @@ public class Submission {
 	 */
 	private String comment;
 	
+	/**
+	 * Each submission has a set of submission criteria, that allow calculation of the final grade
+	 */
 	@OneToMany(
 			fetch = FetchType.EAGER,
 			cascade = CascadeType.ALL,

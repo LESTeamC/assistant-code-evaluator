@@ -75,7 +75,7 @@ public class ExerciseRepositoryTests extends AbstractTest {
 			if (!exercises.get(i).getStatus().equals("O")){hasClosed = true; break;}
 		}
 		
-		Assert.assertEquals("to only have open", hasClosed, false);
+		Assert.assertFalse("to only have open", hasClosed);
 	
 	}
 	

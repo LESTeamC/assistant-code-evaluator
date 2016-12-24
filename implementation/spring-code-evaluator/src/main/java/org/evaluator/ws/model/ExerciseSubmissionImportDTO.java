@@ -1,5 +1,9 @@
 package org.evaluator.ws.model;
 
+/**
+ * @author Paulo Barbosa
+ *
+ */
 public final class ExerciseSubmissionImportDTO {
 
 	private String studentNumber;
@@ -11,7 +15,6 @@ public final class ExerciseSubmissionImportDTO {
 		super();
 	}
 	
-	
 	public ExerciseSubmissionImportDTO(String studentNumber, String studentName, String numberOfQuestions,
 			boolean match) {
 		super();
@@ -20,7 +23,6 @@ public final class ExerciseSubmissionImportDTO {
 		this.numberOfQuestions = numberOfQuestions;
 		this.match = match;
 	}
-	
 	
 	public String getStudentNumber() {
 		return studentNumber;

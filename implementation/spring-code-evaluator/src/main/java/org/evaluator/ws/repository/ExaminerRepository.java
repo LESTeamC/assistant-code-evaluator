@@ -3,6 +3,12 @@ package org.evaluator.ws.repository;
 import org.evaluator.ws.model.Examiner;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * The ExaminerRepository interface is a Spring Data JPA data repository for
+ * Examiner entities.
+ * @author Manuel Zamith
+ *
+ */
 public interface ExaminerRepository extends JpaRepository<Examiner, Long> {
     
 	/**

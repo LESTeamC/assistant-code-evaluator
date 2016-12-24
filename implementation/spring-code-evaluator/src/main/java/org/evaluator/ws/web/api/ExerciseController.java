@@ -19,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The ExerciseController class is a RESTful web service controller.
+ * It handles requests related to the Exercise Model Entity class.
+ * 
+ * @author Manuel Zamith
+ */
 @RestController
 public class ExerciseController extends BaseController {
 	
-
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -31,6 +36,13 @@ public class ExerciseController extends BaseController {
 	@Autowired
 	private ExaminerService examinerService;
 	
+    /**
+     * NOT USED
+     * 
+     * Web service endpoint to fetch all the Exercises in the Platform
+     * 
+     * @return A ResponseEntity containing a Collection of all exercises created in the platform
+     */
 	@RequestMapping(
 			value = "/admin/exercises",
 			method = RequestMethod.GET,
@@ -44,6 +56,13 @@ public class ExerciseController extends BaseController {
 		return new ResponseEntity<Collection<Exercise>>(exercises, HttpStatus.OK);
 	}
 	
+    /**
+     * US 9.1 - Delegate Exercises
+     * 
+     * Web service endpoint to fetch all Exercises that have Status Open (O)
+     * 
+     * @return A ResponseEntity containing a Collection of all Open Exercises
+     */
 	@RequestMapping(
 			value = "/admin/openexercises",
 			method = RequestMethod.GET,
@@ -58,6 +77,8 @@ public class ExerciseController extends BaseController {
 	}
 	
     /**
+     * US 9.2 - Delegate Exercise
+     * 
      * Web service endpoint to update a single Exercise entity - DELEGATION. The HTTP request
      * body is expected to contain an Exercise object in JSON format. The
      * Exercise is updated in the data repository.
@@ -65,13 +86,8 @@ public class ExerciseController extends BaseController {
      * If updated successfully, the persisted Exercise is returned as JSON with
      * HTTP status 200.
      * 
-     * If not found, the service returns an empty response body and HTTP status
-     * 404.
-     * 
-     * If not updated successfully, the service returns an empty response body
-     * with HTTP status 500.
-     * 
-     * @param exercise The Exercise object to be updated.
+     * @param exerciseId The Exercise object to be updated. - PATH VARIABLE
+     * @param examinerId The Examiner object for delegation - URL PARAMETER
      * @return A ResponseEntity containing a single Exercise object, if updated
      *         successfully, and a HTTP status code as described in the method
      *         comment.
@@ -89,7 +105,6 @@ public class ExerciseController extends BaseController {
         Exercise exercise = exerciseService.findOne(id);
                 
         //CASE 1: DELEGATE
-        
     	if (examinerId != null){
     		Examiner examiner = examinerService.findOne(examinerId);	
     		
@@ -119,8 +134,19 @@ public class ExerciseController extends BaseController {
 
 
     }
-	
-		@RequestMapping(value = "/api/submissions_by_exercise/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    
+    //TODO This endpoint should be in the SubmissionController class
+    /**
+     * US 6.1, 6.2 - Admin Global View
+     * US 11.2 - Home Examiner - View Submissions
+     * 
+     * Web service endpoint to fetch all Submissions for a given exercise
+     * 
+     * @return A ResponseEntity containing a Collection of Submissions
+     */
+	@RequestMapping(value = "/api/submissions_by_exercise/{id}", 
+			method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Submission>> getSubmissionsByExercise( @PathVariable(value="id") Long exerciseID){
 		logger.info("> submissions_by_exercise id:{}", exerciseID);
 		

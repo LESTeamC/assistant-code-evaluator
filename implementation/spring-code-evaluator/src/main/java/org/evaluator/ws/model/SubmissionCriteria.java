@@ -10,6 +10,12 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+/**
+ * The SubmissionCriteria class is an Entity Model
+ * A submission criteria is an Exercise Criteria, with a final grade, as it is specific to wach submission
+ * @author Manuel Zamith
+ *
+ */
 @Entity
 public class SubmissionCriteria {
 	
@@ -32,7 +38,7 @@ public class SubmissionCriteria {
 	private Submission submission;
 
 	/**
-	 * General Criteria
+	 * General Criteria, belonging to the exercise
 	 */
 	@NotNull
 	@ManyToOne(
@@ -41,6 +47,11 @@ public class SubmissionCriteria {
 	@JoinColumn(name = "exerciseCriteriaId")
 	private ExerciseCriteria criteria;
 	
+	
+	/**
+	 * By default we consider the grade to be negative
+	 * This way we can always tell if the submission was not already graded.
+	 */
 	@NotNull
 	private double grade = -1;
 	

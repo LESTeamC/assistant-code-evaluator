@@ -5,6 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+/**
+ * The Student class is an Entity Model class, that represents a Student.
+ * @author Manuel Zamith
+ * @author Paulo Barbosa
+ *
+ */
 @Entity
 public class Student {
 
@@ -70,7 +76,7 @@ public class Student {
 		return result;
 	}
 	
-		@Override
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

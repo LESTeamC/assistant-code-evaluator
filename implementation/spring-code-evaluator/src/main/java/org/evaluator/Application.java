@@ -1,6 +1,5 @@
 package org.evaluator;
 
-import org.evaluator.ws.web.filter.SimpleCorsFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;

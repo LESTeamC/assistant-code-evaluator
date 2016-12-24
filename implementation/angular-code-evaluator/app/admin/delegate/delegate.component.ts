@@ -89,6 +89,8 @@ export	class	DelegateComponent implements OnInit	{
     private selectRow(exercise:Exercise):void{
         this.selectedExercise = exercise;
         this.selectedExaminer = exercise.examiner;
+        this.selectedExaminerModal = null;
+        
     }
 
     private selectExaminer():void{

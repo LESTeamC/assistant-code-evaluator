@@ -2,8 +2,6 @@ package org.evaluator.ws.web.api;
 
 import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.repository.ExerciseRepository;
-import org.evaluator.ws.service.ExerciseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
@@ -11,8 +9,11 @@ import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+//TODO this class should be in org.evaluator.ws.util
 /**
- * Created by Ricardo on 01/12/2016.
+ * Utilitarian class for Unzipping a .zip MultipartFile
+ * 
+ * @author Ricardo Caldas
  */
 @Controller
 public class UnzipFile {
@@ -27,8 +28,6 @@ public class UnzipFile {
      * @param destDirectory
      * @throws IOException
      */
-
-
     @Async
     public void unzip(String zipFilePath, String destDirectory, String fileFolder, String newFolderName, ExerciseRepository exerciseRepository) throws IOException {
 
@@ -74,7 +73,6 @@ public class UnzipFile {
      * @param filePath
      * @throws IOException
      */
-
     private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
         byte[] bytesIn = new byte[BUFFER_SIZE];

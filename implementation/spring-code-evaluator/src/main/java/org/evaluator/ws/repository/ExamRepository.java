@@ -7,6 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * The ExamRepository interface is a Spring Data JPA data repository for
+ * Exam entities.
+ * @author Manuel Zamith
+ *
+ */
 public interface ExamRepository extends JpaRepository<Exam, Long> {
     /**
      * Query for a single Exam entity by Id. This method illustrates

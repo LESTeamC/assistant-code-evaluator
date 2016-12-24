@@ -21,6 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The ExaminerController class is a RESTful web service controller.
+ * It handles requests related to the Examiner Model Entity class.
+ * 
+ * @author Manuel Zamith
+ * @author Ricardo Caldas
+ *
+ */
 @RestController
 public class ExaminerController extends BaseController {
 	
@@ -30,11 +38,17 @@ public class ExaminerController extends BaseController {
 	private ExaminerService examinerService;
 	
 	@Autowired
-	private SendEmail sendEmail;
-	
-	@Autowired
 	private EmailService emailService;
 	
+    /**
+     * Examiner Home (Header)
+     * US 12.1 - Edit Examiner
+     * 
+     * Web service endpoint to fetch an Examiner entity with a given username. 
+     * 
+     * @param username The examiner username, through URL parameter
+     * @return A ResponseEntity containing the Examiner with the given username.
+     */
 	@RequestMapping(
 			value = "/api/examiner",
 			method = RequestMethod.GET,
@@ -47,6 +61,14 @@ public class ExaminerController extends BaseController {
 		return new ResponseEntity<Examiner>(examiner, HttpStatus.ACCEPTED);
 	}
 	
+    /**
+     * US 9.2 - Delegate Exercise (list of available Examiners)
+     * US 12.4 - View Examiners
+     * 
+     * Web service endpoint to fetch an Examiner entity with a given username. 
+     * 
+     * @return A ResponseEntity containing a Collection of all the Examiners in the platform
+     */
 	@RequestMapping(
 			value = "/admin/examiners",
 			method = RequestMethod.GET,
@@ -60,6 +82,14 @@ public class ExaminerController extends BaseController {
 		return new ResponseEntity<Collection<Examiner>>(examiners, HttpStatus.OK);
 	}
 	
+    /**
+     * US 7.1 - Create Examiner
+     * 
+     * Web service endpoint to persist an Examiner entity
+     * 
+     * @param examiner The examiner entity to persist, through Body of request.
+     * @return A ResponseEntity containing the Examiner that was created with ID.
+     */
     @RequestMapping(
             value = "/admin/examiner",
             method = RequestMethod.POST,
@@ -71,15 +101,13 @@ public class ExaminerController extends BaseController {
         
         try{
         	
+        	//Save the password, before it is enconded, to send in the Body of the Email
         	String pw = examiner.getAccount().getPassword();
         	Examiner savedExaminer = examinerService.create(examiner);
         	logger.info("< createExaminer");
-		
-        	//Params to send email to examiner //Email//Username//Password//
-        	//sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
 			
         	emailService.sendAsync(examiner.getEmail(), examiner.getUsername(), pw);
-        	
+       
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.CREATED);
             
         }catch(DataIntegrityViolationException SQLe){
@@ -93,6 +121,8 @@ public class ExaminerController extends BaseController {
         	if (SQLe.getCause() instanceof JDBCException){
         	
 	            if (((JDBCException) SQLe.getCause()).getSQLException().getSQLState().equals("23000") ) {
+	            	
+	            	//Return CONFLIC http status if there is already an examiner with the same username
 	        		return new ResponseEntity<Examiner>(HttpStatus.CONFLICT);
 	        	}else return new ResponseEntity<Examiner>(HttpStatus.BAD_REQUEST);
         	}else{
@@ -104,11 +134,15 @@ public class ExaminerController extends BaseController {
         	logger.error(e.getMessage());
         	return new ResponseEntity<Examiner>(HttpStatus.BAD_REQUEST);
         }
-        
-
-       
     }
     
+    /**
+     * US 12.5 - Delete Examier
+     * 
+     * Web service endpoint to delete an Examiner entity
+     * 
+     * @param id The examiner ID for which to delete the Examiner
+     */
     @RequestMapping(
             value = "/admin/examiner/{id}",
             method = RequestMethod.DELETE)
@@ -121,14 +155,15 @@ public class ExaminerController extends BaseController {
         logger.info("< deleteExaminer id:{}", id);
         return new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
     }
-       
-
-	 //Method to send the Login info to the examiners with the credentials
-	public void sendEMail(String to, String username, String password) throws MessagingException {
-		sendEmail.send(to,"Assistant Code Evaluator", username, password);
-	}
 	
-	
+    /**
+     * US 12.1 - Edit Examiner
+     * 
+     * Web service endpoint to update an Examiner entity
+     * 
+     * @param examiner The examiner entity to update, through Body of request.
+     * @return A ResponseEntity containing the Examiner that was updated.
+     */
     @RequestMapping(
             value = "/admin/examiner/{id}",
             method = RequestMethod.PUT,
@@ -140,16 +175,17 @@ public class ExaminerController extends BaseController {
         
         try{
         	
+        	//Save original password before it is encrypted.
         	String pw = examiner.getAccount().getPassword();
+        	
         	Examiner savedExaminer = examinerService.update(examiner);
         	logger.info("< updateExaminer");
-		
-        	//Params to send email to examiner //Email//Username//Password//
-        	
+		        	
+        	//The platform only notifies the examiner by email if the Password is updated
+        	//Otherwise, there is no need to send E-mail.
+        	//In this case, if the password has not been updated, the sent examiner will have the previous encrypted PW.
         	if(!pw.equals(savedExaminer.getAccount().getPassword())){
-        		//sendEMail(examiner.getEmail().toString(),examiner.getUsername().toString(), pw);
             	emailService.sendAsync(examiner.getEmail(), examiner.getUsername(), pw);
-
         	}
         	
             return new ResponseEntity<Examiner>(savedExaminer, HttpStatus.OK);

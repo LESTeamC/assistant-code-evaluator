@@ -133,6 +133,10 @@ public class Exercise {
 	@JsonManagedReference
 	private Set<ExerciseCriteria> criteria;
 	
+	/**
+	 * Set of Submissions for this Exercise
+	 * We ignore this parameter in the JSON modeling
+	 */
 	@OneToMany(
 			fetch = FetchType.LAZY, 
 			cascade = CascadeType.ALL,
@@ -261,8 +265,13 @@ public class Exercise {
 		this.submissions = submissions;
 	}	
 	
+	/**
+	 * Adds a submission to the exercise, and sets its Criteria
+	 * @param submission Submission to add to exercise
+	 */
 	public void addSubmission(Submission submission){
 		
+		//avoid Null Pointer
 		if (submission.getCriteria() == null) submission.setCriteria(new HashSet<SubmissionCriteria>());
 		
 		for(ExerciseCriteria ec : this.criteria){

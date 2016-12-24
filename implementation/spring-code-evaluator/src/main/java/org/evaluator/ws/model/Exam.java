@@ -2,7 +2,6 @@ package org.evaluator.ws.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -22,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  * The Exam class is an entity model object.
  * 
  * @author Manuel Zamith
+ * @author Paulo Barbosa
  */
-
 @Entity
 public class Exam extends TransactionalEntity {
 	
@@ -199,7 +198,12 @@ public class Exam extends TransactionalEntity {
 		this.students.add(stu);
 	}
 	
-	// PB
+	
+	/**
+	 * Allow to retrieve an exercise by its name string. Null if not found
+	 * @param name Name of the exercise
+	 * @return exercise with the given name
+	 */
 	public Exercise getExerciseByName(String name) {
 		for (Exercise e : this.exercises) {
 			if (e.getName().compareToIgnoreCase(name) == 0) {
@@ -209,7 +213,12 @@ public class Exam extends TransactionalEntity {
 		return null;
 	}
 
-	// PB
+	
+	/**
+	 * Allow to retrieve a student by its name string. Null if not found
+	 * @param name Name of the student
+	 * @return student with the given name
+	 */
 	public Student getStudentByName(String name) {
 		List<Student> students = new ArrayList<Student>(this.students);
 		for (Student s : students) {
@@ -220,7 +229,12 @@ public class Exam extends TransactionalEntity {
 		return null;
 	}
 	
-	//PB
+	
+	/**
+	 * Queries the exam for a given student username
+	 * @param studentUsername a String with the student username
+	 * @return true if student exists false otherwise.
+	 */
 	public Boolean doesStudentExists(String studentUsername) {
 		List<Student> students = new ArrayList<Student>(this.students);
 		for (Student s : students) {
@@ -231,7 +245,12 @@ public class Exam extends TransactionalEntity {
 		return false;
 	}
 	
-		// PB
+
+	/**
+	 * Given an exercise and a submission, updates the submission with the calculated code and output
+	 * @param e Exercise 
+	 * @param s Submission
+	 */
 	public void updateExamSubmission(Exercise e, Submission s) {
 
 		Iterator<Submission> it1 = e.getSubmissions().iterator();
@@ -247,11 +266,14 @@ public class Exam extends TransactionalEntity {
 		this.exercises.add(e);
 	}
 	
-	// PB
+	/**
+	 * Given an exercise and a list of submissions, updates the submissions with the calculated code and output
+	 * @param e Exercise 
+	 * @param submissions List of Submissions
+	 */
 	public void updateExamSubmission(Exercise e, List<Submission> submissions) {
 		System.out.println("updateExamSubmission");
 
-		Set<ExerciseCriteria> criterias = e.getCriteria();
 		for (Submission s : submissions) {
 			Iterator<Submission> it1 = e.getSubmissions().iterator();
 			while (it1.hasNext()) {
@@ -263,22 +285,7 @@ public class Exam extends TransactionalEntity {
 					break;
 				}
 			}
-//			if (criterias != null) {
-//				Set<SubmissionCriteria> subCriterias = new HashSet<SubmissionCriteria>();
-//				for (ExerciseCriteria c : criterias) {
-//					SubmissionCriteria subC = new SubmissionCriteria(s, c);
-//					subCriterias.add(subC);
-//					
-//					System.err.println("");
-//					System.err.println(s.getStudent().getUsername());
-//					
-//					
-//				}
-//				s.setCriteria(subCriterias);
-//				System.err.println(s.getCriteria().size());
-//			}
 			e.addSubmission(s);
-//			System.err.println(s.getCriteria().size());
 		}
 		this.exercises.add(e);
 	}

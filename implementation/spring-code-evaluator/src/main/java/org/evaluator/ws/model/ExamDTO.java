@@ -2,6 +2,13 @@ package org.evaluator.ws.model;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * The Exam DTO is a wrapper around the Exam model Entity class
+ * Allows to get a given exam without some of its properties.
+ * 
+ * @author Paulo Barbosa
+ *
+ */
 public class ExamDTO {
 
 	private String name;

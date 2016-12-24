@@ -22,6 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The ExamController class is a RESTful web service controller.
+ * It handles requests related to the Exam Model Entity class.
+ * 
+ * @author Manuel Zamith
+ * @author Paulo Barbosa
+ */
 @RestController
 public class ExamController extends BaseController {
 
@@ -30,6 +37,16 @@ public class ExamController extends BaseController {
 	@Autowired
 	private ExamService examService;
 
+    /**
+     * US 5.4 - Edit Exam
+     * US 6.3 - Admin Global View
+     * 
+     * Web service endpoint to fetch an Exam entity with a given ID. 
+     * The service returns the Exam with the given ID, or HTTP status NOT FOUND if it does not exist.
+     * 
+     * @param id ID attribute to query the DB
+     * @return A ResponseEntity containing the Exam with the given ID.
+     */
 	@RequestMapping(value = "/admin/exam/{id}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,6 +62,14 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<Exam>(exam, HttpStatus.OK);
 	}
 
+    /**
+     * US 3.2 - View Exams
+     * 
+     * Web service endpoint to fetch all Exams entities
+     * The service returns the complete Collection of Exams in the platform
+     * 
+     * @return A ResponseEntity containing the Collection of Exams in the platform.
+     */
 	@RequestMapping(value = "/admin/exams", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,6 +85,14 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<Collection<Exam>>(exams, HttpStatus.OK);
 	}
 
+    /**
+     * US 13.5 - Exam information on Examiner Workstation
+     * 
+     * Web service endpoint to fetch an Exam entity in which a given Submission belongs
+     * 
+     * @param id Submission ID attribute to query the DB
+     * @return A ResponseEntity containing the Exam in which the Submission belongs
+     */
 	@RequestMapping(value = "/api/exam-by-submission/{id}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,6 +108,14 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<Exam>(exam, HttpStatus.OK);
 	}
 
+    /**
+     * US 5.1 - Create Exam
+     * 
+     * Web service endpoint to persist a new Exam entity.
+     * 
+     * @param exam an Exam entity, in the Body of request
+     * @return A ResponseEntity containing the created Exam (with ID)
+     */
 	@RequestMapping(value = "/admin/exam", 
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
@@ -99,6 +140,7 @@ public class ExamController extends BaseController {
 			if (SQLe.getCause() instanceof JDBCException) {
 
 				if (((JDBCException) SQLe.getCause()).getSQLException().getSQLState().equals("23000")) {
+					//Return CONFLICT status if there is already an exam with the same Name.
 					return new ResponseEntity<Exam>(HttpStatus.CONFLICT);
 				} else
 					return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
@@ -107,13 +149,17 @@ public class ExamController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.info("> createExam");
 			logger.error(e.getMessage());
+			
+			//Return BAD_REQUEST status for a generic error.
 			return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
 
+    /**
+     * NOT USED
+     */
 	@RequestMapping(value = "/api/exams_by_examiner/{id}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -129,11 +175,21 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
 	}
 
+	//TODO This service should be in the ExerciseController API
+    /**
+     * US 11.1 - Examiner Home
+     * 
+     * Web service endpoint to fetch all Exercises assigned to a given Examiner
+     * 
+     * @param username Username attribute of the Examiner
+     * @return A ResponseEntity containing a Collection of all exercises assigned to the given Examiner entity.
+     */
 	@RequestMapping(value = "/api/exercises_by_examiner/{usernameID}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<ExerciseDTO>> getExercisesByExaminer(
 			@PathVariable("usernameID") String usernameID) {
+		
 		logger.info("> getExercisesByExaminer id:{}", usernameID);
 
 		Collection<ExerciseDTO> exercises = examService.findExamsByExaminer(usernameID);
@@ -145,6 +201,16 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<Collection<ExerciseDTO>>(exercises, HttpStatus.OK);
 	}
 
+    /**
+     * US 5.2 - Delete Exam
+     * 
+     * Web service endpoint to delete an Exam Entity
+     * All child entities will be removed as well, through cascading 
+     * (Exercises, Submissions, Exercise Criteria and Submission Criteria)
+     * 
+     * @param id an ExamId
+     * @return A ResponseEntity containing NO CONTENT http status;
+     */
 	@RequestMapping(value = "/admin/exam/{id}", 
 			method = RequestMethod.DELETE)
 	public ResponseEntity<Exam> deleteExam(@PathVariable("id") Long id) {
@@ -156,6 +222,18 @@ public class ExamController extends BaseController {
 		return new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
 	}
 
+    /**
+     * US 10.1 - Export Grades to CSV
+     * US 6.3 - Admin Global View - Student Grades
+     * 
+     * Web service endpoint to fetch the Student Grades of a given Exam.
+     * Grades are given through StudentExam objects, that supply a HashMap with the grades by exercise.
+     * If a given submission has not been graded yet, its grade will be a negative value.
+     * If the student did not submit a file for the exercise, this entry will not exist in the HashMap.
+     * 
+     * @param id The ID for the Exam
+     * @return A ResponseEntity containing the a List of StudentExam objects that contain the Grading Information.
+     */
 	@RequestMapping(value = "/admin/grades/{id}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -173,6 +251,16 @@ public class ExamController extends BaseController {
 
 	}
 	
+    /**
+     * US 5.3 - Edit Exam
+     * 
+     * Web service endpoint to change an Exam entity.
+     * Once an Exam entity is created the platform only allows to change the basic information of the exam
+     * and the weight of the exercise and criteria.
+     * 
+     * @param exam Entity to change, in the Body of request
+     * @return A ResponseEntity containing altered Exam.
+     */
     @RequestMapping(
             value = "/admin/exam/{id}",
             method = RequestMethod.PUT,
@@ -204,6 +292,8 @@ public class ExamController extends BaseController {
 			if (SQLe.getCause() instanceof JDBCException) {
 
 				if (((JDBCException) SQLe.getCause()).getSQLException().getSQLState().equals("23000")) {
+					
+					// return CONFLICT http status if the there is already an exam with the same name
 					return new ResponseEntity<Exam>(HttpStatus.CONFLICT);
 				} else
 					return new ResponseEntity<Exam>(HttpStatus.BAD_REQUEST);

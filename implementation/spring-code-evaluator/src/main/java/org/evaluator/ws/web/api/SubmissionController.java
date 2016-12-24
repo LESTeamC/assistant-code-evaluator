@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The SubmissionController class is a RESTful web service controller.
+ * It handles requests related to the Submission Model Entity class.
+ * 
+ * @author Manuel Zamith
+ */
 @RestController
 public class SubmissionController {
 	
@@ -24,6 +30,14 @@ public class SubmissionController {
 	@Autowired
 	private SubmissionService submissionService;
 	
+    /**
+     * US 13.1, 13.2, 13.5 - Examiner Workstation
+     * 
+     * Web service endpoint to fetch a Submission by its ID
+     * 
+     * @param id ID of the Submission to fetch - PATH VARIABLE
+     * @return A ResponseEntity containing a Submission
+     */
     @RequestMapping(
             value = "/api/submission/{id}",
             method = RequestMethod.GET,
@@ -40,6 +54,14 @@ public class SubmissionController {
         return new ResponseEntity<Submission>(submission, HttpStatus.OK);
     }
     
+    /**
+     * US 13.7 - Save Evaluation
+     * 
+     * Web service endpoint to update a Submission - Evaluation Process
+     * 
+     * @param submission The submission to update, in the Body of request
+     * @return A ResponseEntity the updated Submission
+     */
     @RequestMapping(
             value = "/api/submission/{id}",
             method = RequestMethod.PUT,
@@ -59,6 +81,15 @@ public class SubmissionController {
         return new ResponseEntity<Submission>(updatedSubmission, HttpStatus.OK);
     }
     
+    /**
+     * US 13.3 - Insert Comment
+     * 
+     * Web service endpoint to update only the Submission Comment
+     * 
+     * @param id the ID of the submission to update
+     * @param comment String containing the comment - URL Parameter
+     * @return A ResponseEntity the updated Submission
+     */
     @RequestMapping(
             value = "/api/submission-comment/{id}",
             method = RequestMethod.PUT,

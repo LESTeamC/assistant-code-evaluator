@@ -2,18 +2,12 @@ package org.evaluator.ws.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+/**
+ * Exercise Data Transfer Object is a wrapper around the Exercise Entity class
+ * It allows to manage exercises with different attributes
+ * @author Paulo Barbosa
+ *
+ */
 public class ExerciseDTO {
 	
 	/**

@@ -73,6 +73,7 @@ var DelegateComponent = (function () {
     DelegateComponent.prototype.selectRow = function (exercise) {
         this.selectedExercise = exercise;
         this.selectedExaminer = exercise.examiner;
+        this.selectedExaminerModal = null;
     };
     DelegateComponent.prototype.selectExaminer = function () {
         var _this = this;

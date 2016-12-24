@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * This class is not a DataBase Entity
- * It represents one Student's entry in an Exam
+ * It represents one Student's entry in an Exam, or a Grade
  * 
  * @author Manuel Zamith
  */
@@ -26,13 +26,27 @@ public class StudentExam {
 		this.gradesByExercise = new HashMap<String, Double>();
 	}
 	
+	/**
+	 * Name of the Exam in which this evaluation is inserted
+	 */
 	public String examName;
 	
+	/**
+	 * The student that is being Graded, represented by its username
+	 */
 	public String studentUsername;
 	
+	/**
+	 * Hash map in which the Key is a string with the Exercise's name and the value is the Grade given to this Submission
+	 */
 	public HashMap<String, Double> gradesByExercise;
 	
+	/**
+	 * The sum of all exercise's grades
+	 */
 	public double finalGrade;
+	
+	//GETTERS AND SETTERS
 
 	public String getExamName() {
 		return examName;
@@ -66,6 +80,11 @@ public class StudentExam {
 		this.finalGrade = finalGrade;
 	}
 	
+	/**
+	 * Allows to add an entry to the gradesByExercise Map
+	 * @param exerciseName
+	 * @param grade
+	 */
 	public void addGrade(String exerciseName, double grade){
 		this.gradesByExercise.put(exerciseName, grade);
 	}
