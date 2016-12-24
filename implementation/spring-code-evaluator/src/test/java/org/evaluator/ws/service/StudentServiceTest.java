@@ -1,14 +1,11 @@
 package org.evaluator.ws.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.evaluator.ws.AbstractTest;
-import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.Student;
 import org.evaluator.ws.util.RequestContext;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,5 +58,6 @@ public class StudentServiceTest extends AbstractTest {
 
 
     }
+    
 
 }

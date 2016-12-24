@@ -18,12 +18,29 @@ public class SubmissionRepositoryTests extends AbstractTest {
 	
 	@Test
 	public void testFindAll() {
-		
-		Submission s = repository.findOne(1L);
-		
+				
 		List<Submission> entity = repository.findAll();
 		
-		Assert.assertTrue(entity.size() > 3);
+		Assert.assertNotNull(entity);
+		
+	}
+	
+	@Test
+	public void testFindByExamIdOrderByStudentId() {
+				
+		List<Submission> entity = repository.findByExamIdOrderByStudentId(1L);
+		
+		boolean ordered = true;
+		
+		if (entity.size() > 1){
+			for (int i = 1; i < entity.size(); i++){
+				if (entity.get(i - 1).getStudent().getId() > entity.get(i).getStudent().getId()){
+					ordered = false;
+					break;
+				}
+			}
+		}
+		Assert.assertTrue(ordered);
 		
 	}
 }

@@ -1,6 +1,5 @@
 package org.evaluator.ws.repository;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -80,16 +79,18 @@ public class ExerciseRepositoryTests extends AbstractTest {
 	
 	}
 	
-	//TODO REFACTOR
 	@Test
-	public void testDeleteExaminerExamNull() {
+	public void testDeleteExaminerExerciseNull() {
 		
-		Examiner examiner = examinerRepository.findByName("Nuno Flores");
+		Examiner examiner = examinerRepository.findOne(1L);
+		Exercise exercise = repository.findOne(1L);
+		
+		exercise.setExaminer(examiner);
+		repository.save(exercise);
+		
 		examinerRepository.delete(examiner);
 		
-		List<Exercise> entity = repository.findAll();
-		
-		Assert.assertNull("expected entity null", entity.get(2).getExaminer());
+		Assert.assertNull("expected entity null", exercise.getExaminer());
 		
 	}
 

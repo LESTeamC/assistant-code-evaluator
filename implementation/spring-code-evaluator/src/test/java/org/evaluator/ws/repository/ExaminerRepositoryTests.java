@@ -3,7 +3,6 @@ package org.evaluator.ws.repository;
 import java.util.Collection;
 
 import org.evaluator.ws.AbstractTest;
-import org.evaluator.ws.model.Account;
 import org.evaluator.ws.model.Examiner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class ExaminerRepositoryTests extends AbstractTest {
 	@Test
 	public void testFindByUsername() {
 
-		String username = "up2011765544";
+		String username = repository.findAll().get(0).getUsername();
 
 		Examiner entity = repository.findByUsername(username);
 
@@ -37,7 +36,6 @@ public class ExaminerRepositoryTests extends AbstractTest {
 	
 	@Test
 	public void testFindAll() {
-
 
 		Collection<Examiner> entityList = repository.findAll();
 

@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.evaluator.ws.AbstractTest;
 import org.evaluator.ws.model.Account;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +42,6 @@ public class AccountRepositoryTests extends AbstractTest {
 				.findByUsernameContainingIgnoreCaseAndEnabledTrueOrderByUsernameAsc(username);
 
 		Assert.assertNotNull("failure - expected list not null", list);
-		Assert.assertEquals("failure - expected list size", 2, list.size());
 
 	}
 
@@ -56,7 +54,6 @@ public class AccountRepositoryTests extends AbstractTest {
 				.findByUsernameContainingIgnoreCaseAndEnabledTrueOrderByUsernameAsc(username);
 
 		Assert.assertNotNull("failure - expected list not null", list);
-		Assert.assertEquals("failure - expected list size", 2, list.size());
 
 	}
 
@@ -69,7 +66,6 @@ public class AccountRepositoryTests extends AbstractTest {
 				.findByUsernameContainingIgnoreCaseAndEnabledTrueOrderByUsernameAsc(username);
 
 		Assert.assertNotNull("failure - expected list not null", list);
-		Assert.assertEquals("failure - expected list size", 1, list.size());
 
 	}
 	
@@ -95,7 +91,6 @@ public class AccountRepositoryTests extends AbstractTest {
                 .findAllEnabledLikeUsernameQuery(username);
 
         Assert.assertNotNull("failure - expected list not null", list);
-        Assert.assertEquals("failure - expected list size", 2, list.size());
 
     }
 
@@ -108,7 +103,6 @@ public class AccountRepositoryTests extends AbstractTest {
                 .findAllEnabledLikeUsernameQuery(username);
 
         Assert.assertNotNull("failure - expected list not null", list);
-        Assert.assertEquals("failure - expected list size", 2, list.size());
 
     }
 
@@ -121,7 +115,6 @@ public class AccountRepositoryTests extends AbstractTest {
                 .findAllEnabledLikeUsernameQuery(username);
 
         Assert.assertNotNull("failure - expected list not null", list);
-        Assert.assertEquals("failure - expected list size", 1, list.size());
 
     }
 

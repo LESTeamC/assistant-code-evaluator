@@ -33,7 +33,6 @@ public class ExamRepositoryTests extends AbstractTest {
 
 		List<Exam> entity = repository.findAll();
 
-
 		Assert.assertNotNull("failure - expected entity not null", entity);
 	}
 	
@@ -58,8 +57,6 @@ public class ExamRepositoryTests extends AbstractTest {
 
 		Exam entity = new Exam();
 		Exercise exercise = new Exercise();
-		
-		
 		
 		//building a simple exam with the mandatory fields. All other fields should be defined by the service.
 		entity.setDate(new Date());

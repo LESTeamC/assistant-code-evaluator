@@ -1,7 +1,5 @@
 package org.evaluator.ws.web.api;
 
-import org.evaluator.ws.model.Exam;
-import org.evaluator.ws.model.Greeting;
 import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.service.SubmissionService;
 import org.slf4j.Logger;

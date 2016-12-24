@@ -1,11 +1,6 @@
 package org.evaluator.ws.service;
 
-import java.util.concurrent.Future;
-
 import javax.mail.MessagingException;
-
-import org.evaluator.ws.model.Greeting;
-import org.evaluator.ws.util.AsyncResponse;
 import org.evaluator.ws.web.api.SendEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

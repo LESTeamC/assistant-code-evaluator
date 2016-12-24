@@ -1,9 +1,7 @@
 package org.evaluator.ws.web.api;
 
 import java.util.Collection;
-
 import javax.mail.MessagingException;
-
 import org.evaluator.ws.model.Exam;
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.service.EmailService;
@@ -26,13 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExaminerController extends BaseController {
 	
-
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private ExaminerService examinerService;
 	
-	//Autowire the SendEmail Class
 	@Autowired
 	private SendEmail sendEmail;
 	

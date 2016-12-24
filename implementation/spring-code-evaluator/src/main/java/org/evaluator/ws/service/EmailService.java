@@ -1,11 +1,7 @@
 
 package org.evaluator.ws.service;
 
-import java.util.concurrent.Future;
-
 import javax.mail.MessagingException;
-
-import org.evaluator.ws.model.Greeting;
 
 /**
  * The EmailService interface defines all public business behaviors for
