@@ -228,7 +228,7 @@ export	class	WorkstationComponent implements OnInit	{
 
     private calcGradeInValues(subCriteria:SubmissionCriteria[]):number{
     
-        return Math.round(this.calcTotalGrade(subCriteria) * 20
+        return Math.round(this.calcTotalGrade(subCriteria) * 20 * 2
                 * 0.0001 * 100.0 * this.exercise.weight) / 100.0;
     }
 
