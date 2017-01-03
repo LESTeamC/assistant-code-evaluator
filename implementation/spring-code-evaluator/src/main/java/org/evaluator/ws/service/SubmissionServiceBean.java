@@ -328,7 +328,7 @@ public class SubmissionServiceBean implements SubmissionService {
 		return true;
 	}
 
-	private Submission generateSubmission(Exam exam, String code, Exercise exe, Student stu) {
+	public Submission generateSubmission(Exam exam, String code, Exercise exe, Student stu) {
 		if (!isOSLinux())
 			return new Submission(code, osError, exe, stu);
 		if (exam.getLanguage().compareToIgnoreCase("C") == 0) {
