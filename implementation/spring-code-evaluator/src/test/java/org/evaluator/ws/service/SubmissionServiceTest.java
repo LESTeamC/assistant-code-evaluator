@@ -1,4 +1,4 @@
-/*package org.evaluator.ws.service;
+package org.evaluator.ws.service;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,6 +10,7 @@ import org.evaluator.ws.model.Exercise;
 import org.evaluator.ws.model.Student;
 import org.evaluator.ws.model.Submission;
 import org.evaluator.ws.util.RequestContext;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,36 +28,27 @@ public class SubmissionServiceTest extends AbstractTest {
         
     }
     
-    private Exam buildExam(){
-    	
-    	Exam exam = new Exam("test", new Date(), "test", "test", "test");
-    	Exercise exercise = new Exercise("test", "test", 100);
-    	
-    	exercise.setExam(exam);
-    	exercise.setExamname(exam.getName());
-    	exercise.setNsubmissions(1);
-    	
-    	Set<Exercise> exercises = new HashSet<Exercise>();
-    	exercises.add(exercise);
-    	
-    	exam.setNquestions(exercises.size());
-    	exam.setExercises(exercises);
-    	
-    	return exam;
-    }
-    
-   
-    public void updateSubmissionTest(){
-    	
-    	Exam exam = this.buildExam();
-    	Submission submission = service.findOne(1L);
-    	
-    	submission.setGrade(100);
-    	
-    	service.update(submission);
-    	
-    }
+   @Test
+   public void isOSLinuxT1(){
 	
+	   Boolean res = service.isOSLinux();
+       Assert.assertNotNull("failure - expected not null", res);
+
+   }
+   
+   @Test
+   public void generateSubmissionT1(){
+	   
+	   Exam exam = new Exam("",new Date(), "","","Java");
+	   String code = "";
+	   Exercise exe = new Exercise();
+	   Student stu = new Student();
+	   
+	   Submission sub = service.generateSubmission(exam, code, exe, stu);
+	   
+       Assert.assertNotNull("failure - expected not null", sub);
+       Assert.assertNotNull("failure - expected not null", sub.getOutput());
+
+   }
 
 }
-*/
