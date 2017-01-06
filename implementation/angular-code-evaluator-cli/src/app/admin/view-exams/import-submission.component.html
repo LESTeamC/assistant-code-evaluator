@@ -1,0 +1,53 @@
+<h3>Submission Import</h3>
+
+<alert type="info" dismissible="true">
+  The submitted file should be a compressed file (.zip) with all the student submissions for the given exam.<br> The student
+  submissions should have the followint name convention:<br>
+  <span class="name-convention">username + _ + exercise name</span>
+</alert>
+<alert type="danger" dismissible="true" *ngIf="uploadFail">
+  Failed to upload file <br>
+  <strong>Error message:</strong> <em>{{errorMessage}}</em>
+</alert>
+<alert type="success" dismissible="true" *ngIf="uploadSuccess">
+  Successfully uploaded files. Submissions will be analysed.
+</alert>
+
+<alert type="danger" dismissible="true" *ngIf="zipError">
+  There was an error importing the file.
+  Please make sure the files have the required format.
+</alert>
+
+<label class="btn blue-bg btn-file" *ngIf="!imported">
+    Import Submissions... <input id="submission-input" type="file" style="display: none;" (change)="importSubmissions($event)" accept=".zip" multiple>
+</label>
+
+<div class="panel panel-default" *ngIf="imported">
+  <div class="panel-heading"> Student Submissions</div>
+  <div class="panel-body panel-submissions">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th *ngFor="let exe of exercises">{{exe}} <br>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of submissions" [class.invalid]="!isOK(s)">
+            <td>{{s.username}}</td>
+            <td>{{ !!(s.name) ? s.name : "" }}</td>
+            <td *ngFor="let exe of exercises">
+              <i *ngIf="!s.hasExercise(exe)" class="fa fa-times-circle" aria-hidden="true"></i>
+              <i *ngIf="s.hasExercise(exe)" class="fa fa-check-circle" aria-hidden="true"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn blue-bg" (click)="cancelImport()" *ngIf="imported">Cancel</button>
+<button type="button" class="btn blue-bg" (click)="uploadFile()" *ngIf="imported">Submit</button>

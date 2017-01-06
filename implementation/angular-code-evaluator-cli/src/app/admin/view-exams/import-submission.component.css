@@ -1,0 +1,22 @@
+.name-convention{
+    margin: 0 auto;
+    font-weight: bolder;
+}
+
+.fa-check-circle, .fa-check-circle:before {
+    color: green;
+}
+
+.fa-times-circle, .fa-times-circle:before {
+    color: red;
+}
+
+.invalid{
+    background-color: #F2DEDE;
+}
+
+.panel-submissions{
+    max-height: 500px;
+    overflow: scroll;
+}
+

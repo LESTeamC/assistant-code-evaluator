@@ -1,0 +1,80 @@
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group span {
+    min-width: 125px;
+} 
+
+.input-group select{
+    border-radius: 0px !important;
+}
+
+.input-group.error, .form-group.error{
+    border: 1px solid red;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+alert {
+    margin: 0 auto;
+    padding-top: 20px !important;
+    text-align: center;
+}
+
+alert span{
+    font-weight: bold;
+}
+
+.half-full {
+    width: 60%;
+}
+
+.half-full textarea {
+    width: 100%;
+    height: 34px;
+}
+
+.small-input{
+    width: 15%;
+}
+
+.small-input input{
+    width: 100%;
+}
+
+.criteria-row{
+    margin-bottom: 5px;
+}
+
+.criteria-panel{
+    max-height: 240px;
+    overflow: scroll;
+}
+
+.panel-body p {
+    margin:0;
+    font-size: 12px;
+}
+
+.btn-long{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.date-header{
+    padding:0;
+    margin: 0 auto;
+}
+
+.students-panel{
+    max-height: 500px;
+    overflow: scroll;
+}
+
+h5, h6{
+    width: 100%;
+    border-bottom: 1px solid black;
+}

@@ -3,7 +3,6 @@ package org.evaluator.ws.service;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
@@ -64,9 +63,6 @@ public class SubmissionServiceBean implements SubmissionService {
 
 	@Autowired
 	private StudentRepository studentRepository;
-
-	@Autowired
-	private ExerciseService exerciseService;
 
 	@Autowired
 	private ExamService examService;
@@ -168,6 +164,10 @@ public class SubmissionServiceBean implements SubmissionService {
 		examRepository.save(examToUpdate);
 	}
 
+	/**
+	 * @author Paulo Barbosa
+	 *
+	 */
 	public final class FileName {
 		public String studentName;
 		public String exerciseName;
@@ -213,8 +213,9 @@ public class SubmissionServiceBean implements SubmissionService {
 			zipIn.close();
 			assign_students(exam, fileNames);
 			System.out.println("---done!--");
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return;
 		}

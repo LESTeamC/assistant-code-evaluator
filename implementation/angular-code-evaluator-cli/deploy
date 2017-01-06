@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo killing
+## get pid of process
+PID=`lsof -i:3002 -t`
+kill $PID
+echo installing
+npm install
+echo deploying
+screen -d -m npm start > /var/tmp/deployment_logs_staging.log 2>&1
+echo "server started ..."
