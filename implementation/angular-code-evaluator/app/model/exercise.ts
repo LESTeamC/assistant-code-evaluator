@@ -1,10 +1,12 @@
 import {Exam} from './exam';
+import {ExerciseCriteria} from './exercise-criteria';
 
 export class Exercise {
 
     public id?: number;
     public examiner?: any;
     public exam?: Exam;
+    public examname?:string;
     public name?: string;
     public question?: string;
     public status?: string;
@@ -14,5 +16,5 @@ export class Exercise {
     public commandbuild?: string;
     public commandrun?: string;
     public path?: string[];
-    public exerciseCriteria?: any;
+    public criteria?: ExerciseCriteria[];
 }

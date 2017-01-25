@@ -1,0 +1,72 @@
+<form (ngSubmit)="onSubmit()" #editExaminerForm="ngForm">
+    <span class="required_notification">* Required Fields</span>
+
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-name">Name</span>
+        <input [(ngModel)]="examiner.name" name="name" id="examiner-name" type="text" class="form-control" placeholder="Insert Examiner Name"
+            required minlength="3" maxlength="40">
+    </div>
+
+    <div class="input-group" [class.error]="conflictError">
+        <span class="input-group-addon" id="examiner-user">Username</span>
+        <input [(ngModel)]="examiner.username" name="username"  id="examiner-user" type="text" class="form-control"
+            placeholder="Insert Examiner Username" required minlength="3" maxlength="20">
+    </div>
+
+
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-email">Email</span>
+        <input [(ngModel)]="examiner.email" name="email" type="email" class="form-control" placeholder="examiner@fe.up.pt"
+            required>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" (change)="toggleCheckBox()"> Change Password?
+          </label>
+      </div>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-pass">Password</span>
+        <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Insert Examiner password"
+            required [disabled]="!changePW">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon" id="examiner-confirmpass">Confirm Password</span>
+        <input [(ngModel)]="confirmPassword" name="confirm-password"  type="password" class="form-control" placeholder="Confirm Examiner password"
+            required [disabled]="!changePW">
+    </div>
+
+
+    <button class="btn createExaminer-btn" type="button" [disabled]="!editExaminerForm.valid || editExaminerForm.pristine" (click)="doUpdate()">Submit</button>
+</form>
+
+<!--Modal for confirm update examiner-->
+<div bsModal #confirmModal="bs-modal" id="modalUpdate" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+ <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title">Change Password</h3>
+      </div>
+      <div class="modal-body">
+        <p>By confirming this action, you will be changing the Examiner Password</p>
+        <p>An e-mail will be sent to the supplied account with all the relevant information. Are you sure you want to proceed?</p>
+        <button type="button" class="btn btn-modalyes" (click)="doUpdate()">Yes</button>
+        <button type="button" class="btn btn-modalno" (click)="hideChildModal()">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<alert type="danger" dismissible="true" *ngIf="conflictError">There already is an examiner with this username</alert>
+<alert type="success" dismissible="true" *ngIf="successUpdate">Examiner updated successfully</alert>
+<alert type="danger" dismissible="true" *ngIf="serverError">An unexpected error occurred. Please try again later.</alert>
+<alert type="danger" dismissible="true" *ngIf="passwordError">Password must match Confirm Password.</alert>

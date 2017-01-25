@@ -31,7 +31,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #9099A2;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -73,7 +73,7 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: white;
 }
 
 .sidebar-nav li a:hover {
@@ -94,7 +94,7 @@
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: white;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -137,4 +137,56 @@ h3{
         position: relative;
         margin-right: 0;
     }
+
+    /*Contollers for the sidebar image*/
+
+@media (max-width: 840px){
+  .Header-logo-image {
+    max-width: 20% !important;
+  }
+}
+
+.Header-logo-image{
+  max-width: 50%;
+  width: auto;
+  display: block;
+
+  padding: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: white;
+
+  -webkit-transition: 1s cubic-bezier(.68,-.55,.265,1.55); /* Safari */
+  transition: 0.5s cubic-bezier(.68,-.55,.265,1.55);
+  margin: 0 auto;
+
+}
+
+.Header-logo-image:hover{
+  -webkit-transform: rotateZ(360deg);
+  transform: rotateZ(360deg);
+}
+
+.Header-logo{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.sidebar-brand{
+    width:100%;
+    text-align: center;
+}
+
+.fa-sign-out{
+    padding-left: 0;
+    padding-right: 10px;
+}
+
 }

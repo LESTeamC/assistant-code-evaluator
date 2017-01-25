@@ -10,12 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var auth_service_1 = require('./../shared/auth.service');
 var AdminComponent = (function () {
-    function AdminComponent(_router) {
+    function AdminComponent(_router, authService) {
         this._router = _router;
+        this.authService = authService;
     }
     AdminComponent.prototype.ngOnInit = function () {
         console.log("home");
+    };
+    AdminComponent.prototype.logout = function () {
+        this.authService.logout();
     };
     AdminComponent = __decorate([
         core_1.Component({
@@ -23,7 +28,7 @@ var AdminComponent = (function () {
             templateUrl: '/app/admin/admin.component.html',
             styleUrls: ['app/admin/admin.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
     ], AdminComponent);
     return AdminComponent;
 }());

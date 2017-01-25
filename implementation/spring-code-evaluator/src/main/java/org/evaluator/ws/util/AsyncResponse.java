@@ -27,7 +27,7 @@ public class AsyncResponse<V> implements Future<V> {
      * AsyncResponse state changes.
      */
     private static final long BLOCK_INDEFINITELY = 0;
-
+    
     /**
      * The value returned from the task.
      */

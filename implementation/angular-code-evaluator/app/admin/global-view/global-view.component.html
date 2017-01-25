@@ -1,0 +1,148 @@
+<div class="page-header">
+    <h4>{{exam.name}}</h4>
+    <h6>{{exam.degree}}</h6>
+    <h6>{{exam.date | date:'fullDate'}}</h6>
+    <h6>{{exam.course}}</h6>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Exercises</div>
+            <div class="panel-body">
+                <p *ngIf="exercises.length === 0">There are no exercises available for this exam.</p>
+                <div class="table-responsive" *ngIf="exercises.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Weight</th>
+                                <th>Assignee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ex of exercises | sort:'name'" [class.selected-row]="isSelectedExercise(ex)" (click)="getSubmissions(ex)">
+                                <td>{{ex.name}}</td>
+                                <td>{{ex.progress}}/{{ex.nsubmissions}}</td>
+                                <td>{{ex.status | status}}</td>
+                                <td>{{ex.weight}}%</td>
+                                <td [class.italic-red] = "!ex.examiner">{{ (ex.examiner) ? (ex.examiner.name) : "Unassigned" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Submissions</div>
+            <div class="panel-body">
+                <p *ngIf="submissions.length === 0 && !existsSelectedExercise ">Please select an Exercise.</p>
+                <p *ngIf="submissions.length === 0 && existsSelectedExercise">There are no submissions for the selected Exercise.</p>
+                <div class="table-responsive" *ngIf="submissions.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Status</th>
+                                <th>Grade (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let su of submissions" [class.selected-row]="isSelectedSubmission(su)" (click)="selectSubmission(su)">
+                                <td>{{su.student.username}}</td>
+                                <td>{{su.status | status}}</td>
+                                <td>{{(su.status === "O") ? "" : su.grade }}</td>
+                            </tr>
+                        </tbody>
+                        <button type="button" class="btn sub-detail-btn" (click)="showChildModal()"
+                                [disabled]="!existsSelectedSubmission">Submission Details</button>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    STUDENT GRADES-->
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"> Grades</div>
+            <div class="panel-body">
+                <p *ngIf="grades.length <= 0">There are no grades available.</p>
+                <div class="table-responsive" *ngIf="grades.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th *ngFor="let exe of exercises | sort:'name'">{{exe.name}} <br>
+                                      <span class="detail">({{exe.weight}}%)</span></th>
+                                <th>Grade</th>
+                            </tr>                           
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let g of grades">
+                                <td>{{g.studentUsername}}</td>
+                                <td *ngFor="let exe of exercises; let i = index" [class.red]="!(getExerciseGrade(g, i) >= 0)">{{getExerciseGrade(g, i)}}</td>
+                                <td class="averages">{{g.finalGrade.toFixed(2)}}</td>
+                            </tr>
+
+                            <!--Dummy row-->
+                            <tr><td></td><td *ngFor="let exe of exercises"></td><td></td></tr>
+                            
+                            <tr class="averages">
+                                <td>AVERAGE</td>
+                                <td *ngFor="let exe of exercises; let i = index">{{calculateExerciseAverage(exe.name)}}</td>
+                                <td>{{calculateGlobalAverage()}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="legend">
+                        <p>NS - This exercise was not submitted by the student. This means the student grade equals 0.00</p>
+                        <p>NE - This submission was not graded by an examiner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL for Submission detail-->
+
+<div bsModal #submissionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Submission Detail: {{selectedStudent.username}}, {{selectedStudent.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-header">
+                    <h4>{{selectedExercise.name}}: </h4>
+                </div>
+                <div>
+                   <p class="question">Question: {{selectedExercise.question}}<p>
+                    <div class="form-group row" *ngFor="let crit of criteria; let i = index">
+                        <label for="example-text-input" class="col-xs-7 col-form-label">{{crit.criteria.description}}</label>
+                        <div class="col-xs-3">
+                            <select class="form-control form-control-sm" disabled>
+                                <option selected> {{filterUngradedSubmission(crit)}}  </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-1">
+                            <span>/{{crit.criteria.gama}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Weight of the exercise in the Exam is {{selectedExercise.weight}}%</p>
+                        <p *ngIf="isGraded(selectedSubmission)">Total score of this submission: <span class="score">{{selectedSubmission.grade}}%</span>, whitch sums up to {{calculateValueOfSubmission(selectedSubmission)}} values, out of a possible 20</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.evaluator.ws.AbstractTest;
-import org.evaluator.ws.model.Account;
 import org.evaluator.ws.model.Examiner;
 import org.evaluator.ws.model.Exercise;
 import org.junit.Assert;
@@ -30,25 +29,58 @@ public class ExerciseRepositoryTests extends AbstractTest {
 		
 	}
 	
+	
 	@Test
-	public void testFindExaminer() {
+	public void testFindOne() {
 		
-		List<Exercise> entity = repository.findAll();
+		Exercise exercise = repository.findOne(1L);
 		
-		Assert.assertNotNull("expected entity not null", entity.get(0).getExaminer());
+		Assert.assertNotNull("expected entity null", exercise);
 		
 	}
 	
 	@Test
-	public void testFindAccount() {
+	public void testSave() {
 		
-		List<Exercise> entity = repository.findAll();
-		Account account = entity.get(0).getExaminer().getAccount();
+		Exercise exercise = repository.findOne(1L);
+		Examiner examiner = examinerRepository.findOne(1L);
 		
-		Assert.assertNotNull("expected entity not null", entity.get(0).getExaminer().getAccount());
+		exercise.setExaminer(examiner);
+		
+		repository.save(exercise);
+		
+		Assert.assertEquals("expected examiner to match", repository.findOne(1L).getExaminer(), exercise.getExaminer());
 		
 	}
 	
+	@Test
+	public void testSaveNull() {
+		
+		Exercise exercise = repository.findOne(1L);
+		
+		exercise.setExaminer(null);
+		
+		repository.save(exercise);
+		
+		Assert.assertEquals("expected examiner to match", null, exercise.getExaminer());
+		
+	}
+	
+	@Test
+	public void testFindByStatus() {
+		
+		List<Exercise> exercises = repository.findByStatus("O");
+		
+		boolean hasClosed = false;
+		for (int i = 0; i < exercises.size(); i++){
+			if (!exercises.get(i).getStatus().equals("O")){hasClosed = true; break;}
+		}
+		
+		Assert.assertEquals("to only have open", hasClosed, false);
+	
+	}
+	
+	//TODO REFACTOR
 	@Test
 	public void testDeleteExaminerExamNull() {
 		

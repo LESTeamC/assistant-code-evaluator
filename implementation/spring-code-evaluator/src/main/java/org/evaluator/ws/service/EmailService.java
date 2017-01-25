@@ -3,6 +3,8 @@ package org.evaluator.ws.service;
 
 import java.util.concurrent.Future;
 
+import javax.mail.MessagingException;
+
 import org.evaluator.ws.model.Greeting;
 
 /**
@@ -17,18 +19,18 @@ import org.evaluator.ws.model.Greeting;
 public interface EmailService {
 
     /**
-     * Send a Greeting via email synchronously.
-     * @param greeting A Greeting to send.
+     * Send  email synchronously.
+     * @param greeting email data to send
      * @return A Boolean whose value is TRUE if sent successfully; otherwise
      *         FALSE.
      */
-    Boolean send(Greeting greeting);
+    Boolean send(String to, String username, String password) throws MessagingException;
 
     /**
      * Send a Greeting via email asynchronously.
      * @param greeting A Greeting to send.
      */
-    void sendAsync(Greeting greeting);
+    void sendAsync(String to, String username, String password);
 
     /**
      * Send a Greeting via email asynchronously. Returns a Future&lt;Boolean&gt;
@@ -38,6 +40,6 @@ public interface EmailService {
      * @return A Future&lt;Boolean&gt; whose value is TRUE if sent successfully;
      *         otherwise, FALSE.
      */
-    Future<Boolean> sendAsyncWithResult(Greeting greeting);
+//    Future<Boolean> sendAsyncWithResult(Greeting greeting);
 
 }

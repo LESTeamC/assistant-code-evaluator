@@ -9,6 +9,10 @@ import { DelegateComponent }     from './delegate/delegate.component';
 import { GlobalViewComponent }     from './global-view/global-view.component';
 import { ViewExamsComponent }     from './view-exams/view-exams.component';
 import { ViewExaminersComponent }     from './view-examiners/view-examiners.component';
+import { ImportSubmissionComponent }     from './view-exams/import-submission.component';
+import { EditExamComponent } from './edit-exam/edit-exam.component'
+import { EditExaminerComponent } from './edit-examiner/edit-examiner.component'
+
 import { AuthGuard } from './../shared/auth-guard.service'
 
 @NgModule({
@@ -36,7 +40,7 @@ import { AuthGuard } from './../shared/auth-guard.service'
             component: DelegateComponent,
           },
           {
-            path: 'global-view',
+            path: 'global-view/:id',
             component: GlobalViewComponent,
           },
           {
@@ -46,6 +50,18 @@ import { AuthGuard } from './../shared/auth-guard.service'
           {
             path: 'view-examiners',
             component: ViewExaminersComponent,
+          },
+          {
+            path: 'import-submission/:id',
+            component: ImportSubmissionComponent,
+          },
+          {
+            path: 'edit-exam/:id',
+            component: EditExamComponent,
+          },
+          {
+            path: 'edit-examiner/:username',
+            component: EditExaminerComponent,
           },
         ]
       }

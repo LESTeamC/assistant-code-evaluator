@@ -15,7 +15,6 @@ var ExaminerComponent = (function () {
         this._router = _router;
     }
     ExaminerComponent.prototype.ngOnInit = function () {
-        console.log("examiner");
     };
     ExaminerComponent = __decorate([
         core_1.Component({

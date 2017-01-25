@@ -17,6 +17,9 @@ var delegate_component_1 = require('./delegate/delegate.component');
 var global_view_component_1 = require('./global-view/global-view.component');
 var view_exams_component_1 = require('./view-exams/view-exams.component');
 var view_examiners_component_1 = require('./view-examiners/view-examiners.component');
+var import_submission_component_1 = require('./view-exams/import-submission.component');
+var edit_exam_component_1 = require('./edit-exam/edit-exam.component');
+var edit_examiner_component_1 = require('./edit-examiner/edit-examiner.component');
 var auth_guard_service_1 = require('./../shared/auth-guard.service');
 var AdminRoutingModule = (function () {
     function AdminRoutingModule() {
@@ -47,7 +50,7 @@ var AdminRoutingModule = (function () {
                                 component: delegate_component_1.DelegateComponent,
                             },
                             {
-                                path: 'global-view',
+                                path: 'global-view/:id',
                                 component: global_view_component_1.GlobalViewComponent,
                             },
                             {
@@ -57,6 +60,18 @@ var AdminRoutingModule = (function () {
                             {
                                 path: 'view-examiners',
                                 component: view_examiners_component_1.ViewExaminersComponent,
+                            },
+                            {
+                                path: 'import-submission/:id',
+                                component: import_submission_component_1.ImportSubmissionComponent,
+                            },
+                            {
+                                path: 'edit-exam/:id',
+                                component: edit_exam_component_1.EditExamComponent,
+                            },
+                            {
+                                path: 'edit-examiner/:username',
+                                component: edit_examiner_component_1.EditExaminerComponent,
                             },
                         ]
                     }

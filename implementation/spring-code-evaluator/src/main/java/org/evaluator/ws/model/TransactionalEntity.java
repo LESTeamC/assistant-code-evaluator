@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;

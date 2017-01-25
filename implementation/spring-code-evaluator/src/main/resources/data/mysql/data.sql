@@ -37,16 +37,16 @@ INSERT INTO Examiner (name, username, email, accountId)
 SELECT 'Nuno Flores', 'up2011765533', 'up2011765533@fe.up.pt', a.id FROM Account a WHERE a.username = 'up2011765533';
 
 -- Exercise DATA
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
-SELECT Examiner.id, Exam.id, 'What is your name?', 'Exercise1', 'O', 0, 2, 50, 'MKDIR', 'RUN', 'C://' 
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id,'Exam1', 'What is your name?', 'Exercise1', 'O', 0, 2, 50, 'MKDIR', 'RUN', 'C://' 
 FROM Examiner, Exam WHERE Examiner.username = 'up2011765544' AND Exam.name='Exam1';
 
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
-SELECT NULL, Exam.id, 'Who are you?', 'Exercise2', 'O', 0, 1, 50, 'MKDIR','RUN', 'C://' 
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT NULL, Exam.id,'Exam1', 'Who are you?', 'Exercise2', 'O', 0, 1, 50, 'MKDIR','RUN', 'C://' 
 FROM Exam WHERE Exam.name='Exam1';
 
-INSERT INTO Exercise (examinerID, examID, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
-SELECT Examiner.id, Exam.id, 'How old are you?', 'Exercise3', 'O', 0, 1, 100, 'MKDIR','RUN', 'C://' 
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id,'Exam2', 'How old are you?', 'Exercise3', 'O', 0, 1, 100, 'MKDIR','RUN', 'C://' 
 FROM Examiner, Exam WHERE Examiner.username = 'up2011765533' AND Exam.name='Exam2';
 
 
@@ -57,7 +57,7 @@ SELECT Exercise.id, 'code compiled', 3, 50
 FROM Exercise WHERE Exercise.name='Exercise1';
 
 INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) 
-SELECT Exercise.id, 'two if blocks', 3, 50 
+SELECT Exercise.id, 'two if blocks', 6, 50 
 FROM Exercise WHERE Exercise.name='Exercise1';
 
 INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) 
@@ -96,29 +96,120 @@ FROM Student s, Exam e WHERE s.name='Luis' and e.name='Exam2';
 
 -- Submission DATA
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two'
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two', ""
 FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' , 'one two'
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Ola Mundo")', 'O', 0, 'C://submissions' , 'one two', ""
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise3';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' , 'one two'
-FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT  ex.id, s.id, 'System.out.print("Gutten tag")', 'O', 0, 'C://submissions' , 'one two', ""
+FROM Exercise ex, Student s WHERE s.name='Joao' and ex.name='Exercise3';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' , 'one two'
-FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Hi there")', 'O', 0, 'C://submissions' , 'one two', ""
+FROM Exercise ex, Student s WHERE s.name='Ana' and ex.name='Exercise3';
 
-INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output)
-SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions', 'one two'
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment)
+SELECT ex.id, s.id, 'System.out.print("Boas pessoal")', 'O', 0, 'C://submissions', 'one two', ""
 FROM Exercise ex, Student s WHERE s.name='Luis' and ex.name='Exercise3';
 
 
 -- Submission Criteria Data
 
 INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade)
-SELECT s.id, ec.id, 0
+SELECT s.id, ec.id, -1
 FROM Submission s, ExerciseCriteria ec WHERE s.id=1  and ec.id=1;
+
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade)
+SELECT s.id, ec.id, -1
+FROM Submission s, ExerciseCriteria ec WHERE s.id=1  and ec.id=2;
+
+
+INSERT INTO Exam (name, date, degree, course, status, progress, nquestions, language, referenceId, version, createdBy, createdAt, updatedBy, updatedAt) 
+VALUES ('Recolha Final', '2017-01-22 00:00:00', 'MESW', 'Programacao2', 'O', 0, 2,'C', '7bd137c8-ab64-4a45-bf2d-d9cae3594233', 0, 'user', NOW(), NULL, NULL);
+
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id,'Recolha Final', 'Create an Activity Diagram', 'prob1', 'O', 0, 10, 50, 'dummy', 'dummy', 'dummy' 
+FROM Examiner, Exam WHERE Examiner.username = 'up2011765544' AND Exam.name='Recolha Final';
+
+INSERT INTO Exercise (examinerID, examID, examname, question, name, status, progress, nsubmissions, weight, commandbuild, commandrun, path) 
+SELECT Examiner.id, Exam.id,'Recolha Final', 'Create a Component Diagram', 'prob2', 'O', 0, 10, 50, 'dummy', 'dummy', 'dummy' 
+FROM Examiner, Exam WHERE Examiner.username = 'up2011765544' AND Exam.name='Recolha Final';
+
+INSERT INTO Student (name, username) VALUES ('Aluno1', 'UP201507724');
+INSERT INTO Student (name, username) VALUES ('Aluno2', 'UP201505032');
+INSERT INTO Student (name, username) VALUES ('Aluno3', 'UP201505003');
+INSERT INTO Student (name, username) VALUES ('Aluno4', 'UP201504985');
+INSERT INTO Student (name, username) VALUES ('Aluno5', 'UP201504961');
+INSERT INTO Student (name, username) VALUES ('Aluno6', 'UP201504951');
+INSERT INTO Student (name, username) VALUES ('Aluno7', 'UP201504936');
+INSERT INTO Student (name, username) VALUES ('Aluno8', 'UP201504921');
+INSERT INTO Student (name, username) VALUES ('Aluno9', 'UP201504911');
+INSERT INTO Student (name, username) VALUES ('Aluno10', 'UP201504878');
+
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno1' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno2' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno3' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno4' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno5' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno6' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno7' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno8' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno9' and e.name='Recolha Final';
+INSERT INTO StudentExam (studentId, examId, grade, status) SELECT s.id, e.id, 0, 'O' FROM Student s, Exam e WHERE s.name='Aluno10' and e.name='Recolha Final';
+
+/*INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two', "1" FROM Exercise ex, Student s WHERE s.name='Aluno1' and ex.name='prob1';
+*/INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "2" FROM Exercise ex, Student s WHERE s.name='Aluno2' and ex.name='prob1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "3" FROM Exercise ex, Student s WHERE s.name='Aluno3' and ex.name='prob1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "4" FROM Exercise ex, Student s WHERE s.name='Aluno4' and ex.name='prob1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "5" FROM Exercise ex, Student s WHERE s.name='Aluno5' and ex.name='prob1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "6" FROM Exercise ex, Student s WHERE s.name='Aluno6' and ex.name='prob1';
+/*INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "7" FROM Exercise ex, Student s WHERE s.name='Aluno7' and ex.name='prob1';
+*/INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "8" FROM Exercise ex, Student s WHERE s.name='Aluno8' and ex.name='prob1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "9" FROM Exercise ex, Student s WHERE s.name='Aluno9' and ex.name='prob1';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "10" FROM Exercise ex, Student s WHERE s.name='Aluno10' and ex.name='prob1';
+
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'C://submissions' , 'one two', "49" FROM Exercise ex, Student s WHERE s.name='Aluno1' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "50" FROM Exercise ex, Student s WHERE s.name='Aluno2' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "51" FROM Exercise ex, Student s WHERE s.name='Aluno3' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "52" FROM Exercise ex, Student s WHERE s.name='Aluno4' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "53" FROM Exercise ex, Student s WHERE s.name='Aluno5' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "54" FROM Exercise ex, Student s WHERE s.name='Aluno6' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "55" FROM Exercise ex, Student s WHERE s.name='Aluno7' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "56" FROM Exercise ex, Student s WHERE s.name='Aluno8' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "57" FROM Exercise ex, Student s WHERE s.name='Aluno9' and ex.name='prob2';
+INSERT INTO Submission (exerciseId, studentId, code, status, grade, path, output, comment) SELECT ex.id, s.id, 'System.out.print("Hello World")', 'O', 0, 'O://submissions' , 'one two', "58" FROM Exercise ex, Student s WHERE s.name='Aluno10' and ex.name='prob2';
+
+
+INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) SELECT Exercise.id, 'Code Compiled', 3, 50 FROM Exercise WHERE Exercise.name='prob1';
+INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) SELECT Exercise.id, 'CRITERIO 2', 3, 50 FROM Exercise WHERE Exercise.name='prob1';
+INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) SELECT Exercise.id, 'CRITERIO 1', 3, 50 FROM Exercise WHERE Exercise.name='prob2';
+INSERT INTO ExerciseCriteria (exerciseId, description, gama, weight) SELECT Exercise.id, 'CRITERIO 2', 3, 50 FROM Exercise WHERE Exercise.name='prob2';
+
+
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="1"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="2"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="3"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="4"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="5"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="6"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="7"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="8"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="9"  and ec.exerciseId=ex.id and ex.name="prob1";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="10"  and ec.exerciseId=ex.id and ex.name="prob1";
+
+
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="49"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="50"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="51"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="52"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="53"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="54"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="55"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="56"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="57"  and ec.exerciseId=ex.id and ex.name="prob2";
+INSERT INTO SubmissionCriteria (submissionId, exerciseCriteriaId, grade) SELECT s.id, ec.id, -1 FROM Submission s, ExerciseCriteria ec, Exercise ex WHERE s.comment="58"  and ec.exerciseId=ex.id and ex.name="prob2";
+

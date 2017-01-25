@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class SubmissionCriteria {
 	
@@ -26,6 +28,7 @@ public class SubmissionCriteria {
 			fetch = FetchType.EAGER,
 			optional = false)
 	@JoinColumn(name = "submissionId")
+	@JsonBackReference
 	private Submission submission;
 
 	/**
@@ -39,7 +42,17 @@ public class SubmissionCriteria {
 	private ExerciseCriteria criteria;
 	
 	@NotNull
-	private int grade;
+	private double grade = -1;
+	
+	public SubmissionCriteria() {
+		super();
+	}
+
+	public SubmissionCriteria(Submission submission, ExerciseCriteria criteria) {
+		super();
+		this.submission = submission;
+		this.criteria = criteria;
+	}
 
 	public Long getId() {
 		return id;
@@ -65,11 +78,11 @@ public class SubmissionCriteria {
 		this.criteria = criteria;
 	}
 
-	public int getGrade() {
+	public double getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(double grade) {
 		this.grade = grade;
 	}
 

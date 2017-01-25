@@ -1,7 +1,9 @@
 package org.evaluator.ws.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -22,6 +25,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Exercise {
+	
+	public Exercise(){};
+	
+	public Exercise(String question, String name, int weight){
+		this.question = question;
+		this.name = name;
+		this.weight = weight;
+	}
 
 	/**
 	 * The default serial version UID.
@@ -54,6 +65,12 @@ public class Exercise {
 	@JoinColumn(name="examId")
 	@JsonBackReference
 	private Exam exam;
+	
+	/**
+	 * Exam of the exercise
+	 */
+	@NotNull
+	private String examname = "Null";
 
 	/**
 	 * Question of the exercise
@@ -110,10 +127,18 @@ public class Exercise {
 	 * Different Criteria for this exercise
 	 */
 	@OneToMany(
-			fetch = FetchType.EAGER,
+			fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL,
 			mappedBy ="exercise")
 	@JsonManagedReference
 	private Set<ExerciseCriteria> criteria;
+	
+	@OneToMany(
+			fetch = FetchType.LAZY, 
+			cascade = CascadeType.ALL,
+			mappedBy ="exercise")
+	@JsonIgnore
+	private Set<Submission> submissions;
 
 	
 	public Long getId() {
@@ -218,7 +243,42 @@ public class Exercise {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getExamname() {
+		return examname;
+	}
+
+	public void setExamname(String examname) {
+		this.examname = examname;
+	}
+
+	public Set<Submission> getSubmissions() {
+		return submissions;
+	}
+
+	public void setSubmissions(Set<Submission> submissions) {
+		this.submissions = submissions;
 	}	
+	
+	public void addSubmission(Submission submission){
+		
+		if (submission.getCriteria() == null) submission.setCriteria(new HashSet<SubmissionCriteria>());
+		
+		for(ExerciseCriteria ec : this.criteria){
+			submission.getCriteria().add(new SubmissionCriteria(submission, ec));
+		}
+		
+		// update the submission if already present
+		for(Submission s: this.submissions){
+			if(s.getStudent() != null && s.getStudent().getUsername().compareToIgnoreCase(submission.getStudent().getUsername()) == 0){
+				s = submission;
+				return;
+			}
+		}
+		this.submissions.add(submission);
+		this.nsubmissions++;
+	}
 	
 	
 

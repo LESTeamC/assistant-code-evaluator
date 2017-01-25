@@ -1,5 +1,6 @@
 import {Component, OnInit}	from '@angular/core';
 import {Router} from '@angular/router';
+import {Response} from '@angular/http';
 
 @Component({	
     selector: 'examiner',	
@@ -11,6 +12,6 @@ export	class	ExaminerComponent implements OnInit	{
     constructor(private _router:Router){}
 
     ngOnInit(){
-        console.log("examiner");
     }
+
 }	
