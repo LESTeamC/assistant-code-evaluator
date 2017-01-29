@@ -33,6 +33,8 @@ Click in each of them to understand it a little better.
 
 ## Useful Links
 
+Below we provide some links that were very useful during Assistant Code Evaluator development.
+
 ### Some great tutorials about Spring Framework
 
 [Spring Boot Fundamentals](https://www.youtube.com/playlist?list=PLGDwUiT1wr6-Fn3N2oqJpTdhGjFHnIIKY)<br>
